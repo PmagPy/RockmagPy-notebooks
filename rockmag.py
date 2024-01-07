@@ -219,6 +219,7 @@ def verwey_estimate(temps, mags, t_range_background_min = 50,
            poly_deg = 3):
     
     dM_dT_df = thermomag_derivative(temps, mags)
+    temps_dM_dT = dM_dT_df['T']
         
     fig = plt.figure(figsize=(7,7))
     ax0 = fig.add_subplot(1,1,1)
