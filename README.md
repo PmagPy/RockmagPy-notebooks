@@ -4,7 +4,7 @@
 
 ## About This Repository
 
-This repository is for the development and demonstration of the `rockmag.py` function module. The ultimate goal is to integrate additional functionality for the analysis of rock magnetic experiments into the `pmagpy` package. To facilitate development, the intial rockmag.py module is in this repository along with notebooks that use the rockmag.py functions to visualize and analyze data.
+This repository is for the development and demonstration of the `rockmag.py` function module. The ultimate goal is to integrate additional functionality for the analysis of rock magnetic experiments into the `pmagpy` package. To facilitate development, the initial rockmag.py module is in this repository along with notebooks that use the rockmag.py functions to visualize and analyze data.
 
 ### Contributing
 
