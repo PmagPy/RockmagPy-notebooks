@@ -88,32 +88,48 @@ def plot_mpms_data(fc_data, zfc_data, rtsirm_cool_data, rtsirm_warm_data,
         rtsirm_cool_derivative = thermomag_derivative(rtsirm_cool_data['meas_temp'], rtsirm_cool_data['magn_mass'])
         rtsirm_warm_derivative = thermomag_derivative(rtsirm_warm_data['meas_temp'], rtsirm_warm_data['magn_mass'])
 
-
     if use_plotly:
         # Create subplot layout
         fig = make_subplots(rows=1, cols=2, subplot_titles=("FC and ZFC Data", "RTSIRM Cooling and Warming Data"))
 
-        # Adding FC and ZFC data to the first subplot
-        fig.add_trace(go.Scatter(x=fc_data['meas_temp'], y=fc_data['magn_mass'], mode='markers+lines', 
-                                 name='FC', marker=dict(color=fc_color, symbol=get_plotly_marker(fc_marker))),
-                      row=1, col=1)
-        fig.add_trace(go.Scatter(x=zfc_data['meas_temp'], y=zfc_data['magn_mass'], mode='markers+lines', 
-                                 name='ZFC', marker=dict(color=zfc_color, symbol=get_plotly_marker(zfc_marker))),
-                      row=1, col=1)
+        # Adding data or derivatives to the first subplot
+        if plot_derivative:
+            fig.add_trace(go.Scatter(x=fc_derivative['T'], y=fc_derivative['dM_dT'], mode='markers+lines', 
+                                    name='FC Derivative', marker=dict(color=fc_color, symbol=get_plotly_marker(fc_marker))),
+                        row=1, col=1)
+            fig.add_trace(go.Scatter(x=zfc_derivative['T'], y=zfc_derivative['dM_dT'], mode='markers+lines', 
+                                    name='ZFC Derivative', marker=dict(color=zfc_color, symbol=get_plotly_marker(zfc_marker))),
+                        row=1, col=1)
+        else:
+            fig.add_trace(go.Scatter(x=fc_data['meas_temp'], y=fc_data['magn_mass'], mode='markers+lines', 
+                                    name='FC', marker=dict(color=fc_color, symbol=get_plotly_marker(fc_marker))),
+                        row=1, col=1)
+            fig.add_trace(go.Scatter(x=zfc_data['meas_temp'], y=zfc_data['magn_mass'], mode='markers+lines', 
+                                    name='ZFC', marker=dict(color=zfc_color, symbol=get_plotly_marker(zfc_marker))),
+                        row=1, col=1)
 
-        # Adding RTSIRM Cooling and Warming data to the second subplot
-        fig.add_trace(go.Scatter(x=rtsirm_cool_data['meas_temp'], y=rtsirm_cool_data['magn_mass'], mode='markers+lines', 
-                                 name='RTSIRM cooling', marker=dict(color=rtsirm_cool_color, symbol=get_plotly_marker(rtsirm_cool_marker))),
-                      row=1, col=2)
-        fig.add_trace(go.Scatter(x=rtsirm_warm_data['meas_temp'], y=rtsirm_warm_data['magn_mass'], mode='markers+lines', 
-                                 name='RTSIRM warming', marker=dict(color=rtsirm_warm_color, symbol=get_plotly_marker(rtsirm_warm_marker))),
-                      row=1, col=2)
+        # Adding data or derivatives to the second subplot
+        if plot_derivative:
+            fig.add_trace(go.Scatter(x=rtsirm_cool_derivative['T'], y=rtsirm_cool_derivative['dM_dT'], mode='markers+lines', 
+                                    name='RTSIRM Cooling Derivative', marker=dict(color=rtsirm_cool_color, symbol=get_plotly_marker(rtsirm_cool_marker))),
+                        row=1, col=2)
+            fig.add_trace(go.Scatter(x=rtsirm_warm_derivative['T'], y=rtsirm_warm_derivative['dM_dT'], mode='markers+lines', 
+                                    name='RTSIRM Warming Derivative', marker=dict(color=rtsirm_warm_color, symbol=get_plotly_marker(rtsirm_warm_marker))),
+                        row=1, col=2)
+        else:
+            fig.add_trace(go.Scatter(x=rtsirm_cool_data['meas_temp'], y=rtsirm_cool_data['magn_mass'], mode='markers+lines', 
+                                    name='RTSIRM cooling', marker=dict(color=rtsirm_cool_color, symbol=get_plotly_marker(rtsirm_cool_marker))),
+                        row=1, col=2)
+            fig.add_trace(go.Scatter(x=rtsirm_warm_data['meas_temp'], y=rtsirm_warm_data['magn_mass'], mode='markers+lines', 
+                                    name='RTSIRM warming', marker=dict(color=rtsirm_warm_color, symbol=get_plotly_marker(rtsirm_warm_marker))),
+                        row=1, col=2)
 
         # Update xaxis and yaxis labels
+        yaxis_label = 'dM/dT' if plot_derivative else 'M (Am2/kg)'
         fig.update_xaxes(title_text="T (K)", row=1, col=1)
         fig.update_xaxes(title_text="T (K)", row=1, col=2)
-        fig.update_yaxes(title_text="M (Am2/kg)", row=1, col=1)
-        fig.update_yaxes(title_text="M (Am2/kg)", row=1, col=2)
+        fig.update_yaxes(title_text=yaxis_label, row=1, col=1)
+        fig.update_yaxes(title_text=yaxis_label, row=1, col=2)
 
         fig.update_layout(title="MPMS Data")
         fig.show()
