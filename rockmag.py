@@ -269,7 +269,7 @@ def verwey_estimate(temps, mags, t_range_background_min = 50,
     print('The r-squared value for the background fit is: ' + str(round(r_squared,3)))
     print('The Verwey temperature estimate is: ' + str(round(verwey_estimate,1)) + ' K')
     
-    return verwey_estimate, r_squared
+    return verwey_estimate
 
 # Function that needs to be further developed that could be used to read in the data from the compact MagIC format
 # def read_and_process_compact_format(file_path):
