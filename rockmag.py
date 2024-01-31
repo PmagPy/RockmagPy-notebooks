@@ -217,56 +217,82 @@ def thermomag_derivative(temps, mags):
     return dM_dT_df
 
 
-def verwey_estimate(temps, mags, t_range_background_min = 50,
-           t_range_background_max = 250,
-           excluded_t_min=75,
-           excluded_t_max = 150,
-           poly_deg = 3):
+def verwey_estimate(temps, mags, 
+                    t_range_background_min = 50,
+                    t_range_background_max = 250,
+                    excluded_t_min = 75,
+                    excluded_t_max = 150,
+                    poly_deg = 3):
     
+    temps.reset_index(drop=True, inplace=True)
+    mags.reset_index(drop=True, inplace=True)
+
     dM_dT_df = thermomag_derivative(temps, mags)
     temps_dM_dT = dM_dT_df['T']
-        
-    fig = plt.figure(figsize=(7,7))
-    ax0 = fig.add_subplot(1,1,1)
-    ax0.plot(dM_dT_df['T'],dM_dT_df['dM_dT'],'.-',color='red',label='total')
 
-    temps_filtered_indices = [i for i in np.arange(len(temps_dM_dT)) if ((float(temps_dM_dT[i]) > float(t_range_background_min)) and (float(temps_dM_dT[i])  < float(excluded_t_min)) ) or ((float(temps_dM_dT[i]) > float(excluded_t_max)) and (float(temps_dM_dT[i])  < float(t_range_background_max)))]
-    temps_filtered = dM_dT_df['T'][temps_filtered_indices]
-    dM_dT_filtered = dM_dT_df['dM_dT'][temps_filtered_indices]
+    temps_dM_dT_filtered_indices = [i for i in np.arange(len(temps_dM_dT)) if ((float(temps_dM_dT[i]) > float(t_range_background_min)) and (float(temps_dM_dT[i])  < float(excluded_t_min)) ) or ((float(temps_dM_dT[i]) > float(excluded_t_max)) and (float(temps_dM_dT[i])  < float(t_range_background_max)))]
+    temps_dM_dT_filtered = dM_dT_df['T'][temps_dM_dT_filtered_indices]
+    dM_dT_filtered = dM_dT_df['dM_dT'][temps_dM_dT_filtered_indices]
 
-    # ax0.plot(temps_filtered,dM_dT_filtered,'.-',color='grey',label='total (filtered)')
-
-    poly_background_fit = np.polyfit(temps_filtered, dM_dT_filtered, poly_deg)
-    dM_dT_filtered_polyfit = np.poly1d(poly_background_fit)(temps_filtered)
+    poly_background_fit = np.polyfit(temps_dM_dT_filtered, dM_dT_filtered, poly_deg)
+    dM_dT_filtered_polyfit = np.poly1d(poly_background_fit)(temps_dM_dT_filtered)
 
     residuals = dM_dT_filtered - dM_dT_filtered_polyfit
     ss_tot = np.sum((dM_dT_filtered - np.mean(dM_dT_filtered)) ** 2)
     ss_res = np.sum(residuals ** 2)
     r_squared = 1 - (ss_res / ss_tot)
 
-    temps_background_indices = [i for i in np.arange(len(temps_dM_dT)) if ((float(temps_dM_dT[i]) > float(t_range_background_min)) and (float(temps_dM_dT[i])  < float(t_range_background_max)))]
-    temps_background_indices = [i for i in np.arange(len(temps_dM_dT)) if ((float(temps_dM_dT[i]) > float(t_range_background_min)) and (float(temps_dM_dT[i])  < float(t_range_background_max)))]
-    temps_background = dM_dT_df['T'][temps_background_indices]
-    temps_background.reset_index(drop = True, inplace=True)
-    dM_dT_background = dM_dT_df['dM_dT'][temps_background_indices]
-
-    dM_dT_polyfit = np.poly1d(poly_background_fit)(temps_background)
+    temps_dM_dT_background_indices = [i for i in np.arange(len(temps_dM_dT)) if ((float(temps_dM_dT[i]) > float(t_range_background_min)) and (float(temps_dM_dT[i])  < float(t_range_background_max)))]
+    temps_dM_dT_background = dM_dT_df['T'][temps_dM_dT_background_indices]
+    temps_dM_dT_background.reset_index(drop=True, inplace=True)
+    dM_dT_background = dM_dT_df['dM_dT'][temps_dM_dT_background_indices]
+    dM_dT_polyfit = np.poly1d(poly_background_fit)(temps_dM_dT_background)
 
     mgt_dM_dT = dM_dT_polyfit - dM_dT_background 
     mgt_dM_dT.reset_index(drop = True, inplace=True)
 
     max_mgt_dM_dT = max(mgt_dM_dT)
     max_mgt_dM_dT_index = mgt_dM_dT.argmax()
-    verwey_estimate = temps_background[max_mgt_dM_dT_index]
+    verwey_estimate = temps_dM_dT_background[max_mgt_dM_dT_index]
 
-    ax0.plot(temps_background,dM_dT_polyfit,'.-',color='green',label='background fit')
-    ax0.plot(temps_background,mgt_dM_dT,'.-',color='blue',label='magnetite (background fit minus total)')
-    ax0.scatter(verwey_estimate,max_mgt_dM_dT,color='black',label='Verwey temperature estimate')
-    ax0.set_ylabel('dM/dT (Am2/kg/K)')
+    fig = plt.figure(figsize=(12,6))
+    ax1 = fig.add_subplot(1,2,2)
+    ax1.plot(dM_dT_df['T'], dM_dT_df['dM_dT'], '.-', color='red', label='measurement')
+    ax1.plot(temps_dM_dT_background, dM_dT_polyfit, '.-', color='green', label='background fit')
+    ax1.plot(temps_dM_dT_background, mgt_dM_dT, '.-', color='blue', label='magnetite (background fit minus measurement)')
+    ax1.scatter(verwey_estimate, max_mgt_dM_dT, color='black', label='Verwey temperature estimate')
+    ax1.set_ylabel('dM/dT (Am$^2$/kg/K)')
+    ax1.set_xlabel('T (K)')
+    ax1.legend(loc='lower right')
+    ax1.grid(True)
+    ax1.ticklabel_format(axis='y', style='scientific', scilimits=(0,0))
+
+    temps_background_indices = [i for i in np.arange(len(temps)) if ((float(temps[i]) > float(t_range_background_min)) and (float(temps[i])  < float(t_range_background_max)))]
+    temps_background = temps[temps_background_indices]
+
+    poly_func = np.poly1d(poly_background_fit)
+    background_curve = np.cumsum(poly_func(temps_background) * np.gradient(temps_background))
+
+    # adjust the background curve to overlie the measurement data
+    last_background_temp = temps_background.iloc[-1]    
+    last_background_mag = background_curve[-1]
+    target_temp_index = np.argmin(np.abs(temps - last_background_temp))
+    mags_value = mags[target_temp_index]
+    background_curve_adjusted = background_curve + (mags_value - last_background_mag)
+
+    mags_background = mags[temps_background_indices]
+    mgt_curve = mags_background - background_curve_adjusted
+
+    ax0 = fig.add_subplot(1,2,1)
+    ax0.plot(temps, mags, '.-', color='red', label='measurement')
+    ax0.plot(temps_background, background_curve_adjusted, '.-', color='green', label='background fit')
+    ax0.plot(temps_background, mgt_curve, '.-', color='blue', label='magnetite (meas. minus background)')
+    ax0.set_ylabel('M (Am$^2$/kg)')
     ax0.set_xlabel('T (K)')
-    ax0.legend(loc='lower right')
+    ax0.legend(loc='upper right')
     ax0.grid(True)
     ax0.ticklabel_format(axis='y', style='scientific', scilimits=(0,0))
+
     plt.show()
 
     print('The T range for background fit is: ' + str(t_range_background_min) + ' K to ' + str(t_range_background_max) + ' K')
