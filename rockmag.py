@@ -260,7 +260,7 @@ def verwey_estimate(temps, mags, t_range_background_min = 50,
     verwey_estimate = temps_background[max_mgt_dM_dT_index]
 
     ax0.plot(temps_background,dM_dT_polyfit,'.-',color='green',label='background fit')
-    ax0.plot(temps_background,mgt_dM_dT,'.-',color='blue',label='magnetic (background fit minus total)')
+    ax0.plot(temps_background,mgt_dM_dT,'.-',color='blue',label='magnetite (background fit minus total)')
     ax0.scatter(verwey_estimate,max_mgt_dM_dT,color='black',label='Verwey temperature estimate')
     ax0.set_ylabel('dM/dT (Am2/kg/K)')
     ax0.set_xlabel('T (K)')
