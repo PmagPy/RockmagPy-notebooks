@@ -217,12 +217,76 @@ def thermomag_derivative(temps, mags):
     return dM_dT_df
 
 
+def zero_crossing(dM_dT_temps, dM_dT, make_plot=False, xlim=None):
+    """
+    Calculate the temperature at which the second derivative of magnetization with respect to 
+    temperature crosses zero. This value provides an estimate of the peak of the derivative 
+    curve that is more precise than the maximum value.
+
+    The function computes the second derivative of magnetization (dM/dT) with respect to 
+    temperature, identifies the nearest points around the maximum value of the derivative, 
+    and then calculates the temperature at which this second derivative crosses zero using 
+    linear interpolation.
+
+    Parameters:
+        dM_dT_temps (pd.Series): A pandas Series representing temperatures corresponding to
+                                 the first derivation of magnetization with respect to temperature.
+        dM_dT (pd.Series): A pandas Series representing the first derivative of 
+                           magnetization with respect to temperature.
+        make_plot (bool, optional): If True, a plot will be generated. Defaults to False.
+        xlim (tuple, optional): A tuple specifying the x-axis limits for the plot. Defaults to None.
+
+    Returns:
+        float: The estimated temperature at which the second derivative of magnetization 
+               with respect to temperature crosses zero.
+
+    Note:
+        The function assumes that the input series `dM_dT_temps` and `dM_dT` are related to 
+        each other and are of equal length.
+    """    
+    
+    max_dM_dT_temp = dM_dT_temps[dM_dT.argmax()]
+    
+    d2M_dT2 = thermomag_derivative(dM_dT_temps, dM_dT)
+    d2M_dT2_T_array = d2M_dT2['T'].to_numpy()
+    max_index = np.searchsorted(d2M_dT2_T_array, max_dM_dT_temp)
+
+    d2M_dT2_T_before = d2M_dT2['T'][max_index-1]
+    d2M_dT2_before = d2M_dT2['dM_dT'][max_index-1]
+    d2M_dT2_T_after = d2M_dT2['T'][max_index]
+    d2M_dT2_after = d2M_dT2['dM_dT'][max_index]
+
+    zero_cross_temp = d2M_dT2_T_before + ((d2M_dT2_T_after - d2M_dT2_T_before) / (d2M_dT2_after - d2M_dT2_before)) * (0 - d2M_dT2_before)
+
+    if make_plot:
+        fig = plt.figure(figsize=(12,4))
+        ax0 = fig.add_subplot(1,1,1)
+        ax0.plot(d2M_dT2['T'], d2M_dT2['dM_dT'], '.-', color='purple', label='magnetite (background fit minus measurement)')
+        ax0.plot(d2M_dT2_T_before, d2M_dT2_before, '*', color='red')
+        ax0.plot(d2M_dT2_T_after, d2M_dT2_after, '*', color='red')
+        ax0.plot(zero_cross_temp, 0, 's', color='blue')
+        label = f'{zero_cross_temp:.1f} K'
+        ax0.text(zero_cross_temp+2, 0, label, color='blue', 
+                verticalalignment='center', horizontalalignment='left',
+                bbox=dict(facecolor='white', alpha=0.7, edgecolor='none'))
+        ax0.set_ylabel('d$^2$M/dT$^2$')
+        ax0.set_xlabel('T (K)')
+        ax0.grid(True)
+        ax0.ticklabel_format(axis='y', style='scientific', scilimits=(0,0))
+        if xlim is not None:
+            ax0.set_xlim(xlim)
+        plt.show()
+        
+    return zero_cross_temp
+
+
 def verwey_estimate(temps, mags, 
                     t_range_background_min = 50,
                     t_range_background_max = 250,
                     excluded_t_min = 75,
                     excluded_t_max = 150,
-                    poly_deg = 3):
+                    poly_deg = 3,
+                    plot_zero_crossing = False):
     
     temps.reset_index(drop=True, inplace=True)
     mags.reset_index(drop=True, inplace=True)
@@ -251,29 +315,12 @@ def verwey_estimate(temps, mags,
     mgt_dM_dT = dM_dT_polyfit - dM_dT_background 
     mgt_dM_dT.reset_index(drop = True, inplace=True)
 
-    max_mgt_dM_dT = max(mgt_dM_dT)
-    max_mgt_dM_dT_index = mgt_dM_dT.argmax()
-    verwey_estimate = temps_dM_dT_background[max_mgt_dM_dT_index]
-
-    fig = plt.figure(figsize=(12,6))
-    ax1 = fig.add_subplot(1,2,2)
-    ax1.plot(dM_dT_df['T'], dM_dT_df['dM_dT'], '.-', color='red', label='measurement')
-    ax1.plot(temps_dM_dT_background, dM_dT_polyfit, '.-', color='green', label='background fit')
-    ax1.plot(temps_dM_dT_background, mgt_dM_dT, '.-', color='blue', label='magnetite (background fit minus measurement)')
-    ax1.scatter(verwey_estimate, max_mgt_dM_dT, color='black', label='Verwey temperature estimate')
-    ax1.set_ylabel('dM/dT (Am$^2$/kg/K)')
-    ax1.set_xlabel('T (K)')
-    ax1.legend(loc='lower right')
-    ax1.grid(True)
-    ax1.ticklabel_format(axis='y', style='scientific', scilimits=(0,0))
-
     temps_background_indices = [i for i in np.arange(len(temps)) if ((float(temps[i]) > float(t_range_background_min)) and (float(temps[i])  < float(t_range_background_max)))]
     temps_background = temps[temps_background_indices]
 
     poly_func = np.poly1d(poly_background_fit)
     background_curve = np.cumsum(poly_func(temps_background) * np.gradient(temps_background))
 
-    # adjust the background curve to overlie the measurement data
     last_background_temp = temps_background.iloc[-1]    
     last_background_mag = background_curve[-1]
     target_temp_index = np.argmin(np.abs(temps - last_background_temp))
@@ -283,6 +330,7 @@ def verwey_estimate(temps, mags,
     mags_background = mags[temps_background_indices]
     mgt_curve = mags_background - background_curve_adjusted
 
+    fig = plt.figure(figsize=(12,6))
     ax0 = fig.add_subplot(1,2,1)
     ax0.plot(temps, mags, '.-', color='red', label='measurement')
     ax0.plot(temps_background, background_curve_adjusted, '.-', color='green', label='background fit')
@@ -293,7 +341,19 @@ def verwey_estimate(temps, mags,
     ax0.grid(True)
     ax0.ticklabel_format(axis='y', style='scientific', scilimits=(0,0))
 
+    ax1 = fig.add_subplot(1,2,2)
+    ax1.plot(dM_dT_df['T'], dM_dT_df['dM_dT'], '.-', color='red', label='measurement')
+    ax1.plot(temps_dM_dT_background, dM_dT_polyfit, '.-', color='green', label='background fit')
+    ax1.plot(temps_dM_dT_background, mgt_dM_dT, '.-', color='blue', label='magnetite (background fit minus measurement)')
+    ax1.set_ylabel('dM/dT (Am$^2$/kg/K)')
+    ax1.set_xlabel('T (K)')
+    ax1.legend(loc='lower right')
+    ax1.grid(True)
+    ax1.ticklabel_format(axis='y', style='scientific', scilimits=(0,0))
     plt.show()
+
+    verwey_estimate = zero_crossing(temps_dM_dT_background, mgt_dM_dT, 
+                                    make_plot=plot_zero_crossing, xlim=(excluded_t_min, excluded_t_max))
 
     print('The T range for background fit is: ' + str(t_range_background_min) + ' K to ' + str(t_range_background_max) + ' K')
     print('The excluded T range is: ' + str(excluded_t_min) + ' K to ' + str(excluded_t_max) + ' K')
