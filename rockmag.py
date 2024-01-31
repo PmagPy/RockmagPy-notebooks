@@ -28,7 +28,6 @@ def extract_mpms_data(df, specimen_name):
             - rtsirm_warm_data: Data filtered for 'LP-CW-SIRM:LP-MW' method.
 
     Example:
-        >>> measurements_df = pd.DataFrame({...})
         >>> fc, zfc, rtsirm_cool, rtsirm_warm = extract_mpms_data(measurements_df, 'Specimen_1')
     """
 
@@ -70,7 +69,7 @@ def get_plotly_marker(matplotlib_marker):
 def plot_mpms_data(fc_data, zfc_data, rtsirm_cool_data, rtsirm_warm_data, 
                    fc_color='#1f77b4', zfc_color='#ff7f0e', rtsirm_cool_color='#2ca02c', rtsirm_warm_color='#d62728',
                    fc_marker='.', zfc_marker='.', rtsirm_cool_marker='.', rtsirm_warm_marker='.',
-                   symbol_size=10, use_plotly=False, plot_derivative=False):
+                   symbol_size=10, use_plotly=False, plot_derivative=False, return_figure=False):
     """
     Plots MPMS data and optionally its derivatives for Field Cooled, Zero Field Cooled, RTSIRM Cooling, and RTSIRM Warming using either Matplotlib or Plotly.
 
@@ -81,6 +80,9 @@ def plot_mpms_data(fc_data, zfc_data, rtsirm_cool_data, rtsirm_warm_data,
         symbol_size (int): Size of the markers in matplotlib, symbol size in plotly is fixed.
         use_plotly (bool): If True, uses Plotly for plotting. Otherwise, uses Matplotlib.
         plot_derivative (bool): If True, plots the derivative of the magnetization data.
+        
+    Returns:
+        fig: The matplotlib.figure.Figure object containing the plot (only when using Matplotlib).
     """
     if plot_derivative:
         fc_derivative = thermomag_derivative(fc_data['meas_temp'], fc_data['magn_mass'])
@@ -167,6 +169,9 @@ def plot_mpms_data(fc_data, zfc_data, rtsirm_cool_data, rtsirm_warm_data,
 
         fig.tight_layout()
         plt.show()
+        
+        if return_figure:
+            return fig
         
         
 def thermomag_derivative(temps, mags):
