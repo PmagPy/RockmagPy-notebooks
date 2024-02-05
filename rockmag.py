@@ -22,10 +22,10 @@ def extract_mpms_data(df, specimen_name):
 
     Returns:
         tuple: A tuple containing four pandas.DataFrames:
-            - fc_data: Data filtered for 'LP-FC' method.
-            - zfc_data: Data filtered for 'LP-ZFC' method.
-            - rtsirm_cool_data: Data filtered for 'LP-CW-SIRM:LP-MC' method.
-            - rtsirm_warm_data: Data filtered for 'LP-CW-SIRM:LP-MW' method.
+            - fc_data: Data filtered for 'LP-FC' method if available, otherwise an empty DataFrame.
+            - zfc_data: Data filtered for 'LP-ZFC' method if available, otherwise an empty DataFrame.
+            - rtsirm_cool_data: Data filtered for 'LP-CW-SIRM:LP-MC' method if available, otherwise an empty DataFrame.
+            - rtsirm_warm_data: Data filtered for 'LP-CW-SIRM:LP-MW' method if available, otherwise an empty DataFrame.
 
     Example:
         >>> fc, zfc, rtsirm_cool, rtsirm_warm = extract_mpms_data(measurements_df, 'Specimen_1')
@@ -33,10 +33,10 @@ def extract_mpms_data(df, specimen_name):
 
     specimen_df = df[df['specimen'] == specimen_name]
 
-    fc_data = specimen_df[specimen_df['method_codes'].str.contains('LP-FC')]
-    zfc_data = specimen_df[specimen_df['method_codes'].str.contains('LP-ZFC')]
-    rtsirm_cool_data = specimen_df[specimen_df['method_codes'].str.contains('LP-CW-SIRM:LP-MC')]
-    rtsirm_warm_data = specimen_df[specimen_df['method_codes'].str.contains('LP-CW-SIRM:LP-MW')]
+    fc_data = specimen_df[specimen_df['method_codes'].str.contains('LP-FC', na=False)]
+    zfc_data = specimen_df[specimen_df['method_codes'].str.contains('LP-ZFC', na=False)]
+    rtsirm_cool_data = specimen_df[specimen_df['method_codes'].str.contains('LP-CW-SIRM:LP-MC', na=False)]
+    rtsirm_warm_data = specimen_df[specimen_df['method_codes'].str.contains('LP-CW-SIRM:LP-MW', na=False)]
 
     return fc_data, zfc_data, rtsirm_cool_data, rtsirm_warm_data
 
@@ -91,81 +91,98 @@ def plot_mpms_data(fc_data, zfc_data, rtsirm_cool_data, rtsirm_warm_data,
         rtsirm_warm_derivative = thermomag_derivative(rtsirm_warm_data['meas_temp'], rtsirm_warm_data['magn_mass'])
 
     if use_plotly:
-        # Create subplot layout
-        fig = make_subplots(rows=1, cols=2, subplot_titles=("FC and ZFC Data", "RTSIRM Cooling and Warming Data"))
+        rows, cols = (2, 2) if plot_derivative else (1, 2)
+        fig = make_subplots(rows=rows, cols=cols)
+        
+        # Add original data traces
+        fig.add_trace(go.Scatter(x=fc_data['meas_temp'], y=fc_data['magn_mass'], mode='markers+lines', name='FC', marker=dict(color=fc_color)), row=1, col=1)
+        fig.add_trace(go.Scatter(x=zfc_data['meas_temp'], y=zfc_data['magn_mass'], mode='markers+lines', name='ZFC', marker=dict(color=zfc_color)), row=1, col=1)
+        fig.add_trace(go.Scatter(x=rtsirm_cool_data['meas_temp'], y=rtsirm_cool_data['magn_mass'], mode='markers+lines', name='RTSIRM Cooling', marker=dict(color=rtsirm_cool_color)), row=1, col=2)
+        fig.add_trace(go.Scatter(x=rtsirm_warm_data['meas_temp'], y=rtsirm_warm_data['magn_mass'], mode='markers+lines', name='RTSIRM Warming', marker=dict(color=rtsirm_warm_color)), row=1, col=2)
 
-        # Adding data or derivatives to the first subplot
+        # Add derivative data traces if required
         if plot_derivative:
             fig.add_trace(go.Scatter(x=fc_derivative['T'], y=fc_derivative['dM_dT'], mode='markers+lines', 
                                     name='FC Derivative', marker=dict(color=fc_color, symbol=get_plotly_marker(fc_marker))),
-                        row=1, col=1)
+                                    row=2, col=1)
             fig.add_trace(go.Scatter(x=zfc_derivative['T'], y=zfc_derivative['dM_dT'], mode='markers+lines', 
                                     name='ZFC Derivative', marker=dict(color=zfc_color, symbol=get_plotly_marker(zfc_marker))),
-                        row=1, col=1)
-        else:
-            fig.add_trace(go.Scatter(x=fc_data['meas_temp'], y=fc_data['magn_mass'], mode='markers+lines', 
-                                    name='FC', marker=dict(color=fc_color, symbol=get_plotly_marker(fc_marker))),
-                        row=1, col=1)
-            fig.add_trace(go.Scatter(x=zfc_data['meas_temp'], y=zfc_data['magn_mass'], mode='markers+lines', 
-                                    name='ZFC', marker=dict(color=zfc_color, symbol=get_plotly_marker(zfc_marker))),
-                        row=1, col=1)
-
-        # Adding data or derivatives to the second subplot
-        if plot_derivative:
+                        row=2, col=1)
             fig.add_trace(go.Scatter(x=rtsirm_cool_derivative['T'], y=rtsirm_cool_derivative['dM_dT'], mode='markers+lines', 
                                     name='RTSIRM Cooling Derivative', marker=dict(color=rtsirm_cool_color, symbol=get_plotly_marker(rtsirm_cool_marker))),
-                        row=1, col=2)
+                                    row=2, col=2)
             fig.add_trace(go.Scatter(x=rtsirm_warm_derivative['T'], y=rtsirm_warm_derivative['dM_dT'], mode='markers+lines', 
                                     name='RTSIRM Warming Derivative', marker=dict(color=rtsirm_warm_color, symbol=get_plotly_marker(rtsirm_warm_marker))),
-                        row=1, col=2)
-        else:
-            fig.add_trace(go.Scatter(x=rtsirm_cool_data['meas_temp'], y=rtsirm_cool_data['magn_mass'], mode='markers+lines', 
-                                    name='RTSIRM cooling', marker=dict(color=rtsirm_cool_color, symbol=get_plotly_marker(rtsirm_cool_marker))),
-                        row=1, col=2)
-            fig.add_trace(go.Scatter(x=rtsirm_warm_data['meas_temp'], y=rtsirm_warm_data['magn_mass'], mode='markers+lines', 
-                                    name='RTSIRM warming', marker=dict(color=rtsirm_warm_color, symbol=get_plotly_marker(rtsirm_warm_marker))),
-                        row=1, col=2)
+                                    row=2, col=2)
+        
+        # Update layout and axis titles
+        # Set y-axis label for the first row to 'M (Am2/kg)'
+        fig.update_yaxes(title_text="M (Am2/kg)", row=1, col=1)
+        fig.update_yaxes(title_text="M (Am2/kg)", row=1, col=2)
 
-        # Update xaxis and yaxis labels
-        yaxis_label = 'dM/dT' if plot_derivative else 'M (Am2/kg)'
+        # Set y-axis label for the second row to 'dM/dT' if plot_derivative is True
+        if plot_derivative:
+            fig.update_yaxes(title_text="dM/dT", row=2, col=1)
+            fig.update_yaxes(title_text="dM/dT", row=2, col=2)
+
         fig.update_xaxes(title_text="T (K)", row=1, col=1)
-        fig.update_xaxes(title_text="T (K)", row=1, col=2)
-        fig.update_yaxes(title_text=yaxis_label, row=1, col=1)
-        fig.update_yaxes(title_text=yaxis_label, row=1, col=2)
+        if plot_derivative:
+            # Ensure the x-axis label is applied to the bottom row, regardless of whether it's the first or second row
+            fig.update_xaxes(title_text="T (K)", row=2, col=1)
+            fig.update_xaxes(title_text="T (K)", row=2, col=2)
+            fig.update_layout(height=900)
+        else:
+            fig.update_xaxes(title_text="T (K)", row=1, col=2)
+            fig.update_layout(height=450)
 
-        fig.update_layout(title="MPMS Data")
+        fig.update_layout(title="MPMS Data and Derivatives" if plot_derivative else "MPMS Data")
+        
         fig.show()
-
+            
     else:
         # Matplotlib plotting
-        fig = plt.figure(figsize=(9,4.5))
-
-        # Plotting FC and ZFC data or derivatives
-        ax0 = fig.add_subplot(1,2,1)
         if plot_derivative:
-            ax0.plot(fc_derivative['T'], fc_derivative['dM_dT'], marker=fc_marker, linestyle='-', color=fc_color, markersize=symbol_size, label='FC Derivative')
-            ax0.plot(zfc_derivative['T'], zfc_derivative['dM_dT'], marker=zfc_marker, linestyle='-', color=zfc_color, markersize=symbol_size, label='ZFC Derivative')
+            fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(12, 8))
         else:
-            ax0.plot(fc_data['meas_temp'], fc_data['magn_mass'], marker=fc_marker, linestyle='-', color=fc_color, markersize=symbol_size, label='FC')
-            ax0.plot(zfc_data['meas_temp'], zfc_data['magn_mass'], marker=zfc_marker, linestyle='-', color=zfc_color, markersize=symbol_size, label='ZFC')
-        ax0.set_xlim(0, 300)
-        ax0.set_ylabel('M (Am2/kg)' if not plot_derivative else 'dM/dT')
-        ax0.legend()
-        ax0.grid(True)
-
-        # Plotting RTSIRM Cooling and Warming data or derivatives
-        ax1 = fig.add_subplot(1,2,2)
+            fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(12, 4))
+            
+        # Plot original data
+        if not plot_derivative:
+            axs[0].plot(fc_data['meas_temp'], fc_data['magn_mass'], color=fc_color, marker=fc_marker, linestyle='-', markersize=symbol_size, label='FC')
+            axs[0].plot(zfc_data['meas_temp'], zfc_data['magn_mass'], color=zfc_color, marker=zfc_marker, linestyle='-', markersize=symbol_size, label='ZFC')
+            axs[1].plot(rtsirm_cool_data['meas_temp'], rtsirm_cool_data['magn_mass'], color=rtsirm_cool_color, marker=rtsirm_cool_marker, linestyle='-', markersize=symbol_size, label='RTSIRM Cooling')
+            axs[1].plot(rtsirm_warm_data['meas_temp'], rtsirm_warm_data['magn_mass'], color=rtsirm_warm_color, marker=rtsirm_warm_marker, linestyle='-', markersize=symbol_size, label='RTSIRM Warming')
+            for ax in axs:
+                ax.set_xlabel("Temperature (K)")
+                ax.set_ylabel("Magnetization (Am$^2$/kg)")
+                ax.legend()
+                ax.grid(True)
+                ax.set_xlim(0, 300)
+        
+        elif plot_derivative:
+            axs[0, 0].plot(fc_data['meas_temp'], fc_data['magn_mass'], color=fc_color, marker=fc_marker, linestyle='-', markersize=symbol_size, label='FC')
+            axs[0, 0].plot(zfc_data['meas_temp'], zfc_data['magn_mass'], color=zfc_color, marker=zfc_marker, linestyle='-', markersize=symbol_size, label='ZFC')
+            axs[0, 1].plot(rtsirm_cool_data['meas_temp'], rtsirm_cool_data['magn_mass'], color=rtsirm_cool_color, marker=rtsirm_cool_marker, linestyle='-', markersize=symbol_size, label='RTSIRM Cooling')
+            axs[0, 1].plot(rtsirm_warm_data['meas_temp'], rtsirm_warm_data['magn_mass'], color=rtsirm_warm_color, marker=rtsirm_warm_marker, linestyle='-', markersize=symbol_size, label='RTSIRM Warming')
+            for ax in axs[0, :]:
+                ax.set_xlabel("Temperature (K)")
+                ax.set_ylabel("Magnetization (Am$^2$/kg)")
+                ax.legend()
+                ax.grid(True)
+                ax.set_xlim(0, 300)
+                
         if plot_derivative:
-            ax1.plot(rtsirm_cool_derivative['T'], rtsirm_cool_derivative['dM_dT'], marker=rtsirm_cool_marker, linestyle='-', color=rtsirm_cool_color, markersize=symbol_size, label='RTSIRM Cooling Derivative')
-            ax1.plot(rtsirm_warm_derivative['T'], rtsirm_warm_derivative['dM_dT'], marker=rtsirm_warm_marker, linestyle='-', color=rtsirm_warm_color, markersize=symbol_size, label='RTSIRM Warming Derivative')
-        else:
-            ax1.plot(rtsirm_cool_data['meas_temp'], rtsirm_cool_data['magn_mass'], marker=rtsirm_cool_marker, linestyle='-', color=rtsirm_cool_color, markersize=symbol_size, label='RTSIRM cooling')
-            ax1.plot(rtsirm_warm_data['meas_temp'], rtsirm_warm_data['magn_mass'], marker=rtsirm_warm_marker, linestyle='-', color=rtsirm_warm_color, markersize=symbol_size, label='RTSIRM warming')
-        ax1.set_xlim(0, 300)
-        ax1.set_ylabel('M (Am2/kg)' if not plot_derivative else 'dM/dT')
-        ax1.set_xlabel('T (K)')
-        ax1.legend()
-        ax1.grid(True)
+            axs[1, 0].plot(fc_derivative['T'], fc_derivative['dM_dT'], marker=fc_marker, linestyle='-', color=fc_color, markersize=symbol_size, label='FC Derivative')
+            axs[1, 0].plot(zfc_derivative['T'], zfc_derivative['dM_dT'], marker=zfc_marker, linestyle='-', color=zfc_color, markersize=symbol_size, label='ZFC Derivative')
+            axs[1, 1].plot(rtsirm_cool_derivative['T'], rtsirm_cool_derivative['dM_dT'], marker=rtsirm_cool_marker, linestyle='-', color=rtsirm_cool_color, markersize=symbol_size, label='RTSIRM Cooling Derivative')
+            axs[1, 1].plot(rtsirm_warm_derivative['T'], rtsirm_warm_derivative['dM_dT'], marker=rtsirm_warm_marker, linestyle='-', color=rtsirm_warm_color, markersize=symbol_size, label='RTSIRM Warming Derivative')
+            
+            for ax in axs[1, :]:
+                ax.set_xlabel("Temperature (K)")
+                ax.set_ylabel("dM/dT")
+                ax.legend()
+                ax.grid(True)
+                ax.set_xlim(0, 300)
 
         fig.tight_layout()
         plt.show()
