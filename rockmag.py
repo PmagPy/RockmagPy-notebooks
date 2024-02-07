@@ -3,6 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+import ipywidgets as widgets
+from IPython.display import display
 
 
 def extract_mpms_data(df, specimen_name):
@@ -189,7 +191,67 @@ def plot_mpms_data(fc_data, zfc_data, rtsirm_cool_data, rtsirm_warm_data,
         
         if return_figure:
             return fig
-        
+
+
+def make_mpms_plots(measurements):
+    """
+    Create a UI for specimen selection and dynamically update MPMS plots based on the selected
+    specimen and plot library choice. This version adds event handlers to ensure updates occur
+    upon initial selection.
+
+    Parameters:
+    experiments : pandas.DataFrame
+        The dataframe containing experiment data with columns including 'specimen' and 'method_codes'.
+    measurements : pandas.DataFrame
+        The dataframe containing measurement data used for plotting MPMS data.
+    """
+    # Filter to get specimens with desired method codes
+    experiments = measurements.groupby(['specimen', 'method_codes']).size().reset_index().iloc[:, :2]
+    filtered_experiments = experiments[experiments['method_codes'].isin(['LP-FC', 'LP-ZFC'])]
+    specimen_options = filtered_experiments['specimen'].unique().tolist()
+
+    # Dropdown for specimen selection
+    specimen_dropdown = widgets.Dropdown(
+        options=specimen_options,
+        description='Specimen:',
+        value=specimen_options[0]
+    )
+
+    # Radio buttons for plot library choice
+    plot_choice = widgets.RadioButtons(
+        options=[('matplotlib', False), ('plotly', True)],
+        description='Plot with:',
+        disabled=False
+    )
+
+    # Interactive output container
+    out = widgets.Output()
+
+    def update_mpms_plots(specimen_name, use_plotly):
+        """
+        Update MPMS plots based on the selected specimen and plotting library choice.
+        """
+        with out:
+            out.clear_output(wait=True)
+            # Assuming rmag.plot_mpms_data is adjusted to accept use_plotly parameter
+            fc_data, zfc_data, rtsirm_cool_data, rtsirm_warm_data = extract_mpms_data(measurements, specimen_name)
+            plot_mpms_data(fc_data, zfc_data, rtsirm_cool_data, rtsirm_warm_data, use_plotly=use_plotly, plot_derivative=True)
+
+    def on_specimen_change(change):
+        update_mpms_plots(change['new'], plot_choice.value)
+
+    def on_plot_choice_change(change):
+        update_mpms_plots(specimen_dropdown.value, change['new'])
+
+    specimen_dropdown.observe(on_specimen_change, names='value')
+    plot_choice.observe(on_plot_choice_change, names='value')
+
+    # Initial plot to ensure something is displayed right away
+    update_mpms_plots(specimen_dropdown.value, plot_choice.value)
+
+    # Display UI components
+    display(specimen_dropdown, plot_choice, out)
+           
         
 def thermomag_derivative(temps, mags):
     """
