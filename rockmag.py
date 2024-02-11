@@ -408,12 +408,22 @@ def verwey_estimate(temps, mags,
 
     mags_background = mags[temps_background_indices]
     mgt_curve = mags_background - background_curve_adjusted
+    
+    verwey_estimate = zero_crossing(temps_dM_dT_background, mgt_dM_dT, 
+                                    make_plot=plot_zero_crossing, xlim=(excluded_t_min, excluded_t_max))
+    
+    # print('The r-squared value for the background fit is: ' + str(round(r_squared,3)))
+    # print('The Verwey temperature estimate is: ' + str(round(verwey_estimate,1)) + ' K')
 
-    fig = plt.figure(figsize=(12,6))
+    fig = plt.figure(figsize=(12,5))
     ax0 = fig.add_subplot(1,2,1)
     ax0.plot(temps, mags, '.-', color='red', label='measurement')
     ax0.plot(temps_background, background_curve_adjusted, '.-', color='green', label='background fit')
     ax0.plot(temps_background, mgt_curve, '.-', color='blue', label='magnetite (meas. minus background)')
+    verwey_y_value = np.interp(verwey_estimate, temps_background, mgt_curve)
+    ax0.plot(verwey_estimate, verwey_y_value, '*', color='pink', markersize=10,
+         markeredgecolor='black', markeredgewidth=1,
+         label='Verwey estimate' + ' (' + str(round(verwey_estimate,1)) + ' K)')
     ax0.set_ylabel('M (Am$^2$/kg)')
     ax0.set_xlabel('T (K)')
     ax0.legend(loc='upper right')
@@ -422,24 +432,19 @@ def verwey_estimate(temps, mags,
 
     ax1 = fig.add_subplot(1,2,2)
     ax1.plot(dM_dT_df['T'], dM_dT_df['dM_dT'], '.-', color='red', label='measurement')
-    ax1.plot(temps_dM_dT_background, dM_dT_polyfit, '.-', color='green', label='background fit')
+    ax1.plot(temps_dM_dT_background, dM_dT_polyfit, '.-', color='green', label='background fit'+ ' (r$^2$ = ' + str(round(r_squared,3)) + ')' )
     ax1.plot(temps_dM_dT_background, mgt_dM_dT, '.-', color='blue', label='magnetite (background fit minus measurement)')
+    verwey_y_value = np.interp(verwey_estimate, temps_dM_dT_background, mgt_dM_dT)
+    ax1.plot(verwey_estimate, verwey_y_value, '*', color='pink', markersize=10,
+         markeredgecolor='black', markeredgewidth=1,
+         label='Verwey estimate' + ' (' + str(round(verwey_estimate,1)) + ' K)')
     ax1.set_ylabel('dM/dT (Am$^2$/kg/K)')
     ax1.set_xlabel('T (K)')
     ax1.legend(loc='lower right')
     ax1.grid(True)
     ax1.ticklabel_format(axis='y', style='scientific', scilimits=(0,0))
-    plt.show()
+    #plt.show()
 
-    verwey_estimate = zero_crossing(temps_dM_dT_background, mgt_dM_dT, 
-                                    make_plot=plot_zero_crossing, xlim=(excluded_t_min, excluded_t_max))
-
-    print('The T range for background fit is: ' + str(t_range_background_min) + ' K to ' + str(t_range_background_max) + ' K')
-    print('The excluded T range is: ' + str(excluded_t_min) + ' K to ' + str(excluded_t_max) + ' K')
-    print('The polynomial degree for background fit is: ' + str(poly_deg))
-    print('The r-squared value for the background fit is: ' + str(round(r_squared,3)))
-    print('The Verwey temperature estimate is: ' + str(round(verwey_estimate,1)) + ' K')
-    
     return verwey_estimate
 
 # Function that needs to be further developed that could be used to read in the data from the compact MagIC format
