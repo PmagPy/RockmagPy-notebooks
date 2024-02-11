@@ -233,7 +233,6 @@ def make_mpms_plots(measurements):
         """
         with out:
             out.clear_output(wait=True)
-            # Assuming rmag.plot_mpms_data is adjusted to accept use_plotly parameter
             fc_data, zfc_data, rtsirm_cool_data, rtsirm_warm_data = extract_mpms_data(measurements, specimen_name)
             plot_mpms_data(fc_data, zfc_data, rtsirm_cool_data, rtsirm_warm_data, use_plotly=use_plotly, plot_derivative=True)
 
@@ -446,6 +445,155 @@ def verwey_estimate(temps, mags,
     #plt.show()
 
     return verwey_estimate
+
+
+def interactive_verwey_estimate(measurements, specimen_dropdown, method_dropdown):
+    
+    selected_specimen_name = specimen_dropdown.value
+    selected_method = method_dropdown.value
+
+    fc_data, zfc_data, rtsirm_cool_data, rtsirm_warm_data = extract_mpms_data(measurements, selected_specimen_name)
+    if selected_method == 'LP-FC':
+        temps = fc_data['meas_temp']
+        mags = fc_data['magn_mass']
+    elif selected_method == 'LP-ZFC':
+        temps = zfc_data['meas_temp']
+        mags = zfc_data['magn_mass']
+
+    # Adjust the layout for the sliders
+    slider_layout = widgets.Layout(width='500px')
+    description_style = {'description_width': 'initial'}
+
+    # Update sliders to use IntRangeSlider
+    background_temp_range_slider = widgets.IntRangeSlider(
+        value=[60, 250], min=0, max=300, step=1,
+        description='Background Temperature Range (K):',
+        layout=slider_layout, style=description_style
+    )
+
+    excluded_temp_range_slider = widgets.IntRangeSlider(
+        value=[75, 150], min=0, max=300, step=1,
+        description='Excluded Temperature Range (K):',
+        layout=slider_layout, style=description_style
+    )
+
+    poly_deg_slider = widgets.IntSlider(
+        value=3, min=1, max=5, step=1,
+        description='Background Fit Polynomial Degree:',
+        layout=slider_layout, style=description_style
+    )
+
+    # Function to reset sliders to initial values
+    def reset_sliders(b):
+        background_temp_range_slider.value = (60, 250)
+        excluded_temp_range_slider.value = (75, 150)
+        poly_deg_slider.value = 3
+
+    # Create reset button
+    reset_button = widgets.Button(description="Reset to Default Values", layout=widgets.Layout(width='200px'))
+    reset_button.on_click(reset_sliders)
+    
+    title_label = widgets.Label(value='Adjust Parameters for ' + selected_specimen_name + ' ' + selected_method + ' fit')
+
+    # Add the reset button to the UI
+    ui = widgets.VBox([ 
+        title_label,
+        background_temp_range_slider, 
+        excluded_temp_range_slider, 
+        poly_deg_slider,
+        reset_button
+    ])
+
+    out = widgets.interactive_output(
+        lambda background_temp_range, excluded_temp_range, poly_deg: verwey_estimate(
+            temps, mags, 
+            background_temp_range[0], background_temp_range[1], 
+            excluded_temp_range[0], excluded_temp_range[1], 
+            poly_deg
+        ), {
+            'background_temp_range': background_temp_range_slider,
+            'excluded_temp_range': excluded_temp_range_slider,
+            'poly_deg': poly_deg_slider,
+        }
+    )
+
+    out.layout.height = '500px'
+
+    display(ui, out)
+
+
+def interactive_verwey_specimen_method_selection(measurements):
+    """
+    Creates and displays dropdown widgets for selecting a specimen and the corresponding
+    available method codes (specifically 'LP-FC' and 'LP-ZFC') from a given DataFrame of measurements.
+    This function filters the measurements to include only those with desired method codes,
+    dynamically updates the method dropdown based on the selected specimen, and organizes
+    the dropdowns vertically in the UI.
+
+    Parameters:
+        measurements (pd.DataFrame): The DataFrame containing measurement data with columns
+                                     'specimen' and 'method_codes'. It is expected to have
+                                     at least these two columns where 'specimen' identifies
+                                     the specimen name and 'method_codes' contains the method
+                                     codes associated with each measurement.
+
+    Returns:
+        tuple: A tuple containing the specimen dropdown widget (`ipywidgets.Dropdown`)
+               and the method dropdown widget (`ipywidgets.Dropdown`). The specimen dropdown
+               allows for the selection of a specimen, and the method dropdown updates to
+               display only the methods available for the selected specimen. The initial
+               selection in the specimen dropdown is set to the first specimen option.
+
+    Note:
+        The method dropdown is initially populated based on the methods available for the
+        first selected specimen. The available methods are specifically filtered for 'LP-FC'
+        and 'LP-ZFC' codes.
+    """
+    # Filter to get specimens with desired method codes
+    experiments = measurements.groupby(['specimen', 'method_codes']).size().reset_index().iloc[:, :2]
+    filtered_experiments = experiments[experiments['method_codes'].isin(['LP-FC', 'LP-ZFC'])]
+    specimen_options = filtered_experiments['specimen'].unique().tolist()
+
+    selected_specimen_name = specimen_options[0]  # Example initial selection
+
+    # Dropdown for specimen selection
+    specimen_dropdown = widgets.Dropdown(
+        options=specimen_options,
+        description='Specimen:',
+        value=selected_specimen_name
+    )
+
+    # Method dropdown initialized with placeholder options
+    method_dropdown = widgets.Dropdown(
+        description='Method:',
+    )
+
+    # Function to update method options based on selected specimen
+    def update_method_options(change):
+        selected_specimen = change['new']
+        # Filter experiments to get methods available for the selected specimen
+        available_methods = filtered_experiments[filtered_experiments['specimen'] == selected_specimen]['method_codes'].tolist()
+        # Update method dropdown options and reset its value
+        method_dropdown.options = available_methods
+        if available_methods:
+            method_dropdown.value = available_methods[0]
+        else:
+            method_dropdown.value = None
+
+    # Register the update function with specimen dropdown
+    specimen_dropdown.observe(update_method_options, names='value')
+
+    # Initially populate method dropdown based on the first selected specimen
+    update_method_options({'new': selected_specimen_name})
+
+    # Creating a UI layout using VBox to organize the dropdowns vertically
+    ui_layout = widgets.VBox([specimen_dropdown, method_dropdown])
+
+    # Display the UI layout
+    display(ui_layout)
+    
+    return specimen_dropdown, method_dropdown
+
 
 # Function that needs to be further developed that could be used to read in the data from the compact MagIC format
 # def read_and_process_compact_format(file_path):
