@@ -323,7 +323,7 @@ def zero_crossing(dM_dT_temps, dM_dT, make_plot=False, xlim=None):
         each other and are of equal length.
     """    
     
-    max_dM_dT_temp = dM_dT_temps[dM_dT.argmax()]
+    max_dM_dT_temp = dM_dT_temps[dM_dT.idxmax()]
     
     d2M_dT2 = thermomag_derivative(dM_dT_temps, dM_dT)
     d2M_dT2_T_array = d2M_dT2['T'].to_numpy()
