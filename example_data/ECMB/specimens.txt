@@ -1,0 +1,17 @@
+tab 	specimens
+azimuth	citations	contribution_id	critical_temp	critical_temp_high	critical_temp_low	critical_temp_mineral	critical_temp_type	description	dip	experiments	hyst_bc	hyst_bc_offset	hyst_bcr	hyst_loop	hyst_mr_mass	hyst_ms_mass	hyst_xhf	igsn	igsn_parent	instrument_codes	meas_orient_phi	meas_orient_theta	meas_temp	method_codes	mineral_type	rem_hirm_mass	rem_sratio	rem_sratio_back	rem_sratio_forward	result_quality	row_id	sample	specimen	synthetic_alternatives	volume	weight
+								pmag core chip																						g		NED1-5	NED1-5c		0	0.00015453
+								pmag core chip																						g		NED18-2	NED18-2c		0	0.00025375
+								pmag core chip																						g		NED2-8	NED2-8c		0	0.00018773
+								pmag core chip																						g		NED4-1	NED4-1c		0	0.00021058
+								pmag core chip																						g		NED6-6	NED6-6c		0	0.00013281
+											1.427e-2	9.969e-5			6.022e-3	3.578e-2	2.050e-7			IRM-VSM3	.00	.00	300.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								NED1-5	NED1-5c			1.545e-4
+											1.001e-2	3.769e-4			1.374e-2	1.229e-1	2.010e-7			IRM-VSM3	.00	.00	300.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								NED18-2	NED18-2c			2.538e-4
+											1.600e-2	5.430e-4			6.807e-3	4.418e-2	2.168e-7			IRM-VSM3	.00	.00	300.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								NED2-8	NED2-8c			1.877e-4
+											3.551e-2	4.018e-3			1.537e-3	5.557e-3	2.859e-7			IRM-VSM3	.00	.00	300.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								NED4-1	NED4-1c			2.106e-4
+											2.276e-2	6.181e-3			7.734e-4	4.660e-3	2.991e-7			IRM-VSM3	.00	.00	300.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								NED6-6	NED6-6c			1.328e-4
+													2.64E-2		6.201e-3					IRM-VSM3	.000	.000	300.00	LP-BCR-BF		-7.041e-6	.931	0.100	1.000			NED1-5	NED1-5c			1.545e-4
+													2.10E-2		1.445e-2					IRM-VSM3	.000	.000	300.00	LP-BCR-BF		6.618e-5	.938	0.100	1.000			NED18-2	NED18-2c			2.538e-4
+													3.44E-2		6.853e-3					IRM-VSM3	.000	.000	300.00	LP-BCR-BF		7.369e-5	.846	0.100	1.000			NED2-8	NED2-8c			1.877e-4
+			105.90				Verwey transition													IRM-BigRed				SM-1DMAX:LP-FC									NED18-2c			
+			106.30				Verwey transition													IRM-BigRed				SM-1DMAX:LP-FC									NED18-2c			
