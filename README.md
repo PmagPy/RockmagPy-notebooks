@@ -19,11 +19,11 @@ The notebook [rockmag_data_unpack.ipynb](./rockmag_data_unpack.ipynb) takes data
 
 #### MPMS_plotting
 
-In this [MPMS_plotting.ipynb](./MPMS_plotting.ipynb) notebook, MPMS data within the measurements file can be plotted. This plotting includes the calculation and visualization of derivative curves.
+In this [MPMS_plot.ipynb](./MPMS_plot.ipynb) notebook, MPMS data within the measurements file can be plotted. This plotting includes the calculation and visualization of derivative curves.
 
-#### MPMS_verwey.ipynb
+#### MPMS_verwey_fit.ipynb
 
-In this [MPMS_plotting.ipynb](./MPMS_plotting.ipynb) notebook, Verwey temperature estimates can be made from remanence upon warming experiments conducted on an MPMS.
+In this [MPMS_verwey_fit.ipynb](./MPMS_verwey_fit.ipynb) notebook, Verwey temperature estimates can be made from remanence upon warming experiments conducted on an MPMS.
 
 ## Contributing
 
