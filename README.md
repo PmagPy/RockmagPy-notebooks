@@ -7,23 +7,23 @@ This repository is for the development and demonstration of the `rockmag.py` fun
 
 ### General notebooks
 
-#### [rockmag_set_up.ipynb](./rockmag_set_up.ipynb)
+#### [rockmag_set_up](./rockmag_set_up.ipynb)
 
-The notebook [rockmag_set_up.ipynb](./rockmag_set_up.ipynb) can be imported into JupyterHub (like the EarthRef JupyterHub) and be used to import the lastest code and notebooks.
+This notebook can be imported into JupyterHub (like the EarthRef JupyterHub) and be used to import the lastest code and notebooks.
 
-#### rockmag_data_unpack
+#### [rockmag_data_unpack](./rockmag_data_unpack.ipynb)
 
-The notebook [rockmag_data_unpack.ipynb](./rockmag_data_unpack.ipynb) takes data from rock magnetic experiments that are in MagIC format and splits out the different tables. It also summarizes all of the specimens and experiments within the measurements table.
+This notebook takes data from rock magnetic experiments that are in MagIC format and splits out the different tables. It also summarizes all of the specimens and experiments within the measurements table.
 
 ### MPMS notebooks
 
-#### MPMS_plotting
+#### [MPMS_plot](./MPMS_plot.ipynb)
 
-In this [MPMS_plot.ipynb](./MPMS_plot.ipynb) notebook, MPMS data within the measurements file can be plotted. This plotting includes the calculation and visualization of derivative curves.
+Within this notebook, MPMS data within a measurements file can be plotted. This plotting includes the calculation and visualization of derivative curves.
 
-#### MPMS_verwey_fit.ipynb
+#### [MPMS_verwey_fit](./MPMS_verwey_fit.ipynb)
 
-In this [MPMS_verwey_fit.ipynb](./MPMS_verwey_fit.ipynb) notebook, Verwey temperature estimates can be made from remanence upon warming experiments conducted on an MPMS.
+In this notebook, Verwey temperature estimates can be made from remanence upon warming experiments conducted on an MPMS.
 
 ## Contributing
 
