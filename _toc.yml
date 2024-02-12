@@ -1,0 +1,16 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: book/intro.md
+parts:
+  - caption: MPMS notebooks
+    chapters:
+    - file: MPMS_plot
+    - file: MPMS_verwey_fit
+  - caption: Function docstrings
+    chapters:
+    - file: api/api.rst
+  - caption: References
+    chapters:
+    - file: references.md
