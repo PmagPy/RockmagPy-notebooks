@@ -7,7 +7,7 @@ This repository is for the development and demonstration of the `rockmag.py` fun
 
 ### General notebooks
 
-#### rockmag_set_up
+#### [rockmag_set_up.ipynb](./rockmag_set_up.ipynb)
 
 The notebook [rockmag_set_up.ipynb](./rockmag_set_up.ipynb) can be imported into JupyterHub (like the EarthRef JupyterHub) and be used to import the lastest code and notebooks.
 
