@@ -4,6 +4,10 @@
 format: jb-book
 root: book/intro.md
 parts:
+  - caption: Nuts & Bolts
+    chapters:
+    - file: rockmag_set_up
+    - file: rockmag_data_unpack
   - caption: MPMS notebooks
     chapters:
     - file: MPMS_plot
