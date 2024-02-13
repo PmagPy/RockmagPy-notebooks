@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>PmagPy: An open source package for paleomagnetic data analysis &#8212; RockmagPy Documentation</title>
+    <title>RockmagPy: tools for rock magnetic data analysis &#8212; RockmagPy Documentation</title>
   
   
   
@@ -173,7 +173,7 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1 current active">
                 <a class="reference internal" href="#">
-                    PmagPy: An open source package for paleomagnetic data analysis
+                    RockmagPy: tools for rock magnetic data analysis
                 </a>
             </li>
         </ul>
@@ -235,7 +235,7 @@
       
       
       
-      <li><a href="https://github.com/pmagpy/rockmagpy-docs" target="_blank"
+      <li><a href="https://github.com/pmagpy/rockmagpy-notebooks" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -252,7 +252,7 @@
       
       
       
-      <li><a href="https://github.com/pmagpy/rockmagpy-docs/issues/new?title=Issue%20on%20page%20%2Fbook/intro.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/pmagpy/rockmagpy-notebooks/issues/new?title=Issue%20on%20page%20%2Fbook/intro.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -366,7 +366,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>PmagPy: An open source package for paleomagnetic data analysis</h1>
+    <h1>RockmagPy: tools for rock magnetic data analysis</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -376,11 +376,12 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">PmagPy: An open source package for paleomagnetic data analysis</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#citing-pmagpy">Citing PmagPy</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#connect-with-us">Connect with us</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#analyzed-with-pmagpy">Analyzed with PmagPy</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#learn-more-about-paleomagnetism">Learn more about paleomagnetism 📖</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">RockmagPy: tools for rock magnetic data analysis</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rockmagpy-notesbook">RockmagPy notesbook</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vsm-measurements">VSM Measurements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mpms-3-data">MPMS-3 data</a></li>
+</ul>
+</li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgements">Acknowledgements</a></li>
 </ul>
 
@@ -394,9 +395,24 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="pmagpy-an-open-source-package-for-paleomagnetic-data-analysis">
-<h1>PmagPy: An open source package for paleomagnetic data analysis<a class="headerlink" href="#pmagpy-an-open-source-package-for-paleomagnetic-data-analysis" title="Link to this heading">#</a></h1>
-<p>PmagPy is a set of tools written in Python for the analysis of paleomagnetic data. It facilitates interpretation of demagnetization data, paleointensity data, and data from other types of rock magnetic experiments. The package is hosted on Github (<a class="github reference external" href="https://github.com/PmagPy/PmagPy">PmagPy/PmagPy</a>) and can be pip installed via PyPi (<a class="reference external" href="https://pypi.org/project/pmagpy/">https://pypi.org/project/pmagpy/</a>). PmagPy can be used to create a wide variety of useful plots. It is designed to work with the MagIC database (<a class="reference external" href="https://earthref.org/MagIC">https://earthref.org/MagIC</a>) and enables manipulation of downloaded MagIC data sets as well as preparation of new contributions for uploading to the MagIC database. Utilizing PmagPy within Jupyter notebooks enables fully documented and nicely illustrated data analysis.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="rockmagpy-tools-for-rock-magnetic-data-analysis">
+<h1>RockmagPy: tools for rock magnetic data analysis<a class="headerlink" href="#rockmagpy-tools-for-rock-magnetic-data-analysis" title="Link to this heading">#</a></h1>
+<p>RockmagPy is a module of the <a class="reference external" href="https://pmagpy.github.io/PmagPy-docs/intro.html">PmagPy</a> tools written in Python that is focused on the analysis of rock magnetic data. The functions within the RockmagPy module facilitate the visualization and interpretation of the results from experiments such as hysteresis loops, low-temperature remenance experiments, and thermomagnetic curves.</p>
+<p>RockmagPy is designed to work with the MagIC database (<a class="reference external" href="https://earthref.org/MagIC">https://earthref.org/MagIC</a>) and enables manipulation of downloaded MagIC data sets as well as preparation of new contributions for uploading to the MagIC database. Utilizing RockmagPy functions within Jupyter notebooks enables fully documented and nicely illustrated data analysis. Example notebooks have been developed to aid in the use of RockmagPy. These notebooks are rendered within this JupyterBook.</p>
+<section id="rockmagpy-notesbook">
+<h2>RockmagPy notesbook<a class="headerlink" href="#rockmagpy-notesbook" title="Link to this heading">#</a></h2>
+</section>
+<section id="vsm-measurements">
+<h2>VSM Measurements<a class="headerlink" href="#vsm-measurements" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="#../hysteresis.ipynb"><span class="xref myst">Hysteresis Loop Analysis</span></a>
+<a class="reference internal" href="#../backfield.ipynb"><span class="xref myst">Back Field Curves</span></a>
+<a class="reference internal" href="#../irm_acquisition.ipynb"><span class="xref myst">IRM Curves</span></a>
+<a class="reference internal" href="#../thermomagnetic.ipynb"><span class="xref myst">Thermomagnetic Curves (Ms-T)</span></a></p>
+</section>
+<section id="mpms-3-data">
+<h2>MPMS-3 data<a class="headerlink" href="#mpms-3-data" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="../MPMS_plot.html"><span class="std std-doc">MPMS Data Plotting</span></a>
+<a class="reference internal" href="../MPMS_verwey_fit.html"><span class="std std-doc">Verwey Transition Fitting</span></a></p>
 <div class="sd-container-fluid sd-sphinx-override sd-mb-4 text-center docutils">
 <div class="sd-row sd-row-cols-1 sd-row-cols-xs-1 sd-row-cols-sm-1 sd-row-cols-md-2 sd-row-cols-lg-3 sd-g-3 sd-g-xs-3 sd-g-sm-3 sd-g-md-3 sd-g-lg-3 docutils">
 <div class="sd-col sd-d-flex-row docutils">
@@ -412,42 +428,12 @@ document.write(`
 <div class="sd-col sd-d-flex-row docutils">
 <div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
 <div class="sd-card-header bg-light docutils">
-<p class="sd-card-text">Documentation notebooks ✏️</p>
-</div>
-<div class="sd-card-body docutils">
-<p class="sd-card-text">See capabilities of PmagPy functions within these documentation Jupyter notebooks.</p>
-</div>
-<span class="sd-stretched-link"></span></div>
-</div>
-<div class="sd-col sd-d-flex-row docutils">
-<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
-<div class="sd-card-header bg-light docutils">
-<p class="sd-card-text">Example notebooks 📓</p>
-</div>
-<div class="sd-card-body docutils">
-<p class="sd-card-text">See example template notebooks that analyze datasets from the MagIC database using PmagPy.</p>
-</div>
-<span class="sd-stretched-link"></span></div>
-</div>
-<div class="sd-col sd-d-flex-row docutils">
-<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
-<div class="sd-card-header bg-light docutils">
 <p class="sd-card-text">Live notebooks 🚀</p>
 </div>
 <div class="sd-card-body docutils">
-<p class="sd-card-text">Launch PmagPy notebooks on the Earthref JupyterHub</p>
+<p class="sd-card-text">Launch RockmagPy notebooks on the Earthref JupyterHub. Run the rockmag_set_up.ipynb notebook to get started.</p>
 </div>
 <a class="sd-stretched-link reference external" href="https://jupyterhub.earthref.org/"></a></div>
-</div>
-<div class="sd-col sd-d-flex-row docutils">
-<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
-<div class="sd-card-header bg-light docutils">
-<p class="sd-card-text">GUIs 🎁</p>
-</div>
-<div class="sd-card-body docutils">
-<p class="sd-card-text">Download and use Pmag GUI to analyze data and prepare data for MagIC.</p>
-</div>
-<a class="sd-stretched-link reference external" href="https://github.com/PmagPy/PmagPy-Standalone-OSX/releases/latest/"></a></div>
 </div>
 <div class="sd-col sd-d-flex-row docutils">
 <div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
@@ -461,93 +447,7 @@ document.write(`
 </div>
 </div>
 </div>
-<p>PmagPy is comprised of:</p>
-<ul class="simple">
-<li><p><strong>Function modules for paleomagnetic data analysis</strong> These function modules enable paleomagnetic data analysis (pmagpy.pmag) and plotting (pmagpy.pmagplotlib) as well as interactive higher level data analysis (pmagpy.ipmag). The functions within these modules are at the heart of the GUI and command line programs. With pmagpy as part of your Python installation (which can be accomplished through pip installation <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pmagpy</span></code>), these modules can be imported (e.g. <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">pmagpy.ipmag</span> <span class="pre">as</span> <span class="pre">ipmag</span></code>). These functions can be used within Jupyter Notebooks (see examples in the <a class="reference internal" href="#./documentation_notebooks/PmagPy_introduction.ipynb"><span class="xref myst">documentation notebooks</span></a>) and are documented within the <a class="reference internal" href="#./api/api"><span class="xref myst">API Reference</span></a>.</p></li>
-<li><p><strong>A graphical user interface (GUI) program</strong> The <a class="reference internal" href="#./programs/pmag_gui.md"><span class="xref myst">PmagPy application</span></a> enables users to get data into the MagIC database format as well as analyze demagnetization and paleointensity data.</p></li>
-<li><p><strong>Command line programs</strong> The PmagPy command line programs enable all sorts of paleomagnetic data analysis and wrangling. They are contained within the programs folder of the PmagPy repository (<a class="github reference external" href="https://github.com/PmagPy/PmagPy">PmagPy/PmagPy</a>) and can be pip installed (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pmagpy-cli</span></code>).</p></li>
-</ul>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="citing-pmagpy">
-<h1>Citing PmagPy<a class="headerlink" href="#citing-pmagpy" title="Link to this heading">#</a></h1>
-<p>Users of PmagPy should cite the open access article <span id="id1">[]</span>:</p>
-<p>Tauxe, L., R. Shaar, L. Jonestrask, N. L. Swanson-Hysell, R. Minnett, A. A. P. Koppers, C. G. Constable, N. Jarboe, K. Gaastra, and L. Fairchild (2016), PmagPy: Software package for paleomagnetic data analysis and a bridge to the Magnetics Information Consortium (MagIC) Database, Geochem. Geophys. Geosyst., 17, doi:<a class="reference external" href="http://dx.doi.org/10.1002/2016GC006307">10.1002/2016GC006307</a>.</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="connect-with-us">
-<h1>Connect with us<a class="headerlink" href="#connect-with-us" title="Link to this heading">#</a></h1>
-<p>We are an open source community that welcomes discussion, feedback, and contributions of many kinds.</p>
-<div class="sd-container-fluid sd-sphinx-override sd-mb-4 text-center docutils">
-<div class="sd-row sd-row-cols-1 sd-row-cols-xs-1 sd-row-cols-sm-1 sd-row-cols-md-2 sd-row-cols-lg-2 sd-g-3 sd-g-xs-3 sd-g-sm-3 sd-g-md-3 sd-g-lg-3 docutils">
-<div class="sd-col sd-d-flex-row docutils">
-<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
-<div class="sd-card-header bg-light docutils">
-<p class="sd-card-text">🌍 About our team</p>
-</div>
-<div class="sd-card-body docutils">
-<p class="sd-card-text">The code base for the PmagPy project has been built up over the years by Lisa Tauxe (<a href="https://github.com/ltauxe" class="user-mention">&#64;ltauxe</a>; Professor Emerita at the Scripps Institution of Oceanography). Nick Swanson-Hysell (<a href="https://github.com/swanson-hysell" class="user-mention">&#64;swanson-hysell</a>; Associate Professor at UC Berkeley), Lori Jonestrask (<a href="https://github.com/moonshoes87" class="user-mention">&#64;moonshoes87</a>), and Ron Shaar (<a href="https://github.com/ronshaar" class="user-mention">&#64;ronshaar</a>, Senior Lecturer at the Hebrew University of Jerusalem) have made substantial contributions to the project as have others in the <a class="reference external" href="https://github.com/pmagpy/pmagpy/graphs/contributors">open community of contributors</a>.</p>
-</div>
-</div>
-</div>
-<div class="sd-col sd-d-flex-row docutils">
-<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
-<div class="sd-card-header bg-light docutils">
-<p class="sd-card-text">🙌 Contribute and raise issues</p>
-</div>
-<div class="sd-card-body docutils">
-<p class="sd-card-text">We welcome anyone to join us in improving PmagPy and helping one another learn as we conduct reproducible research in rock magnetism and paleomagnetism. You can do this be <a class="reference external" href="https://github.com/PmagPy/PmagPy/pulls">contributing code</a>, improving documentation, or raising <a class="reference external" href="https://github.com/PmagPy/PmagPy/issues">issues</a>.</p>
-<p class="sd-card-text">Check out our <a class="reference external" href="https://github.com/PmagPy/PmagPy/blob/master/CONTRIBUTING.md">contributing guide</a>.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="analyzed-with-pmagpy">
-<h1>Analyzed with PmagPy<a class="headerlink" href="#analyzed-with-pmagpy" title="Link to this heading">#</a></h1>
-<p>Below are just a few of the hundreds of papers that have conducted analysis with PmagPy.
-You can find more on <a class="reference external" href="https://scholar.google.com/scholar?cites=16152229079597538403"><span class="sd-sphinx-override sd-badge sd-bg-primary sd-bg-text-primary">Google Scholar</span></a>.</p>
-<div class="sd-sphinx-override sd-cards-carousel sd-card-cols-3 docutils">
-<div class="sd-card sd-sphinx-override sd-m-3 sd-shadow-sm sd-card-hover docutils">
-<div class="sd-card-header bg-light text-center docutils">
-<p class="sd-card-text"><strong>Moon rocks</strong></p>
-</div>
-<div class="sd-card-body text-center docutils">
-<a class="reference internal image-reference" href="book/images/example_papers/Nichols_2021.png"><img alt="book/images/example_papers/Nichols_2021.png" src="book/images/example_papers/Nichols_2021.png" style="height: 100px;" /></a>
-<p class="sd-card-text">Nature Astronomy: The palaeoinclination of the ancient lunar magnetic field from an Apollo 17 basalt <span id="id2">[]</span></p>
-</div>
-<div class="sd-card-footer docutils">
-<p class="sd-card-text">Explore this paper <span class="fas fa-arrow-right"></span></p>
-</div>
-<a class="sd-stretched-link reference external" href="https://www.nature.com/articles/s41550-021-01469-y"></a></div>
-<div class="sd-card sd-sphinx-override sd-m-3 sd-shadow-sm sd-card-hover docutils">
-<div class="sd-card-header bg-light text-center docutils">
-<p class="sd-card-text"><strong>Supercontinents</strong></p>
-</div>
-<div class="sd-card-body text-center docutils">
-<a class="reference internal image-reference" href="book/images/example_papers/Eyster_2020.png"><img alt="book/images/example_papers/Eyster_2020.png" src="book/images/example_papers/Eyster_2020.png" style="height: 100px;" /></a>
-<p class="sd-card-text">GSAB: Paleomagnetism of the Chuar Group…with implications for the makeup and breakup of Rodinia <span id="id3">[]</span></p>
-</div>
-<div class="sd-card-footer docutils">
-<p class="sd-card-text">Explore this paper <span class="fas fa-arrow-right"></span></p>
-</div>
-<a class="sd-stretched-link reference external" href="https://doi.org/10.1130/B32012.1"></a></div>
-<div class="sd-card sd-sphinx-override sd-m-3 sd-shadow-sm sd-card-hover docutils">
-<div class="sd-card-header bg-light text-center docutils">
-<p class="sd-card-text"><strong>Ancient fields</strong></p>
-</div>
-<div class="sd-card-body text-center docutils">
-<a class="reference internal image-reference" href="book/images/example_papers/Jones_2020.png"><img alt="book/images/example_papers/Jones_2020.png" src="book/images/example_papers/Jones_2020.png" style="height: 100px;" /></a>
-<p class="sd-card-text">G^3: Archeointensity of the Four Corners Region of the American Southwest <span id="id4">[]</span></p>
-</div>
-<div class="sd-card-footer docutils">
-<p class="sd-card-text">Explore this paper <span class="fas fa-arrow-right"></span></p>
-</div>
-<a class="sd-stretched-link reference external" href="https://doi.org/10.1029/2018GC007509"></a></div>
-</div>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="learn-more-about-paleomagnetism">
-<h1>Learn more about paleomagnetism 📖<a class="headerlink" href="#learn-more-about-paleomagnetism" title="Link to this heading">#</a></h1>
-<p>The online textbook <a class="reference external" href="https://earthref.org/MagIC/books/Tauxe/Essentials/">Essentials of Paleomagnetism</a> is a place to learn more about Earth’s geomagnetic field, rock magnetism, paleomagnetism, statistics associated with paleomagnetic data, and more. The problems within the book call upon the reader to use PmagPy functions.</p>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="acknowledgements">
 <h1>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Link to this heading">#</a></h1>
@@ -557,8 +457,7 @@ You can find more on <a class="reference external" href="https://scholar.google.
 <a class="m-auto reference internal image-reference" href="book/images/logos/NSF_logo.png"><img alt="book/images/logos/NSF_logo.png" class="m-auto" src="book/images/logos/NSF_logo.png" style="width: 150px;" /></a>
 </div>
 <div class="sd-col sd-d-flex-column sd-col-7 sd-col-xs-7 sd-col-sm-7 sd-col-md-7 sd-col-lg-7 docutils">
-<p>PmagPy has been developed in the context of research supported by grants from the National Science Foundation awarded to Lisa Tauxe and Nick Swanson-Hysell.
-Current development is supported by the National Science Foundation through its <a class="reference external" href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=2148719">support for the MagIC database and PmagPy</a>.</p>
+<p>Current development of RockmagPy is supported by the National Science Foundation through its <a class="reference external" href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=2148719">support for the MagIC database</a>.</p>
 </div>
 </div>
 </div>
@@ -621,11 +520,12 @@ Current development is supported by the National Science Foundation through its 
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">PmagPy: An open source package for paleomagnetic data analysis</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#citing-pmagpy">Citing PmagPy</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#connect-with-us">Connect with us</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#analyzed-with-pmagpy">Analyzed with PmagPy</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#learn-more-about-paleomagnetism">Learn more about paleomagnetism 📖</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">RockmagPy: tools for rock magnetic data analysis</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rockmagpy-notesbook">RockmagPy notesbook</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vsm-measurements">VSM Measurements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mpms-3-data">MPMS-3 data</a></li>
+</ul>
+</li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgements">Acknowledgements</a></li>
 </ul>
 
