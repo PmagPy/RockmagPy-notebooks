@@ -18,10 +18,12 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: 3.9
-
-    # - name: Install dependencies
-    #   run: |
-    #     pip install -r requirements.txt
+    - name: Install dependencies manually
+      run: |
+        pip install future matplotlib pandas requests seaborn jupyter-book scikit-learn ipywidgets
+        pip install cartopy==0.22
+        pip install pmagpy==4.2.106
+        
     # Build the book
     - name: Build the book
       run: |
