@@ -386,8 +386,9 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-pmagpy">What is <code class="docutils literal notranslate"><span class="pre">PmagPy</span></code>?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-rockmagpy">What is <code class="docutils literal notranslate"><span class="pre">RockmagPy</span></code>?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-the-latest-release-of-pmagpy">Installing the latest release of <code class="docutils literal notranslate"><span class="pre">PmagPy</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-the-rockmagpuy-notebook-materials-from-github">Get the RockmagPuy-notebook materials from GitHub:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-the-rockmagpy-notebook-materials-from-github">Get the RockmagPy-notebook materials from GitHub:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-step">Next step:</a></li>
 </ul>
             </nav>
@@ -404,10 +405,10 @@ document.write(`
 <h1>Getting going with <a class="reference external" href="http://Rockmag.py">Rockmag.py</a> on jupyterhub<a class="headerlink" href="#getting-going-with-rockmag-py-on-jupyterhub" title="Link to this heading">#</a></h1>
 <section id="jupyter-notebooks-and-jupyterhub">
 <h2>Jupyter notebooks and JupyterHub<a class="headerlink" href="#jupyter-notebooks-and-jupyterhub" title="Link to this heading">#</a></h2>
-<p>The <a class="reference external" href="https://jupyter-notebook-beginner-guide.readthedocs.io/en/latest/what_is_jupyter.html">Jupyter notebook</a> environment environment enables us to interactively run code and visualize the output complete with annotated notes (like this one!). Such a notebook can be run locally on one’s computer with a Python installation or can be run on a JupyterHub such as the <a class="reference external" href="http://EarthRef.org">EarthRef.org</a> JupyterHub server.</p>
+<p>The <a class="reference external" href="https://jupyter-notebook-beginner-guide.readthedocs.io/en/latest/what_is_jupyter.html">Jupyter notebook</a> environment environment enables us to interactively run code and visualize the output complete with annotated notes (like this one!). Such a notebook can be run locally on one’s computer with a Python installation or can be run on a JupyterHub such as the <a class="reference external" href="https://jupyterhub.earthref.org/">EarthRef JupyterHub</a> server.</p>
 <section id="upload-and-download-from-jupyterhub">
 <h3>Upload and download from JupyterHub<a class="headerlink" href="#upload-and-download-from-jupyterhub" title="Link to this heading">#</a></h3>
-<p>To upload data from a computer, click the ‘Upload’ button.  To download a particular image or data file, it can be opened and then downloaded using the File menu.</p>
+<p>To upload data from a computer, click the ‘Upload’ button.  To download a particular image or data file, it can be opened and then downloaded using the File menu. You can upload this notebook (which you can download <a href="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/rockmag_set_up.ipynb" download>here</a>) to JupyterHub (if you haven’t already) to get setup with RockmagPy notebooks.</p>
 </section>
 <section id="jupyter-notebook-anatomy">
 <h3>Jupyter notebook anatomy<a class="headerlink" href="#jupyter-notebook-anatomy" title="Link to this heading">#</a></h3>
@@ -425,6 +426,11 @@ document.write(`
 <p><code class="docutils literal notranslate"><span class="pre">PmagPy</span></code> (Tauxe et al., 2016; <a class="reference external" href="https://agupubs.onlinelibrary.wiley.com/doi/full/10.1002/2016GC006307">doi:10.1002/2016GC006307</a>) is a software package including programs and functions for analyzing paleomagnetic and rock magnetic data using Python. In addition to providing tools for the working paleomagnetist, <strong>PmagPy</strong> serves  as an interface between paleomagnetic laboratory data and the <a class="reference external" href="https://earthref.org/MagIC">MagIC database</a>.</p>
 <p>The documentation for PmagPy is located here: <a class="reference external" href="https://pmagpy.github.io/PmagPy-docs/">https://pmagpy.github.io/PmagPy-docs/</a></p>
 </section>
+<section id="what-is-rockmagpy">
+<h2>What is <code class="docutils literal notranslate"><span class="pre">RockmagPy</span></code>?<a class="headerlink" href="#what-is-rockmagpy" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">RockmagPy</span></code> is a module within <code class="docutils literal notranslate"><span class="pre">PmagPy</span></code> focused on functions for analyzing rock magnetic data in MagIC format using Python.</p>
+<p>The documentation for RockmagPy is located here: <a class="reference external" href="https://pmagpy.github.io/RockmagPy-notebooks/">https://pmagpy.github.io/RockmagPy-notebooks/</a></p>
+</section>
 <section id="installing-the-latest-release-of-pmagpy">
 <h2>Installing the latest release of <code class="docutils literal notranslate"><span class="pre">PmagPy</span></code><a class="headerlink" href="#installing-the-latest-release-of-pmagpy" title="Link to this heading">#</a></h2>
 <p>Running the cell (by selecting it and then pressing run), will install the latest version of <code class="docutils literal notranslate"><span class="pre">PmagPy</span></code>.</p>
@@ -441,9 +447,9 @@ document.write(`
 </div>
 </div>
 </section>
-<section id="get-the-rockmagpuy-notebook-materials-from-github">
-<h2>Get the RockmagPuy-notebook materials from GitHub:<a class="headerlink" href="#get-the-rockmagpuy-notebook-materials-from-github" title="Link to this heading">#</a></h2>
-<p>Run the code block below to pull in the files and Jupyter Notebooks for the tutorial from Github (<a class="github reference external" href="https://github.com/PmagPy/RockmagPy-notebooks">PmagPy/RockmagPy-notebooks</a>).</p>
+<section id="get-the-rockmagpy-notebook-materials-from-github">
+<h2>Get the RockmagPy-notebook materials from GitHub:<a class="headerlink" href="#get-the-rockmagpy-notebook-materials-from-github" title="Link to this heading">#</a></h2>
+<p>Run the code block below to pull in the files and RockmagPy Jupyter Notebooks from Github (<a class="github reference external" href="https://github.com/PmagPy/RockmagPy-notebooks">PmagPy/RockmagPy-notebooks</a>).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>rm<span class="w"> </span>-Rf<span class="w"> </span>~/rockmag<span class="w"> </span>#<span class="w"> </span>remove<span class="w"> </span>any<span class="w"> </span>existing<span class="w"> </span>downloaded<span class="w"> </span>files
@@ -552,8 +558,9 @@ Saving to: ‘STDOUT’
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-pmagpy">What is <code class="docutils literal notranslate"><span class="pre">PmagPy</span></code>?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-rockmagpy">What is <code class="docutils literal notranslate"><span class="pre">RockmagPy</span></code>?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-the-latest-release-of-pmagpy">Installing the latest release of <code class="docutils literal notranslate"><span class="pre">PmagPy</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-the-rockmagpuy-notebook-materials-from-github">Get the RockmagPuy-notebook materials from GitHub:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-the-rockmagpy-notebook-materials-from-github">Get the RockmagPy-notebook materials from GitHub:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-step">Next step:</a></li>
 </ul>
   </nav></div>
