@@ -1,0 +1,1062 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>MPMS data visualization &#8212; RockmagPy Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'MPMS_plot';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Estimate the Verwey transition temperature" href="MPMS_verwey_fit.html" />
+    <link rel="prev" title="PmagPy: An open source package for paleomagnetic data analysis" href="book/intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="book/intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/rockmagpy.png" class="logo__image only-light" alt="RockmagPy Documentation - Home"/>
+    <script>document.write(`<img src="_static/rockmagpy.png" class="logo__image only-dark" alt="RockmagPy Documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="book/intro.html">
+                    PmagPy: An open source package for paleomagnetic data analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">MPMS notebooks</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">MPMS data visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MPMS_verwey_fit.html">Estimate the Verwey transition temperature</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/pmagpy/rockmagpy-docs" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/pmagpy/rockmagpy-docs/issues/new?title=Issue%20on%20page%20%2FMPMS_plot.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/MPMS_plot.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>MPMS data visualization</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-scientific-python-libraries">Import scientific python libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-measurements">Import measurements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-data">Plot data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-mpms-data-for-a-single-specimen">Extract MPMS data for a single specimen</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-data-for-a-single-specimen">Plot the data for a single specimen</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-derivative">Plot the derivative</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#make-interactive-plots">Make interactive plots</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#determine-the-verwey-transition-temperature">Determine the Verwey transition temperature</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#background-on-the-verwey-transition">Background on the Verwey transition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-the-verwey-transition-temperature">Estimating the Verwey transition temperature</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-second-derivative-curve">Plot the second derivative curve</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#determine-the-verwey-temperatures-for-additional-specimens">Determine the Verwey temperatures for additional specimens</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-integrating-interactivity-in-the-verwey-fit-function">Exploring integrating interactivity in the Verwey fit function</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="mpms-data-visualization">
+<h1>MPMS data visualization<a class="headerlink" href="#mpms-data-visualization" title="Link to this heading">#</a></h1>
+<p>This notebook visualizes data from low-temperature experiments conducted on an MPMS instrument and exported to MagIC format.</p>
+<p>In the following example, specimens from samples of diabase dikes from the East Central Minnesota batholith have undergone the following experiments:</p>
+<ul class="simple">
+<li><p><strong>RTSIRM</strong>: in this experiment, a pulsed field was applied at room temperature (300 K) with the specimen then being cycled down to 10 K (-263.15ºC) and back to room temperature.</p></li>
+<li><p><strong>FC LTSIRM</strong>: in this experiment, the specimens were cooled down to 10 K in the presence of a strong field and then warmed back up to room temperature.</p></li>
+<li><p><strong>ZFC LTSIRM</strong>: in this experiment, the specimens were cooled down in a zero-field environment, pulsed with a strong field at 10 K and then warmed back up to room temperature.</p></li>
+</ul>
+<section id="import-scientific-python-libraries">
+<h2>Import scientific python libraries<a class="headerlink" href="#import-scientific-python-libraries" title="Link to this heading">#</a></h2>
+<p>Run the cell below to import the functions needed for the notebook.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rockmag</span> <span class="k">as</span> <span class="nn">rmag</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="import-measurements">
+<h2>Import measurements<a class="headerlink" href="#import-measurements" title="Link to this heading">#</a></h2>
+<p>After having run the <a class="reference internal" href="rockmag_data_unpack.html"><span class="std std-doc">rockmag_data_unpack.ipynb</span></a> notebook, the folder <code class="docutils literal notranslate"><span class="pre">./example_data/ECMB</span></code>, has a measurements table. We can import that table for analysis into a DataFrame that we will call <code class="docutils literal notranslate"><span class="pre">measurements</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set the dir_path to the directory where the measurements.txt file is located</span>
+<span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;./example_data/ECMB&#39;</span>
+
+<span class="n">file</span> <span class="o">=</span> <span class="n">dir_path</span> <span class="o">+</span> <span class="s1">&#39;/measurements.txt&#39;</span>
+<span class="n">measurements</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="plot-data">
+<h2>Plot data<a class="headerlink" href="#plot-data" title="Link to this heading">#</a></h2>
+<p>We can now plot the MPMS data within the measurements file using the <code class="docutils literal notranslate"><span class="pre">rmag.make_mpms_plots()</span></code> function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rmag</span><span class="o">.</span><span class="n">make_mpms_plots</span><span class="p">(</span><span class="n">measurements</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "acffe18232304edf9fb3ac13e072faf4", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "489fb264eb504bf0abb53744a4d2ad66", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "9bae93259ebb4acdbc1e5c9094b8c424", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<section id="extract-mpms-data-for-a-single-specimen">
+<h3>Extract MPMS data for a single specimen<a class="headerlink" href="#extract-mpms-data-for-a-single-specimen" title="Link to this heading">#</a></h3>
+<p>We can now extract the MPMS data for a specific specimen.</p>
+<p>First, we need to define the specimen for which we are extracting the data. To do this, we set <code class="docutils literal notranslate"><span class="pre">specimen_name</span></code> to be equal to a string (i.e. the specimen name within quotation marks).</p>
+<p>Then, we can apply the <code class="docutils literal notranslate"><span class="pre">rmag.extract_mpms_data</span></code> function to extract the data for that specimen.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">specimen_name</span> <span class="o">=</span> <span class="s1">&#39;NED4-1c&#39;</span>
+<span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">extract_mpms_data</span><span class="p">(</span><span class="n">measurements</span><span class="p">,</span> <span class="n">specimen_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="plot-the-data-for-a-single-specimen">
+<h3>Plot the data for a single specimen<a class="headerlink" href="#plot-the-data-for-a-single-specimen" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rmag</span><span class="o">.</span><span class="n">plot_mpms_data</span><span class="p">(</span><span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/155f499e6915ff954d942a9da26f36d071285a655839a30ca72e16d8efdccc67.png" src="_images/155f499e6915ff954d942a9da26f36d071285a655839a30ca72e16d8efdccc67.png" />
+</div>
+</div>
+</section>
+<section id="plot-the-derivative">
+<h3>Plot the derivative<a class="headerlink" href="#plot-the-derivative" title="Link to this heading">#</a></h3>
+<p>By setting <code class="docutils literal notranslate"><span class="pre">plot_derivative=True</span></code>, the derivative of the experimental data will be calculated and plotted.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rmag</span><span class="o">.</span><span class="n">plot_mpms_data</span><span class="p">(</span><span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span><span class="p">,</span> <span class="n">plot_derivative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/01f9a69adcdccc72a182159c1cff1e0a425e69db6cd736bdfe22d44b99207368.png" src="_images/01f9a69adcdccc72a182159c1cff1e0a425e69db6cd736bdfe22d44b99207368.png" />
+</div>
+</div>
+</section>
+<section id="make-interactive-plots">
+<h3>Make interactive plots<a class="headerlink" href="#make-interactive-plots" title="Link to this heading">#</a></h3>
+<p>Rather than the static plots made above (which are made using matplotlib), you may want to make interactive plots. This can be done by putting in the parameter <code class="docutils literal notranslate"><span class="pre">use_plotly=True</span></code> which generates plots using Plotly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rmag</span><span class="o">.</span><span class="n">plot_mpms_data</span><span class="p">(</span><span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span><span class="p">,</span> <span class="n">use_plotly</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rmag</span><span class="o">.</span><span class="n">plot_mpms_data</span><span class="p">(</span><span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span><span class="p">,</span> <span class="n">use_plotly</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plot_derivative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>The colors and symbols of the plots can be customized by providing other values than the default parameters as in the example below:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rmag</span><span class="o">.</span><span class="n">plot_mpms_data</span><span class="p">(</span><span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span><span class="p">,</span> 
+                   <span class="n">fc_color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">zfc_color</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="n">rtsirm_cool_color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">rtsirm_warm_color</span><span class="o">=</span><span class="s1">&#39;darkred&#39;</span><span class="p">,</span>
+                   <span class="n">fc_marker</span><span class="o">=</span><span class="s1">&#39;^&#39;</span><span class="p">,</span> <span class="n">zfc_marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">rtsirm_cool_marker</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">rtsirm_warm_marker</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span>
+                   <span class="n">symbol_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">use_plotly</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>This customization can also be applied to Matplotlib plots:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rmag</span><span class="o">.</span><span class="n">plot_mpms_data</span><span class="p">(</span><span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span><span class="p">,</span> 
+                   <span class="n">fc_color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">zfc_color</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="n">rtsirm_cool_color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">rtsirm_warm_color</span><span class="o">=</span><span class="s1">&#39;darkred&#39;</span><span class="p">,</span>
+                   <span class="n">fc_marker</span><span class="o">=</span><span class="s1">&#39;^&#39;</span><span class="p">,</span> <span class="n">zfc_marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">rtsirm_cool_marker</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">rtsirm_warm_marker</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span>
+                   <span class="n">symbol_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">use_plotly</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">plot_derivative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2e5d264a2e811e350999123067a6c2cb76c080558ebf869040f2f331abe39400.png" src="_images/2e5d264a2e811e350999123067a6c2cb76c080558ebf869040f2f331abe39400.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="determine-the-verwey-transition-temperature">
+<h2>Determine the Verwey transition temperature<a class="headerlink" href="#determine-the-verwey-transition-temperature" title="Link to this heading">#</a></h2>
+<section id="background-on-the-verwey-transition">
+<h3>Background on the Verwey transition<a class="headerlink" href="#background-on-the-verwey-transition" title="Link to this heading">#</a></h3>
+<p>For these mafic dikes from the East Central Minnesota batholith, the specimens exhibit a significant loss of remanence across the Verwey transition. The Verwey transition as defined by Jackson and Moskowitz (2020) is:</p>
+<blockquote>
+<div><p>The Verwey transition is a reorganization of the magnetite crystal structure occurring at a temperature T<sub>V</sub> in the range 80–125 K, where the room-temperature cubic inverse-spinel structure transforms to a monoclinic arrangement, and many physical properties of the mineral (e.g. electrical resistivity, heat capacity, magnetic susceptibility, remanence and coercivity) change significantly</p>
+</div></blockquote>
+<p>It is of interest to determine the Verwey transition temperature (T<sub>V</sub>) as it is highly sensitive to changes in magnetite stoichiometry associated with cation substitution or oxidation.</p>
+</section>
+<section id="estimating-the-verwey-transition-temperature">
+<h3>Estimating the Verwey transition temperature<a class="headerlink" href="#estimating-the-verwey-transition-temperature" title="Link to this heading">#</a></h3>
+<p>It is preferable to estimate the temperature of the Verwey transition (T<sub>V</sub>) associated with warming curves (e.g. the FC/ZFC data) than cooling curves. The rationale is that cooling curves also pass through the isotropic point at a temperature of ∼130 K prior to going through the Verwey transition. The loss of magnetization associated with going through the isotropic point can be very large (particularly for multidomain magnetites) which can obscure the Verwey transition (Jackson and Moskowitz, 2020).</p>
+<p>We can apply the method described in Jackson and Moskowitz (2020) to estimate the temperature of the Verwey transition. In this method,</p>
+<blockquote>
+<div><p>[This approach] assumes that the loss of remanence on warming is due to the superposition of (1) progressive unblocking over the 20–300 K temperature range [e.g. due to the transition from the stable single-domain (SSD) to the superparamagnetic (SP) state in nanoparticle populations of magnetite or other magnetic phases] and (2) domain reorganization and intraparticle remanence rotation in a discrete temperature window around T<sub>V</sub>, due to the monoclinic-to-cubic transformation in magnetite.</p>
+</div></blockquote>
+<p>The method to estimate the temperature of the Verwey transition of Jackson and Moskowitz (2020) is to fit the derivative of the data outside of the Verwey transition and then subtract that fit from the derivative. This approach seeks to isolate the signal that is due to the Verwey transition. The peak of the derivative curve can then be used to estimate T<sub>V</sub>. This is done as the interpolated zero crossing of the derivative of the spectrum curve.</p>
+<p>In the code cell below, we define the temperature and magnetization values that will be used for estimating T<sub>V</sub>. The following parameters can be adjusted:</p>
+<p><code class="docutils literal notranslate"><span class="pre">t_range_background_min</span></code> and <code class="docutils literal notranslate"><span class="pre">t_range_background_max</span></code>: The temperature range over which the polynomial fit is applied to the background
+<code class="docutils literal notranslate"><span class="pre">excluded_t_min</span></code> and <code class="docutils literal notranslate"><span class="pre">excluded_t_max</span></code>: The temperature range that is excluded from the background fit due to remanence loss associated with the Verwey transition.
+<code class="docutils literal notranslate"><span class="pre">poly_deg</span></code>: the degree of the polynomial fit that is made to the background. Following Jackson and Moskowitz (2020), the default is set to be 3 (cubic).</p>
+<p>As described in Jackson and Moskowitz (2020), these temperature ranges and polynomial degree can be adjusted to obtain ‘reasonable’ looking curves for the magnetite demagnetization and the progressive unblocking. The goal is for curves that are monotonic with and fits that are within the measurement noise, while seeking to minimizing the polynomial degree.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">specimen_name</span> <span class="o">=</span> <span class="s1">&#39;NED4-1c&#39;</span>
+<span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">extract_mpms_data</span><span class="p">(</span><span class="n">measurements</span><span class="p">,</span> <span class="n">specimen_name</span><span class="p">)</span>
+<span class="n">temps</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;meas_temp&#39;</span><span class="p">]</span>
+<span class="n">mags</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;magn_mass&#39;</span><span class="p">]</span>
+
+<span class="c1">#Enter the minimum temperature for the background fit</span>
+<span class="n">t_range_background_min</span> <span class="o">=</span> <span class="mi">60</span> 
+
+<span class="c1">#Enter the maximum temperature for the background fit</span>
+<span class="n">t_range_background_max</span> <span class="o">=</span> <span class="mi">250</span> 
+
+<span class="c1">#Enter the minimum temperature to exclude from the background fit</span>
+<span class="n">excluded_t_min</span> <span class="o">=</span> <span class="mi">75</span> 
+
+<span class="c1">#Enter the maximum temperature to exclude from the background fit</span>
+<span class="n">excluded_t_max</span> <span class="o">=</span> <span class="mi">150</span> 
+
+<span class="c1">#The polynomial degree for the background fit can be adjusted (default is 3)</span>
+<span class="n">poly_deg</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="n">verwey_estimate</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">verwey_estimate</span><span class="p">(</span><span class="n">temps</span><span class="p">,</span> <span class="n">mags</span><span class="p">,</span> 
+                                       <span class="n">t_range_background_min</span><span class="p">,</span>
+                                       <span class="n">t_range_background_max</span><span class="p">,</span>
+                                       <span class="n">excluded_t_min</span><span class="p">,</span>
+                                       <span class="n">excluded_t_max</span><span class="p">,</span>
+                                       <span class="n">poly_deg</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/bfb864db0f042e26dc6266aee3350c63c07f48860887746bfed3b4ffe24fb07a.png" src="_images/bfb864db0f042e26dc6266aee3350c63c07f48860887746bfed3b4ffe24fb07a.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="plot-the-second-derivative-curve">
+<h2>Plot the second derivative curve<a class="headerlink" href="#plot-the-second-derivative-curve" title="Link to this heading">#</a></h2>
+<p>The estimate of the Verwey transition calculated above uses second derivative and calculates where the second derivative crosses zero by interpolating from the points on either side of the peak in the first derivative. This calculation can be visualized by setting the parameter <code class="docutils literal notranslate"><span class="pre">plot_zero_crossing</span> <span class="pre">=</span> <span class="pre">True</span></code> which generates an additional plot.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">verwey_estimate</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">verwey_estimate</span><span class="p">(</span><span class="n">temps</span><span class="p">,</span> <span class="n">mags</span><span class="p">,</span> 
+                                       <span class="n">t_range_background_min</span><span class="p">,</span>
+                                       <span class="n">t_range_background_max</span><span class="p">,</span>
+                                       <span class="n">excluded_t_min</span><span class="p">,</span>
+                                       <span class="n">excluded_t_max</span><span class="p">,</span>
+                                       <span class="n">poly_deg</span><span class="p">,</span>
+                                       <span class="n">plot_zero_crossing</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/15f9693c6d4c17d9210f9896ed4bb75817678fa24db54d8f6e9a07aeba705f17.png" src="_images/15f9693c6d4c17d9210f9896ed4bb75817678fa24db54d8f6e9a07aeba705f17.png" />
+<img alt="_images/435932ba13d92796ab36310d472029c8f2c4627d90a78b20568418ced77c6d4b.png" src="_images/435932ba13d92796ab36310d472029c8f2c4627d90a78b20568418ced77c6d4b.png" />
+</div>
+</div>
+</section>
+<section id="determine-the-verwey-temperatures-for-additional-specimens">
+<h2>Determine the Verwey temperatures for additional specimens<a class="headerlink" href="#determine-the-verwey-temperatures-for-additional-specimens" title="Link to this heading">#</a></h2>
+<p>There are three more specimens with LT-SIRM data. Let’s plot those data and determine Verwey temperature estimates.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">specimen_name</span> <span class="o">=</span> <span class="s1">&#39;NED18-2c&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">specimen_name</span><span class="p">)</span>
+<span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">extract_mpms_data</span><span class="p">(</span><span class="n">measurements</span><span class="p">,</span> <span class="n">specimen_name</span><span class="p">)</span>
+<span class="n">temps</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;meas_temp&#39;</span><span class="p">]</span>
+<span class="n">mags</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;magn_mass&#39;</span><span class="p">]</span>
+<span class="n">verwey_estimate</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">verwey_estimate</span><span class="p">(</span><span class="n">temps</span><span class="p">,</span> <span class="n">mags</span><span class="p">,</span> 
+                                       <span class="n">t_range_background_min</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+                                       <span class="n">t_range_background_max</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span>
+                                       <span class="n">excluded_t_min</span><span class="o">=</span><span class="mi">75</span><span class="p">,</span>
+                                       <span class="n">excluded_t_max</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
+                                       <span class="n">poly_deg</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                                       <span class="n">plot_zero_crossing</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+<span class="n">specimen_name</span> <span class="o">=</span> <span class="s1">&#39;NED2-8c&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">specimen_name</span><span class="p">)</span>
+<span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">extract_mpms_data</span><span class="p">(</span><span class="n">measurements</span><span class="p">,</span> <span class="n">specimen_name</span><span class="p">)</span>
+<span class="n">temps</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;meas_temp&#39;</span><span class="p">]</span>
+<span class="n">mags</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;magn_mass&#39;</span><span class="p">]</span>
+<span class="n">verwey_estimate</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">verwey_estimate</span><span class="p">(</span><span class="n">temps</span><span class="p">,</span> <span class="n">mags</span><span class="p">,</span> 
+                                       <span class="n">t_range_background_min</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+                                       <span class="n">t_range_background_max</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span>
+                                       <span class="n">excluded_t_min</span><span class="o">=</span><span class="mi">75</span><span class="p">,</span>
+                                       <span class="n">excluded_t_max</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
+                                       <span class="n">poly_deg</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                                       <span class="n">plot_zero_crossing</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+<span class="n">specimen_name</span> <span class="o">=</span> <span class="s1">&#39;NED2-8c&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">specimen_name</span><span class="p">)</span>
+<span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">extract_mpms_data</span><span class="p">(</span><span class="n">measurements</span><span class="p">,</span> <span class="n">specimen_name</span><span class="p">)</span>
+<span class="n">temps</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;meas_temp&#39;</span><span class="p">]</span>
+<span class="n">mags</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;magn_mass&#39;</span><span class="p">]</span>
+<span class="n">verwey_estimate</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">verwey_estimate</span><span class="p">(</span><span class="n">temps</span><span class="p">,</span> <span class="n">mags</span><span class="p">,</span> 
+                                       <span class="n">t_range_background_min</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+                                       <span class="n">t_range_background_max</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span>
+                                       <span class="n">excluded_t_min</span><span class="o">=</span><span class="mi">75</span><span class="p">,</span>
+                                       <span class="n">excluded_t_max</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
+                                       <span class="n">poly_deg</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                                       <span class="n">plot_zero_crossing</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NED18-2c
+</pre></div>
+</div>
+<img alt="_images/b46d512366ea21152a749a72222c56476c9c487dc540df144e5304bf564388d6.png" src="_images/b46d512366ea21152a749a72222c56476c9c487dc540df144e5304bf564388d6.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NED2-8c
+</pre></div>
+</div>
+<img alt="_images/794d3efa96ed63eb8a7ac242ab7b5e3c20c3864b471c001a6664d7db49475f2f.png" src="_images/794d3efa96ed63eb8a7ac242ab7b5e3c20c3864b471c001a6664d7db49475f2f.png" />
+<img alt="_images/1946a80bad47d78b30dd8d764038e4a85fddea02c01825ba13e331278eb030fc.png" src="_images/1946a80bad47d78b30dd8d764038e4a85fddea02c01825ba13e331278eb030fc.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NED2-8c
+</pre></div>
+</div>
+<img alt="_images/a4aa5147f08b7bf5dd8c6e16c28eb19e65ca6d0598e14ccb2aa9e90d979adf5a.png" src="_images/a4aa5147f08b7bf5dd8c6e16c28eb19e65ca6d0598e14ccb2aa9e90d979adf5a.png" />
+<img alt="_images/1946a80bad47d78b30dd8d764038e4a85fddea02c01825ba13e331278eb030fc.png" src="_images/1946a80bad47d78b30dd8d764038e4a85fddea02c01825ba13e331278eb030fc.png" />
+<img alt="_images/a4aa5147f08b7bf5dd8c6e16c28eb19e65ca6d0598e14ccb2aa9e90d979adf5a.png" src="_images/a4aa5147f08b7bf5dd8c6e16c28eb19e65ca6d0598e14ccb2aa9e90d979adf5a.png" />
+</div>
+</div>
+</section>
+<section id="exploring-integrating-interactivity-in-the-verwey-fit-function">
+<h2>Exploring integrating interactivity in the Verwey fit function<a class="headerlink" href="#exploring-integrating-interactivity-in-the-verwey-fit-function" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+
+<span class="c1"># Filter to get specimens with desired method codes</span>
+<span class="n">experiments</span> <span class="o">=</span> <span class="n">measurements</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;specimen&#39;</span><span class="p">,</span> <span class="s1">&#39;method_codes&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">filtered_experiments</span> <span class="o">=</span> <span class="n">experiments</span><span class="p">[</span><span class="n">experiments</span><span class="p">[</span><span class="s1">&#39;method_codes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;LP-FC&#39;</span><span class="p">,</span> <span class="s1">&#39;LP-ZFC&#39;</span><span class="p">])]</span>
+<span class="n">specimen_options</span> <span class="o">=</span> <span class="n">filtered_experiments</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+<span class="n">selected_specimen_name</span> <span class="o">=</span> <span class="n">specimen_options</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Example initial selection</span>
+
+
+
+<span class="c1"># Dropdown for specimen selection</span>
+<span class="n">specimen_dropdown</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span>
+    <span class="n">options</span><span class="o">=</span><span class="n">specimen_options</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Specimen:&#39;</span><span class="p">,</span>
+    <span class="n">value</span><span class="o">=</span><span class="n">specimen_options</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">extract_mpms_data</span><span class="p">(</span><span class="n">measurements</span><span class="p">,</span> <span class="n">selected_specimen_name</span><span class="p">)</span>
+<span class="n">temps</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;meas_temp&#39;</span><span class="p">]</span>
+<span class="n">mags</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;magn_mass&#39;</span><span class="p">]</span>
+
+<span class="c1"># Adjust the layout for the sliders</span>
+<span class="n">slider_layout</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;500px&#39;</span><span class="p">)</span>
+<span class="n">description_style</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;description_width&#39;</span><span class="p">:</span> <span class="s1">&#39;initial&#39;</span><span class="p">}</span>
+
+<span class="c1"># Create sliders for each parameter</span>
+<span class="n">t_range_background_min_slider</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">IntSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                                  <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Background T_min:&#39;</span><span class="p">,</span>
+                                                  <span class="n">layout</span><span class="o">=</span><span class="n">slider_layout</span><span class="p">,</span>
+                                                  <span class="n">style</span> <span class="o">=</span> <span class="n">description_style</span><span class="p">)</span>
+<span class="n">t_range_background_max_slider</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">IntSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                                  <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Background T_max:&#39;</span><span class="p">,</span>
+                                                  <span class="n">layout</span><span class="o">=</span><span class="n">slider_layout</span><span class="p">,</span>
+                                                  <span class="n">style</span> <span class="o">=</span> <span class="n">description_style</span><span class="p">)</span>
+<span class="n">excluded_t_min_slider</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">IntSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">75</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                          <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Excluded T_Min:&#39;</span><span class="p">,</span>
+                                                  <span class="n">layout</span><span class="o">=</span><span class="n">slider_layout</span><span class="p">,</span>
+                                                  <span class="n">style</span> <span class="o">=</span> <span class="n">description_style</span><span class="p">)</span>
+<span class="n">excluded_t_max_slider</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">IntSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                          <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Excluded T_Max:&#39;</span><span class="p">,</span>
+                                                  <span class="n">layout</span><span class="o">=</span><span class="n">slider_layout</span><span class="p">,</span>
+                                                  <span class="n">style</span> <span class="o">=</span> <span class="n">description_style</span><span class="p">)</span>
+<span class="n">poly_deg_slider</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">IntSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Background Fir Polynomial Degree:&#39;</span><span class="p">,</span>
+                                                  <span class="n">layout</span><span class="o">=</span><span class="n">slider_layout</span><span class="p">,</span>
+                                                  <span class="n">style</span> <span class="o">=</span> <span class="n">description_style</span><span class="p">)</span>
+
+<span class="c1"># Function to reset sliders to initial values</span>
+<span class="k">def</span> <span class="nf">reset_sliders</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
+    <span class="n">t_range_background_min_slider</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">60</span>
+    <span class="n">t_range_background_max_slider</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">250</span>
+    <span class="n">excluded_t_min_slider</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">75</span>
+    <span class="n">excluded_t_max_slider</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">150</span>
+    <span class="n">poly_deg_slider</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="c1"># Create reset button</span>
+<span class="n">reset_button</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Reset to Default Values&quot;</span><span class="p">,</span>
+                              <span class="n">layout</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;200px&#39;</span><span class="p">))</span>
+<span class="n">reset_button</span><span class="o">.</span><span class="n">on_click</span><span class="p">(</span><span class="n">reset_sliders</span><span class="p">)</span>
+
+<span class="c1"># Add the reset button to the UI</span>
+<span class="n">ui</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">VBox</span><span class="p">([</span><span class="n">specimen_dropdown</span><span class="p">,</span> <span class="n">t_range_background_min_slider</span><span class="p">,</span> <span class="n">t_range_background_max_slider</span><span class="p">,</span>
+                   <span class="n">excluded_t_min_slider</span><span class="p">,</span> <span class="n">excluded_t_max_slider</span><span class="p">,</span> <span class="n">poly_deg_slider</span><span class="p">,</span>
+                   <span class="n">reset_button</span><span class="p">])</span>  <span class="c1"># Include the reset button in the UI</span>
+
+<span class="n">out</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">interactive_output</span><span class="p">(</span><span class="k">lambda</span> <span class="n">t_range_background_min</span><span class="p">,</span> <span class="n">t_range_background_max</span><span class="p">,</span> <span class="n">excluded_t_min</span><span class="p">,</span> <span class="n">excluded_t_max</span><span class="p">,</span> <span class="n">poly_deg</span><span class="p">:</span> <span class="n">rmag</span><span class="o">.</span><span class="n">verwey_estimate</span><span class="p">(</span><span class="n">temps</span><span class="p">,</span> <span class="n">mags</span><span class="p">,</span> <span class="n">t_range_background_min</span><span class="p">,</span> <span class="n">t_range_background_max</span><span class="p">,</span> <span class="n">excluded_t_min</span><span class="p">,</span> <span class="n">excluded_t_max</span><span class="p">,</span> <span class="n">poly_deg</span><span class="p">),</span> <span class="p">{</span>
+    <span class="s1">&#39;t_range_background_min&#39;</span><span class="p">:</span> <span class="n">t_range_background_min_slider</span><span class="p">,</span>
+    <span class="s1">&#39;t_range_background_max&#39;</span><span class="p">:</span> <span class="n">t_range_background_max_slider</span><span class="p">,</span>
+    <span class="s1">&#39;excluded_t_min&#39;</span><span class="p">:</span> <span class="n">excluded_t_min_slider</span><span class="p">,</span>
+    <span class="s1">&#39;excluded_t_max&#39;</span><span class="p">:</span> <span class="n">excluded_t_max_slider</span><span class="p">,</span>
+    <span class="s1">&#39;poly_deg&#39;</span><span class="p">:</span> <span class="n">poly_deg_slider</span><span class="p">,</span>
+<span class="p">})</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">ui</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "20d905a8053f405f9f512c9bd6702d2b", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "0dae722aac7640efa04953eb7b3667de", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Adjust the layout for the sliders</span>
+<span class="n">slider_layout</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;500px&#39;</span><span class="p">)</span>
+<span class="n">description_style</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;description_width&#39;</span><span class="p">:</span> <span class="s1">&#39;initial&#39;</span><span class="p">}</span>
+
+<span class="c1"># Initialize global variables to hold data</span>
+<span class="k">global</span> <span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span><span class="p">,</span> <span class="n">temps</span><span class="p">,</span> <span class="n">mags</span>
+<span class="n">fc_data</span> <span class="o">=</span> <span class="n">zfc_data</span> <span class="o">=</span> <span class="n">rtsirm_cool_data</span> <span class="o">=</span> <span class="n">rtsirm_warm_data</span> <span class="o">=</span> <span class="n">temps</span> <span class="o">=</span> <span class="n">mags</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">def</span> <span class="nf">update_specimen_data</span><span class="p">(</span><span class="n">change</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span><span class="p">,</span> <span class="n">temps</span><span class="p">,</span> <span class="n">mags</span>
+    <span class="n">selected_specimen_name</span> <span class="o">=</span> <span class="n">change</span><span class="o">.</span><span class="n">new</span>
+    <span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">extract_mpms_data</span><span class="p">(</span><span class="n">measurements</span><span class="p">,</span> <span class="n">selected_specimen_name</span><span class="p">)</span>
+    <span class="n">temps</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;meas_temp&#39;</span><span class="p">]</span>
+    <span class="n">mags</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;magn_mass&#39;</span><span class="p">]</span>
+    <span class="c1"># Trigger the update of the interactive output</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+<span class="c1"># Dropdown for specimen selection</span>
+<span class="n">specimen_dropdown</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span>
+    <span class="n">options</span><span class="o">=</span><span class="n">specimen_options</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Specimen:&#39;</span><span class="p">,</span>
+    <span class="n">value</span><span class="o">=</span><span class="n">specimen_options</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">specimen_dropdown</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">update_specimen_data</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+
+<span class="c1"># Assuming rmag.extract_mpms_data, rmag.verwey_estimate, and specimen_options are defined</span>
+<span class="n">selected_specimen_name</span> <span class="o">=</span> <span class="n">specimen_options</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Example initial selection</span>
+
+<span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">extract_mpms_data</span><span class="p">(</span><span class="n">measurements</span><span class="p">,</span> <span class="n">selected_specimen_name</span><span class="p">)</span>
+<span class="n">temps</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;meas_temp&#39;</span><span class="p">]</span>
+<span class="n">mags</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;magn_mass&#39;</span><span class="p">]</span>
+
+<span class="c1"># Adjust the layout for the sliders</span>
+<span class="n">slider_layout</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;500px&#39;</span><span class="p">)</span>
+<span class="n">description_style</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;description_width&#39;</span><span class="p">:</span> <span class="s1">&#39;initial&#39;</span><span class="p">}</span>
+
+<span class="c1"># Update sliders to use IntRangeSlider</span>
+<span class="n">background_temp_range_slider</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">IntRangeSlider</span><span class="p">(</span>
+    <span class="n">value</span><span class="o">=</span><span class="p">[</span><span class="mi">60</span><span class="p">,</span> <span class="mi">250</span><span class="p">],</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Background Temperature Range:&#39;</span><span class="p">,</span>
+    <span class="n">layout</span><span class="o">=</span><span class="n">slider_layout</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">description_style</span>
+<span class="p">)</span>
+
+<span class="n">excluded_temp_range_slider</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">IntRangeSlider</span><span class="p">(</span>
+    <span class="n">value</span><span class="o">=</span><span class="p">[</span><span class="mi">75</span><span class="p">,</span> <span class="mi">150</span><span class="p">],</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Excluded Temperature Range:&#39;</span><span class="p">,</span>
+    <span class="n">layout</span><span class="o">=</span><span class="n">slider_layout</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">description_style</span>
+<span class="p">)</span>
+
+<span class="n">poly_deg_slider</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">IntSlider</span><span class="p">(</span>
+    <span class="n">value</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Background Fit Polynomial Degree:&#39;</span><span class="p">,</span>
+    <span class="n">layout</span><span class="o">=</span><span class="n">slider_layout</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">description_style</span>
+<span class="p">)</span>
+
+<span class="c1"># Function to reset sliders to initial values</span>
+<span class="k">def</span> <span class="nf">reset_sliders</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
+    <span class="n">background_temp_range_slider</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span>
+    <span class="n">excluded_temp_range_slider</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
+    <span class="n">poly_deg_slider</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="c1"># Create reset button</span>
+<span class="n">reset_button</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Reset to Default Values&quot;</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;200px&#39;</span><span class="p">))</span>
+<span class="n">reset_button</span><span class="o">.</span><span class="n">on_click</span><span class="p">(</span><span class="n">reset_sliders</span><span class="p">)</span>
+
+<span class="c1"># Add the reset button to the UI</span>
+<span class="n">ui</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">VBox</span><span class="p">([</span>
+    <span class="n">specimen_dropdown</span><span class="p">,</span> 
+    <span class="n">background_temp_range_slider</span><span class="p">,</span> 
+    <span class="n">excluded_temp_range_slider</span><span class="p">,</span> 
+    <span class="n">poly_deg_slider</span><span class="p">,</span>
+    <span class="n">reset_button</span>
+<span class="p">])</span>
+
+<span class="n">out</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">interactive_output</span><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">background_temp_range</span><span class="p">,</span> <span class="n">excluded_temp_range</span><span class="p">,</span> <span class="n">poly_deg</span><span class="p">:</span> <span class="n">rmag</span><span class="o">.</span><span class="n">verwey_estimate</span><span class="p">(</span>
+        <span class="n">temps</span><span class="p">,</span> <span class="n">mags</span><span class="p">,</span> 
+        <span class="n">background_temp_range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">background_temp_range</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> 
+        <span class="n">excluded_temp_range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">excluded_temp_range</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> 
+        <span class="n">poly_deg</span>
+    <span class="p">),</span> <span class="p">{</span>
+        <span class="s1">&#39;background_temp_range&#39;</span><span class="p">:</span> <span class="n">background_temp_range_slider</span><span class="p">,</span>
+        <span class="s1">&#39;excluded_temp_range&#39;</span><span class="p">:</span> <span class="n">excluded_temp_range_slider</span><span class="p">,</span>
+        <span class="s1">&#39;poly_deg&#39;</span><span class="p">:</span> <span class="n">poly_deg_slider</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="n">out</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="s1">&#39;500px&#39;</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">ui</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "49216bcc0e2e4e1fa84592d42860b319", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "dcedfb45897f4e139f5cd06254666a90", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">m</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">interactive_plot</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">interactive</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">b</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">interactive_plot</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">output</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="s1">&#39;350px&#39;</span>
+<span class="n">interactive_plot</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">57</span><span class="o">/</span><span class="n">lmgz7h4x11v34k53c6ldrlrw0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_46585</span><span class="o">/</span><span class="mf">1854217312.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> 
+<span class="ne">----&gt; </span><span class="mi">8</span> <span class="n">interactive_plot</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">interactive</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">b</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">output</span> <span class="o">=</span> <span class="n">interactive_plot</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="n">output</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="s1">&#39;350px&#39;</span>
+
+<span class="ne">NameError</span>: name &#39;widgets&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="book/intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">PmagPy: An open source package for paleomagnetic data analysis</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="MPMS_verwey_fit.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Estimate the Verwey transition temperature</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-scientific-python-libraries">Import scientific python libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-measurements">Import measurements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-data">Plot data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-mpms-data-for-a-single-specimen">Extract MPMS data for a single specimen</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-data-for-a-single-specimen">Plot the data for a single specimen</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-derivative">Plot the derivative</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#make-interactive-plots">Make interactive plots</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#determine-the-verwey-transition-temperature">Determine the Verwey transition temperature</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#background-on-the-verwey-transition">Background on the Verwey transition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-the-verwey-transition-temperature">Estimating the Verwey transition temperature</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-second-derivative-curve">Plot the second derivative curve</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#determine-the-verwey-temperatures-for-additional-specimens">Determine the Verwey temperatures for additional specimens</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-integrating-interactivity-in-the-verwey-fit-function">Exploring integrating interactivity in the Verwey fit function</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By RockmagPy Contributors
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
