@@ -48,21 +48,32 @@ Develop new contributions and analyze existing datasets in the MagIC database.
 
 ## Jupyter notebooks using RockmagPy
 
+This page links to available notebooks that have been developed to use RockmagPy to analyze data.
+The versions that are linked to here are static (that is that they don't run the code).
+Some of the interactive features that have been developed are not visible. 
+They do give an overall sense of what functions are available within RockmagPy and explain
+some of the associated methods.
+
+### Code/data nuts and bolts
+
+- [**RockmagPy set-up**](./rockmag_set_up.ipynb) This notebook can be imported into JupyterHub (like the EarthRef JupyterHub) and be used to import the latest code and notebooks.
+- [**Rockmag MagIC data unpack**](./rockmag_data_unpack.ipynb) This notebook takes data from rock magnetic experiments that are in MagIC format and splits out the different tables. It also summarizes all of the specimens and experiments within the measurements table.
+
 ### VSM experiments
 
 These notebooks support the analysis of experiments conducted on a vibrating sample magnetometer (VSM).
 
-- [Hysteresis Loop Analysis](../hysteresis.ipynb) *not yet developed*
-- [Back Field Curves](../backfield.ipynb) *not yet developed*
-- [IRM Curves](../irm_acquisition.ipynb) *not yet developed*
-- [Thermomagnetic Curves (Ms-T)](../thermomagnetic.ipynb) *not yet developed*
+- [*Hysteresis Loop Analysis*](../hysteresis.ipynb) *not yet developed*
+- [*Back Field Curves*](../backfield.ipynb) *not yet developed*
+- [*IRM Curves*](../irm_acquisition.ipynb) *not yet developed*
+- [*Thermomagnetic Curves (Ms-T)*](../thermomagnetic.ipynb) *not yet developed*
 
 ### MPMS data
 
 These notebooks support the analysis of low-temperature experiments conducted on a Magnetic Property Measurement System (MPMS).
 
-- [MPMS Data Plotting](../MPMS_plot.ipynb)
-- [Verwey Transition Fitting](../MPMS_verwey_fit.ipynb)
+- [**MPMS Data Plotting**](../MPMS_plot.ipynb) Within this notebook, MPMS data within a measurements file can be plotted. This plotting includes the calculation and visualization of derivative curves.
+- [**Verwey Transition Fitting**](../MPMS_verwey_fit.ipynb) In this notebook, Verwey temperature estimates can be made from remanence upon warming experiments conducted on an MPMS.
 
 # Acknowledgements
 

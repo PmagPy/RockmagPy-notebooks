@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'book/intro';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="MPMS data visualization" href="../MPMS_plot.html" />
+    <link rel="next" title="Getting going with Rockmag.py on jupyterhub" href="../rockmag_set_up.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -177,7 +177,12 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">MPMS notebooks</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Nuts &amp; Bolts</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../rockmag_set_up.html">Getting going with Rockmag.py on jupyterhub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rockmag_data_unpack.html">Rock magnetic experiments data import</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">MPMS notebooks</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../MPMS_plot.html">MPMS data visualization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../MPMS_verwey_fit.html">Estimate the Verwey transition temperature</a></li>
@@ -378,13 +383,16 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">RockmagPy: tools for rock magnetic data analysis</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebooks-using-rockmagpy">Jupyter notebooks using RockmagPy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-data-nuts-and-bolts">Code/data nuts and bolts</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vsm-experiments">VSM experiments</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mpms-data">MPMS data</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgements">Acknowledgements</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgements">Acknowledgements</a><ul class="visible nav section-nav flex-column">
+</ul>
+</li>
 </ul>
 
             </nav>
@@ -437,22 +445,34 @@ document.write(`
 </div>
 <section id="jupyter-notebooks-using-rockmagpy">
 <h2>Jupyter notebooks using RockmagPy<a class="headerlink" href="#jupyter-notebooks-using-rockmagpy" title="Link to this heading">#</a></h2>
+<p>This page links to available notebooks that have been developed to use RockmagPy to analyze data.
+The versions that are linked to here are static (that is that they don’t run the code).
+Some of the interactive features that have been developed are not visible.
+They do give an overall sense of what functions are available within RockmagPy and explain
+some of the associated methods.</p>
+<section id="code-data-nuts-and-bolts">
+<h3>Code/data nuts and bolts<a class="headerlink" href="#code-data-nuts-and-bolts" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="#./rockmag_set_up.ipynb"><span class="xref myst"><strong>RockmagPy set-up</strong></span></a> This notebook can be imported into JupyterHub (like the EarthRef JupyterHub) and be used to import the latest code and notebooks.</p></li>
+<li><p><a class="reference internal" href="#./rockmag_data_unpack.ipynb"><span class="xref myst"><strong>Rockmag MagIC data unpack</strong></span></a> This notebook takes data from rock magnetic experiments that are in MagIC format and splits out the different tables. It also summarizes all of the specimens and experiments within the measurements table.</p></li>
+</ul>
+</section>
 <section id="vsm-experiments">
 <h3>VSM experiments<a class="headerlink" href="#vsm-experiments" title="Link to this heading">#</a></h3>
 <p>These notebooks support the analysis of experiments conducted on a vibrating sample magnetometer (VSM).</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#../hysteresis.ipynb"><span class="xref myst">Hysteresis Loop Analysis</span></a> <em>not yet developed</em></p></li>
-<li><p><a class="reference internal" href="#../backfield.ipynb"><span class="xref myst">Back Field Curves</span></a> <em>not yet developed</em></p></li>
-<li><p><a class="reference internal" href="#../irm_acquisition.ipynb"><span class="xref myst">IRM Curves</span></a> <em>not yet developed</em></p></li>
-<li><p><a class="reference internal" href="#../thermomagnetic.ipynb"><span class="xref myst">Thermomagnetic Curves (Ms-T)</span></a> <em>not yet developed</em></p></li>
+<li><p><a class="reference internal" href="#../hysteresis.ipynb"><span class="xref myst"><em>Hysteresis Loop Analysis</em></span></a> <em>not yet developed</em></p></li>
+<li><p><a class="reference internal" href="#../backfield.ipynb"><span class="xref myst"><em>Back Field Curves</em></span></a> <em>not yet developed</em></p></li>
+<li><p><a class="reference internal" href="#../irm_acquisition.ipynb"><span class="xref myst"><em>IRM Curves</em></span></a> <em>not yet developed</em></p></li>
+<li><p><a class="reference internal" href="#../thermomagnetic.ipynb"><span class="xref myst"><em>Thermomagnetic Curves (Ms-T)</em></span></a> <em>not yet developed</em></p></li>
 </ul>
 </section>
 <section id="mpms-data">
 <h3>MPMS data<a class="headerlink" href="#mpms-data" title="Link to this heading">#</a></h3>
 <p>These notebooks support the analysis of low-temperature experiments conducted on a Magnetic Property Measurement System (MPMS).</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../MPMS_plot.html"><span class="std std-doc">MPMS Data Plotting</span></a></p></li>
-<li><p><a class="reference internal" href="../MPMS_verwey_fit.html"><span class="std std-doc">Verwey Transition Fitting</span></a></p></li>
+<li><p><a class="reference internal" href="../MPMS_plot.html"><span class="std std-doc"><strong>MPMS Data Plotting</strong></span></a> Within this notebook, MPMS data within a measurements file can be plotted. This plotting includes the calculation and visualization of derivative curves.</p></li>
+<li><p><a class="reference internal" href="../MPMS_verwey_fit.html"><span class="std std-doc"><strong>Verwey Transition Fitting</strong></span></a> In this notebook, Verwey temperature estimates can be made from remanence upon warming experiments conducted on an MPMS.</p></li>
 </ul>
 </section>
 </section>
@@ -468,6 +488,8 @@ document.write(`
 <p>Current development of RockmagPy is supported by the National Science Foundation through its <a class="reference external" href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=2148719">support for the MagIC database</a>.</p>
 </div>
 </div>
+</div>
+<div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
 </div>
@@ -504,11 +526,11 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="right-next"
-       href="../MPMS_plot.html"
+       href="../rockmag_set_up.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">MPMS data visualization</p>
+        <p class="prev-next-title">Getting going with Rockmag.py on jupyterhub</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -530,13 +552,16 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">RockmagPy: tools for rock magnetic data analysis</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebooks-using-rockmagpy">Jupyter notebooks using RockmagPy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-data-nuts-and-bolts">Code/data nuts and bolts</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vsm-experiments">VSM experiments</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mpms-data">MPMS data</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgements">Acknowledgements</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgements">Acknowledgements</a><ul class="visible nav section-nav flex-column">
+</ul>
+</li>
 </ul>
 
   </nav></div>
