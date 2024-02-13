@@ -8,9 +8,3 @@ parts:
     chapters:
     - file: MPMS_plot
     - file: MPMS_verwey_fit
-  - caption: Function docstrings
-    chapters:
-    - file: api/api.rst
-  - caption: References
-    chapters:
-    - file: references.md
