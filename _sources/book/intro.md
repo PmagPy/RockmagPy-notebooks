@@ -57,20 +57,20 @@ some of the associated methods.
 ### Code/data nuts and bolts
 
 - [**RockmagPy set-up**](./rockmag_set_up.ipynb) This notebook can be imported into JupyterHub (like the EarthRef JupyterHub) and be used to import the latest code and notebooks.
-- [**Rockmag MagIC data unpack**](./rockmag_data_unpack.ipynb) This notebook takes data from rock magnetic experiments that are in MagIC format and splits out the different tables. It also summarizes all of the specimens and experiments within the measurements table.
+- [**Rockmag MagIC data unpack**](./rockmag_data_unpack.ipynb) This notebook takes data from rock magnetic experiments that are in MagIC format and splits out the different MagIC tables. It also summarizes all of the specimens and associated experiments within the measurements table.
 
-### VSM experiments
+### VSM data analysis
 
-These notebooks support the analysis of experiments conducted on a vibrating sample magnetometer (VSM).
+These notebooks support the analysis of data generated during experiments conducted on a vibrating sample magnetometer (VSM).
 
 - [*Hysteresis Loop Analysis*](../hysteresis.ipynb) *not yet developed*
 - [*Back Field Curves*](../backfield.ipynb) *not yet developed*
 - [*IRM Curves*](../irm_acquisition.ipynb) *not yet developed*
 - [*Thermomagnetic Curves (Ms-T)*](../thermomagnetic.ipynb) *not yet developed*
 
-### MPMS data
+### MPMS data analysis
 
-These notebooks support the analysis of low-temperature experiments conducted on a Magnetic Property Measurement System (MPMS).
+These notebooks support the analysis of low-temperature experimental data conducted on a Magnetic Property Measurement System (MPMS).
 
 - [**MPMS Data Plotting**](../MPMS_plot.ipynb) Within this notebook, MPMS data within a measurements file can be plotted. This plotting includes the calculation and visualization of derivative curves.
 - [**Verwey Transition Fitting**](../MPMS_verwey_fit.ipynb) In this notebook, Verwey temperature estimates can be made from remanence upon warming experiments conducted on an MPMS.
