@@ -377,9 +377,11 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">RockmagPy: tools for rock magnetic data analysis</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rockmagpy-notesbook">RockmagPy notesbook</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vsm-measurements">VSM Measurements</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mpms-3-data">MPMS-3 data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rockmagpy-notebooks">RockmagPy notebooks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vsm-experiments">VSM experiments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mpms-data">MPMS data</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgements">Acknowledgements</a></li>
@@ -399,20 +401,25 @@ document.write(`
 <h1>RockmagPy: tools for rock magnetic data analysis<a class="headerlink" href="#rockmagpy-tools-for-rock-magnetic-data-analysis" title="Link to this heading">#</a></h1>
 <p>RockmagPy is a module of the <a class="reference external" href="https://pmagpy.github.io/PmagPy-docs/intro.html">PmagPy</a> tools written in Python that is focused on the analysis of rock magnetic data. The functions within the RockmagPy module facilitate the visualization and interpretation of the results from experiments such as hysteresis loops, low-temperature remenance experiments, and thermomagnetic curves.</p>
 <p>RockmagPy is designed to work with the MagIC database (<a class="reference external" href="https://earthref.org/MagIC">https://earthref.org/MagIC</a>) and enables manipulation of downloaded MagIC data sets as well as preparation of new contributions for uploading to the MagIC database. Utilizing RockmagPy functions within Jupyter notebooks enables fully documented and nicely illustrated data analysis. Example notebooks have been developed to aid in the use of RockmagPy. These notebooks are rendered within this JupyterBook.</p>
-<section id="rockmagpy-notesbook">
-<h2>RockmagPy notesbook<a class="headerlink" href="#rockmagpy-notesbook" title="Link to this heading">#</a></h2>
+<section id="rockmagpy-notebooks">
+<h2>RockmagPy notebooks<a class="headerlink" href="#rockmagpy-notebooks" title="Link to this heading">#</a></h2>
+<section id="vsm-experiments">
+<h3>VSM experiments<a class="headerlink" href="#vsm-experiments" title="Link to this heading">#</a></h3>
+<p>These notebooks support the analysis of experiments conducted on a vibrating sample magnetometer (VSM).</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#../hysteresis.ipynb"><span class="xref myst">Hysteresis Loop Analysis</span></a> <em>not yet developed</em></p></li>
+<li><p><a class="reference internal" href="#../backfield.ipynb"><span class="xref myst">Back Field Curves</span></a> <em>not yet developed</em></p></li>
+<li><p><a class="reference internal" href="#../irm_acquisition.ipynb"><span class="xref myst">IRM Curves</span></a> <em>not yet developed</em></p></li>
+<li><p><a class="reference internal" href="#../thermomagnetic.ipynb"><span class="xref myst">Thermomagnetic Curves (Ms-T)</span></a> <em>not yet developed</em></p></li>
+</ul>
 </section>
-<section id="vsm-measurements">
-<h2>VSM Measurements<a class="headerlink" href="#vsm-measurements" title="Link to this heading">#</a></h2>
-<p><a class="reference internal" href="#../hysteresis.ipynb"><span class="xref myst">Hysteresis Loop Analysis</span></a>
-<a class="reference internal" href="#../backfield.ipynb"><span class="xref myst">Back Field Curves</span></a>
-<a class="reference internal" href="#../irm_acquisition.ipynb"><span class="xref myst">IRM Curves</span></a>
-<a class="reference internal" href="#../thermomagnetic.ipynb"><span class="xref myst">Thermomagnetic Curves (Ms-T)</span></a></p>
-</section>
-<section id="mpms-3-data">
-<h2>MPMS-3 data<a class="headerlink" href="#mpms-3-data" title="Link to this heading">#</a></h2>
-<p><a class="reference internal" href="../MPMS_plot.html"><span class="std std-doc">MPMS Data Plotting</span></a>
-<a class="reference internal" href="../MPMS_verwey_fit.html"><span class="std std-doc">Verwey Transition Fitting</span></a></p>
+<section id="mpms-data">
+<h3>MPMS data<a class="headerlink" href="#mpms-data" title="Link to this heading">#</a></h3>
+<p>These notebooks support the analysis of low-temperature experiments conducted on a Magnetic Property Measurement System (MPMS).</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../MPMS_plot.html"><span class="std std-doc">MPMS Data Plotting</span></a></p></li>
+<li><p><a class="reference internal" href="../MPMS_verwey_fit.html"><span class="std std-doc">Verwey Transition Fitting</span></a></p></li>
+</ul>
 <div class="sd-container-fluid sd-sphinx-override sd-mb-4 text-center docutils">
 <div class="sd-row sd-row-cols-1 sd-row-cols-xs-1 sd-row-cols-sm-1 sd-row-cols-md-2 sd-row-cols-lg-3 sd-g-3 sd-g-xs-3 sd-g-sm-3 sd-g-md-3 sd-g-lg-3 docutils">
 <div class="sd-col sd-d-flex-row docutils">
@@ -449,12 +456,13 @@ document.write(`
 </div>
 </section>
 </section>
+</section>
 <section class="tex2jax_ignore mathjax_ignore" id="acknowledgements">
 <h1>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Link to this heading">#</a></h1>
 <div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
 <div class="sd-row sd-row-cols-2 sd-row-cols-xs-2 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-2 docutils">
 <div class="sd-col sd-d-flex-column sd-col-4 sd-col-xs-4 sd-col-sm-4 sd-col-md-4 sd-col-lg-4 docutils">
-<a class="m-auto reference internal image-reference" href="book/images/logos/NSF_logo.png"><img alt="book/images/logos/NSF_logo.png" class="m-auto" src="book/images/logos/NSF_logo.png" style="width: 150px;" /></a>
+<a class="m-auto reference internal image-reference" href="../_images/NSF_logo.png"><img alt="../_images/NSF_logo.png" class="m-auto" src="../_images/NSF_logo.png" style="width: 150px;" /></a>
 </div>
 <div class="sd-col sd-d-flex-column sd-col-7 sd-col-xs-7 sd-col-sm-7 sd-col-md-7 sd-col-lg-7 docutils">
 <p>Current development of RockmagPy is supported by the National Science Foundation through its <a class="reference external" href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=2148719">support for the MagIC database</a>.</p>
@@ -521,9 +529,11 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">RockmagPy: tools for rock magnetic data analysis</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rockmagpy-notesbook">RockmagPy notesbook</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vsm-measurements">VSM Measurements</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mpms-3-data">MPMS-3 data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rockmagpy-notebooks">RockmagPy notebooks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vsm-experiments">VSM experiments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mpms-data">MPMS data</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgements">Acknowledgements</a></li>

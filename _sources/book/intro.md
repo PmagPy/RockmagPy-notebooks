@@ -8,19 +8,23 @@ RockmagPy is a module of the [PmagPy](https://pmagpy.github.io/PmagPy-docs/intro
 
 RockmagPy is designed to work with the MagIC database (https://earthref.org/MagIC) and enables manipulation of downloaded MagIC data sets as well as preparation of new contributions for uploading to the MagIC database. Utilizing RockmagPy functions within Jupyter notebooks enables fully documented and nicely illustrated data analysis. Example notebooks have been developed to aid in the use of RockmagPy. These notebooks are rendered within this JupyterBook.
 
-### RockmagPy notesbook
+## RockmagPy notebooks
 
-## VSM Measurements
+### VSM experiments
 
-[Hysteresis Loop Analysis](../hysteresis.ipynb)
-[Back Field Curves](../backfield.ipynb)
-[IRM Curves](../irm_acquisition.ipynb)
-[Thermomagnetic Curves (Ms-T)](../thermomagnetic.ipynb)
+These notebooks support the analysis of experiments conducted on a vibrating sample magnetometer (VSM).
 
-## MPMS-3 data
+- [Hysteresis Loop Analysis](../hysteresis.ipynb) *not yet developed*
+- [Back Field Curves](../backfield.ipynb) *not yet developed*
+- [IRM Curves](../irm_acquisition.ipynb) *not yet developed*
+- [Thermomagnetic Curves (Ms-T)](../thermomagnetic.ipynb) *not yet developed*
 
-[MPMS Data Plotting](../MPMS_plot.ipynb)
-[Verwey Transition Fitting](../MPMS_verwey_fit.ipynb)
+### MPMS data
+
+These notebooks support the analysis of low-temperature experiments conducted on a Magnetic Property Measurement System (MPMS).
+
+- [MPMS Data Plotting](../MPMS_plot.ipynb)
+- [Verwey Transition Fitting](../MPMS_verwey_fit.ipynb)
 
 ::::{grid} 1 1 2 3
 :class-container: text-center
