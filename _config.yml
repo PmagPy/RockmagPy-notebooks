@@ -22,7 +22,7 @@ bibtex_bibfiles:
 
 # Information about where the book exists on the web
 repository:
-  url: https://github.com/pmagpy/rockmagpy-docs  # Online location of your book
+  url: https://github.com/pmagpy/rockmagpy-notebooks  # Online location of your book
 
 # Add GitHub buttons to your book
 # See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
