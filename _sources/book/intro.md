@@ -63,16 +63,20 @@ some associated methods.
 
 These notebooks support the analysis of data generated during experiments conducted on a vibrating sample magnetometer (VSM).
 
-- [*Hysteresis Loop Analysis*](../hysteresis.ipynb) *not yet developed*
-- [*Back Field Curves*](../backfield.ipynb) *not yet developed*
-- [*IRM Curves*](../irm_acquisition.ipynb) *not yet developed*
-- [*Thermomagnetic Curves (Ms-T)*](../thermomagnetic.ipynb) *not yet developed*
+- [*Hysteresis Loop Analysis*](../VSM_hysteresis.ipynb) *not yet developed*
+- [*Back Field Curves*](../VSM_backfield.ipynb) *not yet developed*
+
+### Kappabridge data analysis
+
+- [*Thermomagnetic Curves*](../kappa_thermomagnetic.ipynb) *not yet developed*
+- [*Anisotropy of Magnetic Susceptibility*](../kappa_anisotropy.ipynb) *not yet developed*
 
 ### MPMS data analysis
 
 These notebooks support the analysis of low-temperature experimental data conducted on a Magnetic Property Measurement System (MPMS).
 
-- [**MPMS Data Plotting**](../MPMS_plot.ipynb) Within this notebook, MPMS data within a measurements file can be plotted. This plotting includes the calculation and visualization of derivative curves.
+- [**MPMS Data Plotting (DC)**](../MPMS_plot_dc.ipynb) Within this notebook, MPMS experiments where remanence was measured upon warming and cooling. This plotting includes the calculation and visualization of derivative curves.
+- [**MPMS Data Plotting (AC)**](../MPMS_plot_ac.ipynb) *not yet developed*
 - [**Verwey Transition Fitting**](../MPMS_verwey_fit.ipynb) In this notebook, Verwey temperature estimates can be made from remanence upon warming experiments conducted on an MPMS.
 
 # Acknowledgements
