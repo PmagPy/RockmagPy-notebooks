@@ -482,7 +482,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "09a4a57c501246f3ac81916b5d089d2c", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "b5cc7af4918641ec9ad9bc8e0df9c374", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p>Once a sample is selected, we can estimate the Verwey transition using the method described above. Adjust the sliders to change the range of the background that is being fit, the temperature range that is being excluded from the background fit, and the polynomial degree that is being used for the background fit.</p>
 <p><em>Note: if you change the specimen or method in the dropdown menus above, rerun the code in the cell below to do the fit for the new specimen.</em></p>
@@ -493,7 +493,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "fc2bd0b7699a437ba12eeed9edbe8a5f", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "e224f27bebcf4fb88a781716f03a867b", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "0a5d357d6c2c4a1eb36559ae0b4a85d5", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "7d9fcf725e1f4910a42df02002f3dc5b", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="use-the-rmag-verwey-estimate-function">
@@ -521,7 +521,7 @@ document.write(`
 <span class="c1">#The polynomial degree for the background fit can be adjusted (default is 3)</span>
 <span class="n">poly_deg</span> <span class="o">=</span> <span class="mi">3</span>
 
-<span class="n">verwey_estimate</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">verwey_estimate</span><span class="p">(</span><span class="n">temps</span><span class="p">,</span> <span class="n">mags</span><span class="p">,</span> 
+<span class="n">verwey_estimate</span><span class="p">,</span> <span class="n">remanence_loss</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">verwey_estimate</span><span class="p">(</span><span class="n">temps</span><span class="p">,</span> <span class="n">mags</span><span class="p">,</span> 
                                        <span class="n">t_range_background_min</span><span class="p">,</span>
                                        <span class="n">t_range_background_max</span><span class="p">,</span>
                                        <span class="n">excluded_t_min</span><span class="p">,</span>
@@ -545,7 +545,7 @@ document.write(`
 <span class="n">temps</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;meas_temp&#39;</span><span class="p">]</span>
 <span class="n">mags</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;magn_mass&#39;</span><span class="p">]</span>
 
-<span class="n">verwey_estimate</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">verwey_estimate</span><span class="p">(</span><span class="n">temps</span><span class="p">,</span> <span class="n">mags</span><span class="p">,</span> 
+<span class="n">verwey_estimate</span><span class="p">,</span> <span class="n">remanence_loss</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">verwey_estimate</span><span class="p">(</span><span class="n">temps</span><span class="p">,</span> <span class="n">mags</span><span class="p">,</span> 
                                        <span class="n">t_range_background_min</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
                                        <span class="n">t_range_background_max</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span>
                                        <span class="n">excluded_t_min</span><span class="o">=</span><span class="mi">75</span><span class="p">,</span>
@@ -618,7 +618,7 @@ document.write(`
     <span class="n">temps</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;meas_temp&#39;</span><span class="p">]</span>
     <span class="n">mags</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;magn_mass&#39;</span><span class="p">]</span>
     
-    <span class="n">verwey_estimate</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">verwey_estimate</span><span class="p">(</span><span class="n">temps</span><span class="p">,</span> <span class="n">mags</span><span class="p">,</span> 
+    <span class="n">verwey_estimate</span><span class="p">,</span> <span class="n">rem_loss</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">verwey_estimate</span><span class="p">(</span><span class="n">temps</span><span class="p">,</span> <span class="n">mags</span><span class="p">,</span> 
                                            <span class="n">t_range_background_min</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;t_range_background_min&#39;</span><span class="p">],</span>
                                            <span class="n">t_range_background_max</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;t_range_background_max&#39;</span><span class="p">],</span>
                                            <span class="n">excluded_t_min</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;excluded_t_min&#39;</span><span class="p">],</span>
@@ -626,7 +626,7 @@ document.write(`
                                            <span class="n">poly_deg</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;poly_deg&#39;</span><span class="p">],</span>
                                            <span class="n">plot_title</span><span class="o">=</span><span class="n">specimen_name</span><span class="p">)</span>
     <span class="c1"># Append the specimen name, Verwey estimate, and all parameters to the list</span>
-    <span class="n">record</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;specimen&#39;</span><span class="p">:</span> <span class="n">specimen_name</span><span class="p">,</span> <span class="s1">&#39;verwey_temp&#39;</span><span class="p">:</span> <span class="n">verwey_estimate</span><span class="p">}</span>
+    <span class="n">record</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;specimen&#39;</span><span class="p">:</span> <span class="n">specimen_name</span><span class="p">,</span> <span class="s1">&#39;verwey_temp&#39;</span><span class="p">:</span> <span class="n">verwey_estimate</span><span class="p">,</span> <span class="s1">&#39;remanence_loss&#39;</span><span class="p">:</span> <span class="n">rem_loss</span><span class="p">}</span>
     <span class="n">record</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>  <span class="c1"># Merge the parameters with the record</span>
     <span class="n">verwey_estimates_and_params</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
     
@@ -668,6 +668,7 @@ document.write(`
       <th></th>
       <th>specimen</th>
       <th>verwey_temp</th>
+      <th>remanence_loss</th>
       <th>t_range_background_min</th>
       <th>t_range_background_max</th>
       <th>excluded_t_min</th>
@@ -680,6 +681,7 @@ document.write(`
       <th>0</th>
       <td>NED18-2c</td>
       <td>105.861068</td>
+      <td>0.003426</td>
       <td>60</td>
       <td>250</td>
       <td>75</td>
@@ -690,6 +692,7 @@ document.write(`
       <th>1</th>
       <td>NED2-8c</td>
       <td>116.145701</td>
+      <td>0.001690</td>
       <td>60</td>
       <td>260</td>
       <td>75</td>
@@ -700,6 +703,7 @@ document.write(`
       <th>2</th>
       <td>NED4-1c</td>
       <td>117.902959</td>
+      <td>0.000448</td>
       <td>60</td>
       <td>260</td>
       <td>75</td>
