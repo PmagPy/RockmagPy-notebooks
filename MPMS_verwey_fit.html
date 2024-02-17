@@ -388,7 +388,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactively-fit-the-verwey-transition">Interactively fit the Verwey transition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-the-rmag-verwey-estimate-function">Use the <code class="docutils literal notranslate"><span class="pre">rmag.verwey_estimate</span></code> function</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-second-derivative-curve">Plot the second derivative curve</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#determine-the-verwey-temperatures-for-additional-specimens">Determine the Verwey temperatures for additional specimens</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#determine-and-record-the-verwey-temperatures-for-multiple-specimens">Determine and record the Verwey temperatures for multiple specimens</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-these-verwey-estimates-to-the-specimens-magic-table">Add these Verwey estimates to the specimens MagIC table</a></li>
 </ul>
             </nav>
         </div>
@@ -402,13 +403,15 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="estimate-the-verwey-transition-temperature">
 <h1>Estimate the Verwey transition temperature<a class="headerlink" href="#estimate-the-verwey-transition-temperature" title="Link to this heading">#</a></h1>
-<p>This using remanence upon warming curves developed through MPMS experiments and uses them to estimate the Verwey transition temperature.</p>
+<p>This notebook demonstrates how to estimate the temperature of the Verwey transition from remanence upon warming curves developed through MPMS experiments.</p>
 <section id="import-scientific-python-libraries">
 <h2>Import scientific python libraries<a class="headerlink" href="#import-scientific-python-libraries" title="Link to this heading">#</a></h2>
 <p>Run the cell below to import the functions needed for the notebook.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rockmag</span> <span class="k">as</span> <span class="nn">rmag</span>
+<span class="kn">import</span> <span class="nn">pmagpy.contribution_builder</span> <span class="k">as</span> <span class="nn">cb</span>
+
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
@@ -426,14 +429,22 @@ document.write(`
 </section>
 <section id="import-measurements">
 <h2>Import measurements<a class="headerlink" href="#import-measurements" title="Link to this heading">#</a></h2>
-<p>After having run the <a class="reference internal" href="rockmag_data_unpack.html"><span class="std std-doc">rockmag_data_unpack.ipynb</span></a> notebook, the folder <code class="docutils literal notranslate"><span class="pre">./example_data/ECMB</span></code>, has a measurements table. We can import that table for analysis into a DataFrame that we will call <code class="docutils literal notranslate"><span class="pre">measurements</span></code>.</p>
+<p>After having run the <a class="reference internal" href="rockmag_data_unpack.html"><span class="std std-doc">rockmag_data_unpack.ipynb</span></a> notebook, the folder <code class="docutils literal notranslate"><span class="pre">./example_data/ECMB</span></code>, has a measurements table. We can bring in the MagIC contribution we are working on import that table for analysis into a DataFrame that we will call <code class="docutils literal notranslate"><span class="pre">measurements</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set the dir_path to the directory where the measurements.txt file is located</span>
 <span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;./example_data/ECMB&#39;</span>
 
-<span class="n">file</span> <span class="o">=</span> <span class="n">dir_path</span> <span class="o">+</span> <span class="s1">&#39;/measurements.txt&#39;</span>
-<span class="n">measurements</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># create a contribution object from the tables in the directory</span>
+<span class="n">contribution</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">Contribution</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
+<span class="n">measurements</span> <span class="o">=</span> <span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;measurements&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-I- Using online data model
+-I- Getting method codes from earthref.org
+-I- Importing controlled vocabularies from https://earthref.org
 </pre></div>
 </div>
 </div>
@@ -471,7 +482,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "7ce2aa76afe64e18a18f1d85fe739ffe", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "09a4a57c501246f3ac81916b5d089d2c", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p>Once a sample is selected, we can estimate the Verwey transition using the method described above. Adjust the sliders to change the range of the background that is being fit, the temperature range that is being excluded from the background fit, and the polynomial degree that is being used for the background fit.</p>
 <p><em>Note: if you change the specimen or method in the dropdown menus above, rerun the code in the cell below to do the fit for the new specimen.</em></p>
@@ -482,7 +493,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "5a5c8304ee7c43e8bf79ca65aecaff74", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "f52a71a6c08647359991d833f89aba11", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "fc2bd0b7699a437ba12eeed9edbe8a5f", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "e224f27bebcf4fb88a781716f03a867b", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="use-the-rmag-verwey-estimate-function">
@@ -520,7 +531,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/d3a94f97d185b5e3bed5a7fd5cdb126c3b91f5e43be1b1ad6ee2c6fde41f84b6.png" src="_images/d3a94f97d185b5e3bed5a7fd5cdb126c3b91f5e43be1b1ad6ee2c6fde41f84b6.png" />
+<img alt="_images/697b53b5377f840b8b97e3d875beefc45f8d1db3b7a9cd475d7bada222ab05d5.png" src="_images/697b53b5377f840b8b97e3d875beefc45f8d1db3b7a9cd475d7bada222ab05d5.png" />
 </div>
 </div>
 </section>
@@ -529,89 +540,899 @@ document.write(`
 <p>The estimate of the Verwey transition calculated above uses second derivative and calculates where the second derivative crosses zero by interpolating from the points on either side of the peak in the first derivative. This calculation can be visualized by setting the parameter <code class="docutils literal notranslate"><span class="pre">plot_zero_crossing</span> <span class="pre">=</span> <span class="pre">True</span></code> which generates an additional plot.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">verwey_estimate</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">verwey_estimate</span><span class="p">(</span><span class="n">temps</span><span class="p">,</span> <span class="n">mags</span><span class="p">,</span> 
-                                       <span class="n">t_range_background_min</span><span class="p">,</span>
-                                       <span class="n">t_range_background_max</span><span class="p">,</span>
-                                       <span class="n">excluded_t_min</span><span class="p">,</span>
-                                       <span class="n">excluded_t_max</span><span class="p">,</span>
-                                       <span class="n">poly_deg</span><span class="p">,</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">specimen_name</span> <span class="o">=</span> <span class="s1">&#39;NED2-8c&#39;</span>
+<span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">extract_mpms_data</span><span class="p">(</span><span class="n">measurements</span><span class="p">,</span> <span class="n">specimen_name</span><span class="p">)</span>
+<span class="n">temps</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;meas_temp&#39;</span><span class="p">]</span>
+<span class="n">mags</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;magn_mass&#39;</span><span class="p">]</span>
+
+<span class="n">verwey_estimate</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">verwey_estimate</span><span class="p">(</span><span class="n">temps</span><span class="p">,</span> <span class="n">mags</span><span class="p">,</span> 
+                                       <span class="n">t_range_background_min</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+                                       <span class="n">t_range_background_max</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span>
+                                       <span class="n">excluded_t_min</span><span class="o">=</span><span class="mi">75</span><span class="p">,</span>
+                                       <span class="n">excluded_t_max</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
+                                       <span class="n">poly_deg</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
                                        <span class="n">plot_zero_crossing</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/dc04ca939d1d4aa2ec10da086acc265385a2a322251ccc425d49dc64376cfa03.png" src="_images/dc04ca939d1d4aa2ec10da086acc265385a2a322251ccc425d49dc64376cfa03.png" />
-<img alt="_images/d3a94f97d185b5e3bed5a7fd5cdb126c3b91f5e43be1b1ad6ee2c6fde41f84b6.png" src="_images/d3a94f97d185b5e3bed5a7fd5cdb126c3b91f5e43be1b1ad6ee2c6fde41f84b6.png" />
+<img alt="_images/bb0370591bafcf8ae77ad7f00546f59b7674346c55159916594039388d9f3fa5.png" src="_images/bb0370591bafcf8ae77ad7f00546f59b7674346c55159916594039388d9f3fa5.png" />
+<img alt="_images/f213425a099bc6ed5b094f18d1d774773468e48613e779f330b5155f152a6a82.png" src="_images/f213425a099bc6ed5b094f18d1d774773468e48613e779f330b5155f152a6a82.png" />
 </div>
 </div>
 </section>
-<section id="determine-the-verwey-temperatures-for-additional-specimens">
-<h2>Determine the Verwey temperatures for additional specimens<a class="headerlink" href="#determine-the-verwey-temperatures-for-additional-specimens" title="Link to this heading">#</a></h2>
-<p>There are three more specimens with LT-SIRM data. Let’s plot those data and determine Verwey temperature estimates.</p>
+<section id="determine-and-record-the-verwey-temperatures-for-multiple-specimens">
+<h2>Determine and record the Verwey temperatures for multiple specimens<a class="headerlink" href="#determine-and-record-the-verwey-temperatures-for-multiple-specimens" title="Link to this heading">#</a></h2>
+<p>There are three specimens with LT-SIRM data. Let’s plot the data for each specimen and estimate the Verwey temperature for each. We want to be able to record all of the parameters along with the estimated Verwey transition.</p>
+<p>We will take the following approach:</p>
+<ul class="simple">
+<li><p>define a list of dictionaries each containing the specimen name and its parameters for the fit (more specimens code be added by making additional dictionaries within the lit).</p></li>
+<li><p>go through each specimen and make the fit using the <code class="docutils literal notranslate"><span class="pre">rmag.verwey_estimate()</span> <span class="pre">function</span></code> while recording the parameters and the estimated temperature.</p></li>
+<li><p>make the recorded parameters into a Dataframe</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">specimen_name</span> <span class="o">=</span> <span class="s1">&#39;NED18-2c&#39;</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">specimen_name</span><span class="p">)</span>
-<span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">extract_mpms_data</span><span class="p">(</span><span class="n">measurements</span><span class="p">,</span> <span class="n">specimen_name</span><span class="p">)</span>
-<span class="n">temps</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;meas_temp&#39;</span><span class="p">]</span>
-<span class="n">mags</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;magn_mass&#39;</span><span class="p">]</span>
-<span class="n">verwey_estimate</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">verwey_estimate</span><span class="p">(</span><span class="n">temps</span><span class="p">,</span> <span class="n">mags</span><span class="p">,</span> 
-                                       <span class="n">t_range_background_min</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
-                                       <span class="n">t_range_background_max</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span>
-                                       <span class="n">excluded_t_min</span><span class="o">=</span><span class="mi">75</span><span class="p">,</span>
-                                       <span class="n">excluded_t_max</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
-                                       <span class="n">poly_deg</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-                                       <span class="n">plot_zero_crossing</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a list of dictionaries, each containing the specimen name and its unique parameters</span>
+<span class="n">specimens_with_params</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;specimen_name&#39;</span><span class="p">:</span> <span class="s1">&#39;NED18-2c&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;t_range_background_min&#39;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
+            <span class="s1">&#39;t_range_background_max&#39;</span><span class="p">:</span> <span class="mi">250</span><span class="p">,</span>
+            <span class="s1">&#39;excluded_t_min&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span>
+            <span class="s1">&#39;excluded_t_max&#39;</span><span class="p">:</span> <span class="mi">150</span><span class="p">,</span>
+            <span class="s1">&#39;poly_deg&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;specimen_name&#39;</span><span class="p">:</span> <span class="s1">&#39;NED2-8c&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;t_range_background_min&#39;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
+            <span class="s1">&#39;t_range_background_max&#39;</span><span class="p">:</span> <span class="mi">260</span><span class="p">,</span>
+            <span class="s1">&#39;excluded_t_min&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span>
+            <span class="s1">&#39;excluded_t_max&#39;</span><span class="p">:</span> <span class="mi">150</span><span class="p">,</span>
+            <span class="s1">&#39;poly_deg&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;specimen_name&#39;</span><span class="p">:</span> <span class="s1">&#39;NED4-1c&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;t_range_background_min&#39;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
+            <span class="s1">&#39;t_range_background_max&#39;</span><span class="p">:</span> <span class="mi">260</span><span class="p">,</span>
+            <span class="s1">&#39;excluded_t_min&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span>
+            <span class="s1">&#39;excluded_t_max&#39;</span><span class="p">:</span> <span class="mi">150</span><span class="p">,</span>
+            <span class="s1">&#39;poly_deg&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="c1"># Initialize an empty list to store Verwey transition estimates along with parameters</span>
+<span class="n">verwey_estimates_and_params</span> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="n">specimen_name</span> <span class="o">=</span> <span class="s1">&#39;NED2-8c&#39;</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">specimen_name</span><span class="p">)</span>
-<span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">extract_mpms_data</span><span class="p">(</span><span class="n">measurements</span><span class="p">,</span> <span class="n">specimen_name</span><span class="p">)</span>
-<span class="n">temps</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;meas_temp&#39;</span><span class="p">]</span>
-<span class="n">mags</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;magn_mass&#39;</span><span class="p">]</span>
-<span class="n">verwey_estimate</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">verwey_estimate</span><span class="p">(</span><span class="n">temps</span><span class="p">,</span> <span class="n">mags</span><span class="p">,</span> 
-                                       <span class="n">t_range_background_min</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
-                                       <span class="n">t_range_background_max</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span>
-                                       <span class="n">excluded_t_min</span><span class="o">=</span><span class="mi">75</span><span class="p">,</span>
-                                       <span class="n">excluded_t_max</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
-                                       <span class="n">poly_deg</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-                                       <span class="n">plot_zero_crossing</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-
-<span class="n">specimen_name</span> <span class="o">=</span> <span class="s1">&#39;NED2-8c&#39;</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">specimen_name</span><span class="p">)</span>
-<span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">extract_mpms_data</span><span class="p">(</span><span class="n">measurements</span><span class="p">,</span> <span class="n">specimen_name</span><span class="p">)</span>
-<span class="n">temps</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;meas_temp&#39;</span><span class="p">]</span>
-<span class="n">mags</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;magn_mass&#39;</span><span class="p">]</span>
-<span class="n">verwey_estimate</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">verwey_estimate</span><span class="p">(</span><span class="n">temps</span><span class="p">,</span> <span class="n">mags</span><span class="p">,</span> 
-                                       <span class="n">t_range_background_min</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
-                                       <span class="n">t_range_background_max</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span>
-                                       <span class="n">excluded_t_min</span><span class="o">=</span><span class="mi">75</span><span class="p">,</span>
-                                       <span class="n">excluded_t_max</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
-                                       <span class="n">poly_deg</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-                                       <span class="n">plot_zero_crossing</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="c1"># Process each specimen with its unique parameters</span>
+<span class="k">for</span> <span class="n">specimen</span> <span class="ow">in</span> <span class="n">specimens_with_params</span><span class="p">:</span>
+    <span class="n">specimen_name</span> <span class="o">=</span> <span class="n">specimen</span><span class="p">[</span><span class="s1">&#39;specimen_name&#39;</span><span class="p">]</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="n">specimen</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">]</span>
+    
+    <span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">extract_mpms_data</span><span class="p">(</span><span class="n">measurements</span><span class="p">,</span> <span class="n">specimen_name</span><span class="p">)</span>
+    <span class="n">temps</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;meas_temp&#39;</span><span class="p">]</span>
+    <span class="n">mags</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;magn_mass&#39;</span><span class="p">]</span>
+    
+    <span class="n">verwey_estimate</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">verwey_estimate</span><span class="p">(</span><span class="n">temps</span><span class="p">,</span> <span class="n">mags</span><span class="p">,</span> 
+                                           <span class="n">t_range_background_min</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;t_range_background_min&#39;</span><span class="p">],</span>
+                                           <span class="n">t_range_background_max</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;t_range_background_max&#39;</span><span class="p">],</span>
+                                           <span class="n">excluded_t_min</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;excluded_t_min&#39;</span><span class="p">],</span>
+                                           <span class="n">excluded_t_max</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;excluded_t_max&#39;</span><span class="p">],</span>
+                                           <span class="n">poly_deg</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;poly_deg&#39;</span><span class="p">],</span>
+                                           <span class="n">plot_title</span><span class="o">=</span><span class="n">specimen_name</span><span class="p">)</span>
+    <span class="c1"># Append the specimen name, Verwey estimate, and all parameters to the list</span>
+    <span class="n">record</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;specimen&#39;</span><span class="p">:</span> <span class="n">specimen_name</span><span class="p">,</span> <span class="s1">&#39;verwey_temp&#39;</span><span class="p">:</span> <span class="n">verwey_estimate</span><span class="p">}</span>
+    <span class="n">record</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>  <span class="c1"># Merge the parameters with the record</span>
+    <span class="n">verwey_estimates_and_params</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+    
+<span class="n">verwey_estimates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">verwey_estimates_and_params</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NED18-2c
+<img alt="_images/949874f7791a4da9ea0db0056089ca2a18f98f5ea5eca31062c757f5a498adec.png" src="_images/949874f7791a4da9ea0db0056089ca2a18f98f5ea5eca31062c757f5a498adec.png" />
+<img alt="_images/d611b7a8c4d1f8f7407a8e19939ee2dca1071e3355dba89ef9822c63e66922ba.png" src="_images/d611b7a8c4d1f8f7407a8e19939ee2dca1071e3355dba89ef9822c63e66922ba.png" />
+<img alt="_images/7eb202074642b97b86ebc2a57d34e97ce331227858dc4c4c4ee2df0f7bf51977.png" src="_images/7eb202074642b97b86ebc2a57d34e97ce331227858dc4c4c4ee2df0f7bf51977.png" />
+</div>
+</div>
+<p>We can now have a look at Verwey estimate that have been recorded:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">verwey_estimates</span>
 </pre></div>
 </div>
-<img alt="_images/b46d512366ea21152a749a72222c56476c9c487dc540df144e5304bf564388d6.png" src="_images/b46d512366ea21152a749a72222c56476c9c487dc540df144e5304bf564388d6.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NED2-8c
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>specimen</th>
+      <th>verwey_temp</th>
+      <th>t_range_background_min</th>
+      <th>t_range_background_max</th>
+      <th>excluded_t_min</th>
+      <th>excluded_t_max</th>
+      <th>poly_deg</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NED18-2c</td>
+      <td>105.861068</td>
+      <td>60</td>
+      <td>250</td>
+      <td>75</td>
+      <td>150</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NED2-8c</td>
+      <td>116.145701</td>
+      <td>60</td>
+      <td>260</td>
+      <td>75</td>
+      <td>150</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NED4-1c</td>
+      <td>117.902959</td>
+      <td>60</td>
+      <td>260</td>
+      <td>75</td>
+      <td>150</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="add-these-verwey-estimates-to-the-specimens-magic-table">
+<h2>Add these Verwey estimates to the specimens MagIC table<a class="headerlink" href="#add-these-verwey-estimates-to-the-specimens-magic-table" title="Link to this heading">#</a></h2>
+<p>We can now go through and update the specimens table with these Verwey estimates.</p>
+<p><em>note that there is an issue here (see <a class="github reference external" href="https://github.com/PmagPy/RockmagPy-notebooks/issues/14">PmagPy/RockmagPy-notebooks#14</a>)
+that there are multiple specimen entries for each specimen such that these estimates
+are being written to multiple rows in the below approach</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">specimens</span> <span class="o">=</span> <span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;specimens&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
+
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">verwey_estimates</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">specimen_name</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span>
+    <span class="n">verwey_temp</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;verwey_temp&#39;</span><span class="p">]</span>
+    <span class="n">specimens</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">specimen_name</span><span class="p">,</span> <span class="s1">&#39;critical_temp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">verwey_temp</span>
+    <span class="n">specimens</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">specimen_name</span><span class="p">,</span> <span class="s1">&#39;critical_temp_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Verwey&#39;</span>
+    
+<span class="n">specimens</span>
 </pre></div>
 </div>
-<img alt="_images/2375ad635f80c28f4eced1c2bb176e7cc1e8be1e43a207899e5f8fb874f719a1.png" src="_images/2375ad635f80c28f4eced1c2bb176e7cc1e8be1e43a207899e5f8fb874f719a1.png" />
-<img alt="_images/1946a80bad47d78b30dd8d764038e4a85fddea02c01825ba13e331278eb030fc.png" src="_images/1946a80bad47d78b30dd8d764038e4a85fddea02c01825ba13e331278eb030fc.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NED2-8c
-</pre></div>
 </div>
-<img alt="_images/bfb28017326a47907090586672e731bb62468862c636bdb8897b2f41828f1407.png" src="_images/bfb28017326a47907090586672e731bb62468862c636bdb8897b2f41828f1407.png" />
-<img alt="_images/1946a80bad47d78b30dd8d764038e4a85fddea02c01825ba13e331278eb030fc.png" src="_images/1946a80bad47d78b30dd8d764038e4a85fddea02c01825ba13e331278eb030fc.png" />
-<img alt="_images/bfb28017326a47907090586672e731bb62468862c636bdb8897b2f41828f1407.png" src="_images/bfb28017326a47907090586672e731bb62468862c636bdb8897b2f41828f1407.png" />
-</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>azimuth</th>
+      <th>citations</th>
+      <th>contribution_id</th>
+      <th>critical_temp</th>
+      <th>critical_temp_high</th>
+      <th>critical_temp_low</th>
+      <th>critical_temp_mineral</th>
+      <th>critical_temp_type</th>
+      <th>description</th>
+      <th>dip</th>
+      <th>experiments</th>
+      <th>hyst_bc</th>
+      <th>hyst_bc_offset</th>
+      <th>hyst_bcr</th>
+      <th>hyst_loop</th>
+      <th>hyst_mr_mass</th>
+      <th>hyst_ms_mass</th>
+      <th>hyst_xhf</th>
+      <th>igsn</th>
+      <th>igsn_parent</th>
+      <th>instrument_codes</th>
+      <th>meas_orient_phi</th>
+      <th>meas_orient_theta</th>
+      <th>meas_temp</th>
+      <th>method_codes</th>
+      <th>mineral_type</th>
+      <th>rem_hirm_mass</th>
+      <th>rem_sratio</th>
+      <th>rem_sratio_back</th>
+      <th>rem_sratio_forward</th>
+      <th>result_quality</th>
+      <th>row_id</th>
+      <th>sample</th>
+      <th>specimen</th>
+      <th>synthetic_alternatives</th>
+      <th>volume</th>
+      <th>weight</th>
+    </tr>
+    <tr>
+      <th>specimen name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>NED1-5c</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>pmag core chip</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>NED1-5</td>
+      <td>NED1-5c</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>0.000155</td>
+    </tr>
+    <tr>
+      <th>NED18-2c</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>105.861068</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Verwey</td>
+      <td>pmag core chip</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>NED18-2</td>
+      <td>NED18-2c</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>0.000254</td>
+    </tr>
+    <tr>
+      <th>NED2-8c</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>116.145701</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Verwey</td>
+      <td>pmag core chip</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>NED2-8</td>
+      <td>NED2-8c</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>0.000188</td>
+    </tr>
+    <tr>
+      <th>NED4-1c</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>117.902959</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Verwey</td>
+      <td>pmag core chip</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>NED4-1</td>
+      <td>NED4-1c</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>0.000211</td>
+    </tr>
+    <tr>
+      <th>NED6-6c</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>pmag core chip</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>NED6-6</td>
+      <td>NED6-6c</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>0.000133</td>
+    </tr>
+    <tr>
+      <th>NED1-5c</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.01427</td>
+      <td>0.000100</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.006022</td>
+      <td>0.035780</td>
+      <td>2.050000e-07</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-VSM3</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>300.0</td>
+      <td>LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NED1-5</td>
+      <td>NED1-5c</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000154</td>
+    </tr>
+    <tr>
+      <th>NED18-2c</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>105.861068</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Verwey</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.01001</td>
+      <td>0.000377</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.013740</td>
+      <td>0.122900</td>
+      <td>2.010000e-07</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-VSM3</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>300.0</td>
+      <td>LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NED18-2</td>
+      <td>NED18-2c</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000254</td>
+    </tr>
+    <tr>
+      <th>NED2-8c</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>116.145701</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Verwey</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.01600</td>
+      <td>0.000543</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.006807</td>
+      <td>0.044180</td>
+      <td>2.168000e-07</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-VSM3</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>300.0</td>
+      <td>LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NED2-8</td>
+      <td>NED2-8c</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000188</td>
+    </tr>
+    <tr>
+      <th>NED4-1c</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>117.902959</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Verwey</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.03551</td>
+      <td>0.004018</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.001537</td>
+      <td>0.005557</td>
+      <td>2.859000e-07</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-VSM3</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>300.0</td>
+      <td>LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NED4-1</td>
+      <td>NED4-1c</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000211</td>
+    </tr>
+    <tr>
+      <th>NED6-6c</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.02276</td>
+      <td>0.006181</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000773</td>
+      <td>0.004660</td>
+      <td>2.991000e-07</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-VSM3</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>300.0</td>
+      <td>LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NED6-6</td>
+      <td>NED6-6c</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000133</td>
+    </tr>
+    <tr>
+      <th>NED1-5c</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0264</td>
+      <td>NaN</td>
+      <td>0.006201</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-VSM3</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>300.0</td>
+      <td>LP-BCR-BF</td>
+      <td>NaN</td>
+      <td>-0.000007</td>
+      <td>0.931</td>
+      <td>0.1</td>
+      <td>1.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NED1-5</td>
+      <td>NED1-5c</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000154</td>
+    </tr>
+    <tr>
+      <th>NED18-2c</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>105.861068</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Verwey</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0210</td>
+      <td>NaN</td>
+      <td>0.014450</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-VSM3</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>300.0</td>
+      <td>LP-BCR-BF</td>
+      <td>NaN</td>
+      <td>0.000066</td>
+      <td>0.938</td>
+      <td>0.1</td>
+      <td>1.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NED18-2</td>
+      <td>NED18-2c</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000254</td>
+    </tr>
+    <tr>
+      <th>NED2-8c</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>116.145701</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Verwey</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0344</td>
+      <td>NaN</td>
+      <td>0.006853</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-VSM3</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>300.0</td>
+      <td>LP-BCR-BF</td>
+      <td>NaN</td>
+      <td>0.000074</td>
+      <td>0.846</td>
+      <td>0.1</td>
+      <td>1.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NED2-8</td>
+      <td>NED2-8c</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000188</td>
+    </tr>
+    <tr>
+      <th>NED18-2c</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>105.861068</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Verwey</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-BigRed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>SM-1DMAX:LP-FC</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NED18-2c</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>NED18-2c</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>105.861068</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Verwey</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-BigRed</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>SM-1DMAX:LP-FC</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NED18-2c</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </section>
 </section>
@@ -680,7 +1501,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactively-fit-the-verwey-transition">Interactively fit the Verwey transition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-the-rmag-verwey-estimate-function">Use the <code class="docutils literal notranslate"><span class="pre">rmag.verwey_estimate</span></code> function</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-second-derivative-curve">Plot the second derivative curve</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#determine-the-verwey-temperatures-for-additional-specimens">Determine the Verwey temperatures for additional specimens</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#determine-and-record-the-verwey-temperatures-for-multiple-specimens">Determine and record the Verwey temperatures for multiple specimens</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-these-verwey-estimates-to-the-specimens-magic-table">Add these Verwey estimates to the specimens MagIC table</a></li>
 </ul>
   </nav></div>
 
