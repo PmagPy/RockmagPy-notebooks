@@ -413,9 +413,8 @@ def verwey_estimate(temps, mags,
     verwey_estimate = zero_crossing(temps_dM_dT_background, mgt_dM_dT, 
                                     make_plot=plot_zero_crossing, xlim=(excluded_t_min, excluded_t_max))
     
-    # print('The r-squared value for the background fit is: ' + str(round(r_squared,3)))
-    # print('The Verwey temperature estimate is: ' + str(round(verwey_estimate,1)) + ' K')
-
+    remanence_loss = mgt_curve.iloc[0] - mgt_curve.iloc[-1]
+    
     fig = plt.figure(figsize=(12,5))
     ax0 = fig.add_subplot(1,2,1)
     ax0.plot(temps, mags, '.-', color='red', label='measurement')
@@ -458,7 +457,7 @@ def verwey_estimate(temps, mags,
         ax1.set_title(plot_title)
     #plt.show()
 
-    return verwey_estimate
+    return verwey_estimate, remanence_loss
 
 
 def interactive_verwey_estimate(measurements, specimen_dropdown, method_dropdown):
