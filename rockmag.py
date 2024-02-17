@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.patches as patches
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import ipywidgets as widgets
@@ -364,7 +365,8 @@ def verwey_estimate(temps, mags,
                     excluded_t_min = 75,
                     excluded_t_max = 150,
                     poly_deg = 3,
-                    plot_zero_crossing = False):
+                    plot_zero_crossing = False,
+                    plot_title = None):
     
     temps.reset_index(drop=True, inplace=True)
     mags.reset_index(drop=True, inplace=True)
@@ -428,6 +430,8 @@ def verwey_estimate(temps, mags,
     ax0.legend(loc='upper right')
     ax0.grid(True)
     ax0.ticklabel_format(axis='y', style='scientific', scilimits=(0,0))
+    if plot_title is not None:
+        ax0.set_title(plot_title)
 
     ax1 = fig.add_subplot(1,2,2)
     ax1.plot(dM_dT_df['T'], dM_dT_df['dM_dT'], '.-', color='red', label='measurement')
@@ -437,11 +441,21 @@ def verwey_estimate(temps, mags,
     ax1.plot(verwey_estimate, verwey_y_value, '*', color='pink', markersize=10,
          markeredgecolor='black', markeredgewidth=1,
          label='Verwey estimate' + ' (' + str(round(verwey_estimate,1)) + ' K)')
+    rectangle = patches.Rectangle((excluded_t_min, ax1.get_ylim()[0]), excluded_t_max - excluded_t_min, 
+                                  ax1.get_ylim()[1] - ax1.get_ylim()[0], 
+                                  linewidth=0, edgecolor=None, facecolor='gray', 
+                                  alpha=0.3)
+    ax1.add_patch(rectangle)
+    rect_legend_patch = patches.Patch(color='gray', alpha=0.3, label='excluded from background fit')
+    handles, labels = ax1.get_legend_handles_labels()
+    handles.append(rect_legend_patch)  # Add the rectangle legend patch
+    ax1.legend(handles=handles, loc='lower right')
     ax1.set_ylabel('dM/dT (Am$^2$/kg/K)')
     ax1.set_xlabel('T (K)')
-    ax1.legend(loc='lower right')
     ax1.grid(True)
     ax1.ticklabel_format(axis='y', style='scientific', scilimits=(0,0))
+    if plot_title is not None:
+        ax1.set_title(plot_title)
     #plt.show()
 
     return verwey_estimate
@@ -460,9 +474,12 @@ def interactive_verwey_estimate(measurements, specimen_dropdown, method_dropdown
         temps = zfc_data['meas_temp']
         mags = zfc_data['magn_mass']
 
-    # Adjust the layout for the sliders
-    slider_layout = widgets.Layout(width='500px')
-    description_style = {'description_width': 'initial'}
+    # Determine a fixed width for the descriptions to align the sliders
+    description_width = '250px'  # Adjust this based on the longest description
+    slider_total_width = '600px'  # Total width of the slider widget including the description
+
+    description_style = {'description_width': description_width}
+    slider_layout = widgets.Layout(width=slider_total_width)  # Set the total width of the slider widget
 
     # Update sliders to use IntRangeSlider
     background_temp_range_slider = widgets.IntRangeSlider(
