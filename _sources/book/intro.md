@@ -48,7 +48,7 @@ Develop new contributions and analyze existing datasets in the MagIC database.
 
 ## Jupyter notebooks using RockmagPy
 
-This page links to available notebooks that have been developed to use RockmagPy to analyze data.
+This page links to available notebooks that have been developed to use RockmagPy to analyze data from rock magnetic experiments.
 The notebook versions that are shown within this book are static (they don't run the code).
 Some of the interactive features that have been developed are not visible as they would be in a running notebook. 
 They do give an overall sense of what functions are available within RockmagPy and explain
