@@ -70,7 +70,7 @@ def get_plotly_marker(matplotlib_marker):
 
 
 def plot_mpms_data(fc_data, zfc_data, rtsirm_cool_data, rtsirm_warm_data, 
-                   fc_color='#1f77b4', zfc_color='#ff7f0e', rtsirm_cool_color='#2ca02c', rtsirm_warm_color='#d62728',
+                   fc_color='#1f77b4', zfc_color='#ff7f0e', rtsirm_cool_color='#17becf', rtsirm_warm_color='#d62728',
                    fc_marker='.', zfc_marker='.', rtsirm_cool_marker='.', rtsirm_warm_marker='.',
                    symbol_size=10, use_plotly=False, plot_derivative=False, return_figure=False):
     """
@@ -253,45 +253,50 @@ def make_mpms_plots(measurements):
     display(specimen_dropdown, plot_choice, out)
            
         
-def thermomag_derivative(temps, mags):
+def thermomag_derivative(temps, mags, drop_last=False, drop_first=False):
     """
-    Calculates the derivative of magnetization with respect to temperature.
-
-    This function computes the first derivative of magnetization (M) with respect to 
-    temperature (T). It takes into account the changes in magnetization and temperature
-    to produce a derivative curve, which is essential in thermomagnetic analysis.
+    Calculates the derivative of magnetization with respect to temperature and optionally
+    drops the data corresponding to the highest and/or lowest temperature.
 
     Parameters:
-        temps (pd.Series): A pandas Series representing the temperatures at which 
+        temps (pd.Series): A pandas Series representing the temperatures at which
                            magnetization measurements were taken.
         mags (pd.Series): A pandas Series representing the magnetization measurements.
+        drop_last (bool): Optional; whether to drop the last row from the resulting
+                          DataFrame. Defaults to False. Useful when there is an
+                          artifact associated with the end of the experiment.
+        drop_first (bool): Optional; whether to drop the first row from the resulting
+                           DataFrame. Defaults to False. Useful when there is an
+                          artifact associated with the start of the experiment.
 
     Returns:
         pd.DataFrame: A pandas DataFrame with two columns:
                       'T' - Midpoint temperatures for each temperature interval.
                       'dM_dT' - The derivative of magnetization with respect to temperature.
-
-    Example:
-        >>> temps = pd.Series([100, 150, 200, 250, 300])
-        >>> mags = pd.Series([1.2, 1.5, 1.8, 2.0, 2.2])
-        >>> result = thermomag_derivative(temps, mags)
+                      If drop_last is True, the last temperature point is excluded.
+                      If drop_first is True, the first temperature point is excluded.
     """
     temps = temps.reset_index(drop=True)
     mags = mags.reset_index(drop=True)
     
     dT = temps.diff()
     dM = mags.diff()
-
-    dM_dT = dM/dT
+    dM_dT = dM / dT
     dM_dT_real = dM_dT[1:]
-    dM_dT_real.reset_index(drop = True, inplace=True)
+    dM_dT_real.reset_index(drop=True, inplace=True)
 
-    temps_dM_dT = []
-    for n in range(len(temps)-1):
-        temps_dM_dT.append(temps[n] + dT[n+1]/2)
+    temps_dM_dT = [temps[n] + dT[n + 1] / 2 for n in range(len(temps) - 1)]
     temps_dM_dT = pd.Series(temps_dM_dT)
 
-    dM_dT_df = pd.DataFrame({'T':temps_dM_dT,'dM_dT':dM_dT_real})
+    dM_dT_df = pd.DataFrame({'T': temps_dM_dT, 'dM_dT': dM_dT_real})
+
+    # Drop the last row if specified
+    if drop_last:
+        dM_dT_df = dM_dT_df[:-1].reset_index(drop=True)
+    
+    # Drop the first row if specified
+    if drop_first:
+        dM_dT_df = dM_dT_df[1:].reset_index(drop=True)
     
     return dM_dT_df
 
