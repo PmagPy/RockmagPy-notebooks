@@ -379,6 +379,11 @@ def verwey_estimate(temps, mags,
                     poly_deg = 3,
                     plot_zero_crossing = False,
                     plot_title = None):
+    """
+    This function estimates the Verwey transition temperature and remanence loss of magnetite from MPMS data.
+    
+    Parameters:
+    """
     
     temps.reset_index(drop=True, inplace=True)
     mags.reset_index(drop=True, inplace=True)
@@ -425,7 +430,7 @@ def verwey_estimate(temps, mags,
     verwey_estimate = zero_crossing(temps_dM_dT_background, mgt_dM_dT, 
                                     make_plot=plot_zero_crossing, xlim=(excluded_t_min, excluded_t_max))
     
-    remanence_loss = mgt_curve.iloc[0] - mgt_curve.iloc[-1]
+    remanence_loss = np.trapz(mgt_dM_dT, temps_dM_dT_background)
     
     fig = plt.figure(figsize=(12,5))
     ax0 = fig.add_subplot(1,2,1)
