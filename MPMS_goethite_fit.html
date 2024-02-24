@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Numerically fit and remove the goethite component in RT-SIRM curves &#8212; RockmagPy Documentation</title>
+    <title>Fit and remove the goethite component &#8212; RockmagPy Documentation</title>
   
   
   
@@ -184,7 +184,7 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="MPMS_plot.html">MPMS data visualization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="MPMS_verwey_fit.html">Estimate the Verwey transition temperature</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Numerically fit and remove the goethite component in RT-SIRM curves</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Fit and remove the goethite component</a></li>
 </ul>
 
     </div>
@@ -370,7 +370,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Numerically fit and remove the goethite component in RT-SIRM curves</h1>
+    <h1>Fit and remove the goethite component</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -401,9 +401,9 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="numerically-fit-and-remove-the-goethite-component-in-rt-sirm-curves">
-<h1>Numerically fit and remove the goethite component in RT-SIRM curves<a class="headerlink" href="#numerically-fit-and-remove-the-goethite-component-in-rt-sirm-curves" title="Link to this heading">#</a></h1>
-<p>This notebook applies an approach of fitting and then subtracting a polynomial to Room Temperature Saturation Isothermal Remanent Magnetization (RT-SIRM) low-temperature cycling data in order to approximately remove the contribution that could be due to goethite. The goal in doing so is to be able to isolate the change in remanence that could be associated with other behavior such as the Verwey and Morin transitions.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="fit-and-remove-the-goethite-component">
+<h1>Fit and remove the goethite component<a class="headerlink" href="#fit-and-remove-the-goethite-component" title="Link to this heading">#</a></h1>
+<p>This notebook applies an approach of fitting a polynomial to Room Temperature Saturation Isothermal Remanent Magnetization (RT-SIRM) low-temperature cycling data and then subtracting it in order to approximately remove the contribution that could be due to goethite. The goal in doing so is to be able to isolate the change in remanence that could be associated with other behavior such as the Verwey and Morin transitions.</p>
 <section id="introduction-to-goethite-and-its-low-temperature-behavior">
 <h2>Introduction to goethite and its low-temperature behavior<a class="headerlink" href="#introduction-to-goethite-and-its-low-temperature-behavior" title="Link to this heading">#</a></h2>
 <p>Goethite (α-FeOOH) is a common oxyhydroxide within soils, sediments, and other oxidized materials on Earth’s surface. When goethite is cooled from room temperature (~300 K) to lower temperatures, it exhibits an increase in its magnetization (<a class="reference external" href="http://doi.org/10.1029/GL016i008p00851">Rochette and Fillion, 1989</a>). This increase is reversible when goethite is warmed back up to room temperature (<a class="reference external" href="http://doi.org/10.1016/j.palaeo.2006.01.008">Carter-Stiglitz et al., 2006</a>).</p>
@@ -721,7 +721,7 @@ working on:  &#39;measurements\r&#39;
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rmag</span><span class="o">.</span><span class="n">goethite_removal</span><span class="p">(</span><span class="n">rtsirm_warm_data</span><span class="p">,</span> 
                      <span class="n">rtsirm_cool_data</span><span class="p">,</span>
-                     <span class="n">t_min</span><span class="o">=</span><span class="mi">160</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="mi">295</span><span class="p">,</span> <span class="n">poly_deg</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+                     <span class="n">t_min</span><span class="o">=</span><span class="mi">160</span><span class="p">,</span> <span class="n">t_max</span><span class="o">=</span><span class="mi">295</span><span class="p">,</span> <span class="n">poly_deg</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
