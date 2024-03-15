@@ -1,0 +1,7 @@
+tab 	samples
+azimuth	contribution_id	description	dip	height	lat	lon	sample	site
+	This study		90		45.5342	-94.242	NED1-5	NED1
+	This study		90		45.5312	-94.2305	NED18-2	NED18
+	This study		90		45.5342	-94.2419	NED2-8	NED2
+	This study		90		45.5334	-94.2414	NED4-1	NED4
+	This study		90		45.533	-94.2423	NED6-6	NED6

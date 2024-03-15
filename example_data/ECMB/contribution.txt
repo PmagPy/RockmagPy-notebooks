@@ -1,0 +1,3 @@
+tab 	contribution
+author	contributor	data_model_version	description	funding	id	is_reviewed	is_validated	lab_names	reference	supplemental_links	timestamp	version
+								Institute for Rock Magnetism (University of Minnesota, USA)				
