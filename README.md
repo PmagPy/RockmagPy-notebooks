@@ -2,7 +2,7 @@
 
 [![Jupyter Book Badge](https://jupyterbook.org/badge.svg)](https://pmagpy.github.io/RockmagPy-notebooks)
 
-This repository is for the development and demonstration of the `rockmag.py` function module. The ultimate goal is to integrate additional functionality for the analysis of rock magnetic experiments into the `pmagpy` package. To facilitate development, the initial rockmag.py module is in this repository along with notebooks that use the rockmag.py functions to visualize and analyze data.
+This repository is for the development and demonstration of the `rockmag.py` function module. The ultimate goal of these functions are to integrate additional functionality for the analysis of rock magnetic experiments into the `pmagpy` package. To facilitate development, the initial rockmag.py module is in this repository along with notebooks that use the rockmag.py functions to visualize and analyze data.
 
 The notebooks within this repository can all be seen as webpages here: https://pmagpy.github.io/RockmagPy-notebooks
 
