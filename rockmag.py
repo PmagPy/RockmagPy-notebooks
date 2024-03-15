@@ -832,7 +832,9 @@ def loop_grid(n_loop, polydegree, nsmooth, loop_fields, loop_moments, B_offset, 
                 break
             if j > 1:
                 j -= 1
-        while not (loop_fields[j] - B_offset <= grid_fields[i]) or (j >= n_loop // 2):
+        while not (loop_fields[j] - B_offset <= grid_fields[i]): #or (j >= n_loop // 2):
+            if j >= n_loop // 2:
+                break
             if j < n_loop // 2:
                 j += 1
 
@@ -855,12 +857,14 @@ def loop_grid(n_loop, polydegree, nsmooth, loop_fields, loop_moments, B_offset, 
 
     for i in range(n_loop // 2, n_loop):
         while not (loop_fields[j] - B_offset <= grid_fields[i]): # or (j <= n_loop // 2 + 1):
-            if j <= n_loop // 2 + 1:
+            if j <= n_loop // 2: #+ 1:
                 break
-            if j > n_loop // 2 + 1:
+            if j > n_loop // 2: #+ 1:
                 j -= 1
-        while not (loop_fields[j] - B_offset >= grid_fields[i]) or (j >= n_loop):
-            if j < n_loop:
+        while not (loop_fields[j] - B_offset >= grid_fields[i]): # or (j >= n_loop):
+            if j >= n_loop -1:
+                break
+            if j < n_loop -1:
                 j += 1
 
         k = 1
