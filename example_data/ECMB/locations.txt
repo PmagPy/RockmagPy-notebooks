@@ -1,0 +1,12 @@
+tab 	locations
+contribution_id	description	lat_n	lat_s	location	lon_e	lon_w
+This study	geologic province	45.5342	45.5342	ECMB	-94.242	-94.242
+This study	geologic province	45.5342	45.5342	ECMB	-94.242	-94.242
+This study	geologic province	45.5312	45.5312	ECMB	-94.2305	-94.2305
+This study	geologic province	45.5312	45.5312	ECMB	-94.2305	-94.2305
+This study	geologic province	45.5342	45.5342	ECMB	-94.2419	-94.2419
+This study	geologic province	45.5342	45.5342	ECMB	-94.2419	-94.2419
+This study	geologic province	45.5334	45.5334	ECMB	-94.2414	-94.2414
+This study	geologic province	45.5334	45.5334	ECMB	-94.2414	-94.2414
+This study	geologic province	45.533	45.533	ECMB	-94.2423	-94.2423
+This study	geologic province	45.533	45.533	ECMB	-94.2423	-94.2423

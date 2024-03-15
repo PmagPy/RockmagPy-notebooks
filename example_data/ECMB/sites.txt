@@ -1,0 +1,7 @@
+tab 	sites
+contribution_id	description	elevation	lat	location	lon	site
+This study	ECMB dike		45.5342	ECMB	-94.242	NED1
+This study	ECMB dike		45.5312	ECMB	-94.2305	NED18
+This study	ECMB dike		45.5342	ECMB	-94.2419	NED2
+This study	ECMB dike		45.5334	ECMB	-94.2414	NED4
+This study	ECMB dike		45.533	ECMB	-94.2423	NED6
