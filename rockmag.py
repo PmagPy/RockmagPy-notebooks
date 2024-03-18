@@ -102,7 +102,7 @@ def plot_mpms_data(fc_data, zfc_data, rtsirm_cool_data, rtsirm_warm_data,
                    fc_color='#1f77b4', zfc_color='#ff7f0e', rtsirm_cool_color='#17becf', rtsirm_warm_color='#d62728',
                    fc_marker='.', zfc_marker='.', rtsirm_cool_marker='.', rtsirm_warm_marker='.',
                    symbol_size=10, use_plotly=False, plot_derivative=False, return_figure=False,
-                   drop_first=False):
+                   drop_first=False, drop_last=False):
     """
     Plots MPMS data and optionally its derivatives for Field Cooled, Zero Field Cooled, RTSIRM Cooling, and RTSIRM Warming using either Matplotlib or Plotly.
 
@@ -122,6 +122,12 @@ def plot_mpms_data(fc_data, zfc_data, rtsirm_cool_data, rtsirm_warm_data,
         zfc_data = zfc_data[1:]
         rtsirm_cool_data = rtsirm_cool_data[1:]
         rtsirm_warm_data = rtsirm_warm_data[1:]
+        
+    if drop_last:
+        fc_data = fc_data[:-1]
+        zfc_data = zfc_data[:-1]
+        rtsirm_cool_data = rtsirm_cool_data[:-1]
+        rtsirm_warm_data = rtsirm_warm_data[:-1]
         
     if plot_derivative:
         fc_derivative = thermomag_derivative(fc_data['meas_temp'], fc_data['magn_mass'])
@@ -406,7 +412,7 @@ def make_hyst_plots(measurements):
     display(specimen_dropdown, plot_choice, out)
 
     
-def thermomag_derivative(temps, mags):
+def thermomag_derivative(temps, mags, drop_first=False, drop_last=False):
     """
     Calculates the derivative of magnetization with respect to temperature and optionally
     drops the data corresponding to the highest and/or lowest temperature.
