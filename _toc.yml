@@ -4,12 +4,12 @@
 format: jb-book
 root: book/intro.md
 parts:
-  - caption: Nuts & Bolts
-    chapters:
-    - file: rockmag_set_up
-    - file: rockmag_data_unpack
+  # - caption: Nuts & Bolts
+  #   chapters:
+  #   - file: rockmag_set_up
+  #   - file: rockmag_data_unpack
   - caption: MPMS notebooks
     chapters:
     # - file: MPMS_plot
-    - file: MPMS_verwey_fit
+    # - file: MPMS_verwey_fit
     - file: MPMS_goethite_fit
