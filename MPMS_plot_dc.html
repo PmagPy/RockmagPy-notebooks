@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>MPMS data visualization &#8212; RockmagPy Documentation</title>
+    <title>Plot MPMS data (DC) &#8212; RockmagPy Documentation</title>
   
   
   
@@ -60,8 +60,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'MPMS_plot_dc';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Fit and remove the goethite component" href="MPMS_goethite_fit.html" />
-    <link rel="prev" title="RockmagPy: tools for rock magnetic data analysis" href="book/intro.html" />
+    <link rel="next" title="Estimate the Verwey transition temperature" href="MPMS_verwey_fit.html" />
+    <link rel="prev" title="Rock magnetic experiments data import" href="rockmag_data_unpack.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -176,9 +176,15 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">MPMS notebooks</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Nuts &amp; Bolts</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="rockmag_set_up.html">Getting going with rockmag.py on JupyterHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rockmag_data_unpack.html">Rock magnetic experiments data import</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">MPMS notebooks</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">MPMS data visualization</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Plot MPMS data (DC)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MPMS_verwey_fit.html">Estimate the Verwey transition temperature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="MPMS_goethite_fit.html">Fit and remove the goethite component</a></li>
 </ul>
 
@@ -365,7 +371,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>MPMS data visualization</h1>
+    <h1>Plot MPMS data (DC)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -395,8 +401,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="mpms-data-visualization">
-<h1>MPMS data visualization<a class="headerlink" href="#mpms-data-visualization" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="plot-mpms-data-dc">
+<h1>Plot MPMS data (DC)<a class="headerlink" href="#plot-mpms-data-dc" title="Link to this heading">#</a></h1>
 <p>This notebook visualizes data from low-temperature experiments conducted on an MPMS instrument and exported to MagIC format.</p>
 <p>In the following example, specimens from samples of diabase dikes from the East Central Minnesota batholith have undergone the following experiments:</p>
 <ul class="simple">
@@ -432,6 +438,7 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set the dir_path to the directory where the measurements.txt file is located</span>
 <span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;./example_data/ECMB&#39;</span>
 
+<span class="c1"># set the name of the MagIC file</span>
 <span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="s1">&#39;ECMB 2018.TXT&#39;</span><span class="p">,</span> 
                      <span class="n">dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">,</span>
                      <span class="n">input_dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">)</span>
@@ -679,20 +686,20 @@ if (outputEl) {{
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="book/intro.html"
+       href="rockmag_data_unpack.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">RockmagPy: tools for rock magnetic data analysis</p>
+        <p class="prev-next-title">Rock magnetic experiments data import</p>
       </div>
     </a>
     <a class="right-next"
-       href="MPMS_goethite_fit.html"
+       href="MPMS_verwey_fit.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Fit and remove the goethite component</p>
+        <p class="prev-next-title">Estimate the Verwey transition temperature</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
