@@ -60,8 +60,6 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'rockmag_data_unpack';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="MPMS data visualization" href="MPMS_plot.html" />
-    <link rel="prev" title="Getting going with rockmag.py on JupyterHub" href="rockmag_set_up.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -123,6 +121,8 @@
       
       
       
+        
+      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -176,15 +176,9 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Nuts &amp; Bolts</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="rockmag_set_up.html">Getting going with rockmag.py on JupyterHub</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Rock magnetic experiments data import</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">MPMS notebooks</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">MPMS notebooks</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="MPMS_plot.html">MPMS data visualization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="MPMS_verwey_fit.html">Estimate the Verwey transition temperature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MPMS_plot_dc.html">MPMS data visualization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="MPMS_goethite_fit.html">Fit and remove the goethite component</a></li>
 </ul>
 
@@ -388,11 +382,6 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-list-of-specimens-and-experiments">Get list of specimens and experiments</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-next">What next?</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mpms-visualization-ipynb"><span class="xref myst">MPMS_visualization.ipynb</span></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mpms-verwey-ipynb"><span class="xref myst">MPMS_verwey.ipynb</span></a></li>
-</ul>
-</li>
 </ul>
             </nav>
         </div>
@@ -431,14 +420,17 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set the directory path (dir_path) to the data</span>
 <span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;./example_data/ECMB&#39;</span>
 
-<span class="n">ipmag</span><span class="o">.</span><span class="n">download_magic</span><span class="p">(</span><span class="s1">&#39;ECMB 2018.TXT&#39;</span><span class="p">,</span> 
+<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="s1">&#39;ECMB 2018.TXT&#39;</span><span class="p">,</span> 
                      <span class="n">dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">,</span>
                      <span class="n">input_dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>working on:  &#39;specimens\r&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>working on:  &#39;contribution\r&#39;
+1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/contribution.txt
+  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/contribution.txt
+working on:  &#39;specimens\r&#39;
 15  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/specimens.txt
   data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/specimens.txt
 working on:  &#39;samples\r&#39;
@@ -515,8 +507,8 @@ working on:  &#39;measurements\r&#39;
       <td>NaN</td>
       <td>1.0010</td>
       <td>300.0</td>
-      <td>NED1-5c-IRM-VSM3-LP-HYS-218845-1</td>
-      <td>LP-HYS:LP-HYS-M</td>
+      <td>IRM-VSM3-LP-HYS-218845-1</td>
+      <td>LP-HYS</td>
       <td>g</td>
       <td>NED1-5c</td>
       <td>u</td>
@@ -531,8 +523,8 @@ working on:  &#39;measurements\r&#39;
       <td>NaN</td>
       <td>0.9995</td>
       <td>300.0</td>
-      <td>NED1-5c-IRM-VSM3-LP-HYS-218845-2</td>
-      <td>LP-HYS:LP-HYS-M</td>
+      <td>IRM-VSM3-LP-HYS-218845-2</td>
+      <td>LP-HYS</td>
       <td>g</td>
       <td>NED1-5c</td>
       <td>u</td>
@@ -547,8 +539,8 @@ working on:  &#39;measurements\r&#39;
       <td>NaN</td>
       <td>0.9966</td>
       <td>300.0</td>
-      <td>NED1-5c-IRM-VSM3-LP-HYS-218845-3</td>
-      <td>LP-HYS:LP-HYS-M</td>
+      <td>IRM-VSM3-LP-HYS-218845-3</td>
+      <td>LP-HYS</td>
       <td>g</td>
       <td>NED1-5c</td>
       <td>u</td>
@@ -563,8 +555,8 @@ working on:  &#39;measurements\r&#39;
       <td>NaN</td>
       <td>0.9926</td>
       <td>300.0</td>
-      <td>NED1-5c-IRM-VSM3-LP-HYS-218845-4</td>
-      <td>LP-HYS:LP-HYS-M</td>
+      <td>IRM-VSM3-LP-HYS-218845-4</td>
+      <td>LP-HYS</td>
       <td>g</td>
       <td>NED1-5c</td>
       <td>u</td>
@@ -579,8 +571,8 @@ working on:  &#39;measurements\r&#39;
       <td>NaN</td>
       <td>0.9880</td>
       <td>300.0</td>
-      <td>NED1-5c-IRM-VSM3-LP-HYS-218845-5</td>
-      <td>LP-HYS:LP-HYS-M</td>
+      <td>IRM-VSM3-LP-HYS-218845-5</td>
+      <td>LP-HYS</td>
       <td>g</td>
       <td>NED1-5c</td>
       <td>u</td>
@@ -661,7 +653,7 @@ working on:  &#39;measurements\r&#39;
     <tr>
       <th>1</th>
       <td>NED1-5c</td>
-      <td>LP-HYS:LP-HYS-M</td>
+      <td>LP-HYS</td>
     </tr>
     <tr>
       <th>2</th>
@@ -686,7 +678,7 @@ working on:  &#39;measurements\r&#39;
     <tr>
       <th>6</th>
       <td>NED18-2c</td>
-      <td>LP-HYS:LP-HYS-M</td>
+      <td>LP-HYS</td>
     </tr>
     <tr>
       <th>7</th>
@@ -716,7 +708,7 @@ working on:  &#39;measurements\r&#39;
     <tr>
       <th>12</th>
       <td>NED2-8c</td>
-      <td>LP-HYS:LP-HYS-M</td>
+      <td>LP-HYS</td>
     </tr>
     <tr>
       <th>13</th>
@@ -741,7 +733,7 @@ working on:  &#39;measurements\r&#39;
     <tr>
       <th>17</th>
       <td>NED4-1c</td>
-      <td>LP-HYS:LP-HYS-M</td>
+      <td>LP-HYS</td>
     </tr>
     <tr>
       <th>18</th>
@@ -751,24 +743,12 @@ working on:  &#39;measurements\r&#39;
     <tr>
       <th>19</th>
       <td>NED6-6c</td>
-      <td>LP-HYS:LP-HYS-M</td>
+      <td>LP-HYS</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-</section>
-</section>
-<section id="what-next">
-<h2>What next?<a class="headerlink" href="#what-next" title="Link to this heading">#</a></h2>
-<p>Now that we have unpacked the data and have a measurements file, other analyzes and visualization can now be conducted:</p>
-<section id="mpms-visualization-ipynb">
-<h3><a class="reference internal" href="#./MPMS_visualization.ipynb"><span class="xref myst">MPMS_visualization.ipynb</span></a><a class="headerlink" href="#mpms-visualization-ipynb" title="Link to this heading">#</a></h3>
-<p>In this notebook, MPMS data within the measurements file can be plotted.</p>
-</section>
-<section id="mpms-verwey-ipynb">
-<h3><a class="reference internal" href="#MPMS_verwey.ipynb"><span class="xref myst">MPMS_verwey.ipynb</span></a><a class="headerlink" href="#mpms-verwey-ipynb" title="Link to this heading">#</a></h3>
-<p>In this notebook, Verwey temperaure estimates can be made from remanence upon warming experiments conducted on an MPMS.</p>
 </section>
 </section>
 </section>
@@ -803,24 +783,6 @@ working on:  &#39;measurements\r&#39;
                 <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="rockmag_set_up.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Getting going with rockmag.py on JupyterHub</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="MPMS_plot.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">MPMS data visualization</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
@@ -842,11 +804,6 @@ working on:  &#39;measurements\r&#39;
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-and-unpack-data-from-magic">Download and unpack data from MagIC</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-the-measurements-table">Import the measurements table</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-list-of-specimens-and-experiments">Get list of specimens and experiments</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-next">What next?</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mpms-visualization-ipynb"><span class="xref myst">MPMS_visualization.ipynb</span></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mpms-verwey-ipynb"><span class="xref myst">MPMS_verwey.ipynb</span></a></li>
 </ul>
 </li>
 </ul>

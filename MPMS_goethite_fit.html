@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'MPMS_goethite_fit';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Estimate the Verwey transition temperature" href="MPMS_verwey_fit.html" />
+    <link rel="prev" title="MPMS data visualization" href="MPMS_plot_dc.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -175,15 +175,9 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Nuts &amp; Bolts</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="rockmag_set_up.html">Getting going with rockmag.py on JupyterHub</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rockmag_data_unpack.html">Rock magnetic experiments data import</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">MPMS notebooks</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">MPMS notebooks</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="MPMS_plot.html">MPMS data visualization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="MPMS_verwey_fit.html">Estimate the Verwey transition temperature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MPMS_plot_dc.html">MPMS data visualization</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Fit and remove the goethite component</a></li>
 </ul>
 
@@ -412,18 +406,19 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">LP-CW-SIRM:LP-MC</span></code> (Cycling between cooling and warming: Room temperature SIRM; Measured while cooling)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">LP-CW-SIRM:LP-MW</span></code> (Cycling between cooling and warming: Room temperature SIRM; Measured while warming)</p></li>
 </ul>
-<p>In a sample of mixed mineralogy that contains goethite, this low-temperature behavior is useful for inferring the presence of goethite. Such an interpretation can be further strengthened by data from zero-field cooled (ZFC) and field cooled (FC) remanence upon warming experiments. Such experiments both show a progressive loss of remanence upon warming that typically is continuous from the lowest temperature of the experiment (typically 10 K) to the highest temperature of the experiement (typically 300 K). Additionally, a diagnostic behavior for goethite is that the FC curve has a stronger magnetization than the ZFC curve (<a class="reference external" href="https://doi.org/10.1029/2006JB004560">Liu et al., 2006</a>). Τhe reason for the loss in remanent magnetization upon warming in these FC/ZFC experiments, as well as the difference in the FC and ZFC magnetization, is that some of the goethite grains are acquiring a thermal remanent magnetization with more of a thermal remanence being blocked during the FC experiment (<a class="reference external" href="https://doi.org/10.1029/2006JB004560">Liu et al., 2006</a>). Samples showing this behavior are indicative of blocking temperatures below 300 K (<a class="reference external" href="https://doi.org/10.1029/2006JB004560">Liu et al., 2006</a>).</p>
+<p>In a sample of mixed mineralogy containing goethite, this low-temperature behavior is useful for inferring the presence of goethite. Such an interpretation can be further strengthened by data from zero-field cooled (ZFC) and field cooled (FC) remanence upon warming experiments. Such experiments both show a progressive loss of remanence upon warming that typically is continuous from the lowest temperature of the experiment (typically 10 K) to the highest temperature of the experiment (typically 300 K). Additionally, a diagnostic behavior for goethite is that the FC curve has a stronger magnetization than the ZFC curve (<a class="reference external" href="https://doi.org/10.1029/2006JB004560">Liu et al., 2006</a>). Τhe reason for the loss in remanent magnetization upon warming in these FC/ZFC experiments, as well as the difference in the FC and ZFC magnetization, is that some of the goethite grains are acquiring a thermal remanent magnetization with more of a thermal remanence being blocked during the FC experiment (<a class="reference external" href="https://doi.org/10.1029/2006JB004560">Liu et al., 2006</a>). Samples showing this behavior are indicative of blocking temperatures below 300 K (<a class="reference external" href="https://doi.org/10.1029/2006JB004560">Liu et al., 2006</a>).</p>
 <p>In summary:</p>
 <blockquote>
 <div><p>“The combination of the large discrepancy between the FC and ZFC curves, and the large and reversible increase in remanence upon cooling, are therefore diagnostic of the presence of goethite” (<a class="reference external" href="https://doi.org/10.1029/2006JB004560">Liu et al., 2006</a>).</p>
 </div></blockquote>
+<p>Goethite is not the only natural magnetic material that exhibits reversible RT-SIRM behavior. Any ferromagnetic (sensu lato) phase without a low temperature transition or isotropic point would be expected to display reversible behavior in an RT-SIRM experiment. This would include minerals such as kamacite (<a class="reference external" href="https://link.springer.com/chapter/10.1007/978-3-031-09883-3_18">Bezaeva et al., 2023</a>), greigite, (<a class="reference external" href="https://doi.org/10.1029/2007JB005502">Chang et al., 2008</a>), and ferrihydrite (<a class="reference external" href="https://doi.org/10.1029/2020GC009037">Bilardello et al., 2020</a>), among others. Thus, while we discuss removing the “goethite component” in this notebook, it is important to note that depending on the nature of a sample, this approach may be removing the magnetization of a phase other than goethite.</p>
 </section>
 <section id="removing-the-goethite-component">
 <h2>Removing the goethite component<a class="headerlink" href="#removing-the-goethite-component" title="Link to this heading">#</a></h2>
-<p>While this low-temperature behavior is quite useful for diagnosing the presence of goethite, it can be a nuisance in the results of such experiments as it can obscure the behavior of other phases. There are two main approaches for dealing with this issue and removing the contribution of goethite:</p>
+<p>While goethite’s low-temperature behavior is quite useful for diagnosing its presence, it can be a nuisance for interpreting such experiments as it can obscure the behavior of other phases. There are two main approaches for dealing with this issue and removing the contribution of goethite:</p>
 <ul class="simple">
-<li><p><strong>experimentally</strong>: given the low Néel temperature of goethite of ~120 º (corresponding to 393 K), an experimental protocol that is utilized is to heat a specimen to 400 K in order to demagnetize magnetization associated with goethite prior to cooling to low temperature. Such a step is incorporated in the “goethite” test where the difference between magnetization with and without this 400 K heating step is used to quantify goethite abundance (<a class="reference external" href="http://doi.org/10.1016/j.epsl.2006.09.005">Guyodo et al., 2006</a>). See discussion of this test in <a class="reference external" href="https://drive.google.com/file/d/1f425KX5fsiNeswUnGQbpYov1hTfQA4ib/view?usp=sharing">Bilardello, 2009</a>.</p></li>
-<li><p><strong>numerically</strong>: the approach taken in this notebook is to apply a polynomial fit to the warming portion of the RTSIRM low-temperature cycling curve and to then subtract that fit from the cooling and warming curve. This approach has been taken in the literature such as in <a class="reference external" href="https://doi.org/10.2110/jsr.2020.089">Silveira et al., 2021</a>. This approach models the goethite contribution with a polynomial fit (typically a second order polynomial) and then substracts that fit from the curve. The goal is to enable features of the data to emerge and be quantified (such as the Morin and Verwey transitions) that would otherwise be obscured.</p></li>
+<li><p><strong>Experimentally</strong>: given the low Néel temperature of goethite of ~120 ºC (corresponding to 393 K), an experimental protocol heats a specimen to 400 K to demagnetize magnetization associated with goethite prior to cooling to low temperature. Such a step is incorporated in the “goethite” test where the difference between magnetization with and without this 400 K heating step is used to quantify goethite abundance (<a class="reference external" href="http://doi.org/10.1016/j.epsl.2006.09.005">Guyodo et al., 2006</a>). See discussion of this test in <a class="reference external" href="https://hdl.handle.net/11299/208770">Bilardello (2019)</a>. This approach may not be effective for minerals with reversible RT-SIRM behavior with higher Curie or Néel temperatures.</p></li>
+<li><p><strong>Numerically</strong>: the approach taken in this notebook is to apply a polynomial fit to the warming portion of the RTSIRM low-temperature cycling curve and to then subtract that fit from both the cooling and warming curve. This approach has been used in the literature in <a class="reference external" href="https://doi.org/10.2110/jsr.2020.089">Silveira et al. (2021)</a> and models the goethite contribution with a polynomial fit (typically a second order polynomial), which is then subtracted from the curve. The goal is to better isolate and quantify subtle transitions within the data (such as the Morin and Verwey transitions) that may otherwise be obscured.</p></li>
 </ul>
 </section>
 <section id="import-python-packages">
@@ -451,13 +446,13 @@ document.write(`
 </section>
 <section id="import-data">
 <h2>Import data<a class="headerlink" href="#import-data" title="Link to this heading">#</a></h2>
-<p>Here we set the path to the example data in MagIC format, create a contribution object that is a collection of these tables, and view the measurements table.</p>
+<p>Here we set the path (<code class="docutils literal notranslate"><span class="pre">dir_path</span></code>) to the example data in MagIC format, create a contribution object that is a collection of these tables, and view the measurements table.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set the directory path (dir_path) to the data</span>
 <span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;./example_data/goethite&#39;</span>
 
-<span class="n">ipmag</span><span class="o">.</span><span class="n">download_magic</span><span class="p">(</span><span class="s1">&#39;A73-7-1350-4B-01a_mpms.txt&#39;</span><span class="p">,</span> 
+<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="s1">&#39;A73-7-1350-4B-01a_mpms.txt&#39;</span><span class="p">,</span> 
                      <span class="n">dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">,</span>
                      <span class="n">input_dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">)</span>
 
@@ -471,20 +466,20 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>working on:  &#39;specimens\r&#39;
-1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/goethite/specimens.txt
-  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/goethite/specimens.txt
+1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/goethite/specimens.txt
+  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/goethite/specimens.txt
 working on:  &#39;samples\r&#39;
-1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/goethite/samples.txt
-  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/goethite/samples.txt
+1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/goethite/samples.txt
+  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/goethite/samples.txt
 working on:  &#39;sites\r&#39;
-1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/goethite/sites.txt
-  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/goethite/sites.txt
+1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/goethite/sites.txt
+  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/goethite/sites.txt
 working on:  &#39;locations\r&#39;
-1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/goethite/locations.txt
-  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/goethite/locations.txt
+1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/goethite/locations.txt
+  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/goethite/locations.txt
 working on:  &#39;measurements\r&#39;
-240  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/goethite/measurements.txt
-  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/goethite/measurements.txt
+240  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/goethite/measurements.txt
+  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/goethite/measurements.txt
 -I- Using online data model
 -I- Getting method codes from earthref.org
 -I- Importing controlled vocabularies from https://earthref.org
@@ -688,13 +683,13 @@ working on:  &#39;measurements\r&#39;
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/e9743028860cec8c3b439bcf6744c2f0eade9827283ab3186b039b0a8a459b97.png" src="_images/e9743028860cec8c3b439bcf6744c2f0eade9827283ab3186b039b0a8a459b97.png" />
+<img alt="_images/5be9ed2321e302a5c7b4d31e97a1d8b826dc11f84daa8213ef665594192ca243.png" src="_images/5be9ed2321e302a5c7b4d31e97a1d8b826dc11f84daa8213ef665594192ca243.png" />
 </div>
 </div>
 </section>
 <section id="numerically-remove-goethite">
 <h2>Numerically remove goethite<a class="headerlink" href="#numerically-remove-goethite" title="Link to this heading">#</a></h2>
-<p>In the interactive widgets below, a function <code class="docutils literal notranslate"><span class="pre">rmag.goethite_removal()</span></code> is used which fits a polynomial to the the RTSIRM warming curve to approximately remove the contribution of the curve that is due to goethite. The uncorrected and corrected data as well as their derivatives are plotted.</p>
+<p>In the interactive widgets below, a function <code class="docutils literal notranslate"><span class="pre">rmag.goethite_removal()</span></code> is used which fits a polynomial to the RTSIRM warming curve to approximately remove the contribution of the curve that is due to goethite. The uncorrected and corrected data as well as their derivatives are plotted.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">specimen</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">interactive_specimen_selection</span><span class="p">(</span><span class="n">measurements</span><span class="p">)</span>
@@ -702,7 +697,7 @@ working on:  &#39;measurements\r&#39;
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "af9fc0b13c9c46a89a45e90c7352b183", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ce4e4992847d449d8666824cd65b6093", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -711,12 +706,12 @@ working on:  &#39;measurements\r&#39;
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "37dd9543bb3a4d6ab69a2e432e293cd4", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "09476ad7a29d4593aebeb3529bca3f54", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "fb02834f606a45938134502dc07eb339", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "875ca47d585842f98bf71fce4f404816", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="apply-the-function-rmag-goethite-removal">
 <h2>Apply the function <code class="docutils literal notranslate"><span class="pre">rmag.goethite_removal</span></code><a class="headerlink" href="#apply-the-function-rmag-goethite-removal" title="Link to this heading">#</a></h2>
-<p>The function can also be applied with the widget interactivity such that the parameters are entered into the function.</p>
+<p>The function can also be applied without using the interactive widget in which case the parameters are entered into the function as in the example below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rmag</span><span class="o">.</span><span class="n">goethite_removal</span><span class="p">(</span><span class="n">rtsirm_warm_data</span><span class="p">,</span> 
@@ -726,13 +721,13 @@ working on:  &#39;measurements\r&#39;
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b92a7d9c42dd526ba9dc5178c79af3f3752ce1c06b6c7159857d724db07f4150.png" src="_images/b92a7d9c42dd526ba9dc5178c79af3f3752ce1c06b6c7159857d724db07f4150.png" />
+<img alt="_images/eda3da547522e915d524fb190a5d1106fddbb6443881168e3a8733277c96c036.png" src="_images/eda3da547522e915d524fb190a5d1106fddbb6443881168e3a8733277c96c036.png" />
 </div>
 </div>
 </section>
 <section id="apply-the-function-and-return-the-values">
 <h2>Apply the function and return the values<a class="headerlink" href="#apply-the-function-and-return-the-values" title="Link to this heading">#</a></h2>
-<p>If the parameter <code class="docutils literal notranslate"><span class="pre">return_data=True</span></code> the function will return DataFrames from which the goethite fit has been subtracted.</p>
+<p>If the parameter <code class="docutils literal notranslate"><span class="pre">return_data=True</span></code>, the function will return DataFrames from which the goethite fit has been subtracted.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rtsirm_warm_adjusted</span><span class="p">,</span> <span class="n">rtsirm_cool_adjusted</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">goethite_removal</span><span class="p">(</span><span class="n">rtsirm_warm_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span>
@@ -741,7 +736,7 @@ working on:  &#39;measurements\r&#39;
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/35550df7b90618cfad1898951d50285659a721333beb08bbdb3798fac9200f8a.png" src="_images/35550df7b90618cfad1898951d50285659a721333beb08bbdb3798fac9200f8a.png" />
+<img alt="_images/eda3da547522e915d524fb190a5d1106fddbb6443881168e3a8733277c96c036.png" src="_images/eda3da547522e915d524fb190a5d1106fddbb6443881168e3a8733277c96c036.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -806,8 +801,11 @@ working on:  &#39;measurements\r&#39;
 </section>
 <section id="references-cited">
 <h2>References cited<a class="headerlink" href="#references-cited" title="Link to this heading">#</a></h2>
-<p>Bilardello, D., 2019, Tinkering with the wheel: can the goethite test run more smoothly?: The IRM Quarterly, v. 29, n. 2, Summer 2019.</p>
+<p>Bezaeva, N.S., Badyukov, D.D., Feinberg, J.M., Kars, M., Kosterov, A., 2023, The Effect of 30 to &gt;100 GPa Shock on the Magnetic Properties of Chinga Iron Meteorite. In: Kolotov, V.P., Bezaeva, N.S. (eds) Advances in Geochemistry, Analytical Chemistry, and Planetary Sciences. Springer, Cham. <a class="reference external" href="https://doi.org/10.1007/978-3-031-09883-3_18">https://doi.org/10.1007/978-3-031-09883-3_18</a></p>
+<p>Bilardello, D., 2019, Tinkering with the wheel: can the goethite test run more smoothly?: The IRM Quarterly, v. 29, n. 2, Summer 2019. <a class="reference external" href="https://hdl.handle.net/11299/208770">https://hdl.handle.net/11299/208770</a></p>
+<p>Bilardello, D., Banerjee, S.K., Volk, M.W.R., Solitis, J.A., and Penn, R.L., 2020, Simulation of Natural Iron Oxide Alteration in Soil: Conversion of Synthetic Ferrihydrite to Hematite Without Artificial Dopants, Observed With Magnetic Methods: Geochemistry, Geophysics, Geosystems, 21(7), e2020GC009037, <a class="reference external" href="https://doi.org/10.1029/2020GC009037">https://doi.org/10.1029/2020GC009037</a></p>
 <p>Carter-Stiglitz, B., Banerjee, S.K., Gourlan, A., and Oches, E., 2006, A multi-proxy study of Argentina loess: Marine oxygen isotope stage 4 and 5 environmental record from pedogenic hematite: Palaeogeography, Palaeoclimatology, Palaeoecology, v. 239, n. 1–2, p. 45–62, <a class="reference external" href="http://doi.org/10.1016/j.palaeo.2006.01.008">http://doi.org/10.1016/j.palaeo.2006.01.008</a>.</p>
+<p>Chang, L., Roberts, A.P., Tang, Y., Rainford, B.D., Muxworthy, A.R., and Chen, Q., 2008, Fundamental magnetic parameters from pure synthetic greigite (Fe3S4): Journal of Geophysical Research, 113, B06104, <a class="reference external" href="https://doi.org/10.1029/2007JB005502">https://doi.org/10.1029/2007JB005502</a></p>
 <p>Guyodo, Y., LaPara, T.M., Anschutz, A.J., Penn, R.L., Banerjee, S.K., Geiss, C.E., and Zanner, W., 2006, Rock magnetic, chemical and bacterial community analysis of a modern soil from Nebraska: Earth and Planetary Science Letters, v. 251, n. 1–2, p. 168–178, <a class="reference external" href="http://doi.org/10.1016/j.epsl.2006.09.005">http://doi.org/10.1016/j.epsl.2006.09.005</a>.</p>
 <p>Liu, Q., Yu, Y., Torrent, J., Roberts, A. P., Pan, Y., and Zhu, R., 2006, Characteristic low-temperature magnetic
 properties of aluminous goethite [α-(Fe, Al)OOH] explained: Journal of Geophysical Research, v. 111,
@@ -849,12 +847,12 @@ Paleomagnetic implications: Geophysical Research Letters, v. 16, n. 8, p. 851–
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="MPMS_verwey_fit.html"
+       href="MPMS_plot_dc.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Estimate the Verwey transition temperature</p>
+        <p class="prev-next-title">MPMS data visualization</p>
       </div>
     </a>
 </div>

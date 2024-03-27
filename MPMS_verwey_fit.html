@@ -60,8 +60,6 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'MPMS_verwey_fit';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Fit and remove the goethite component" href="MPMS_goethite_fit.html" />
-    <link rel="prev" title="MPMS data visualization" href="MPMS_plot.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -123,6 +121,8 @@
       
       
       
+        
+      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -176,15 +176,9 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Nuts &amp; Bolts</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">MPMS notebooks</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="rockmag_set_up.html">Getting going with rockmag.py on JupyterHub</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rockmag_data_unpack.html">Rock magnetic experiments data import</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">MPMS notebooks</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="MPMS_plot.html">MPMS data visualization</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Estimate the Verwey transition temperature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MPMS_plot_dc.html">MPMS data visualization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="MPMS_goethite_fit.html">Fit and remove the goethite component</a></li>
 </ul>
 
@@ -454,24 +448,24 @@ document.write(`
 </section>
 <section id="background-on-the-verwey-transition">
 <h2>Background on the Verwey transition<a class="headerlink" href="#background-on-the-verwey-transition" title="Link to this heading">#</a></h2>
-<p>For these mafic dikes from the East Central Minnesota batholith, the specimens exhibit a significant loss of remanence across the Verwey transition. The Verwey transition as defined by Jackson and Moskowitz (2020) is:</p>
+<p>The example data used here was collected from mafic dikes in the East Central Minnesota batholith and the specimens exhibit a significant loss of remanence across the Verwey transition. The Verwey transition as defined by Jackson and Moskowitz (<a class="reference external" href="https://doi.org/10.1093/gji/ggaa516">2020</a>) is:</p>
 <blockquote>
-<div><p>The Verwey transition is a reorganization of the magnetite crystal structure occurring at a temperature T<sub>V</sub> in the range 80–125 K, where the room-temperature cubic inverse-spinel structure transforms to a monoclinic arrangement, and many physical properties of the mineral (e.g. electrical resistivity, heat capacity, magnetic susceptibility, remanence and coercivity) change significantly</p>
+<div><p>The Verwey transition is a reorganization of the magnetite crystal structure occurring at a temperature T<sub>V</sub> in the range 80–125 K, where the room-temperature cubic inverse-spinel structure transforms to a monoclinic arrangement, and many physical properties of the mineral (e.g. electrical resistivity, heat capacity, magnetic susceptibility, remanence and coercivity) change significantly.</p>
 </div></blockquote>
 <p>It is of interest to determine the Verwey transition temperature (T<sub>V</sub>) as it is highly sensitive to changes in magnetite stoichiometry associated with cation substitution or oxidation.</p>
 <section id="estimating-the-verwey-transition-temperature">
 <h3>Estimating the Verwey transition temperature<a class="headerlink" href="#estimating-the-verwey-transition-temperature" title="Link to this heading">#</a></h3>
-<p>It is preferable to estimate the temperature of the Verwey transition (T<sub>V</sub>) associated with warming curves (e.g. the FC/ZFC data) than cooling curves. The rationale is that cooling curves also pass through the isotropic point at a temperature of ∼130 K prior to going through the Verwey transition. The loss of magnetization associated with going through the isotropic point can be very large (particularly for multidomain magnetites) which can obscure the Verwey transition (Jackson and Moskowitz, 2020).</p>
-<p>We can apply the method described in Jackson and Moskowitz (2020) to estimate the temperature of the Verwey transition. In this method,</p>
+<p>It is preferable to estimate the temperature of the Verwey transition (T<sub>V</sub>) associated with warming curves (e.g. the FC/ZFC data) than cooling curves. The rationale is that cooling curves also pass through the isotropic point at a temperature of ∼130 K prior to going through the Verwey transition. The loss of magnetization associated with going through the isotropic point can be very large (particularly for multidomain magnetites) which can obscure the Verwey transition (<a class="reference external" href="https://doi.org/10.1093/gji/ggaa516">Jackson and Moskowitz, 2020</a>).</p>
+<p>We can apply the method described in Jackson and Moskowitz (<a class="reference external" href="https://doi.org/10.1093/gji/ggaa516">2020</a>) to estimate the temperature of the Verwey transition. In this method,</p>
 <blockquote>
 <div><p>[This approach] assumes that the loss of remanence on warming is due to the superposition of (1) progressive unblocking over the 20–300 K temperature range [e.g. due to the transition from the stable single-domain (SSD) to the superparamagnetic (SP) state in nanoparticle populations of magnetite or other magnetic phases] and (2) domain reorganization and intraparticle remanence rotation in a discrete temperature window around T<sub>V</sub>, due to the monoclinic-to-cubic transformation in magnetite.</p>
 </div></blockquote>
-<p>The method to estimate the temperature of the Verwey transition of Jackson and Moskowitz (2020) is to fit the derivative of the data outside of the Verwey transition and then subtract that fit from the derivative. This approach seeks to isolate the signal that is due to the Verwey transition. The peak of the derivative curve can then be used to estimate T<sub>V</sub>. This is done as the interpolated zero crossing of the derivative of the spectrum curve.</p>
+<p>The method to estimate the temperature of the Verwey transition of Jackson and Moskowitz (<a class="reference external" href="https://doi.org/10.1093/gji/ggaa516">2020</a>) is to fit the derivative of the data outside of the Verwey transition and then subtract that fit from the derivative. This approach seeks to isolate the signal that is due to the Verwey transition. The peak of the derivative curve can then be used to estimate T<sub>V</sub>. This is done as the interpolated zero-crossing of the derivative of the spectrum curve.</p>
 <p>In the code cell below, we define the temperature and magnetization values that will be used for estimating T<sub>V</sub>. The following parameters can be adjusted:</p>
 <p><code class="docutils literal notranslate"><span class="pre">t_range_background_min</span></code> and <code class="docutils literal notranslate"><span class="pre">t_range_background_max</span></code>: The temperature range over which the polynomial fit is applied to the background
 <code class="docutils literal notranslate"><span class="pre">excluded_t_min</span></code> and <code class="docutils literal notranslate"><span class="pre">excluded_t_max</span></code>: The temperature range that is excluded from the background fit due to remanence loss associated with the Verwey transition.
-<code class="docutils literal notranslate"><span class="pre">poly_deg</span></code>: the degree of the polynomial fit that is made to the background. Following Jackson and Moskowitz (2020), the default is set to be 3 (cubic).</p>
-<p>As described in Jackson and Moskowitz (2020), these temperature ranges and polynomial degree can be adjusted to obtain ‘reasonable’ looking curves for the magnetite demagnetization and the progressive unblocking. The goal is for curves that are monotonic with and fits that are within the measurement noise, while seeking to minimizing the polynomial degree.</p>
+<code class="docutils literal notranslate"><span class="pre">poly_deg</span></code>: the degree of the polynomial fit that is made to the background. Following Jackson and Moskowitz (<a class="reference external" href="https://doi.org/10.1093/gji/ggaa516">2020</a>), the default is set to be 3 (cubic).</p>
+<p>As described in Jackson and Moskowitz (<a class="reference external" href="https://doi.org/10.1093/gji/ggaa516">2020</a>), these temperature ranges and polynomial degree can be adjusted to obtain ‘reasonable’ looking curves for the magnetite demagnetization and the progressive unblocking. The goal is for curves that are monotonic with and fits that are within the measurement noise, while seeking to minimizing the polynomial degree.</p>
 </section>
 </section>
 <section id="interactively-fit-the-verwey-transition">
@@ -484,7 +478,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "b5cc7af4918641ec9ad9bc8e0df9c374", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ff2b45c726a344958a9545422921d3a1", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p>Once a sample is selected, we can estimate the Verwey transition using the method described above. Adjust the sliders to change the range of the background that is being fit, the temperature range that is being excluded from the background fit, and the polynomial degree that is being used for the background fit.</p>
 <p><em>Note: if you change the specimen or method in the dropdown menus above, rerun the code in the cell below to do the fit for the new specimen.</em></p>
@@ -495,7 +489,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "0a5d357d6c2c4a1eb36559ae0b4a85d5", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "7d9fcf725e1f4910a42df02002f3dc5b", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "4236adea99ba4591bb9f3c7b3b7233f1", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "9f705c0ea4374d0cb8dd0417169d9a31", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="use-the-rmag-verwey-estimate-function">
@@ -568,7 +562,7 @@ document.write(`
 <p>There are three specimens with LT-SIRM data. Let’s plot the data for each specimen and estimate the Verwey temperature for each. We want to be able to record all of the parameters along with the estimated Verwey transition.</p>
 <p>We will take the following approach:</p>
 <ul class="simple">
-<li><p>define a list of dictionaries each containing the specimen name and its parameters for the fit (more specimens code be added by making additional dictionaries within the lit).</p></li>
+<li><p>define a list of dictionaries each containing the specimen name and its parameters for the fit (more specimens code be added by making additional dictionaries within the list). (<em>Note that if you use the ZFC experiment rather than the FC, the method code should be changed to LP-ZFC. SM-1DMAX denotes that the peak of the first derivative was used to make the fit</em>).</p></li>
 <li><p>go through each specimen and make the fit using the <code class="docutils literal notranslate"><span class="pre">rmag.verwey_estimate()</span> <span class="pre">function</span></code> while recording the parameters and the estimated temperature.</p></li>
 <li><p>make the recorded parameters into a Dataframe</p></li>
 </ul>
@@ -584,6 +578,7 @@ document.write(`
             <span class="s1">&#39;excluded_t_min&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span>
             <span class="s1">&#39;excluded_t_max&#39;</span><span class="p">:</span> <span class="mi">150</span><span class="p">,</span>
             <span class="s1">&#39;poly_deg&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="s1">&#39;method_codes&#39;</span><span class="p">:</span> <span class="s1">&#39;SM-1DMAX:LP-FC&#39;</span>
         <span class="p">}</span>
     <span class="p">},</span>
     <span class="p">{</span>
@@ -594,6 +589,7 @@ document.write(`
             <span class="s1">&#39;excluded_t_min&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span>
             <span class="s1">&#39;excluded_t_max&#39;</span><span class="p">:</span> <span class="mi">150</span><span class="p">,</span>
             <span class="s1">&#39;poly_deg&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="s1">&#39;method_codes&#39;</span><span class="p">:</span> <span class="s1">&#39;SM-1DMAX:LP-FC&#39;</span>
         <span class="p">}</span>
     <span class="p">},</span>
     <span class="p">{</span>
@@ -604,6 +600,7 @@ document.write(`
             <span class="s1">&#39;excluded_t_min&#39;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span>
             <span class="s1">&#39;excluded_t_max&#39;</span><span class="p">:</span> <span class="mi">150</span><span class="p">,</span>
             <span class="s1">&#39;poly_deg&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="s1">&#39;method_codes&#39;</span><span class="p">:</span> <span class="s1">&#39;SM-1DMAX:LP-FC&#39;</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">]</span>
@@ -628,7 +625,8 @@ document.write(`
                                            <span class="n">poly_deg</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;poly_deg&#39;</span><span class="p">],</span>
                                            <span class="n">plot_title</span><span class="o">=</span><span class="n">specimen_name</span><span class="p">)</span>
     <span class="c1"># Append the specimen name, Verwey estimate, and all parameters to the list</span>
-    <span class="n">record</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;specimen&#39;</span><span class="p">:</span> <span class="n">specimen_name</span><span class="p">,</span> <span class="s1">&#39;verwey_temp&#39;</span><span class="p">:</span> <span class="n">verwey_estimate</span><span class="p">,</span> <span class="s1">&#39;remanence_loss&#39;</span><span class="p">:</span> <span class="n">rem_loss</span><span class="p">}</span>
+    <span class="n">record</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;specimen&#39;</span><span class="p">:</span> <span class="n">specimen_name</span><span class="p">,</span> <span class="s1">&#39;critical_temp&#39;</span><span class="p">:</span> <span class="n">verwey_estimate</span><span class="p">,</span> 
+              <span class="s1">&#39;critical_temp_type&#39;</span><span class="p">:</span> <span class="s1">&#39;Verwey&#39;</span><span class="p">}</span>
     <span class="n">record</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>  <span class="c1"># Merge the parameters with the record</span>
     <span class="n">verwey_estimates_and_params</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
     
@@ -669,13 +667,14 @@ document.write(`
     <tr style="text-align: right;">
       <th></th>
       <th>specimen</th>
-      <th>verwey_temp</th>
-      <th>remanence_loss</th>
+      <th>critical_temp</th>
+      <th>critical_temp_type</th>
       <th>t_range_background_min</th>
       <th>t_range_background_max</th>
       <th>excluded_t_min</th>
       <th>excluded_t_max</th>
       <th>poly_deg</th>
+      <th>method_codes</th>
     </tr>
   </thead>
   <tbody>
@@ -683,34 +682,37 @@ document.write(`
       <th>0</th>
       <td>NED18-2c</td>
       <td>105.861068</td>
-      <td>0.003426</td>
+      <td>Verwey</td>
       <td>60</td>
       <td>250</td>
       <td>75</td>
       <td>150</td>
       <td>3</td>
+      <td>SM-1DMAX:LP-FC</td>
     </tr>
     <tr>
       <th>1</th>
       <td>NED2-8c</td>
       <td>116.145701</td>
-      <td>0.001690</td>
+      <td>Verwey</td>
       <td>60</td>
       <td>260</td>
       <td>75</td>
       <td>150</td>
       <td>3</td>
+      <td>SM-1DMAX:LP-FC</td>
     </tr>
     <tr>
       <th>2</th>
       <td>NED4-1c</td>
       <td>117.902959</td>
-      <td>0.000448</td>
+      <td>Verwey</td>
       <td>60</td>
       <td>260</td>
       <td>75</td>
       <td>150</td>
       <td>3</td>
+      <td>SM-1DMAX:LP-FC</td>
     </tr>
   </tbody>
 </table>
@@ -719,21 +721,49 @@ document.write(`
 </section>
 <section id="add-these-verwey-estimates-to-the-specimens-magic-table">
 <h2>Add these Verwey estimates to the specimens MagIC table<a class="headerlink" href="#add-these-verwey-estimates-to-the-specimens-magic-table" title="Link to this heading">#</a></h2>
-<p>We can now go through and update the specimens table with these Verwey estimates.</p>
-<p><em>note that there is an issue here (see <a class="github reference external" href="https://github.com/PmagPy/RockmagPy-notebooks/issues/14">PmagPy/RockmagPy-notebooks#14</a>)
-that there are multiple specimen entries for each specimen such that these estimates
-are being written to multiple rows in the below approach</em></p>
+<p>We can now go through and update the specimens table with these Verwey estimates. To do this, we will take the following steps:</p>
+<ul class="simple">
+<li><p>add all the details about the Verwey fit into the description column</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">specimens</span> <span class="o">=</span> <span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;specimens&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">verwey_estimates_and_params</span><span class="p">)):</span>
 
-<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">verwey_estimates</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-    <span class="n">specimen_name</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span>
-    <span class="n">verwey_temp</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;verwey_temp&#39;</span><span class="p">]</span>
-    <span class="n">specimens</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">specimen_name</span><span class="p">,</span> <span class="s1">&#39;critical_temp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">verwey_temp</span>
-    <span class="n">specimens</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">specimen_name</span><span class="p">,</span> <span class="s1">&#39;critical_temp_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Verwey&#39;</span>
+    <span class="n">entry</span> <span class="o">=</span> <span class="n">verwey_estimates_and_params</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
     
-<span class="n">specimens</span>
+    <span class="n">entry</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;calculated using MPMS_verwey_fit.ipynb with parameters&#39;</span>
+    
+    <span class="c1"># Specify the keys to append to the description and then remove</span>
+    <span class="n">keys_to_include</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;t_range_background_min&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;t_range_background_max&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;excluded_t_min&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;excluded_t_max&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;poly_deg&#39;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="c1"># Update the description by appending selected key-value pairs</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys_to_include</span><span class="p">:</span>
+        <span class="n">entry</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;, </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">entry</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
+
+    <span class="c1"># Remove the keys that were added to the description</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys_to_include</span><span class="p">:</span>
+        <span class="k">del</span> <span class="n">entry</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+     
+    <span class="n">df</span> <span class="o">=</span> <span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;specimens&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
+    <span class="n">sample</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">entry</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">],</span> <span class="s1">&#39;sample&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">weight</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">entry</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">],</span> <span class="s1">&#39;weight&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">entry</span><span class="p">[</span><span class="s1">&#39;sample&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sample</span>
+    <span class="n">entry</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weight</span>
+    
+    <span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;specimens&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">],</span><span class="n">verwey_estimates_and_params</span><span class="p">[</span><span class="n">n</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;specimens&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
 </pre></div>
 </div>
 </div>
@@ -848,7 +878,7 @@ are being written to multiple rows in the below approach</em></p>
       <td>None</td>
       <td>pmag core chip</td>
       <td>NaN</td>
-      <td>NaN</td>
+      <td>None</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -881,14 +911,14 @@ are being written to multiple rows in the below approach</em></p>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>105.861068</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>Verwey</td>
+      <td>NaN</td>
+      <td>None</td>
       <td>pmag core chip</td>
       <td>NaN</td>
-      <td>NaN</td>
+      <td>None</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -921,14 +951,14 @@ are being written to multiple rows in the below approach</em></p>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>116.145701</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>Verwey</td>
+      <td>NaN</td>
+      <td>None</td>
       <td>pmag core chip</td>
       <td>NaN</td>
-      <td>NaN</td>
+      <td>None</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -961,14 +991,14 @@ are being written to multiple rows in the below approach</em></p>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>117.902959</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>Verwey</td>
+      <td>NaN</td>
+      <td>None</td>
       <td>pmag core chip</td>
       <td>NaN</td>
-      <td>NaN</td>
+      <td>None</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1008,7 +1038,7 @@ are being written to multiple rows in the below approach</em></p>
       <td>None</td>
       <td>pmag core chip</td>
       <td>NaN</td>
-      <td>NaN</td>
+      <td>None</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1048,14 +1078,14 @@ are being written to multiple rows in the below approach</em></p>
       <td>None</td>
       <td>None</td>
       <td>NaN</td>
-      <td>NaN</td>
+      <td>IRM-VSM3-LP-HYS-218845</td>
       <td>0.01427</td>
-      <td>0.000100</td>
+      <td>0.0001</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0.006022</td>
-      <td>0.035780</td>
-      <td>2.050000e-07</td>
+      <td>0.03578</td>
+      <td>0.0</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>IRM-VSM3</td>
@@ -1081,21 +1111,21 @@ are being written to multiple rows in the below approach</em></p>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>105.861068</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>Verwey</td>
+      <td>NaN</td>
+      <td>None</td>
       <td>None</td>
       <td>NaN</td>
-      <td>NaN</td>
+      <td>IRM-VSM3-LP-HYS-218847</td>
       <td>0.01001</td>
       <td>0.000377</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.013740</td>
-      <td>0.122900</td>
-      <td>2.010000e-07</td>
+      <td>0.01374</td>
+      <td>0.1229</td>
+      <td>0.0</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>IRM-VSM3</td>
@@ -1121,21 +1151,21 @@ are being written to multiple rows in the below approach</em></p>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>116.145701</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>Verwey</td>
+      <td>NaN</td>
+      <td>None</td>
       <td>None</td>
       <td>NaN</td>
-      <td>NaN</td>
-      <td>0.01600</td>
+      <td>IRM-VSM3-LP-HYS-218849</td>
+      <td>0.016</td>
       <td>0.000543</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0.006807</td>
-      <td>0.044180</td>
-      <td>2.168000e-07</td>
+      <td>0.04418</td>
+      <td>0.0</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>IRM-VSM3</td>
@@ -1161,21 +1191,21 @@ are being written to multiple rows in the below approach</em></p>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>117.902959</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>Verwey</td>
+      <td>NaN</td>
+      <td>None</td>
       <td>None</td>
       <td>NaN</td>
-      <td>NaN</td>
+      <td>IRM-VSM3-LP-HYS-218853</td>
       <td>0.03551</td>
       <td>0.004018</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0.001537</td>
       <td>0.005557</td>
-      <td>2.859000e-07</td>
+      <td>0.0</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>IRM-VSM3</td>
@@ -1208,14 +1238,14 @@ are being written to multiple rows in the below approach</em></p>
       <td>None</td>
       <td>None</td>
       <td>NaN</td>
-      <td>NaN</td>
+      <td>IRM-VSM3-LP-HYS-218855</td>
       <td>0.02276</td>
       <td>0.006181</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0.000773</td>
-      <td>0.004660</td>
-      <td>2.991000e-07</td>
+      <td>0.00466</td>
+      <td>0.0</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>IRM-VSM3</td>
@@ -1248,7 +1278,7 @@ are being written to multiple rows in the below approach</em></p>
       <td>None</td>
       <td>None</td>
       <td>NaN</td>
-      <td>NaN</td>
+      <td>IRM-VSM3-LP-BCR-BF-218846</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0.0264</td>
@@ -1281,19 +1311,19 @@ are being written to multiple rows in the below approach</em></p>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>105.861068</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>Verwey</td>
+      <td>NaN</td>
+      <td>None</td>
       <td>None</td>
       <td>NaN</td>
+      <td>IRM-VSM3-LP-BCR-BF-218848</td>
       <td>NaN</td>
       <td>NaN</td>
+      <td>0.021</td>
       <td>NaN</td>
-      <td>0.0210</td>
-      <td>NaN</td>
-      <td>0.014450</td>
+      <td>0.01445</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1321,14 +1351,14 @@ are being written to multiple rows in the below approach</em></p>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>116.145701</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>Verwey</td>
+      <td>NaN</td>
+      <td>None</td>
       <td>None</td>
       <td>NaN</td>
-      <td>NaN</td>
+      <td>IRM-VSM3-LP-BCR-BF-218850</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0.0344</td>
@@ -1361,14 +1391,14 @@ are being written to multiple rows in the below approach</em></p>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>105.861068</td>
+      <td>105.900000</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>Verwey</td>
+      <td>Verwey transition</td>
       <td>None</td>
       <td>NaN</td>
-      <td>NaN</td>
+      <td>None</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1390,7 +1420,7 @@ are being written to multiple rows in the below approach</em></p>
       <td>NaN</td>
       <td>None</td>
       <td>NaN</td>
-      <td>None</td>
+      <td>NED18-2</td>
       <td>NED18-2c</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1401,14 +1431,14 @@ are being written to multiple rows in the below approach</em></p>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>105.861068</td>
+      <td>106.300000</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>Verwey</td>
+      <td>Verwey transition</td>
       <td>None</td>
       <td>NaN</td>
-      <td>NaN</td>
+      <td>None</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1430,11 +1460,131 @@ are being written to multiple rows in the below approach</em></p>
       <td>NaN</td>
       <td>None</td>
       <td>NaN</td>
-      <td>None</td>
+      <td>NED18-2</td>
       <td>NED18-2c</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
+    </tr>
+    <tr>
+      <th>NED18-2c</th>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>105.861068</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Verwey</td>
+      <td>calculated using MPMS_verwey_fit.ipynb with pa...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>SM-1DMAX:LP-FC</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>NED18-2</td>
+      <td>NED18-2c</td>
+      <td>None</td>
+      <td>None</td>
+      <td>0.000254</td>
+    </tr>
+    <tr>
+      <th>NED2-8c</th>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>116.145701</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Verwey</td>
+      <td>calculated using MPMS_verwey_fit.ipynb with pa...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>SM-1DMAX:LP-FC</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>NED2-8</td>
+      <td>NED2-8c</td>
+      <td>None</td>
+      <td>None</td>
+      <td>0.000188</td>
+    </tr>
+    <tr>
+      <th>NED4-1c</th>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>117.902959</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Verwey</td>
+      <td>calculated using MPMS_verwey_fit.ipynb with pa...</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>SM-1DMAX:LP-FC</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>NED4-1</td>
+      <td>NED4-1c</td>
+      <td>None</td>
+      <td>None</td>
+      <td>0.000211</td>
     </tr>
   </tbody>
 </table>
@@ -1473,24 +1623,6 @@ are being written to multiple rows in the below approach</em></p>
                 <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="MPMS_plot.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">MPMS data visualization</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="MPMS_goethite_fit.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Fit and remove the goethite component</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               

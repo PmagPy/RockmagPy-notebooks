@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'book/intro';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Getting going with rockmag.py on JupyterHub" href="../rockmag_set_up.html" />
+    <link rel="next" title="MPMS data visualization" href="../MPMS_plot_dc.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -177,15 +177,9 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Nuts &amp; Bolts</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">MPMS notebooks</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../rockmag_set_up.html">Getting going with rockmag.py on JupyterHub</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../rockmag_data_unpack.html">Rock magnetic experiments data import</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">MPMS notebooks</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../MPMS_plot.html">MPMS data visualization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../MPMS_verwey_fit.html">Estimate the Verwey transition temperature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../MPMS_plot_dc.html">MPMS data visualization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../MPMS_goethite_fit.html">Fit and remove the goethite component</a></li>
 </ul>
 
@@ -392,9 +386,7 @@ document.write(`
 </li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgements">Acknowledgements</a><ul class="visible nav section-nav flex-column">
-</ul>
-</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgements">Acknowledgements</a></li>
 </ul>
 
             </nav>
@@ -478,9 +470,10 @@ some associated methods.</p>
 <h3>MPMS data analysis<a class="headerlink" href="#mpms-data-analysis" title="Link to this heading">#</a></h3>
 <p>These notebooks support the analysis of low-temperature experimental data conducted on a Magnetic Property Measurement System (MPMS).</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#../MPMS_plot_dc.ipynb"><span class="xref myst"><strong>MPMS Data Plotting (DC)</strong></span></a> Within this notebook, MPMS experiments where remanence was measured upon warming and cooling. This plotting includes the calculation and visualization of derivative curves.</p></li>
+<li><p><a class="reference internal" href="../MPMS_plot_dc.html"><span class="std std-doc"><strong>MPMS Data Plotting (DC)</strong></span></a> Within this notebook, MPMS experiments where remanence was measured upon warming and cooling are plotted. This plotting includes the calculation and visualization of derivative curves.</p></li>
 <li><p><a class="reference internal" href="#../MPMS_plot_ac.ipynb"><span class="xref myst"><strong>MPMS Data Plotting (AC)</strong></span></a> <em>not yet developed</em></p></li>
 <li><p><a class="reference internal" href="../MPMS_verwey_fit.html"><span class="std std-doc"><strong>Verwey Transition Fitting</strong></span></a> In this notebook, Verwey temperature estimates can be made from remanence upon warming experiments conducted on an MPMS.</p></li>
+<li><p><a class="reference internal" href="#../MPMS_geothite_fit.ipynb"><span class="xref myst"><strong>Goethite Component Fitting</strong></span></a> In this notebook, the reversible component of room-temperature to low-temperature cycling experiments (that can be attributed to minerals such as goethite) can be numerically fit and removed.</p></li>
 </ul>
 </section>
 </section>
@@ -496,8 +489,6 @@ some associated methods.</p>
 <p>Current development of RockmagPy is supported by the National Science Foundation through its <a class="reference external" href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=2148719">support for the MagIC database</a>.</p>
 </div>
 </div>
-</div>
-<div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
 </div>
@@ -534,11 +525,11 @@ some associated methods.</p>
                   
 <div class="prev-next-area">
     <a class="right-next"
-       href="../rockmag_set_up.html"
+       href="../MPMS_plot_dc.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Getting going with rockmag.py on JupyterHub</p>
+        <p class="prev-next-title">MPMS data visualization</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -568,9 +559,7 @@ some associated methods.</p>
 </li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgements">Acknowledgements</a><ul class="visible nav section-nav flex-column">
-</ul>
-</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgements">Acknowledgements</a></li>
 </ul>
 
   </nav></div>
