@@ -235,6 +235,7 @@ def plot_mpms_data(fc_data, zfc_data, rtsirm_cool_data, rtsirm_warm_data,
         if return_figure:
             return fig
 
+
 def plot_hyst_data(hyst_data,
                    hyst_color='#1f77b4',
                    hyst_marker='.',
@@ -293,6 +294,7 @@ def plot_hyst_data(hyst_data,
         
         if return_figure:
             return fig
+
 
 def make_mpms_plots(measurements):
     """
