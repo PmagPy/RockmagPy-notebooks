@@ -378,7 +378,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-scientific-python-libraries">Import scientific python libraries</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-and-import-data">Download and import data</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-and-unpack-data-from-magic">Download and unpack data from MagIC</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-the-measurements-table">Import the measurements table</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-the-measurements-table">Inspect the measurements table</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-list-of-specimens-and-experiments">Get list of specimens and experiments</a></li>
 </ul>
 </li>
@@ -402,6 +402,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pmagpy.ipmag</span> <span class="k">as</span> <span class="nn">ipmag</span>
+<span class="kn">import</span> <span class="nn">pmagpy.contribution_builder</span> <span class="k">as</span> <span class="nn">cb</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
@@ -414,15 +415,18 @@ document.write(`
 <h2>Download and import data<a class="headerlink" href="#download-and-import-data" title="Link to this heading">#</a></h2>
 <section id="download-and-unpack-data-from-magic">
 <h3>Download and unpack data from MagIC<a class="headerlink" href="#download-and-unpack-data-from-magic" title="Link to this heading">#</a></h3>
-<p>Within the folder <code class="docutils literal notranslate"><span class="pre">./example_data/ECMB</span></code>, there is a MagIC contribution called <code class="docutils literal notranslate"><span class="pre">'ECMB</span> <span class="pre">2018.TXT'</span></code>. Running the code cell below unpacks that MagIC contribution so that we can visualize and analyze the measurement data.</p>
+<p>Within the folder <code class="docutils literal notranslate"><span class="pre">./example_data/ECMB</span></code>, there is a MagIC contribution called <code class="docutils literal notranslate"><span class="pre">'ECMB</span> <span class="pre">2018.TXT'</span></code>. Running the code cell below unpacks that MagIC contribution so that we can visualize and analyze the measurement data. We can then create a contribution object that has all of the MagIC tables.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set the directory path (dir_path) to the data</span>
 <span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;./example_data/ECMB&#39;</span>
 
+<span class="c1"># set the name of the MagIC file</span>
 <span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="s1">&#39;ECMB 2018.TXT&#39;</span><span class="p">,</span> 
                      <span class="n">dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">,</span>
                      <span class="n">input_dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">)</span>
+
+<span class="n">contribution</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">Contribution</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -445,21 +449,20 @@ working on:  &#39;locations\r&#39;
 working on:  &#39;measurements\r&#39;
 5018  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/measurements.txt
   data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/measurements.txt
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+-I- Using online data model
+-I- Getting method codes from earthref.org
+-I- Importing controlled vocabularies from https://earthref.org
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="import-the-measurements-table">
-<h3>Import the measurements table<a class="headerlink" href="#import-the-measurements-table" title="Link to this heading">#</a></h3>
-<p>After unpacking the MagIC data, there is now a measurements table that we can import for analysis into a DataFrame that we will call <code class="docutils literal notranslate"><span class="pre">measurements</span></code>.</p>
+<section id="inspect-the-measurements-table">
+<h3>Inspect the measurements table<a class="headerlink" href="#inspect-the-measurements-table" title="Link to this heading">#</a></h3>
+<p>Within the MagIC contribution object, there is a measurements table that we can inspect.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">file</span> <span class="o">=</span> <span class="n">dir_path</span> <span class="o">+</span> <span class="s1">&#39;/measurements.txt&#39;</span>
-<span class="n">measurements</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">measurements</span> <span class="o">=</span> <span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;measurements&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
 <span class="n">measurements</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> <span class="c1"># see the first 5 measurements without empty columns</span>
 </pre></div>
 </div>
@@ -497,10 +500,26 @@ working on:  &#39;measurements\r&#39;
       <th>timestamp</th>
       <th>treat_dc_field</th>
     </tr>
+    <tr>
+      <th>measurement name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
+      <th>IRM-VSM3-LP-HYS-218845-1</th>
       <td>IRM-VSM3-LP-HYS-218845</td>
       <td>IRM-VSM3</td>
       <td>0.1988</td>
@@ -516,7 +535,7 @@ working on:  &#39;measurements\r&#39;
       <td>NaN</td>
     </tr>
     <tr>
-      <th>1</th>
+      <th>IRM-VSM3-LP-HYS-218845-2</th>
       <td>IRM-VSM3-LP-HYS-218845</td>
       <td>IRM-VSM3</td>
       <td>0.1986</td>
@@ -532,7 +551,7 @@ working on:  &#39;measurements\r&#39;
       <td>NaN</td>
     </tr>
     <tr>
-      <th>2</th>
+      <th>IRM-VSM3-LP-HYS-218845-3</th>
       <td>IRM-VSM3-LP-HYS-218845</td>
       <td>IRM-VSM3</td>
       <td>0.1981</td>
@@ -548,7 +567,7 @@ working on:  &#39;measurements\r&#39;
       <td>NaN</td>
     </tr>
     <tr>
-      <th>3</th>
+      <th>IRM-VSM3-LP-HYS-218845-4</th>
       <td>IRM-VSM3-LP-HYS-218845</td>
       <td>IRM-VSM3</td>
       <td>0.1974</td>
@@ -564,7 +583,7 @@ working on:  &#39;measurements\r&#39;
       <td>NaN</td>
     </tr>
     <tr>
-      <th>4</th>
+      <th>IRM-VSM3-LP-HYS-218845-5</th>
       <td>IRM-VSM3-LP-HYS-218845</td>
       <td>IRM-VSM3</td>
       <td>0.1967</td>
@@ -802,7 +821,7 @@ working on:  &#39;measurements\r&#39;
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-scientific-python-libraries">Import scientific python libraries</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-and-import-data">Download and import data</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-and-unpack-data-from-magic">Download and unpack data from MagIC</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-the-measurements-table">Import the measurements table</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-the-measurements-table">Inspect the measurements table</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-list-of-specimens-and-experiments">Get list of specimens and experiments</a></li>
 </ul>
 </li>

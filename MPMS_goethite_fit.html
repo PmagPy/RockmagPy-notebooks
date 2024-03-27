@@ -446,12 +446,13 @@ document.write(`
 </section>
 <section id="import-data">
 <h2>Import data<a class="headerlink" href="#import-data" title="Link to this heading">#</a></h2>
-<p>Here we set the path (<code class="docutils literal notranslate"><span class="pre">dir_path</span></code>) to the example data in MagIC format, create a contribution object that is a collection of these tables, and view the measurements table.</p>
+<p>Here we set the path (<code class="docutils literal notranslate"><span class="pre">dir_path</span></code>) to the example data in MagIC format, unpack the MagIC file within that folder (<code class="docutils literal notranslate"><span class="pre">'A73-7-1350-4B-01a_mpms.txt'</span></code>), create a contribution object that is a collection of these tables, and view the measurements table.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set the directory path (dir_path) to the data</span>
 <span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;./example_data/goethite&#39;</span>
 
+<span class="c1"># set the name of the MagIC file</span>
 <span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="s1">&#39;A73-7-1350-4B-01a_mpms.txt&#39;</span><span class="p">,</span> 
                      <span class="n">dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">,</span>
                      <span class="n">input_dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">)</span>
