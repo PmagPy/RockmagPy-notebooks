@@ -6,7 +6,10 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import ipywidgets as widgets
 from IPython.display import display
-
+import math
+import scipy.special as sc
+from scipy.optimize import brent
+from numpy.linalg import svd, lstsq, solve
 
 def extract_mpms_data(df, specimen_name):
     """
@@ -792,6 +795,43 @@ def linefit1(n, xarr, yarr):
 
     return intercept, slope
 
+def linefit2(n, xarr, yarr):
+    sumx = sumy = st2 = b = ssr = sst = 0
+    for i in range(n):
+        sumx += xarr[i]
+        sumy += yarr[i]
+
+    xavg = sumx / n
+    yavg = sumy / n
+
+    for i in range(n):
+        xdelta = xarr[i] - xavg
+        st2 += xdelta ** 2
+        ydelta = yarr[i] - yavg
+        sst += ydelta ** 2
+        b += xdelta * yarr[i]
+
+    if st2 > 0:
+        b /= st2
+    else:
+        b = 9E9  # slope
+
+    a = (sumy - sumx * b) / n  # intercept
+
+    for i in range(n):
+        # ssr += (yarr[i] - (a + b * xarr[i])) ** 2  # sum squared residuals
+        ssr += ((a + b * xarr[i]) - yavg) ** 2  # sum squared due to regression
+
+    if sst > 0:
+        rsqr = ssr / sst
+    else:
+        rsqr = 1
+
+    slope = b
+    intercept = a
+
+    return intercept, slope, rsqr
+
 def branch_sub(n_loop, grid_moments):
 
     j = n_loop // 2
@@ -882,7 +922,7 @@ def loop_grid(n_loop, polydegree, nsmooth, loop_fields, loop_moments, B_offset, 
         grid_moments[i] = ycal
         #print(grid_moments[i])
     j = 2
-
+    """IRMDB software uses only linear fitting for gridding at this point
     if polydegree > 1:
         for i in range(n2 + 1, n_loop // 2 - (n2 + 1) + 1):
             while not (loop_fields[j] - B_offset >= grid_fields[i]): # or (j <= 2):
@@ -947,10 +987,46 @@ def loop_grid(n_loop, polydegree, nsmooth, loop_fields, loop_moments, B_offset, 
                     y1 += y[k + 1] * x1
 
                 grid_moments[i] = y1
-
+    """            
     return grid_fields, grid_moments
 
+def loop_test_linearity(n_looppoints, loop_fields, loop_moments):
 
+    intercept, slope = linefit1(n_looppoints, loop_fields, loop_moments)
+    n = n_looppoints // 2
+    sst = 0
+    ssr = 0
+    SSD = 0
+    SSLF = 0
+    SSPE = 0
+    ymean = 0
+    ymean = sum(loop_moments) / (2 * n)
+
+    for i in range(1, n+1):   # range(1, n + 1):
+        b1 = loop_fields[i - 1]
+        b2 = -loop_fields[i + n - 1]
+        m1 = loop_moments[i - 1]
+        m2 = -loop_moments[i + n - 1]
+        mfit = b1 * slope + intercept
+        sst += (m1 - ymean) ** 2
+        ssr += (mfit - ymean) ** 2
+        SSD += (mfit - m1) ** 2
+        mfit = b2 * slope + intercept
+        sst += (m2 - ymean) ** 2
+        ssr += (mfit - ymean) ** 2
+        SSD += (mfit - m2) ** 2
+        # SSPE += ((m1 - m2) / 2) ** 2  Chat GPT botched the conversion
+        SSPE += ((m1 - m2) ** 2) / 2
+
+    SSLF = SSD - SSPE
+    MSR = ssr
+    MSD = SSD / (2 * n - 2)
+    MSPE = SSPE / n
+    MSLF = SSLF / (n - 2)
+    FL = MSR / MSD
+    FNL = MSLF / MSPE
+
+    return FNL, slope, intercept
 
 
 
