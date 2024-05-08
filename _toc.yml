@@ -17,5 +17,5 @@ parts:
     chapters:
     - file: Anisotropy_plot_AMS
   - caption: More resources
-      chapters:
-      - file: resources
+    chapters:
+    - file: resources
