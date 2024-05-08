@@ -16,3 +16,6 @@ parts:
   - caption: Anisotropy notebooks
     chapters:
     - file: Anisotropy_plot_AMS
+- caption: More resources
+    chapters:
+    - file: resources
