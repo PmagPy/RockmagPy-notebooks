@@ -404,20 +404,20 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="plot-and-analyze-anisotropy-data">
 <h1>Plot and analyze anisotropy data<a class="headerlink" href="#plot-and-analyze-anisotropy-data" title="Link to this heading">#</a></h1>
-<p>The anisotropy of magnetic susceptibility and remanence can give significant insight to geological processes. Phenomena such as sedimentary deposition, magma flow, and deformation can all lead to a preferred orientation of magnetic minerals. Such ``magnetic fabrics’’ give rise to anisotropy. Additionally, paleomagnetic vectors can be influenced by magnetic fabrics in their direction and intensity which further motivates efforts to quantify anisotropy.</p>
+<p>The anisotropy of magnetic susceptibility and remanence can give significant insight to geological processes. Phenomena such as sedimentary deposition, magma flow, and deformation can all lead to preferred orientations of magnetic minerals. Such “magnetic fabrics’’ give rise to anisotropy. Additionally, paleomagnetic vectors can be influenced by magnetic fabrics in their direction and intensity which further motivates efforts to quantify anisotropy.</p>
 <p>This notebook is focused on one of the most common types of anisotropy data which is anisotropy of magnetic susceptibility (AMS). The anisotropy of anhysteretic remanence (AARM) will be dealt with in a separate notebook.</p>
 <section id="introduction-to-anisotropy-of-magnetic-susceptibility-ams">
 <h2>Introduction to anisotropy of magnetic susceptibility (AMS)<a class="headerlink" href="#introduction-to-anisotropy-of-magnetic-susceptibility-ams" title="Link to this heading">#</a></h2>
 <p>Magnetic susceptibility describes the relationship between an applied magnetic field and the magnetization that is induced by this field.</p>
 <p><span class="math notranslate nohighlight">\(M = \chi H\)</span></p>
-<p>where <span class="math notranslate nohighlight">\(M\)</span> is the magnetization, <span class="math notranslate nohighlight">\(H\)</span> is the applied field, and <span class="math notranslate nohighlight">\(\chi\)</span> is the magnetic susceptibility. If a material is perfectly isotropic, the relationship described by <span class="math notranslate nohighlight">\(\chi\)</span> is independent of the orientation of the sample relative to the applied field. However, if there is a different response in different orientations the material can be considered to be anisotropic.</p>
+<p>where <span class="math notranslate nohighlight">\(M\)</span> is the magnetization (in A/m), <span class="math notranslate nohighlight">\(H\)</span> is the applied field (in A/m), and <span class="math notranslate nohighlight">\(\chi\)</span> is the magnetic susceptibility (this is the mass susceptibility in m<sup>3</sup>/kg). If a material is perfectly isotropic, the relationship described by <span class="math notranslate nohighlight">\(\chi\)</span> is independent of the orientation of the sample relative to the applied field. However, if there is a different response in different orientations the material can be considered to be anisotropic.</p>
 <p>In practice, AMS is quantified by varying the orientation of a sample within the coils of a magnetic susceptibility bridge. By doing so, the length and orientation of the principal, major, and minor eigenvectors can be determined where:</p>
 <p><span class="math notranslate nohighlight">\(V_1 \geq V_2 \geq V_3\)</span></p>
 <p>these eigenvectors are also referred to in the literature as:</p>
 <p><span class="math notranslate nohighlight">\(K_{max} \geq K_{int} \geq K_{min}\)</span></p>
 <p>and can be illustrated as follows:</p>
 <figure>
-  <img src="./book/images/AMS.png" alt="Description of the image" width="450">
+  <img src="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/AMS.png" alt="Description of the image" width="450">
   <figcaption>Anisotropy ellipsoid as illustrated in https://www.agico.cz/downloads/documents/agicoprints/ams_rocks_pres.pdf </figcaption>
 </figure></section>
 <section id="import-scientific-python-libraries">
@@ -438,11 +438,12 @@ document.write(`
 </section>
 <section id="import-data">
 <h2>Import data<a class="headerlink" href="#import-data" title="Link to this heading">#</a></h2>
-<p>Here we will download data from a MagIC contribution associated with the study</p>
+<p>We will download data from a MagIC contribution associated with the study:</p>
 <blockquote>
 <div><p>Schwehr and Tauxe (2003). Characterization of soft-sediment deformation: Detection of cryptoslumps using magnetic methods. Geology 31 (3):203. doi:10.1130/0091-7613(2003)031&lt;0203:COSSDD&gt;<a class="reference external" href="http://2.0.CO">2.0.CO</a>;2.</p>
 </div></blockquote>
-<p>We will set the directory, download the file from MagIC, unpack the MagIC file into its constituent tables, and make those tables into a Contribution object.</p>
+<p>The MagIC formated data for that study can be found here: <a class="reference external" href="https://earthref.org/MagIC/19571">https://earthref.org/MagIC/19571</a>. We can use the MagIC id of 19571 to download the data from MagIC using the ``ipmag.download_magic_from_id()` function.</p>
+<p>We will set the directory, download the file from MagIC (using <code class="docutils literal notranslate"><span class="pre">ipmag.download_magic_from_id()</span></code>), unpack the MagIC file into its constituent tables (using <code class="docutils literal notranslate"><span class="pre">ipmag.unpack_magic</span></code>), and make those tables into a Contribution object (using <code class="docutils literal notranslate"><span class="pre">cb.Contribution()</span></code>).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;example_data/anisotropy_slump&#39;</span>
@@ -625,7 +626,7 @@ specimens  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_
 <section id="plot-the-data">
 <h2>Plot the data<a class="headerlink" href="#plot-the-data" title="Link to this heading">#</a></h2>
 <p>The data can be plotted using the function <code class="docutils literal notranslate"><span class="pre">ipmag.aniso_magic_nb()</span></code>.</p>
-<p>An important aspect of AMS data analysis is estimating uncertainty associated with the mean eigenvectors. These means and there uncertainties are often determined through . There are two main approaches taken to develop estimates of the confidence ellipses associated with data from a given site:</p>
+<p>An important aspect of AMS data analysis is estimating uncertainty associated with the mean eigenvectors. These means and their uncertainties are typically determined through two main approaches. These approached develop estimates of the confidence ellipses associated with data from a given site and are:</p>
 <ul class="simple">
 <li><p>parametric Hext confidence ellipses</p></li>
 <li><p>non-parametric bootstrap confidence ellipses</p></li>
