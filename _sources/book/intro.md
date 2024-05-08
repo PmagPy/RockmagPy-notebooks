@@ -51,8 +51,7 @@ Develop new contributions and analyze existing datasets in the MagIC database.
 This page links to available notebooks that have been developed to use RockmagPy to analyze data from rock magnetic experiments.
 The notebook versions that are shown within this book are static (they don't run the code).
 Some of the interactive features that have been developed are not visible as they would be in a running notebook. 
-They do give an overall sense of what functions are available within RockmagPy and explain
-some associated methods.
+They do give an overall sense of what functions are available within RockmagPy and explain some associated methods.
 
 ### Code/data nuts and bolts
 
@@ -69,7 +68,7 @@ These notebooks support the analysis of data generated during experiments conduc
 ### Kappabridge data analysis
 
 - [*Thermomagnetic Curves*](../kappa_thermomagnetic.ipynb) *not yet developed*
-- [*Anisotropy of Magnetic Susceptibility*](../kappa_anisotropy.ipynb) *not yet developed*
+- [*Anisotropy of Magnetic Susceptibility*](../Anisotropy_plot_AMS.ipynb)
 
 ### MPMS data analysis
 

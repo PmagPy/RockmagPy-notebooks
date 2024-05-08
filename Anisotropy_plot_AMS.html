@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Plot and analyze anisotropy data &#8212; RockmagPy Documentation</title>
+    <title>Plot and analyze anisotropy data (AMS) &#8212; RockmagPy Documentation</title>
   
   
   
@@ -190,7 +190,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Anisotropy notebooks</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Plot and analyze anisotropy data</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Plot and analyze anisotropy data (AMS)</a></li>
 </ul>
 
     </div>
@@ -376,7 +376,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Plot and analyze anisotropy data</h1>
+    <h1>Plot and analyze anisotropy data (AMS)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -402,8 +402,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="plot-and-analyze-anisotropy-data">
-<h1>Plot and analyze anisotropy data<a class="headerlink" href="#plot-and-analyze-anisotropy-data" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="plot-and-analyze-anisotropy-data-ams">
+<h1>Plot and analyze anisotropy data (AMS)<a class="headerlink" href="#plot-and-analyze-anisotropy-data-ams" title="Link to this heading">#</a></h1>
 <p>The anisotropy of magnetic susceptibility and remanence can give significant insight to geological processes. Phenomena such as sedimentary deposition, magma flow, and deformation can all lead to preferred orientations of magnetic minerals. Such “magnetic fabrics’’ give rise to anisotropy. Additionally, paleomagnetic vectors can be influenced by magnetic fabrics in their direction and intensity which further motivates efforts to quantify anisotropy.</p>
 <p>This notebook is focused on one of the most common types of anisotropy data which is anisotropy of magnetic susceptibility (AMS). The anisotropy of anhysteretic remanence (AARM) will be dealt with in a separate notebook.</p>
 <section id="introduction-to-anisotropy-of-magnetic-susceptibility-ams">
@@ -415,10 +415,10 @@ document.write(`
 <p><span class="math notranslate nohighlight">\(V_1 \geq V_2 \geq V_3\)</span></p>
 <p>these eigenvectors are also referred to in the literature as:</p>
 <p><span class="math notranslate nohighlight">\(K_{max} \geq K_{int} \geq K_{min}\)</span></p>
-<p>and can be illustrated as follows:</p>
+<p>and the anisotropy ellipsoid can be illustrated as:</p>
 <figure>
   <img src="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/AMS.png" alt="Description of the image" width="450">
-  <figcaption>Anisotropy ellipsoid as illustrated in https://www.agico.cz/downloads/documents/agicoprints/ams_rocks_pres.pdf </figcaption>
+  <figcaption>from https://www.agico.cz/downloads/documents/agicoprints/ams_rocks_pres.pdf </figcaption>
 </figure></section>
 <section id="import-scientific-python-libraries">
 <h2>Import scientific python libraries<a class="headerlink" href="#import-scientific-python-libraries" title="Link to this heading">#</a></h2>
@@ -442,7 +442,7 @@ document.write(`
 <blockquote>
 <div><p>Schwehr and Tauxe (2003). Characterization of soft-sediment deformation: Detection of cryptoslumps using magnetic methods. Geology 31 (3):203. doi:10.1130/0091-7613(2003)031&lt;0203:COSSDD&gt;<a class="reference external" href="http://2.0.CO">2.0.CO</a>;2.</p>
 </div></blockquote>
-<p>The MagIC formated data for that study can be found here: <a class="reference external" href="https://earthref.org/MagIC/19571">https://earthref.org/MagIC/19571</a>. We can use the MagIC id of 19571 to download the data from MagIC using the ``ipmag.download_magic_from_id()` function.</p>
+<p>The MagIC formated data for that study can be found here: <a class="reference external" href="https://earthref.org/MagIC/19571">https://earthref.org/MagIC/19571</a>. We can use the MagIC id of 19571 to download the data from MagIC using the <code class="docutils literal notranslate"><span class="pre">ipmag.download_magic_from_id()</span></code> function.</p>
 <p>We will set the directory, download the file from MagIC (using <code class="docutils literal notranslate"><span class="pre">ipmag.download_magic_from_id()</span></code>), unpack the MagIC file into its constituent tables (using <code class="docutils literal notranslate"><span class="pre">ipmag.unpack_magic</span></code>), and make those tables into a Contribution object (using <code class="docutils literal notranslate"><span class="pre">cb.Contribution()</span></code>).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
