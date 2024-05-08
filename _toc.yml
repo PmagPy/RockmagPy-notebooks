@@ -13,3 +13,6 @@ parts:
     - file: MPMS_plot_dc
     - file: MPMS_verwey_fit
     - file: MPMS_goethite_fit
+  - caption: Anisotropy notebooks
+    chapters:
+    - file: Anisotropy_plot_AMS
