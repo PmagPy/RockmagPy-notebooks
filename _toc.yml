@@ -18,4 +18,4 @@ parts:
     - file: Anisotropy_plot_AMS
   - caption: More resources
     chapters:
-    - file: resources
+    - file: book/resources.md
