@@ -395,7 +395,12 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-scientific-python-libraries">Import scientific python libraries</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-data">Import data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-data">Inspect data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-data">Plot the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-data">Plot the data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-by-contribution-with-hext-ellipses">Plot by contribution with Hext ellipses</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-by-site-with-hext-ellipses">Plot by site with Hext ellipses</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-by-site-with-bootstrap-uncertainty">Plot by site with bootstrap uncertainty</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -459,7 +464,8 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>working on:  &#39;contribution&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Download successful. File saved to: example_data/anisotropy_slump/magic_contribution_19571.txt
+working on:  &#39;contribution&#39;
 1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/anisotropy_slump/contribution.txt
 contribution  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/anisotropy_slump/contribution.txt
 working on:  &#39;locations&#39;
@@ -511,22 +517,38 @@ specimens  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>aniso_s</th>
-      <th>aniso_s_mean</th>
-      <th>aniso_s_n_measurements</th>
-      <th>aniso_s_sigma</th>
-      <th>aniso_s_unit</th>
+      <th>age_high</th>
+      <th>age_low</th>
+      <th>age_unit</th>
+      <th>aniso_tilt_correction</th>
       <th>aniso_type</th>
+      <th>aniso_v1</th>
+      <th>aniso_v2</th>
+      <th>aniso_v3</th>
       <th>citations</th>
-      <th>geologic_classes</th>
+      <th>description</th>
+      <th>...</th>
       <th>geologic_types</th>
+      <th>lat</th>
       <th>lithologies</th>
+      <th>location</th>
+      <th>lon</th>
       <th>method_codes</th>
-      <th>sample</th>
-      <th>specimen</th>
+      <th>samples</th>
+      <th>site</th>
+      <th>site_alternatives</th>
+      <th>specimens</th>
     </tr>
     <tr>
-      <th>specimen name</th>
+      <th>site name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -544,99 +566,148 @@ specimens  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_
   </thead>
   <tbody>
     <tr>
-      <th>as1a1</th>
-      <td>0.34406999:0.34145039:0.31447965:-0.00168019:0...</td>
-      <td>0.000250</td>
-      <td>15</td>
-      <td>0.000525</td>
-      <td>SI</td>
+      <th>as1</th>
+      <td>49</td>
+      <td>46</td>
+      <td>Ma</td>
+      <td>0</td>
       <td>AMS</td>
+      <td>0.34364864:155:0.7:eta/zeta:64.9:7.8:37.7:249....</td>
+      <td>0.34138933:64.9:7.8:eta/zeta:155:0.7:37.7:249....</td>
+      <td>0.31496203:249.8:82.2:eta/zeta:155:0.7:37.7:64...</td>
       <td>This study</td>
-      <td>Sedimentary</td>
+      <td>as1:AMS</td>
+      <td>...</td>
       <td>Sediment Layer</td>
-      <td>Shallow Marine Sediments</td>
-      <td>AE-H:LP-X</td>
-      <td>as1a</td>
-      <td>as1a1</td>
+      <td>32.8694</td>
+      <td>Limey shale</td>
+      <td>Scripps Beach</td>
+      <td>242.7463</td>
+      <td>AE-H:LP-AN</td>
+      <td>as1b : as1c : as1d : as1e:as1a</td>
+      <td>as1</td>
+      <td>Cryptoslump:Site B</td>
+      <td>as1a2 : as1a3 : as1b1 : as1b2 : as1b3 : as1c1 ...</td>
     </tr>
     <tr>
-      <th>as1a2</th>
-      <td>0.34351686:0.34047559:0.31600755:-0.00129778:0...</td>
-      <td>0.000229</td>
-      <td>15</td>
-      <td>0.000781</td>
-      <td>SI</td>
+      <th>as1</th>
+      <td>49</td>
+      <td>46</td>
+      <td>Ma</td>
+      <td>0</td>
       <td>AMS</td>
+      <td>0.34364864:155:0.7:eta/zeta:249.4:80.1:1.1:63....</td>
+      <td>0.34138933:64.9:7.8:eta/zeta:242.9:82.3:0.9:33...</td>
+      <td>0.31496203:249.8:82.2:eta/zeta:114.6:5.5:0.7:2...</td>
       <td>This study</td>
-      <td>Sedimentary</td>
+      <td>as1:AMS</td>
+      <td>...</td>
       <td>Sediment Layer</td>
-      <td>Shallow Marine Sediments</td>
-      <td>AE-H:LP-X</td>
-      <td>as1a</td>
-      <td>as1a2</td>
+      <td>32.8694</td>
+      <td>Limey shale</td>
+      <td>Scripps Beach</td>
+      <td>242.7463</td>
+      <td>AE-BS:AE-H:LP-AN</td>
+      <td>as1b : as1c : as1d : as1e:as1a</td>
+      <td>as1</td>
+      <td>Cryptoslump:Site B</td>
+      <td>as1a2 : as1a3 : as1b1 : as1b2 : as1b3 : as1c1 ...</td>
     </tr>
     <tr>
-      <th>as1a3</th>
-      <td>0.34317553:0.34108347:0.315741:-0.00083286:0.0...</td>
-      <td>0.000235</td>
-      <td>15</td>
-      <td>0.000366</td>
-      <td>SI</td>
+      <th>as2</th>
+      <td>49</td>
+      <td>46</td>
+      <td>Ma</td>
+      <td>0</td>
       <td>AMS</td>
+      <td>0.34858122:358.4:5.6:eta/zeta:88.7:3.6:29.6:21...</td>
+      <td>0.33781892:88.7:3.6:eta/zeta:358.4:5.6:29.6:21...</td>
+      <td>0.31359982:210.8:83.3:eta/zeta:358.4:5.6:29.6:...</td>
       <td>This study</td>
-      <td>Sedimentary</td>
+      <td>as2:AMS</td>
+      <td>...</td>
       <td>Sediment Layer</td>
-      <td>Shallow Marine Sediments</td>
-      <td>AE-H:LP-X</td>
-      <td>as1a</td>
-      <td>as1a3</td>
+      <td>32.8694</td>
+      <td>Limey shale</td>
+      <td>Scripps Beach</td>
+      <td>242.7463</td>
+      <td>AE-H:LP-AN</td>
+      <td>as2b : as2c : as2d : as2e : as2f:as2a</td>
+      <td>as2</td>
+      <td>Slumped:Site C</td>
+      <td>as2a2 : as2a3 : as2a4 : as2b1 : as2b2 : as2b3 ...</td>
     </tr>
     <tr>
-      <th>as1b1</th>
-      <td>0.34141964:0.34004751:0.31853285:-0.0005353:0....</td>
-      <td>0.000241</td>
-      <td>15</td>
-      <td>0.000546</td>
-      <td>SI</td>
+      <th>as2</th>
+      <td>49</td>
+      <td>46</td>
+      <td>Ma</td>
+      <td>0</td>
       <td>AMS</td>
+      <td>0.34858122:358.4:5.6:eta/zeta:182.8:84.4:2.5:8...</td>
+      <td>0.33781892:88.7:3.6:eta/zeta:188.7:70.4:1.9:35...</td>
+      <td>0.31359982:210.8:83.3:eta/zeta:68.2:5.3:2.1:33...</td>
       <td>This study</td>
-      <td>Sedimentary</td>
+      <td>as2:AMS</td>
+      <td>...</td>
       <td>Sediment Layer</td>
-      <td>Shallow Marine Sediments</td>
-      <td>AE-H:LP-X</td>
-      <td>as1b</td>
-      <td>as1b1</td>
+      <td>32.8694</td>
+      <td>Limey shale</td>
+      <td>Scripps Beach</td>
+      <td>242.7463</td>
+      <td>AE-BS:AE-H:LP-AN</td>
+      <td>as2b : as2c : as2d : as2e : as2f:as2a</td>
+      <td>as2</td>
+      <td>Slumped:Site C</td>
+      <td>as2a2 : as2a3 : as2a4 : as2b1 : as2b2 : as2b3 ...</td>
     </tr>
     <tr>
-      <th>as1b2</th>
-      <td>0.34097505:0.34068653:0.31833842:-0.00101421:0...</td>
-      <td>0.000230</td>
-      <td>15</td>
-      <td>0.000482</td>
-      <td>SI</td>
+      <th>as3</th>
+      <td>49</td>
+      <td>46</td>
+      <td>Ma</td>
+      <td>0</td>
       <td>AMS</td>
+      <td>0.34502691:358:5.8:eta/zeta:88.6:5.2:43.4:220....</td>
+      <td>0.337455:88.6:5.2:eta/zeta:358:5.8:43.4:220.5:...</td>
+      <td>0.31751812:220.5:82.2:eta/zeta:358:5.8:43.4:88...</td>
       <td>This study</td>
-      <td>Sedimentary</td>
+      <td>as3:AMS</td>
+      <td>...</td>
       <td>Sediment Layer</td>
-      <td>Shallow Marine Sediments</td>
-      <td>AE-H:LP-X</td>
-      <td>as1b</td>
-      <td>as1b2</td>
+      <td>32.8694</td>
+      <td>Limey shale</td>
+      <td>Scripps Beach</td>
+      <td>242.7463</td>
+      <td>AE-H:LP-AN</td>
+      <td>as3b : as3c : as3d : as3e : as3f:as3a</td>
+      <td>as3</td>
+      <td>Undeformed:Site A</td>
+      <td>as3a2 : as3a3 : as3b1 : as3b2 : as3b3 : as3c1 ...</td>
     </tr>
   </tbody>
 </table>
+<p>5 rows × 21 columns</p>
 </div></div></div>
 </div>
+<p>The <code class="docutils literal notranslate"><span class="pre">aniso_s</span></code> list is a succinct representation of the anisotropy tensor <span class="math notranslate nohighlight">\(\chi\)</span>. In the linear equations below, <span class="math notranslate nohighlight">\(M_1\)</span>, <span class="math notranslate nohighlight">\(M_2\)</span>, and <span class="math notranslate nohighlight">\(M_3\)</span> are the components of the magnetization vector <span class="math notranslate nohighlight">\(M\)</span>. The relationship between the magnetization and the magnetic field (<span class="math notranslate nohighlight">\(H_1\)</span>, <span class="math notranslate nohighlight">\(H_2\)</span>, and <span class="math notranslate nohighlight">\(H_3\)</span>) is described by the components of the magnetic susceptibility tensor <span class="math notranslate nohighlight">\(\chi_{ij}\)</span>. If the material is anisotropic, there will be different values in different orientations described by the <span class="math notranslate nohighlight">\(\chi\)</span> tensor.</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{align}\\\begin{split}M_1 &amp;= \chi_{11} H_1 + \chi_{12} H_2 + \chi_{13} H_3 \\\end{split}\\\begin{split}M_2 &amp;= \chi_{21} H_1 + \chi_{22} H_2 + \chi_{23} H_3 \\\end{split}\\M_3 &amp;= \chi_{31} H_1 + \chi_{32} H_2 + \chi_{33} H_3\\\end{align}\end{aligned}\end{align} \]</div>
+<p>This susceptibility tensor has six independent matrix elements because <span class="math notranslate nohighlight">\(\chi_{ij} = \chi_{ji}\)</span>. The <code class="docutils literal notranslate"><span class="pre">aniso_s</span></code> column contains these six elements as <span class="math notranslate nohighlight">\(s_1\)</span> : <span class="math notranslate nohighlight">\(s_2\)</span> : <span class="math notranslate nohighlight">\(s_3\)</span> : <span class="math notranslate nohighlight">\(s_4\)</span> : <span class="math notranslate nohighlight">\(s_5\)</span> : <span class="math notranslate nohighlight">\(s_6\)</span> which are defined as:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{equation}\\\begin{array}{l}\\\begin{split}s_1 = \chi_{11} \\\end{split}\\\begin{split}s_2 = \chi_{22} \\\end{split}\\\begin{split}s_3 = \chi_{33} \\\end{split}\\\begin{split}s_4 = \chi_{12} = \chi_{21} \\\end{split}\\\begin{split}s_5 = \chi_{23} = \chi_{32} \\\end{split}\\s_6 = \chi_{13} = \chi_{31}\\\end{array}\\\end{equation}\end{aligned}\end{align} \]</div>
 </section>
 <section id="plot-the-data">
 <h2>Plot the data<a class="headerlink" href="#plot-the-data" title="Link to this heading">#</a></h2>
 <p>The data can be plotted using the function <code class="docutils literal notranslate"><span class="pre">ipmag.aniso_magic_nb()</span></code>.</p>
 <p>An important aspect of AMS data analysis is estimating uncertainty associated with the mean eigenvectors. These means and their uncertainties are typically determined through two main approaches. These approaches estimate the confidence ellipses associated with data from a given site and are:</p>
 <ul class="simple">
-<li><p>parametric Hext confidence ellipses</p></li>
-<li><p>non-parametric bootstrap confidence ellipses</p></li>
+<li><p>parametric Hext confidence ellipses (Hext, 1963)</p></li>
+<li><p>non-parametric bootstrap confidence ellipses (Constable and Tauxe, 1990)</p></li>
 </ul>
-<p>Let’s start by plotting the AMS data along with the Hext confidence ellipses</p>
+<section id="plot-by-contribution-with-hext-ellipses">
+<h3>Plot by contribution with Hext ellipses<a class="headerlink" href="#plot-by-contribution-with-hext-ellipses" title="Link to this heading">#</a></h3>
+<p>Let’s start by plotting the all of the AMS data from the study along with the Hext confidence ellipses. This is done by providing our <code class="docutils literal notranslate"><span class="pre">contribution</span></code> object to the function <code class="docutils literal notranslate"><span class="pre">ipmag.aniso_magic()</span></code> and setting the parameter <code class="docutils literal notranslate"><span class="pre">ihext=True</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ipmag</span><span class="o">.</span><span class="n">aniso_magic_nb</span><span class="p">(</span><span class="n">contribution</span><span class="o">=</span><span class="n">contribution</span><span class="p">,</span> 
@@ -653,12 +724,21 @@ specimens  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_
 <img alt="_images/cb1a5c3d3ab9edf547bef99a39e8e1995e44d0471c156c49eb051c7bf1c17db2.png" src="_images/cb1a5c3d3ab9edf547bef99a39e8e1995e44d0471c156c49eb051c7bf1c17db2.png" />
 </div>
 </div>
-<p>We can now plot with bootstrap determined estimate ellipses:</p>
+</section>
+<section id="plot-by-site-with-hext-ellipses">
+<h3>Plot by site with Hext ellipses<a class="headerlink" href="#plot-by-site-with-hext-ellipses" title="Link to this heading">#</a></h3>
+<p>The above plot is all of the data from the study. However, in the Schwehr and Tauxe (2003) study the data are from three distinct sites:</p>
+<ul class="simple">
+<li><p>as1; they refer to this site as a cryptoslump and call it site B in the paper</p></li>
+<li><p>as2; they refer to this site as a slump and call it site C in the paper</p></li>
+<li><p>as3; they refer this cite as undeformed and call it site A in the paper.</p></li>
+</ul>
+<p>It therefore makes sense to plot the data by site since they have distinct behavoirs. We can plot the data by site by setting <code class="docutils literal notranslate"><span class="pre">isite=True</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ipmag</span><span class="o">.</span><span class="n">aniso_magic_nb</span><span class="p">(</span><span class="n">contribution</span><span class="o">=</span><span class="n">contribution</span><span class="p">,</span> 
-                     <span class="n">ihext</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                     <span class="n">iboot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                     <span class="n">ihext</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                     <span class="n">isite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                      <span class="n">save_plots</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -667,8 +747,42 @@ specimens  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(True, [])
 </pre></div>
 </div>
-<img alt="_images/cee69e1868fb54c260b1771808ff03122b94110f0ea0589a94c88c8cb0b88d71.png" src="_images/cee69e1868fb54c260b1771808ff03122b94110f0ea0589a94c88c8cb0b88d71.png" />
-<img alt="_images/f2673549c6f056a4c8350c77ab144134c036479e8655f7b879ea78a1d06b7c16.png" src="_images/f2673549c6f056a4c8350c77ab144134c036479e8655f7b879ea78a1d06b7c16.png" />
+<img alt="_images/4d5db1ef180a2f342d8fb2a8f345d05a032cbb0ab95c28e32eac2d45bf3bd55c.png" src="_images/4d5db1ef180a2f342d8fb2a8f345d05a032cbb0ab95c28e32eac2d45bf3bd55c.png" />
+<img alt="_images/8f92249bd6af9a23d8ac0ede343b31ce57d209a9bec5ba4d7da71390dbe6bec4.png" src="_images/8f92249bd6af9a23d8ac0ede343b31ce57d209a9bec5ba4d7da71390dbe6bec4.png" />
+<img alt="_images/2d1468a87ae6259da0035dced8a2adce9e635542c60a220c6af3ec134affc6b7.png" src="_images/2d1468a87ae6259da0035dced8a2adce9e635542c60a220c6af3ec134affc6b7.png" />
+<img alt="_images/54b4595ed034cf8183c760e819cdc9048acd6e9b5f0763d9b71f338c8e3cc593.png" src="_images/54b4595ed034cf8183c760e819cdc9048acd6e9b5f0763d9b71f338c8e3cc593.png" />
+<img alt="_images/022941886289960931de1f2ec79e060f9bdc95d8a9c0d8111697719ae4a77771.png" src="_images/022941886289960931de1f2ec79e060f9bdc95d8a9c0d8111697719ae4a77771.png" />
+<img alt="_images/f0bbd1edd7c85d020d7825bbb7e24a886c0b8f4957e4f60924071947a326dc86.png" src="_images/f0bbd1edd7c85d020d7825bbb7e24a886c0b8f4957e4f60924071947a326dc86.png" />
+</div>
+</div>
+</section>
+<section id="plot-by-site-with-bootstrap-uncertainty">
+<h3>Plot by site with bootstrap uncertainty<a class="headerlink" href="#plot-by-site-with-bootstrap-uncertainty" title="Link to this heading">#</a></h3>
+<p>Rather that the Hext ellipses, we can plot with bootstrap resamples shown by setting <code class="docutils literal notranslate"><span class="pre">ivec=True</span></code>. This parameter choice with also lead to the generation of a plot of the bootstrap magnitudes of the mean eigenvalues. This approach enables the relative magnitudes to be compared. For example, is the fabric oblate where <span class="math notranslate nohighlight">\( V_1 \approx V_2 \gg V_3\)</span>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ipmag</span><span class="o">.</span><span class="n">aniso_magic_nb</span><span class="p">(</span><span class="n">contribution</span><span class="o">=</span><span class="n">contribution</span><span class="p">,</span> 
+                     <span class="n">ihext</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                     <span class="n">iboot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                     <span class="n">isite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                     <span class="n">ivec</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                     <span class="n">save_plots</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(True, [])
+</pre></div>
+</div>
+<img alt="_images/4d5db1ef180a2f342d8fb2a8f345d05a032cbb0ab95c28e32eac2d45bf3bd55c.png" src="_images/4d5db1ef180a2f342d8fb2a8f345d05a032cbb0ab95c28e32eac2d45bf3bd55c.png" />
+<img alt="_images/4237dfee50d03082f3e850a366315a06c5fb464a4cd8267b33ca0487cf191721.png" src="_images/4237dfee50d03082f3e850a366315a06c5fb464a4cd8267b33ca0487cf191721.png" />
+<img alt="_images/2bf3db46b7c50167a0e0c2054f82c5ac5aea087892ca79d38c1d6042e4c1f1e7.png" src="_images/2bf3db46b7c50167a0e0c2054f82c5ac5aea087892ca79d38c1d6042e4c1f1e7.png" />
+<img alt="_images/2d1468a87ae6259da0035dced8a2adce9e635542c60a220c6af3ec134affc6b7.png" src="_images/2d1468a87ae6259da0035dced8a2adce9e635542c60a220c6af3ec134affc6b7.png" />
+<img alt="_images/7568f0924e54ccb7852d0c0099e47a4283a8951c74ac5970f954adf6a0fbc94f.png" src="_images/7568f0924e54ccb7852d0c0099e47a4283a8951c74ac5970f954adf6a0fbc94f.png" />
+<img alt="_images/04b6003a3c43e3d0ba3f785b0abdca6f6f97f40feb69145e230f7e9714af8d53.png" src="_images/04b6003a3c43e3d0ba3f785b0abdca6f6f97f40feb69145e230f7e9714af8d53.png" />
+<img alt="_images/022941886289960931de1f2ec79e060f9bdc95d8a9c0d8111697719ae4a77771.png" src="_images/022941886289960931de1f2ec79e060f9bdc95d8a9c0d8111697719ae4a77771.png" />
+<img alt="_images/b3229e0a13987b3846af65e56211f78c91264f3ed70ad23921bb6a344bd38dcd.png" src="_images/b3229e0a13987b3846af65e56211f78c91264f3ed70ad23921bb6a344bd38dcd.png" />
+<img alt="_images/0234f3806462527c28b53a795244f0f1632418278156287aba5068018bfc9194.png" src="_images/0234f3806462527c28b53a795244f0f1632418278156287aba5068018bfc9194.png" />
 </div>
 </div>
 <p>and can see the actual bootstrap resampled means rather than the associated ellipses:</p>
@@ -1152,6 +1266,7 @@ ipmag<span class=" -Color -Color-Blue">.</span>aniso_magic_nb<span class=" -Colo
 </div>
 </section>
 </section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1221,7 +1336,12 @@ ipmag<span class=" -Color -Color-Blue">.</span>aniso_magic_nb<span class=" -Colo
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-scientific-python-libraries">Import scientific python libraries</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-data">Import data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-data">Inspect data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-data">Plot the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-data">Plot the data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-by-contribution-with-hext-ellipses">Plot by contribution with Hext ellipses</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-by-site-with-hext-ellipses">Plot by site with Hext ellipses</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-by-site-with-bootstrap-uncertainty">Plot by site with bootstrap uncertainty</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
