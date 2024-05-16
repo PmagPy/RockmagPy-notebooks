@@ -420,16 +420,19 @@ document.write(`
 <h2>Introduction to anisotropy of magnetic susceptibility (AMS)<a class="headerlink" href="#introduction-to-anisotropy-of-magnetic-susceptibility-ams" title="Link to this heading">#</a></h2>
 <p>Magnetic susceptibility describes the relationship between an applied magnetic field and the magnetization that is induced by this field.</p>
 <p><span class="math notranslate nohighlight">\(M = \chi H\)</span></p>
-<p>where <span class="math notranslate nohighlight">\(M\)</span> is the magnetization (in A/m), <span class="math notranslate nohighlight">\(H\)</span> is the applied field (in A/m), and <span class="math notranslate nohighlight">\(\chi\)</span> is the magnetic susceptibility (this is the mass susceptibility in m<sup>3</sup>/kg). If a material is perfectly isotropic, the relationship described by <span class="math notranslate nohighlight">\(\chi\)</span> is independent of the orientation of the sample relative to the applied field. However, if there is a different response in different orientations the material can be considered to be anisotropic.</p>
+<p>where <span class="math notranslate nohighlight">\(M\)</span> is the magnetization (in A/m), <span class="math notranslate nohighlight">\(H\)</span> is the applied field (in A/m), and <span class="math notranslate nohighlight">\(\chi\)</span> is the magnetic susceptibility (this is the mass susceptibility in m<sup>3</sup>/kg). Magnetic susceptibility reflects the diamagnetic, paramagnetic, and/or ferromagnetic response of minerals within a sample.</p>
+<p>If a material is perfectly isotropic, the relationship described by <span class="math notranslate nohighlight">\(\chi\)</span> is independent of the orientation of the sample relative to the applied field. However, if there is a different response in different orientations the material can be considered to be anisotropic.</p>
 <p>In practice, AMS is quantified by varying the orientation of a sample within the coils of a magnetic susceptibility bridge. By doing so, the length and orientation of the principal, major, and minor eigenvectors can be determined where:</p>
 <p><span class="math notranslate nohighlight">\(V_1 \geq V_2 \geq V_3\)</span></p>
 <p>these eigenvectors are also referred to in the literature as:</p>
 <p><span class="math notranslate nohighlight">\(K_{max} \geq K_{int} \geq K_{min}\)</span></p>
-<p>and the anisotropy ellipsoid can be illustrated as:</p>
+<p>and the anisotropy of magnetic susceptibility ellipsoid can be illustrated as:</p>
 <figure>
   <img src="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/AMS.png" alt="Description of the image" width="450">
   <figcaption>from https://www.agico.cz/downloads/documents/agicoprints/ams_rocks_pres.pdf </figcaption>
-</figure></section>
+</figure>
+<p>In the above plot, the axes of the ellipsoid are the eigenvectors (commonly referred to as the “principal axes”) with their magnitudes corresponding to the eigenvalues. Collectively, the eigenvalues and eigenvectors are called the eigenparameters. The orientation of this ellipsoid and the relative magnitude of the eigenvectors is central to the interpretation of AMS data.</p>
+</section>
 <section id="import-scientific-python-libraries">
 <h2>Import scientific python libraries<a class="headerlink" href="#import-scientific-python-libraries" title="Link to this heading">#</a></h2>
 <p>Run the cell below to import the functions needed for the notebook.</p>
@@ -758,7 +761,14 @@ specimens  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_
 </section>
 <section id="plot-by-site-with-bootstrap-uncertainty">
 <h3>Plot by site with bootstrap uncertainty<a class="headerlink" href="#plot-by-site-with-bootstrap-uncertainty" title="Link to this heading">#</a></h3>
-<p>Rather that the Hext ellipses, we can plot with bootstrap resamples shown by setting <code class="docutils literal notranslate"><span class="pre">ivec=True</span></code>. This parameter choice with also lead to the generation of a plot of the bootstrap magnitudes of the mean eigenvalues. This approach enables the relative magnitudes to be compared. For example, is the fabric oblate where <span class="math notranslate nohighlight">\( V_1 \approx V_2 \gg V_3\)</span>?</p>
+<p>Rather that the Hext ellipses, we can generate a plot with bootstrap resamples shown by setting <code class="docutils literal notranslate"><span class="pre">ivec=True</span></code>.</p>
+<p>This parameter choice will also lead to the generation of a plot of the bootstrap magnitudes of the mean eigenvalues associated with the eigenvectors. This approach enables the relative magnitudes to be compared. The relative magnitudes of these eigenvalues forms the basis of classifying the shape of the anisotropy ellisoid into these categories:</p>
+<ul class="simple">
+<li><p>spherical: <span class="math notranslate nohighlight">\( \tau_1 \approx \tau_2 \approx \tau_3\)</span></p></li>
+<li><p>oblate: <span class="math notranslate nohighlight">\( \tau_1 \approx \tau_2 &gt; \tau_3\)</span></p></li>
+<li><p>prolate: <span class="math notranslate nohighlight">\( \tau_1 &gt; \tau_2 \approx \tau_3\)</span></p></li>
+<li><p>triaxial: <span class="math notranslate nohighlight">\( \tau_1 &gt; \tau_2 &gt; \tau_3\)</span></p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ipmag</span><span class="o">.</span><span class="n">aniso_magic_nb</span><span class="p">(</span><span class="n">contribution</span><span class="o">=</span><span class="n">contribution</span><span class="p">,</span> 
