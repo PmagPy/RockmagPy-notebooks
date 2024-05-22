@@ -398,7 +398,10 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-data">Plot the data</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-by-contribution-with-hext-ellipses">Plot by contribution with Hext ellipses</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-by-site-with-hext-ellipses">Plot by site with Hext ellipses</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-by-site-with-bootstrap-uncertainty">Plot by site with bootstrap uncertainty</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-by-site-with-bootstrap-uncertainty">Plot by site with bootstrap uncertainty</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bootstrap-ellipses">Bootstrap ellipses</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -418,7 +421,7 @@ document.write(`
 <p>This notebook is focused on one of the most common types of anisotropy data which is anisotropy of magnetic susceptibility (AMS). The anisotropy of anhysteretic remanence (AARM) will be dealt with in a separate notebook.</p>
 <section id="introduction-to-anisotropy-of-magnetic-susceptibility-ams">
 <h2>Introduction to anisotropy of magnetic susceptibility (AMS)<a class="headerlink" href="#introduction-to-anisotropy-of-magnetic-susceptibility-ams" title="Link to this heading">#</a></h2>
-<p>Magnetic susceptibility describes the relationship between an applied magnetic field and the magnetization that is induced by this field.</p>
+<p>Magnetic susceptibility describes the relationship between an applied magnetic field and the magnetization that is induced by this field:</p>
 <p><span class="math notranslate nohighlight">\(M = \chi H\)</span></p>
 <p>where <span class="math notranslate nohighlight">\(M\)</span> is the magnetization (in A/m), <span class="math notranslate nohighlight">\(H\)</span> is the applied field (in A/m), and <span class="math notranslate nohighlight">\(\chi\)</span> is the magnetic susceptibility (this is the mass susceptibility in m<sup>3</sup>/kg). Magnetic susceptibility reflects the diamagnetic, paramagnetic, and/or ferromagnetic response of minerals within a sample.</p>
 <p>If a material is perfectly isotropic, the relationship described by <span class="math notranslate nohighlight">\(\chi\)</span> is independent of the orientation of the sample relative to the applied field. However, if there is a different response in different orientations the material can be considered to be anisotropic.</p>
@@ -455,7 +458,7 @@ document.write(`
 <blockquote>
 <div><p>Schwehr and Tauxe (2003). Characterization of soft-sediment deformation: Detection of cryptoslumps using magnetic methods. Geology 31 (3):203. doi:10.1130/0091-7613(2003)031&lt;0203:COSSDD&gt;<a class="reference external" href="http://2.0.CO">2.0.CO</a>;2.</p>
 </div></blockquote>
-<p>The MagIC formated data for that study can be found here: <a class="reference external" href="https://earthref.org/MagIC/19571">https://earthref.org/MagIC/19571</a>. We can use the MagIC id of 19571 to download the data from MagIC using the <code class="docutils literal notranslate"><span class="pre">ipmag.download_magic_from_id()</span></code> function.</p>
+<p>The MagIC formated data for that study can be found here: <a class="reference external" href="https://earthref.org/MagIC/19571">https://earthref.org/MagIC/19571</a>. We can use the MagIC id of <code class="docutils literal notranslate"><span class="pre">19571</span></code> to download the data from MagIC using the <code class="docutils literal notranslate"><span class="pre">ipmag.download_magic_from_id()</span></code> function.</p>
 <p>We will set the directory, download the file from MagIC (using <code class="docutils literal notranslate"><span class="pre">ipmag.download_magic_from_id()</span></code>), unpack the MagIC file into its constituent tables (using <code class="docutils literal notranslate"><span class="pre">ipmag.unpack_magic</span></code>), and make those tables into a Contribution object (using <code class="docutils literal notranslate"><span class="pre">cb.Contribution()</span></code>).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -469,20 +472,20 @@ document.write(`
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Download successful. File saved to: example_data/anisotropy_slump/magic_contribution_19571.txt
 working on:  &#39;contribution&#39;
-1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/anisotropy_slump/contribution.txt
-contribution  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/anisotropy_slump/contribution.txt
+1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/anisotropy_slump/contribution.txt
+contribution  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/anisotropy_slump/contribution.txt
 working on:  &#39;locations&#39;
-1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/anisotropy_slump/locations.txt
-locations  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/anisotropy_slump/locations.txt
+1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/anisotropy_slump/locations.txt
+locations  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/anisotropy_slump/locations.txt
 working on:  &#39;sites&#39;
-6  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/anisotropy_slump/sites.txt
-sites  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/anisotropy_slump/sites.txt
+6  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/anisotropy_slump/sites.txt
+sites  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/anisotropy_slump/sites.txt
 working on:  &#39;samples&#39;
-17  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/anisotropy_slump/samples.txt
-samples  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/anisotropy_slump/samples.txt
+17  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/anisotropy_slump/samples.txt
+samples  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/anisotropy_slump/samples.txt
 working on:  &#39;specimens&#39;
-49  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/anisotropy_slump/specimens.txt
-specimens  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/anisotropy_slump/specimens.txt
+49  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/anisotropy_slump/specimens.txt
+specimens  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/anisotropy_slump/specimens.txt
 -I- Using online data model
 -I- Getting method codes from earthref.org
 -I- Importing controlled vocabularies from https://earthref.org
@@ -520,38 +523,22 @@ specimens  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>age_high</th>
-      <th>age_low</th>
-      <th>age_unit</th>
-      <th>aniso_tilt_correction</th>
+      <th>aniso_s</th>
+      <th>aniso_s_mean</th>
+      <th>aniso_s_n_measurements</th>
+      <th>aniso_s_sigma</th>
+      <th>aniso_s_unit</th>
       <th>aniso_type</th>
-      <th>aniso_v1</th>
-      <th>aniso_v2</th>
-      <th>aniso_v3</th>
       <th>citations</th>
-      <th>description</th>
-      <th>...</th>
+      <th>geologic_classes</th>
       <th>geologic_types</th>
-      <th>lat</th>
       <th>lithologies</th>
-      <th>location</th>
-      <th>lon</th>
       <th>method_codes</th>
-      <th>samples</th>
-      <th>site</th>
-      <th>site_alternatives</th>
-      <th>specimens</th>
+      <th>sample</th>
+      <th>specimen</th>
     </tr>
     <tr>
-      <th>site name</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>specimen name</th>
       <th></th>
       <th></th>
       <th></th>
@@ -569,148 +556,112 @@ specimens  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_
   </thead>
   <tbody>
     <tr>
-      <th>as1</th>
-      <td>49</td>
-      <td>46</td>
-      <td>Ma</td>
-      <td>0</td>
+      <th>as1a1</th>
+      <td>0.34406999:0.34145039:0.31447965:-0.00168019:0...</td>
+      <td>0.000250</td>
+      <td>15</td>
+      <td>0.000525</td>
+      <td>SI</td>
       <td>AMS</td>
-      <td>0.34364864:155:0.7:eta/zeta:64.9:7.8:37.7:249....</td>
-      <td>0.34138933:64.9:7.8:eta/zeta:155:0.7:37.7:249....</td>
-      <td>0.31496203:249.8:82.2:eta/zeta:155:0.7:37.7:64...</td>
       <td>This study</td>
-      <td>as1:AMS</td>
-      <td>...</td>
+      <td>Sedimentary</td>
       <td>Sediment Layer</td>
-      <td>32.8694</td>
-      <td>Limey shale</td>
-      <td>Scripps Beach</td>
-      <td>242.7463</td>
-      <td>AE-H:LP-AN</td>
-      <td>as1b : as1c : as1d : as1e:as1a</td>
-      <td>as1</td>
-      <td>Cryptoslump:Site B</td>
-      <td>as1a2 : as1a3 : as1b1 : as1b2 : as1b3 : as1c1 ...</td>
+      <td>Shallow Marine Sediments</td>
+      <td>AE-H:LP-X</td>
+      <td>as1a</td>
+      <td>as1a1</td>
     </tr>
     <tr>
-      <th>as1</th>
-      <td>49</td>
-      <td>46</td>
-      <td>Ma</td>
-      <td>0</td>
+      <th>as1a2</th>
+      <td>0.34351686:0.34047559:0.31600755:-0.00129778:0...</td>
+      <td>0.000229</td>
+      <td>15</td>
+      <td>0.000781</td>
+      <td>SI</td>
       <td>AMS</td>
-      <td>0.34364864:155:0.7:eta/zeta:249.4:80.1:1.1:63....</td>
-      <td>0.34138933:64.9:7.8:eta/zeta:242.9:82.3:0.9:33...</td>
-      <td>0.31496203:249.8:82.2:eta/zeta:114.6:5.5:0.7:2...</td>
       <td>This study</td>
-      <td>as1:AMS</td>
-      <td>...</td>
+      <td>Sedimentary</td>
       <td>Sediment Layer</td>
-      <td>32.8694</td>
-      <td>Limey shale</td>
-      <td>Scripps Beach</td>
-      <td>242.7463</td>
-      <td>AE-BS:AE-H:LP-AN</td>
-      <td>as1b : as1c : as1d : as1e:as1a</td>
-      <td>as1</td>
-      <td>Cryptoslump:Site B</td>
-      <td>as1a2 : as1a3 : as1b1 : as1b2 : as1b3 : as1c1 ...</td>
+      <td>Shallow Marine Sediments</td>
+      <td>AE-H:LP-X</td>
+      <td>as1a</td>
+      <td>as1a2</td>
     </tr>
     <tr>
-      <th>as2</th>
-      <td>49</td>
-      <td>46</td>
-      <td>Ma</td>
-      <td>0</td>
+      <th>as1a3</th>
+      <td>0.34317553:0.34108347:0.315741:-0.00083286:0.0...</td>
+      <td>0.000235</td>
+      <td>15</td>
+      <td>0.000366</td>
+      <td>SI</td>
       <td>AMS</td>
-      <td>0.34858122:358.4:5.6:eta/zeta:88.7:3.6:29.6:21...</td>
-      <td>0.33781892:88.7:3.6:eta/zeta:358.4:5.6:29.6:21...</td>
-      <td>0.31359982:210.8:83.3:eta/zeta:358.4:5.6:29.6:...</td>
       <td>This study</td>
-      <td>as2:AMS</td>
-      <td>...</td>
+      <td>Sedimentary</td>
       <td>Sediment Layer</td>
-      <td>32.8694</td>
-      <td>Limey shale</td>
-      <td>Scripps Beach</td>
-      <td>242.7463</td>
-      <td>AE-H:LP-AN</td>
-      <td>as2b : as2c : as2d : as2e : as2f:as2a</td>
-      <td>as2</td>
-      <td>Slumped:Site C</td>
-      <td>as2a2 : as2a3 : as2a4 : as2b1 : as2b2 : as2b3 ...</td>
+      <td>Shallow Marine Sediments</td>
+      <td>AE-H:LP-X</td>
+      <td>as1a</td>
+      <td>as1a3</td>
     </tr>
     <tr>
-      <th>as2</th>
-      <td>49</td>
-      <td>46</td>
-      <td>Ma</td>
-      <td>0</td>
+      <th>as1b1</th>
+      <td>0.34141964:0.34004751:0.31853285:-0.0005353:0....</td>
+      <td>0.000241</td>
+      <td>15</td>
+      <td>0.000546</td>
+      <td>SI</td>
       <td>AMS</td>
-      <td>0.34858122:358.4:5.6:eta/zeta:182.8:84.4:2.5:8...</td>
-      <td>0.33781892:88.7:3.6:eta/zeta:188.7:70.4:1.9:35...</td>
-      <td>0.31359982:210.8:83.3:eta/zeta:68.2:5.3:2.1:33...</td>
       <td>This study</td>
-      <td>as2:AMS</td>
-      <td>...</td>
+      <td>Sedimentary</td>
       <td>Sediment Layer</td>
-      <td>32.8694</td>
-      <td>Limey shale</td>
-      <td>Scripps Beach</td>
-      <td>242.7463</td>
-      <td>AE-BS:AE-H:LP-AN</td>
-      <td>as2b : as2c : as2d : as2e : as2f:as2a</td>
-      <td>as2</td>
-      <td>Slumped:Site C</td>
-      <td>as2a2 : as2a3 : as2a4 : as2b1 : as2b2 : as2b3 ...</td>
+      <td>Shallow Marine Sediments</td>
+      <td>AE-H:LP-X</td>
+      <td>as1b</td>
+      <td>as1b1</td>
     </tr>
     <tr>
-      <th>as3</th>
-      <td>49</td>
-      <td>46</td>
-      <td>Ma</td>
-      <td>0</td>
+      <th>as1b2</th>
+      <td>0.34097505:0.34068653:0.31833842:-0.00101421:0...</td>
+      <td>0.000230</td>
+      <td>15</td>
+      <td>0.000482</td>
+      <td>SI</td>
       <td>AMS</td>
-      <td>0.34502691:358:5.8:eta/zeta:88.6:5.2:43.4:220....</td>
-      <td>0.337455:88.6:5.2:eta/zeta:358:5.8:43.4:220.5:...</td>
-      <td>0.31751812:220.5:82.2:eta/zeta:358:5.8:43.4:88...</td>
       <td>This study</td>
-      <td>as3:AMS</td>
-      <td>...</td>
+      <td>Sedimentary</td>
       <td>Sediment Layer</td>
-      <td>32.8694</td>
-      <td>Limey shale</td>
-      <td>Scripps Beach</td>
-      <td>242.7463</td>
-      <td>AE-H:LP-AN</td>
-      <td>as3b : as3c : as3d : as3e : as3f:as3a</td>
-      <td>as3</td>
-      <td>Undeformed:Site A</td>
-      <td>as3a2 : as3a3 : as3b1 : as3b2 : as3b3 : as3c1 ...</td>
+      <td>Shallow Marine Sediments</td>
+      <td>AE-H:LP-X</td>
+      <td>as1b</td>
+      <td>as1b2</td>
     </tr>
   </tbody>
 </table>
-<p>5 rows × 21 columns</p>
 </div></div></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">aniso_s</span></code> list is a succinct representation of the anisotropy tensor <span class="math notranslate nohighlight">\(\chi\)</span>. In the linear equations below, <span class="math notranslate nohighlight">\(M_1\)</span>, <span class="math notranslate nohighlight">\(M_2\)</span>, and <span class="math notranslate nohighlight">\(M_3\)</span> are the components of the magnetization vector <span class="math notranslate nohighlight">\(M\)</span>. The relationship between the magnetization and the magnetic field (<span class="math notranslate nohighlight">\(H_1\)</span>, <span class="math notranslate nohighlight">\(H_2\)</span>, and <span class="math notranslate nohighlight">\(H_3\)</span>) is described by the components of the magnetic susceptibility tensor <span class="math notranslate nohighlight">\(\chi_{ij}\)</span>. If the material is anisotropic, there will be different values in different orientations described by the <span class="math notranslate nohighlight">\(\chi\)</span> tensor.</p>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}\begin{align}\\\begin{split}M_1 &amp;= \chi_{11} H_1 + \chi_{12} H_2 + \chi_{13} H_3 \\\end{split}\\\begin{split}M_2 &amp;= \chi_{21} H_1 + \chi_{22} H_2 + \chi_{23} H_3 \\\end{split}\\M_3 &amp;= \chi_{31} H_1 + \chi_{32} H_2 + \chi_{33} H_3\\\end{align}\end{aligned}\end{align} \]</div>
+<p><span class="math notranslate nohighlight">\( M_1 = \chi_{11} H_1 + \chi_{12} H_2 + \chi_{13} H_3 \)</span></p>
+<p><span class="math notranslate nohighlight">\( M_2 = \chi_{21} H_1 + \chi_{22} H_2 + \chi_{23} H_3 \)</span></p>
+<p><span class="math notranslate nohighlight">\( M_3 = \chi_{31} H_1 + \chi_{32} H_2 + \chi_{33} H_3 \)</span></p>
 <p>This susceptibility tensor has six independent matrix elements because <span class="math notranslate nohighlight">\(\chi_{ij} = \chi_{ji}\)</span>. The <code class="docutils literal notranslate"><span class="pre">aniso_s</span></code> column contains these six elements as <span class="math notranslate nohighlight">\(s_1\)</span> : <span class="math notranslate nohighlight">\(s_2\)</span> : <span class="math notranslate nohighlight">\(s_3\)</span> : <span class="math notranslate nohighlight">\(s_4\)</span> : <span class="math notranslate nohighlight">\(s_5\)</span> : <span class="math notranslate nohighlight">\(s_6\)</span> which are defined as:</p>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}\begin{equation}\\\begin{array}{l}\\\begin{split}s_1 = \chi_{11} \\\end{split}\\\begin{split}s_2 = \chi_{22} \\\end{split}\\\begin{split}s_3 = \chi_{33} \\\end{split}\\\begin{split}s_4 = \chi_{12} = \chi_{21} \\\end{split}\\\begin{split}s_5 = \chi_{23} = \chi_{32} \\\end{split}\\s_6 = \chi_{13} = \chi_{31}\\\end{array}\\\end{equation}\end{aligned}\end{align} \]</div>
+<p><span class="math notranslate nohighlight">\( s_1 = \chi_{11} \)</span></p>
+<p><span class="math notranslate nohighlight">\( s_2 = \chi_{22} \)</span></p>
+<p><span class="math notranslate nohighlight">\( s_3 = \chi_{33} \)</span></p>
+<p><span class="math notranslate nohighlight">\( s_4 = \chi_{12} = \chi_{21} \)</span></p>
+<p><span class="math notranslate nohighlight">\( s_5 = \chi_{23} = \chi_{32} \)</span></p>
+<p><span class="math notranslate nohighlight">\( s_6 = \chi_{13} = \chi_{31} \)</span></p>
 </section>
 <section id="plot-the-data">
 <h2>Plot the data<a class="headerlink" href="#plot-the-data" title="Link to this heading">#</a></h2>
 <p>The data can be plotted using the function <code class="docutils literal notranslate"><span class="pre">ipmag.aniso_magic_nb()</span></code>.</p>
-<p>An important aspect of AMS data analysis is estimating uncertainty associated with the mean eigenvectors. These means and their uncertainties are typically determined through two main approaches. These approaches estimate the confidence ellipses associated with data from a given site and are:</p>
+<p>An important aspect of AMS data analysis is estimating uncertainty associated with the mean eigenvectors. These directional means and their associated uncertainties are typically determined through two main approaches. These approaches estimate the confidence ellipses associated with data from a given site and are:</p>
 <ul class="simple">
 <li><p>parametric Hext confidence ellipses (Hext, 1963)</p></li>
 <li><p>non-parametric bootstrap confidence ellipses (Constable and Tauxe, 1990)</p></li>
 </ul>
 <section id="plot-by-contribution-with-hext-ellipses">
 <h3>Plot by contribution with Hext ellipses<a class="headerlink" href="#plot-by-contribution-with-hext-ellipses" title="Link to this heading">#</a></h3>
-<p>Let’s start by plotting the all of the AMS data from the study along with the Hext confidence ellipses. This is done by providing our <code class="docutils literal notranslate"><span class="pre">contribution</span></code> object to the function <code class="docutils literal notranslate"><span class="pre">ipmag.aniso_magic()</span></code> and setting the parameter <code class="docutils literal notranslate"><span class="pre">ihext=True</span></code>.</p>
+<p>Let’s start by plotting all of the AMS data from the study along with the Hext confidence ellipses. This is done by providing our <code class="docutils literal notranslate"><span class="pre">contribution</span></code> object to the function <code class="docutils literal notranslate"><span class="pre">ipmag.aniso_magic()</span></code> and setting the parameter <code class="docutils literal notranslate"><span class="pre">ihext=True</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ipmag</span><span class="o">.</span><span class="n">aniso_magic_nb</span><span class="p">(</span><span class="n">contribution</span><span class="o">=</span><span class="n">contribution</span><span class="p">,</span> 
@@ -723,8 +674,8 @@ specimens  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(True, [])
 </pre></div>
 </div>
-<img alt="_images/af0082a3e4a35ba3da8a0fdbe8e583c6d9af076d25e0cb42f61a5b52cb61ec50.png" src="_images/af0082a3e4a35ba3da8a0fdbe8e583c6d9af076d25e0cb42f61a5b52cb61ec50.png" />
-<img alt="_images/cb1a5c3d3ab9edf547bef99a39e8e1995e44d0471c156c49eb051c7bf1c17db2.png" src="_images/cb1a5c3d3ab9edf547bef99a39e8e1995e44d0471c156c49eb051c7bf1c17db2.png" />
+<img alt="_images/07006b68a7695e9cd7ad9dc01f47f555d21242f5a9b2633c9fef4d650dbe7d79.png" src="_images/07006b68a7695e9cd7ad9dc01f47f555d21242f5a9b2633c9fef4d650dbe7d79.png" />
+<img alt="_images/29cfbcd75a7a62c5eb5a8c045e8667ae07202ec91bb156407817ae85127f0a71.png" src="_images/29cfbcd75a7a62c5eb5a8c045e8667ae07202ec91bb156407817ae85127f0a71.png" />
 </div>
 </div>
 </section>
@@ -736,7 +687,7 @@ specimens  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_
 <li><p>as2; they refer to this site as a slump and call it site C in the paper</p></li>
 <li><p>as3; they refer this cite as undeformed and call it site A in the paper.</p></li>
 </ul>
-<p>It therefore makes sense to plot the data by site since they have distinct behavoirs. We can plot the data by site by setting <code class="docutils literal notranslate"><span class="pre">isite=True</span></code>.</p>
+<p>It therefore makes sense to plot the data by site since they have distinct behavoirs. We can plot the data by site by setting <code class="docutils literal notranslate"><span class="pre">isite=True</span></code>. The name of the site will be in the title of the plot.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ipmag</span><span class="o">.</span><span class="n">aniso_magic_nb</span><span class="p">(</span><span class="n">contribution</span><span class="o">=</span><span class="n">contribution</span><span class="p">,</span> 
@@ -750,18 +701,18 @@ specimens  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(True, [])
 </pre></div>
 </div>
-<img alt="_images/4d5db1ef180a2f342d8fb2a8f345d05a032cbb0ab95c28e32eac2d45bf3bd55c.png" src="_images/4d5db1ef180a2f342d8fb2a8f345d05a032cbb0ab95c28e32eac2d45bf3bd55c.png" />
-<img alt="_images/8f92249bd6af9a23d8ac0ede343b31ce57d209a9bec5ba4d7da71390dbe6bec4.png" src="_images/8f92249bd6af9a23d8ac0ede343b31ce57d209a9bec5ba4d7da71390dbe6bec4.png" />
-<img alt="_images/2d1468a87ae6259da0035dced8a2adce9e635542c60a220c6af3ec134affc6b7.png" src="_images/2d1468a87ae6259da0035dced8a2adce9e635542c60a220c6af3ec134affc6b7.png" />
-<img alt="_images/54b4595ed034cf8183c760e819cdc9048acd6e9b5f0763d9b71f338c8e3cc593.png" src="_images/54b4595ed034cf8183c760e819cdc9048acd6e9b5f0763d9b71f338c8e3cc593.png" />
-<img alt="_images/022941886289960931de1f2ec79e060f9bdc95d8a9c0d8111697719ae4a77771.png" src="_images/022941886289960931de1f2ec79e060f9bdc95d8a9c0d8111697719ae4a77771.png" />
-<img alt="_images/f0bbd1edd7c85d020d7825bbb7e24a886c0b8f4957e4f60924071947a326dc86.png" src="_images/f0bbd1edd7c85d020d7825bbb7e24a886c0b8f4957e4f60924071947a326dc86.png" />
+<img alt="_images/1719bb42c2932fb4e512eb70658b0414d490eed375323caf7adc7a1356674ac8.png" src="_images/1719bb42c2932fb4e512eb70658b0414d490eed375323caf7adc7a1356674ac8.png" />
+<img alt="_images/0366d0722b2e08eda02a375ed0d55f6c7f38fced6a49db4a441e6596b5913acf.png" src="_images/0366d0722b2e08eda02a375ed0d55f6c7f38fced6a49db4a441e6596b5913acf.png" />
+<img alt="_images/bd153eb128ce8a1d62bd2d2325e7d1d26b4fd3874640dd5ef3cf57b952eb5010.png" src="_images/bd153eb128ce8a1d62bd2d2325e7d1d26b4fd3874640dd5ef3cf57b952eb5010.png" />
+<img alt="_images/de61f13931c59d20920866e848758b715e97ffd5989df89db620c9c62bfe3bcc.png" src="_images/de61f13931c59d20920866e848758b715e97ffd5989df89db620c9c62bfe3bcc.png" />
+<img alt="_images/e39fed160c0f243162a91aec8e5c424e98487d5143b635ffbb744842990ac065.png" src="_images/e39fed160c0f243162a91aec8e5c424e98487d5143b635ffbb744842990ac065.png" />
+<img alt="_images/bb112c8b21bca96c19f7587360a901950a945dd502f6bc7ab785531ba8ce5312.png" src="_images/bb112c8b21bca96c19f7587360a901950a945dd502f6bc7ab785531ba8ce5312.png" />
 </div>
 </div>
 </section>
 <section id="plot-by-site-with-bootstrap-uncertainty">
 <h3>Plot by site with bootstrap uncertainty<a class="headerlink" href="#plot-by-site-with-bootstrap-uncertainty" title="Link to this heading">#</a></h3>
-<p>Rather that the Hext ellipses, we can generate a plot with bootstrap resamples shown by setting <code class="docutils literal notranslate"><span class="pre">ivec=True</span></code>.</p>
+<p>Rather than using Hext ellipses, we can generate a plot with bootstrap resamples by setting <code class="docutils literal notranslate"><span class="pre">ivec=True</span></code>.</p>
 <p>This parameter choice will also lead to the generation of a plot of the bootstrap magnitudes of the mean eigenvalues associated with the eigenvectors. This approach enables the relative magnitudes to be compared. The relative magnitudes of these eigenvalues forms the basis of classifying the shape of the anisotropy ellisoid into these categories:</p>
 <ul class="simple">
 <li><p>spherical: <span class="math notranslate nohighlight">\( \tau_1 \approx \tau_2 \approx \tau_3\)</span></p></li>
@@ -769,6 +720,12 @@ specimens  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_
 <li><p>prolate: <span class="math notranslate nohighlight">\( \tau_1 &gt; \tau_2 \approx \tau_3\)</span></p></li>
 <li><p>triaxial: <span class="math notranslate nohighlight">\( \tau_1 &gt; \tau_2 &gt; \tau_3\)</span></p></li>
 </ul>
+<p>Here is an example of an oblate ellipsoid where <span class="math notranslate nohighlight">\(\tau_3\)</span> (which corresponds to the axis labeled <span class="math notranslate nohighlight">\(K_{min}\)</span>) is much smaller than <span class="math notranslate nohighlight">\(\tau_1\)</span> and <span class="math notranslate nohighlight">\(\tau_2\)</span> (<span class="math notranslate nohighlight">\(K_{max}\)</span> and <span class="math notranslate nohighlight">\(K_{int}\)</span>).</p>
+<figure>
+  <img src="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/AMS_oblate.png" alt="Ellipsoid with the principal axes labeled illustrating an oblate shape" width="450">
+  <figcaption>from https://www.agico.cz/downloads/documents/agicoprints/ams_rocks_pres.pdf </figcaption>
+</figure>
+<p>Site as3 (the unslumped sedimentary rocks of Schwehr and Tauxe, 2003) is a nice example of an oblate fabric. Once the code cell below is run, examine it and you will see that the plot of the cumulative distributions mean eigenvalues overlap for <span class="math notranslate nohighlight">\(\tau_1\)</span> and <span class="math notranslate nohighlight">\(\tau_2\)</span> while <span class="math notranslate nohighlight">\(\tau_3\)</span> is significantly smaller. This fabric is characteristic of undeformed sedimentary rocks deposited under the influence of minimal paleocurrents.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ipmag</span><span class="o">.</span><span class="n">aniso_magic_nb</span><span class="p">(</span><span class="n">contribution</span><span class="o">=</span><span class="n">contribution</span><span class="p">,</span> 
@@ -784,24 +741,27 @@ specimens  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(True, [])
 </pre></div>
 </div>
-<img alt="_images/4d5db1ef180a2f342d8fb2a8f345d05a032cbb0ab95c28e32eac2d45bf3bd55c.png" src="_images/4d5db1ef180a2f342d8fb2a8f345d05a032cbb0ab95c28e32eac2d45bf3bd55c.png" />
-<img alt="_images/4237dfee50d03082f3e850a366315a06c5fb464a4cd8267b33ca0487cf191721.png" src="_images/4237dfee50d03082f3e850a366315a06c5fb464a4cd8267b33ca0487cf191721.png" />
-<img alt="_images/2bf3db46b7c50167a0e0c2054f82c5ac5aea087892ca79d38c1d6042e4c1f1e7.png" src="_images/2bf3db46b7c50167a0e0c2054f82c5ac5aea087892ca79d38c1d6042e4c1f1e7.png" />
-<img alt="_images/2d1468a87ae6259da0035dced8a2adce9e635542c60a220c6af3ec134affc6b7.png" src="_images/2d1468a87ae6259da0035dced8a2adce9e635542c60a220c6af3ec134affc6b7.png" />
-<img alt="_images/7568f0924e54ccb7852d0c0099e47a4283a8951c74ac5970f954adf6a0fbc94f.png" src="_images/7568f0924e54ccb7852d0c0099e47a4283a8951c74ac5970f954adf6a0fbc94f.png" />
-<img alt="_images/04b6003a3c43e3d0ba3f785b0abdca6f6f97f40feb69145e230f7e9714af8d53.png" src="_images/04b6003a3c43e3d0ba3f785b0abdca6f6f97f40feb69145e230f7e9714af8d53.png" />
-<img alt="_images/022941886289960931de1f2ec79e060f9bdc95d8a9c0d8111697719ae4a77771.png" src="_images/022941886289960931de1f2ec79e060f9bdc95d8a9c0d8111697719ae4a77771.png" />
-<img alt="_images/b3229e0a13987b3846af65e56211f78c91264f3ed70ad23921bb6a344bd38dcd.png" src="_images/b3229e0a13987b3846af65e56211f78c91264f3ed70ad23921bb6a344bd38dcd.png" />
-<img alt="_images/0234f3806462527c28b53a795244f0f1632418278156287aba5068018bfc9194.png" src="_images/0234f3806462527c28b53a795244f0f1632418278156287aba5068018bfc9194.png" />
+<img alt="_images/1719bb42c2932fb4e512eb70658b0414d490eed375323caf7adc7a1356674ac8.png" src="_images/1719bb42c2932fb4e512eb70658b0414d490eed375323caf7adc7a1356674ac8.png" />
+<img alt="_images/81d2cfd1bb80f7f54ab27c9d84aa0c1a5801639c60064224baccc34e8ba91396.png" src="_images/81d2cfd1bb80f7f54ab27c9d84aa0c1a5801639c60064224baccc34e8ba91396.png" />
+<img alt="_images/fa83a2f5d1a8c721166318d9864491b602101249a5ee4ac4b6056a925b3c2008.png" src="_images/fa83a2f5d1a8c721166318d9864491b602101249a5ee4ac4b6056a925b3c2008.png" />
+<img alt="_images/bd153eb128ce8a1d62bd2d2325e7d1d26b4fd3874640dd5ef3cf57b952eb5010.png" src="_images/bd153eb128ce8a1d62bd2d2325e7d1d26b4fd3874640dd5ef3cf57b952eb5010.png" />
+<img alt="_images/b4d8781845c5ad5c4fa3b44c72a45580764a98d3e5b85bff31dbfc25afb30369.png" src="_images/b4d8781845c5ad5c4fa3b44c72a45580764a98d3e5b85bff31dbfc25afb30369.png" />
+<img alt="_images/ee43de3b2f5ad9c5348743270e4a34eeba5295237ea06252251c89690a8b46d3.png" src="_images/ee43de3b2f5ad9c5348743270e4a34eeba5295237ea06252251c89690a8b46d3.png" />
+<img alt="_images/e39fed160c0f243162a91aec8e5c424e98487d5143b635ffbb744842990ac065.png" src="_images/e39fed160c0f243162a91aec8e5c424e98487d5143b635ffbb744842990ac065.png" />
+<img alt="_images/68a102d234f8028255abe73e34c9e2945f80bb9be6f90798d2007ebd0ffd507d.png" src="_images/68a102d234f8028255abe73e34c9e2945f80bb9be6f90798d2007ebd0ffd507d.png" />
+<img alt="_images/d53e98ca9e116afb8e12d966d331672fdc0028fb2c43a5ac85a45cb6b01ea6e9.png" src="_images/d53e98ca9e116afb8e12d966d331672fdc0028fb2c43a5ac85a45cb6b01ea6e9.png" />
 </div>
 </div>
-<p>and can see the actual bootstrap resampled means rather than the associated ellipses:</p>
+<section id="bootstrap-ellipses">
+<h4>Bootstrap ellipses<a class="headerlink" href="#bootstrap-ellipses" title="Link to this heading">#</a></h4>
+<p>In the above plots, the parameter <code class="docutils literal notranslate"><span class="pre">ivec=True</span></code> resulted in the bootstrap resampled means being shown. Rather than plotting these means, the resulting 95% confidence ellipses associated with the bootstrap approach can be plotted by setting <code class="docutils literal notranslate"><span class="pre">iboot=True</span></code> and <code class="docutils literal notranslate"><span class="pre">ivec=False</span></code>. These ellipses are generated for each site in the code cell below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ipmag</span><span class="o">.</span><span class="n">aniso_magic_nb</span><span class="p">(</span><span class="n">contribution</span><span class="o">=</span><span class="n">contribution</span><span class="p">,</span> 
                      <span class="n">ihext</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                      <span class="n">iboot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                     <span class="n">ivec</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                     <span class="n">ivec</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                     <span class="n">isite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                      <span class="n">save_plots</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -810,470 +770,38 @@ specimens  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(True, [])
 </pre></div>
 </div>
-<img alt="_images/cee69e1868fb54c260b1771808ff03122b94110f0ea0589a94c88c8cb0b88d71.png" src="_images/cee69e1868fb54c260b1771808ff03122b94110f0ea0589a94c88c8cb0b88d71.png" />
-<img alt="_images/497102974f99f1b820ca95dc65374344741d978cc7cbec96d71cc3bb3c322d9e.png" src="_images/497102974f99f1b820ca95dc65374344741d978cc7cbec96d71cc3bb3c322d9e.png" />
-<img alt="_images/c00a9bf09c2653e24ab5feb54e6e290e72e6dd7bd40706147f36c156a1e6a5c4.png" src="_images/c00a9bf09c2653e24ab5feb54e6e290e72e6dd7bd40706147f36c156a1e6a5c4.png" />
+<img alt="_images/1719bb42c2932fb4e512eb70658b0414d490eed375323caf7adc7a1356674ac8.png" src="_images/1719bb42c2932fb4e512eb70658b0414d490eed375323caf7adc7a1356674ac8.png" />
+<img alt="_images/75916ff72a6d98c0368d771c196c30aa379304735fcf874372290fa8627fc8ed.png" src="_images/75916ff72a6d98c0368d771c196c30aa379304735fcf874372290fa8627fc8ed.png" />
+<img alt="_images/bd153eb128ce8a1d62bd2d2325e7d1d26b4fd3874640dd5ef3cf57b952eb5010.png" src="_images/bd153eb128ce8a1d62bd2d2325e7d1d26b4fd3874640dd5ef3cf57b952eb5010.png" />
+<img alt="_images/a2e64a778a9c52aac6fd31bd8072f3139d2ec64ef560022550fe506dad158260.png" src="_images/a2e64a778a9c52aac6fd31bd8072f3139d2ec64ef560022550fe506dad158260.png" />
+<img alt="_images/e39fed160c0f243162a91aec8e5c424e98487d5143b635ffbb744842990ac065.png" src="_images/e39fed160c0f243162a91aec8e5c424e98487d5143b635ffbb744842990ac065.png" />
+<img alt="_images/be6f2a3fd5126dfc7ac1e57e3a9473d671849147784a986b979c5149cd52fc96.png" src="_images/be6f2a3fd5126dfc7ac1e57e3a9473d671849147784a986b979c5149cd52fc96.png" />
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">specimen_file</span> <span class="o">=</span> <span class="s1">&#39;specimens.txt&#39;</span>
-<span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;example_data/anisotropy_sed&#39;</span>
-
-<span class="n">ipmag</span><span class="o">.</span><span class="n">aniso_magic</span><span class="p">(</span><span class="n">infile</span><span class="o">=</span><span class="n">specimen_file</span><span class="p">,</span><span class="n">dir_path</span><span class="o">=</span><span class="n">dir_path</span><span class="p">,</span>
-       <span class="n">iboot</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">ihext</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">ivec</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">PDir</span><span class="o">=</span><span class="p">[</span><span class="mi">120</span><span class="p">,</span><span class="mi">10</span><span class="p">],</span><span class="n">ipar</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">save_plots</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># compare dike directions with plane of dike with pole of 120,10</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>desired coordinate system not available, using available:  g
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(True, [])
-</pre></div>
-</div>
-<img alt="_images/d48379d02cfba130a8be9f1ddf6fed6f371922fad04f021ea93ab8c9c81a2afe.png" src="_images/d48379d02cfba130a8be9f1ddf6fed6f371922fad04f021ea93ab8c9c81a2afe.png" />
-<img alt="_images/ab95ea23614001420483dbe661cd2165f4d389e6b24790d48466716fa6c60509.png" src="_images/ab95ea23614001420483dbe661cd2165f4d389e6b24790d48466716fa6c60509.png" />
-<img alt="_images/a3265c40cb377411a1d4157bdf385bf0a1b0a628476d0eac958ca32851c62777.png" src="_images/a3265c40cb377411a1d4157bdf385bf0a1b0a628476d0eac958ca32851c62777.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ipmag.aniso_magic<span class="o">??</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Red">Signature:</span>
-ipmag<span class=" -Color -Color-Blue">.</span>aniso_magic<span class=" -Color -Color-Blue">(</span>
-    infile<span class=" -Color -Color-Blue">=&#39;specimens.txt&#39;,</span>
-    samp_file<span class=" -Color -Color-Blue">=&#39;samples.txt&#39;,</span>
-    site_file<span class=" -Color -Color-Blue">=&#39;sites.txt&#39;,</span>
-    verbose<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">True</span><span class=" -Color -Color-Blue">,</span>
-    ipar<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span>
-    ihext<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">True</span><span class=" -Color -Color-Blue">,</span>
-    ivec<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span>
-    isite<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span>
-    iboot<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span>
-    vec<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">,</span>
-    Dir<span class=" -Color -Color-Blue">=[],</span>
-    PDir<span class=" -Color -Color-Blue">=[],</span>
-    crd<span class=" -Color -Color-Blue">=&#39;s&#39;,</span>
-    num_bootstraps<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">1000</span><span class=" -Color -Color-Blue">,</span>
-    dir_path<span class=" -Color -Color-Blue">=&#39;.&#39;,</span>
-    fignum<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">,</span>
-    save_plots<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">True</span><span class=" -Color -Color-Blue">,</span>
-    interactive<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span>
-    fmt<span class=" -Color -Color-Blue">=&#39;png&#39;,</span>
-    contribution<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-    image_records<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span>
-<span class=" -Color -Color-Blue">)</span>
-<span class=" -Color -Color-Red">Source:</span>   
-<span class=" -Color -Color-Green">def</span> aniso_magic<span class=" -Color -Color-Blue">(</span>infile<span class=" -Color -Color-Blue">=&#39;specimens.txt&#39;,</span> samp_file<span class=" -Color -Color-Blue">=&#39;samples.txt&#39;,</span> site_file<span class=" -Color -Color-Blue">=&#39;sites.txt&#39;,</span> verbose<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">True</span><span class=" -Color -Color-Blue">,</span>
-                ipar<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span> ihext<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">True</span><span class=" -Color -Color-Blue">,</span> ivec<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span> isite<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span> iboot<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span> vec<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">,</span>
-                Dir<span class=" -Color -Color-Blue">=[],</span> PDir<span class=" -Color -Color-Blue">=[],</span> crd<span class=" -Color -Color-Blue">=&quot;s&quot;,</span> num_bootstraps<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">1000</span><span class=" -Color -Color-Blue">,</span> dir_path<span class=" -Color -Color-Blue">=&quot;.&quot;,</span> fignum<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">,</span>
-                save_plots<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">True</span><span class=" -Color -Color-Blue">,</span> interactive<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span> fmt<span class=" -Color -Color-Blue">=&quot;png&quot;,</span> contribution<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span> image_records<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">):</span>
-    <span class=" -Color -Color-Blue">&quot;&quot;&quot;</span>
-<span class=" -Color -Color-Blue">    Makes plots of anisotropy eigenvectors, eigenvalues and confidence bounds</span>
-<span class=" -Color -Color-Blue">    All directions are on the lower hemisphere.</span>
-
-<span class=" -Color -Color-Blue">    Parameters:</span>
-<span class=" -Color -Color-Blue">        infile : specimens formatted file with aniso_s data</span>
-<span class=" -Color -Color-Blue">        samp_file : samples formatted file with sample =&gt; site relationship</span>
-<span class=" -Color -Color-Blue">        site_file : sites formatted file with site =&gt; location relationship</span>
-<span class=" -Color -Color-Blue">        verbose : if True, print messages to output</span>
-<span class=" -Color -Color-Blue">        ipar (confidence bound parameter): if True - perform parametric bootstrap - requires non-blank aniso_s_sigma</span>
-<span class=" -Color -Color-Blue">        ihext (confidence bound parameter): if True - Hext ellipses</span>
-<span class=" -Color -Color-Blue">        ivec (confidence bound parameter): if True - plot bootstrapped eigenvectors instead of ellipses</span>
-<span class=" -Color -Color-Blue">        isite (confidence bound parameter): if True plot by site, requires non-blank samp_file</span>
-<span class=" -Color -Color-Blue">        iboot (confidence bound parameter): if True - bootstrap ellipses</span>
-<span class=" -Color -Color-Blue">        vec : eigenvector for comparison with Dir</span>
-<span class=" -Color -Color-Blue">        Dir : [Dec,Inc] list for comparison direction</span>
-<span class=" -Color -Color-Blue">        PDir : [Pole_dec, Pole_Inc] for pole to plane for comparison</span>
-<span class=" -Color -Color-Blue">              green dots are on the lower hemisphere, cyan are on the upper hemisphere</span>
-<span class=" -Color -Color-Blue">        crd : [&#39;s&#39;,&#39;g&#39;,&#39;t&#39;], coordinate system for plotting whereby:</span>
-<span class=" -Color -Color-Blue">            s : specimen coordinates, aniso_tile_correction = -1, or unspecified</span>
-<span class=" -Color -Color-Blue">            g : geographic coordinates, aniso_tile_correction = 0</span>
-<span class=" -Color -Color-Blue">            t : tilt corrected coordinates, aniso_tile_correction = 100</span>
-<span class=" -Color -Color-Blue">        num_bootstraps : how many bootstraps to do, default 1000</span>
-<span class=" -Color -Color-Blue">        dir_path : directory path</span>
-<span class=" -Color -Color-Blue">        fignum : matplotlib figure number, default 1</span>
-<span class=" -Color -Color-Blue">        save_plots : bool, default True</span>
-<span class=" -Color -Color-Blue">            if True, create and save all requested plots</span>
-<span class=" -Color -Color-Blue">        interactive : bool, default False</span>
-<span class=" -Color -Color-Blue">            interactively plot and display for each specimen</span>
-<span class=" -Color -Color-Blue">            (this is best used on the command line only)</span>
-<span class=" -Color -Color-Blue">        fmt : str, default &quot;svg&quot;</span>
-<span class=" -Color -Color-Blue">            format for figures, [svg, jpg, pdf, png]</span>
-<span class=" -Color -Color-Blue">        contribution : pmagpy contribution_builder.Contribution object, if not provided will be created</span>
-<span class=" -Color -Color-Blue">            in directory (default None).  (if provided, infile/samp_file/dir_path may be left blank)</span>
-
-
-<span class=" -Color -Color-Blue">    &quot;&quot;&quot;</span>
-    figs <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">{}</span>
-    saved <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">[]</span>
-    image_recs <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">[]</span>
-    <span class=" -Color -Color-Red"># make sure boolean values are in integer form</span>
-    <span class=" -Color -Color-Red"># for backwards compatibility</span>
-    ipar <span class=" -Color -Color-Blue">=</span> int<span class=" -Color -Color-Blue">(</span>ipar<span class=" -Color -Color-Blue">)</span>
-    ihext <span class=" -Color -Color-Blue">=</span> int<span class=" -Color -Color-Blue">(</span>ihext<span class=" -Color -Color-Blue">)</span>
-    ivec <span class=" -Color -Color-Blue">=</span> int<span class=" -Color -Color-Blue">(</span>ivec<span class=" -Color -Color-Blue">)</span>
-    isite <span class=" -Color -Color-Blue">=</span> int<span class=" -Color -Color-Blue">(</span>isite<span class=" -Color -Color-Blue">)</span>
-    <span class=" -Color -Color-Red">#iloc = int(iloc) # NOT USED</span>
-    iboot <span class=" -Color -Color-Blue">=</span> int<span class=" -Color -Color-Blue">(</span>iboot<span class=" -Color -Color-Blue">)</span>
-    <span class=" -Color -Color-Red"># initialize some variables</span>
-    version_num <span class=" -Color -Color-Blue">=</span> pmag<span class=" -Color -Color-Blue">.</span>get_version<span class=" -Color -Color-Blue">()</span>
-    hpars<span class=" -Color -Color-Blue">,</span> bpars <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">[],</span> <span class=" -Color -Color-Blue">[]</span>
-    <span class=" -Color -Color-Red"># set aniso_tilt_correction value</span>
-    CS <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">-</span><span class=" -Color -Color-Cyan">1</span>  <span class=" -Color -Color-Red"># specimen</span>
-    <span class=" -Color -Color-Green">if</span> crd <span class=" -Color -Color-Blue">==</span> <span class=" -Color -Color-Blue">&#39;g&#39;:</span>
-        CS <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Cyan">0</span>
-    <span class=" -Color -Color-Green">if</span> crd <span class=" -Color -Color-Blue">==</span> <span class=" -Color -Color-Blue">&#39;t&#39;:</span>
-        CS <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Cyan">100</span>
-
-    <span class=" -Color -Color-Red">#</span>
-    <span class=" -Color -Color-Red">#</span>
-    <span class=" -Color -Color-Red"># read in the data</span>
-
-    <span class=" -Color -Color-Green">if</span> contribution <span class=" -Color -Color-Green">is</span> <span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">:</span>
-        <span class=" -Color -Color-Red"># fix directory</span>
-        input_dir_path <span class=" -Color -Color-Blue">=</span> os<span class=" -Color -Color-Blue">.</span>path<span class=" -Color -Color-Blue">.</span>realpath<span class=" -Color -Color-Blue">(</span>dir_path<span class=" -Color -Color-Blue">)</span>
-        fnames <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">{&#39;specimens&#39;:</span> infile<span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Blue">&#39;samples&#39;:</span> samp_file<span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Blue">&#39;sites&#39;:</span> site_file<span class=" -Color -Color-Blue">}</span>
-        con <span class=" -Color -Color-Blue">=</span> cb<span class=" -Color -Color-Blue">.</span>Contribution<span class=" -Color -Color-Blue">(</span>input_dir_path<span class=" -Color -Color-Blue">,</span> read_tables<span class=" -Color -Color-Blue">=[&#39;specimens&#39;,</span> <span class=" -Color -Color-Blue">&#39;samples&#39;,</span> <span class=" -Color -Color-Blue">&#39;sites&#39;,</span> <span class=" -Color -Color-Blue">&#39;contribution&#39;],</span>
-                              custom_filenames<span class=" -Color -Color-Blue">=</span>fnames<span class=" -Color -Color-Blue">)</span>
-    <span class=" -Color -Color-Green">else</span><span class=" -Color -Color-Blue">:</span>
-        con <span class=" -Color -Color-Blue">=</span> contribution
-        dir_path <span class=" -Color -Color-Blue">=</span> con<span class=" -Color -Color-Blue">.</span>directory
-    <span class=" -Color -Color-Red"># get contribution id if available</span>
-    con_id <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">&quot;&quot;</span>
-    <span class=" -Color -Color-Green">if</span> <span class=" -Color -Color-Blue">&#39;contribution&#39;</span> <span class=" -Color -Color-Green">in</span> con<span class=" -Color -Color-Blue">.</span>tables<span class=" -Color -Color-Blue">:</span>
-        <span class=" -Color -Color-Green">if</span> <span class=" -Color -Color-Blue">&#39;id&#39;</span> <span class=" -Color -Color-Green">in</span> con<span class=" -Color -Color-Blue">.</span>tables<span class=" -Color -Color-Blue">[&#39;contribution&#39;].</span>df<span class=" -Color -Color-Blue">.</span>columns<span class=" -Color -Color-Blue">:</span>
-            con_id <span class=" -Color -Color-Blue">=</span> str<span class=" -Color -Color-Blue">(</span>con<span class=" -Color -Color-Blue">.</span>tables<span class=" -Color -Color-Blue">[&#39;contribution&#39;].</span>df<span class=" -Color -Color-Blue">[&#39;id&#39;].</span>values<span class=" -Color -Color-Blue">[</span><span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">])</span>
-    <span class=" -Color -Color-Red"># get other data</span>
-    con<span class=" -Color -Color-Blue">.</span>propagate_location_to_specimens<span class=" -Color -Color-Blue">()</span>
-    spec_container <span class=" -Color -Color-Blue">=</span> con<span class=" -Color -Color-Blue">.</span>tables<span class=" -Color -Color-Blue">[&#39;specimens&#39;]</span>
-    spec_df <span class=" -Color -Color-Blue">=</span> spec_container<span class=" -Color -Color-Blue">.</span>df
-    <span class=" -Color -Color-Red"># use only anisotropy records</span>
-    spec_df <span class=" -Color -Color-Blue">=</span> spec_df<span class=" -Color -Color-Blue">.</span>dropna<span class=" -Color -Color-Blue">(</span>subset<span class=" -Color -Color-Blue">=[&#39;aniso_s&#39;]).</span>copy<span class=" -Color -Color-Blue">()</span>
-    <span class=" -Color -Color-Green">if</span> <span class=" -Color -Color-Blue">&#39;aniso_tilt_correction&#39;</span> <span class=" -Color -Color-Green">not</span> <span class=" -Color -Color-Green">in</span> spec_df<span class=" -Color -Color-Blue">.</span>columns<span class=" -Color -Color-Blue">:</span>
-        spec_df<span class=" -Color -Color-Blue">[&#39;aniso_tilt_correction&#39;]</span> <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">-</span><span class=" -Color -Color-Cyan">1</span>  <span class=" -Color -Color-Red"># assume specimen coordinates</span>
-    <span class=" -Color -Color-Green">if</span> <span class=" -Color -Color-Blue">&quot;aniso_s_n_measurements&quot;</span> <span class=" -Color -Color-Green">not</span> <span class=" -Color -Color-Green">in</span> spec_df<span class=" -Color -Color-Blue">.</span>columns<span class=" -Color -Color-Blue">:</span>
-        spec_df<span class=" -Color -Color-Blue">[&quot;aniso_s_n_measurements&quot;]</span> <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">&quot;6&quot;</span>
-    <span class=" -Color -Color-Green">if</span> <span class=" -Color -Color-Blue">&quot;aniso_s_sigma&quot;</span> <span class=" -Color -Color-Green">not</span> <span class=" -Color -Color-Green">in</span> spec_df<span class=" -Color -Color-Blue">.</span>columns<span class=" -Color -Color-Blue">:</span>
-        spec_df<span class=" -Color -Color-Blue">[&quot;aniso_sigma&quot;]</span> <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">&quot;0&quot;</span>
-    orlist <span class=" -Color -Color-Blue">=</span> spec_df<span class=" -Color -Color-Blue">[&#39;aniso_tilt_correction&#39;].</span>dropna<span class=" -Color -Color-Blue">().</span>unique<span class=" -Color -Color-Blue">()</span>
-    <span class=" -Color -Color-Green">if</span> CS <span class=" -Color -Color-Green">not</span> <span class=" -Color -Color-Green">in</span> orlist<span class=" -Color -Color-Blue">:</span>
-        <span class=" -Color -Color-Green">if</span> len<span class=" -Color -Color-Blue">(</span>orlist<span class=" -Color -Color-Blue">)</span> <span class=" -Color -Color-Blue">&gt;</span> <span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">:</span>
-            CS <span class=" -Color -Color-Blue">=</span> orlist<span class=" -Color -Color-Blue">[</span><span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">]</span>
-        <span class=" -Color -Color-Green">else</span><span class=" -Color -Color-Blue">:</span>
-            CS <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">-</span><span class=" -Color -Color-Cyan">1</span>
-        <span class=" -Color -Color-Green">if</span> CS <span class=" -Color -Color-Blue">==</span> <span class=" -Color -Color-Blue">-</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">:</span>
-            crd <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">&#39;s&#39;</span>
-        <span class=" -Color -Color-Green">if</span> CS <span class=" -Color -Color-Blue">==</span> <span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">:</span>
-            crd <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">&#39;g&#39;</span>
-        <span class=" -Color -Color-Green">if</span> CS <span class=" -Color -Color-Blue">==</span> <span class=" -Color -Color-Cyan">100</span><span class=" -Color -Color-Blue">:</span>
-            crd <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">&#39;t&#39;</span>
-        <span class=" -Color -Color-Green">if</span> verbose<span class=" -Color -Color-Blue">:</span>
-            print<span class=" -Color -Color-Blue">(&quot;desired coordinate system not available, using available: &quot;,</span> crd<span class=" -Color -Color-Blue">)</span>
-    cs_df <span class=" -Color -Color-Blue">=</span> spec_df<span class=" -Color -Color-Blue">[</span>spec_df<span class=" -Color -Color-Blue">[&#39;aniso_tilt_correction&#39;]</span> <span class=" -Color -Color-Blue">==</span> CS<span class=" -Color -Color-Blue">]</span>
-    <span class=" -Color -Color-Green">if</span> isite<span class=" -Color -Color-Blue">:</span>
-        sites <span class=" -Color -Color-Blue">=</span> cs_df<span class=" -Color -Color-Blue">[&#39;site&#39;].</span>unique<span class=" -Color -Color-Blue">()</span>
-        <span class=" -Color -Color-Green">for</span> site <span class=" -Color -Color-Green">in</span> list<span class=" -Color -Color-Blue">(</span>sites<span class=" -Color -Color-Blue">):</span>
-            site_df <span class=" -Color -Color-Blue">=</span> cs_df<span class=" -Color -Color-Blue">[</span>cs_df<span class=" -Color -Color-Blue">.</span>site <span class=" -Color -Color-Blue">==</span> site<span class=" -Color -Color-Blue">]</span>
-            loc <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">&quot;&quot;</span>
-            <span class=" -Color -Color-Green">if</span> <span class=" -Color -Color-Blue">&#39;sites&#39;</span> <span class=" -Color -Color-Green">in</span> con<span class=" -Color -Color-Blue">.</span>tables<span class=" -Color -Color-Blue">:</span>
-                <span class=" -Color -Color-Green">if</span> <span class=" -Color -Color-Blue">&#39;location&#39;</span> <span class=" -Color -Color-Green">in</span> con<span class=" -Color -Color-Blue">.</span>tables<span class=" -Color -Color-Blue">[&#39;sites&#39;].</span>df<span class=" -Color -Color-Blue">.</span>columns<span class=" -Color -Color-Blue">:</span>
-                    locs <span class=" -Color -Color-Blue">=</span> con<span class=" -Color -Color-Blue">.</span>tables<span class=" -Color -Color-Blue">[&#39;sites&#39;].</span>df<span class=" -Color -Color-Blue">.</span>loc<span class=" -Color -Color-Blue">[</span>site<span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Blue">&#39;location&#39;]</span>
-                    <span class=" -Color -Color-Green">if</span> len<span class=" -Color -Color-Blue">(</span>con<span class=" -Color -Color-Blue">.</span>tables<span class=" -Color -Color-Blue">[&#39;sites&#39;].</span>df<span class=" -Color -Color-Blue">)&gt;</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">:</span>
-                        loc<span class=" -Color -Color-Blue">=</span>locs<span class=" -Color -Color-Blue">[</span><span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">]</span>
-                    <span class=" -Color -Color-Green">else</span><span class=" -Color -Color-Blue">:</span>
-                        loc<span class=" -Color -Color-Blue">=</span>locs
-
-            figs <span class=" -Color -Color-Blue">=</span> plot_aniso<span class=" -Color -Color-Blue">(</span>fignum<span class=" -Color -Color-Blue">,</span> site_df<span class=" -Color -Color-Blue">,</span> Dir<span class=" -Color -Color-Blue">=</span>Dir<span class=" -Color -Color-Blue">,</span> PDir<span class=" -Color -Color-Blue">=</span>PDir<span class=" -Color -Color-Blue">,</span> ipar<span class=" -Color -Color-Blue">=</span>ipar<span class=" -Color -Color-Blue">,</span>
-                              ihext<span class=" -Color -Color-Blue">=</span>ihext<span class=" -Color -Color-Blue">,</span> ivec<span class=" -Color -Color-Blue">=</span>ivec<span class=" -Color -Color-Blue">,</span> iboot<span class=" -Color -Color-Blue">=</span>iboot<span class=" -Color -Color-Blue">,</span>
-                              vec<span class=" -Color -Color-Blue">=</span>vec<span class=" -Color -Color-Blue">,</span> num_bootstraps<span class=" -Color -Color-Blue">=</span>num_bootstraps<span class=" -Color -Color-Blue">,</span> title<span class=" -Color -Color-Blue">=</span>site<span class=" -Color -Color-Blue">)</span>
-            files <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">{</span>key<span class=" -Color -Color-Blue">:</span> loc <span class=" -Color -Color-Blue">+</span> <span class=" -Color -Color-Blue">&quot;_&quot;</span> <span class=" -Color -Color-Blue">+</span> site <span class=" -Color -Color-Blue">+&quot;_&quot;</span> <span class=" -Color -Color-Blue">+</span> crd <span class=" -Color -Color-Blue">+</span> <span class=" -Color -Color-Blue">&quot;_aniso-&quot;</span> <span class=" -Color -Color-Blue">+</span> key <span class=" -Color -Color-Blue">+</span> <span class=" -Color -Color-Blue">&quot;.png&quot;</span> <span class=" -Color -Color-Green">for</span> <span class=" -Color -Color-Blue">(</span>key<span class=" -Color -Color-Blue">,</span> value<span class=" -Color -Color-Blue">)</span> <span class=" -Color -Color-Green">in</span> figs<span class=" -Color -Color-Blue">.</span>items<span class=" -Color -Color-Blue">()}</span>
-            <span class=" -Color -Color-Green">if</span> pmagplotlib<span class=" -Color -Color-Blue">.</span>isServer<span class=" -Color -Color-Blue">:</span>
-                titles <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">{}</span>
-                <span class=" -Color -Color-Green">for</span> key <span class=" -Color -Color-Green">in</span> figs<span class=" -Color -Color-Blue">.</span>keys<span class=" -Color -Color-Blue">():</span>
-                    files<span class=" -Color -Color-Blue">[</span>key<span class=" -Color -Color-Blue">]</span> <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">&quot;LO:_&quot;</span> <span class=" -Color -Color-Blue">+</span> loc <span class=" -Color -Color-Blue">+</span> <span class=" -Color -Color-Blue">&quot;_SI:_&quot;</span> <span class=" -Color -Color-Blue">+</span> site <span class=" -Color -Color-Blue">+</span>  <span class=" -Color -Color-Blue">&#39;_TY:_aniso_&#39;</span> <span class=" -Color -Color-Blue">+</span> key <span class=" -Color -Color-Blue">+</span> <span class=" -Color -Color-Blue">&#39;_.&#39;</span> <span class=" -Color -Color-Blue">+</span> fmt
-                    titles <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">{}</span>
-                    titles<span class=" -Color -Color-Blue">[&#39;data&#39;]</span> <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">&quot;Eigenvectors&quot;</span>
-                    titles<span class=" -Color -Color-Blue">[&#39;tcdf&#39;]</span> <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">&quot;Eigenvalue Confidence&quot;</span>
-                    titles<span class=" -Color -Color-Blue">[&#39;conf&#39;]</span> <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">&quot;Confidence Ellipses&quot;</span>
-                    <span class=" -Color -Color-Green">for</span> key <span class=" -Color -Color-Green">in</span> figs<span class=" -Color -Color-Blue">:</span>
-                        <span class=" -Color -Color-Green">if</span> key <span class=" -Color -Color-Green">not</span> <span class=" -Color -Color-Green">in</span> titles<span class=" -Color -Color-Blue">:</span>
-                            titles<span class=" -Color -Color-Blue">[</span>key<span class=" -Color -Color-Blue">]</span> <span class=" -Color -Color-Blue">=</span> key
-                pmagplotlib<span class=" -Color -Color-Blue">.</span>add_borders<span class=" -Color -Color-Blue">(</span>figs<span class=" -Color -Color-Blue">,</span> titles<span class=" -Color -Color-Blue">,</span> con_id<span class=" -Color -Color-Blue">=</span>con_id<span class=" -Color -Color-Blue">)</span>
-
-            <span class=" -Color -Color-Green">if</span> image_records<span class=" -Color -Color-Blue">:</span>
-                <span class=" -Color -Color-Green">for</span> plot_type<span class=" -Color -Color-Blue">,</span> fname <span class=" -Color -Color-Green">in</span> files<span class=" -Color -Color-Blue">.</span>items<span class=" -Color -Color-Blue">():</span>
-                    image_rec <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">{&#39;site&#39;:</span> site<span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Blue">&#39;file&#39;:</span> fname<span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Blue">&#39;type&#39;:</span> PLOT_TYPES<span class=" -Color -Color-Blue">[</span>plot_type<span class=" -Color -Color-Blue">],</span>
-                                 <span class=" -Color -Color-Blue">&#39;title&#39;:</span> <span class=" -Color -Color-Blue">&quot;{} {}&quot;.</span>format<span class=" -Color -Color-Blue">(</span>site<span class=" -Color -Color-Blue">,</span> PLOT_TYPES<span class=" -Color -Color-Blue">[</span>plot_type<span class=" -Color -Color-Blue">]),</span>
-                                 <span class=" -Color -Color-Blue">&#39;timestamp&#39;:</span> date<span class=" -Color -Color-Blue">.</span>today<span class=" -Color -Color-Blue">().</span>isoformat<span class=" -Color -Color-Blue">(),</span> <span class=" -Color -Color-Blue">&#39;software_packages&#39;:</span> version<span class=" -Color -Color-Blue">.</span>version<span class=" -Color -Color-Blue">}</span>
-                    image_recs<span class=" -Color -Color-Blue">.</span>append<span class=" -Color -Color-Blue">(</span>image_rec<span class=" -Color -Color-Blue">)</span>
-
-            <span class=" -Color -Color-Green">if</span> save_plots<span class=" -Color -Color-Blue">:</span>
-                saved<span class=" -Color -Color-Blue">.</span>extend<span class=" -Color -Color-Blue">(</span>pmagplotlib<span class=" -Color -Color-Blue">.</span>save_plots<span class=" -Color -Color-Blue">(</span>figs<span class=" -Color -Color-Blue">,</span> files<span class=" -Color -Color-Blue">))</span>
-            <span class=" -Color -Color-Green">elif</span> interactive<span class=" -Color -Color-Blue">:</span>
-                pmagplotlib<span class=" -Color -Color-Blue">.</span>draw_figs<span class=" -Color -Color-Blue">(</span>figs<span class=" -Color -Color-Blue">)</span>
-                ans <span class=" -Color -Color-Blue">=</span> pmagplotlib<span class=" -Color -Color-Blue">.</span>save_or_quit<span class=" -Color -Color-Blue">()</span>
-                <span class=" -Color -Color-Green">if</span> ans <span class=" -Color -Color-Blue">==</span> <span class=" -Color -Color-Blue">&#39;a&#39;:</span>
-                    saved<span class=" -Color -Color-Blue">.</span>extend<span class=" -Color -Color-Blue">(</span>pmagplotlib<span class=" -Color -Color-Blue">.</span>save_plots<span class=" -Color -Color-Blue">(</span>figs<span class=" -Color -Color-Blue">,</span> files<span class=" -Color -Color-Blue">))</span>
-                <span class=" -Color -Color-Green">else</span><span class=" -Color -Color-Blue">:</span>
-                    <span class=" -Color -Color-Green">continue</span>
-            <span class=" -Color -Color-Green">else</span><span class=" -Color -Color-Blue">:</span>
-                fignum <span class=" -Color -Color-Blue">+=</span> <span class=" -Color -Color-Cyan">2</span>
-                <span class=" -Color -Color-Green">if</span> iboot<span class=" -Color -Color-Blue">:</span>
-                    fignum <span class=" -Color -Color-Blue">+=</span> <span class=" -Color -Color-Cyan">1</span>
-                <span class=" -Color -Color-Green">if</span> len<span class=" -Color -Color-Blue">(</span>Dir<span class=" -Color -Color-Blue">)</span> <span class=" -Color -Color-Blue">&gt;</span> <span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">:</span>
-                    fignum <span class=" -Color -Color-Blue">+=</span> <span class=" -Color -Color-Cyan">1</span>
-    <span class=" -Color -Color-Green">else</span><span class=" -Color -Color-Blue">:</span>
-        figs <span class=" -Color -Color-Blue">=</span> plot_aniso<span class=" -Color -Color-Blue">(</span>fignum<span class=" -Color -Color-Blue">,</span> cs_df<span class=" -Color -Color-Blue">,</span> Dir<span class=" -Color -Color-Blue">=</span>Dir<span class=" -Color -Color-Blue">,</span> PDir<span class=" -Color -Color-Blue">=</span>PDir<span class=" -Color -Color-Blue">,</span> ipar<span class=" -Color -Color-Blue">=</span>ipar<span class=" -Color -Color-Blue">,</span> ihext<span class=" -Color -Color-Blue">=</span>ihext<span class=" -Color -Color-Blue">,</span>
-                          ivec<span class=" -Color -Color-Blue">=</span>ivec<span class=" -Color -Color-Blue">,</span> iboot<span class=" -Color -Color-Blue">=</span>iboot<span class=" -Color -Color-Blue">,</span> vec<span class=" -Color -Color-Blue">=</span>vec<span class=" -Color -Color-Blue">,</span> num_bootstraps<span class=" -Color -Color-Blue">=</span>num_bootstraps<span class=" -Color -Color-Blue">)</span>
-        <span class=" -Color -Color-Green">try</span><span class=" -Color -Color-Blue">:</span>
-            locs <span class=" -Color -Color-Blue">=</span> cs_df<span class=" -Color -Color-Blue">[&#39;location&#39;].</span>unique<span class=" -Color -Color-Blue">()</span>
-        <span class=" -Color -Color-Green">except</span><span class=" -Color -Color-Blue">:</span>
-            locs <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">[&quot;&quot;]</span>
-        locs <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">&quot;-&quot;.</span>join<span class=" -Color -Color-Blue">(</span>locs<span class=" -Color -Color-Blue">)</span>
-        files <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">{</span>key<span class=" -Color -Color-Blue">:</span>  locs <span class=" -Color -Color-Blue">+</span> <span class=" -Color -Color-Blue">&quot;_&quot;</span> <span class=" -Color -Color-Blue">+</span> crd <span class=" -Color -Color-Blue">+</span> <span class=" -Color -Color-Blue">&quot;_aniso-&quot;</span> <span class=" -Color -Color-Blue">+</span> key <span class=" -Color -Color-Blue">+</span> <span class=" -Color -Color-Blue">&quot;.png&quot;</span> <span class=" -Color -Color-Green">for</span> <span class=" -Color -Color-Blue">(</span>key<span class=" -Color -Color-Blue">,</span> value<span class=" -Color -Color-Blue">)</span> <span class=" -Color -Color-Green">in</span> figs<span class=" -Color -Color-Blue">.</span>items<span class=" -Color -Color-Blue">()}</span>
-        <span class=" -Color -Color-Green">if</span> pmagplotlib<span class=" -Color -Color-Blue">.</span>isServer<span class=" -Color -Color-Blue">:</span>
-            titles <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">{}</span>
-            <span class=" -Color -Color-Green">for</span> key <span class=" -Color -Color-Green">in</span> figs<span class=" -Color -Color-Blue">.</span>keys<span class=" -Color -Color-Blue">():</span>
-                files<span class=" -Color -Color-Blue">[</span>key<span class=" -Color -Color-Blue">]</span> <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">&#39;MC:_&#39;</span> <span class=" -Color -Color-Blue">+</span> con_id <span class=" -Color -Color-Blue">+</span> <span class=" -Color -Color-Blue">&#39;_TY:_aniso_&#39;</span> <span class=" -Color -Color-Blue">+</span> key <span class=" -Color -Color-Blue">+</span> <span class=" -Color -Color-Blue">&#39;_.&#39;</span> <span class=" -Color -Color-Blue">+</span> fmt
-                titles <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">{}</span>
-                titles<span class=" -Color -Color-Blue">[&#39;data&#39;]</span> <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">&quot;Eigenvectors&quot;</span>
-                titles<span class=" -Color -Color-Blue">[&#39;tcdf&#39;]</span> <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">&quot;Eigenvalue Confidence&quot;</span>
-                titles<span class=" -Color -Color-Blue">[&#39;conf&#39;]</span> <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">&quot;Confidence Ellipses&quot;</span>
-                <span class=" -Color -Color-Green">for</span> key <span class=" -Color -Color-Green">in</span> figs<span class=" -Color -Color-Blue">:</span>
-                    <span class=" -Color -Color-Green">if</span> key <span class=" -Color -Color-Green">not</span> <span class=" -Color -Color-Green">in</span> titles<span class=" -Color -Color-Blue">:</span>
-                        titles<span class=" -Color -Color-Blue">[</span>key<span class=" -Color -Color-Blue">]</span> <span class=" -Color -Color-Blue">=</span> key
-            pmagplotlib<span class=" -Color -Color-Blue">.</span>add_borders<span class=" -Color -Color-Blue">(</span>figs<span class=" -Color -Color-Blue">,</span> titles<span class=" -Color -Color-Blue">,</span> con_id<span class=" -Color -Color-Blue">=</span>con_id<span class=" -Color -Color-Blue">)</span>
-        <span class=" -Color -Color-Green">if</span> image_records<span class=" -Color -Color-Blue">:</span>
-            <span class=" -Color -Color-Green">for</span> plot_type<span class=" -Color -Color-Blue">,</span> fname <span class=" -Color -Color-Green">in</span> files<span class=" -Color -Color-Blue">.</span>items<span class=" -Color -Color-Blue">():</span>
-                image_rec <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">{&#39;location&#39;:</span> locs<span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Blue">&#39;file&#39;:</span> fname<span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Blue">&#39;type&#39;:</span> PLOT_TYPES<span class=" -Color -Color-Blue">[</span>plot_type<span class=" -Color -Color-Blue">],</span>
-                             <span class=" -Color -Color-Blue">&#39;title&#39;:</span> <span class=" -Color -Color-Blue">&quot;{} {}&quot;.</span>format<span class=" -Color -Color-Blue">(</span>locs<span class=" -Color -Color-Blue">,</span> PLOT_TYPES<span class=" -Color -Color-Blue">[</span>plot_type<span class=" -Color -Color-Blue">]),</span>
-                             <span class=" -Color -Color-Blue">&#39;timestamp&#39;:</span> date<span class=" -Color -Color-Blue">.</span>today<span class=" -Color -Color-Blue">().</span>isoformat<span class=" -Color -Color-Blue">(),</span> <span class=" -Color -Color-Blue">&#39;software_packages&#39;:</span> version<span class=" -Color -Color-Blue">.</span>version<span class=" -Color -Color-Blue">}</span>
-                image_recs<span class=" -Color -Color-Blue">.</span>append<span class=" -Color -Color-Blue">(</span>image_rec<span class=" -Color -Color-Blue">)</span>
-
-
-        <span class=" -Color -Color-Green">if</span> save_plots<span class=" -Color -Color-Blue">:</span>
-            saved<span class=" -Color -Color-Blue">.</span>extend<span class=" -Color -Color-Blue">(</span>pmagplotlib<span class=" -Color -Color-Blue">.</span>save_plots<span class=" -Color -Color-Blue">(</span>figs<span class=" -Color -Color-Blue">,</span> files<span class=" -Color -Color-Blue">))</span>
-        <span class=" -Color -Color-Green">elif</span> interactive<span class=" -Color -Color-Blue">:</span>
-            pmagplotlib<span class=" -Color -Color-Blue">.</span>draw_figs<span class=" -Color -Color-Blue">(</span>figs<span class=" -Color -Color-Blue">)</span>
-            ans <span class=" -Color -Color-Blue">=</span> pmagplotlib<span class=" -Color -Color-Blue">.</span>save_or_quit<span class=" -Color -Color-Blue">()</span>
-            <span class=" -Color -Color-Green">if</span> ans <span class=" -Color -Color-Blue">==</span> <span class=" -Color -Color-Blue">&#39;a&#39;:</span>
-                saved<span class=" -Color -Color-Blue">.</span>extend<span class=" -Color -Color-Blue">(</span>pmagplotlib<span class=" -Color -Color-Blue">.</span>save_plots<span class=" -Color -Color-Blue">(</span>figs<span class=" -Color -Color-Blue">,</span> files<span class=" -Color -Color-Blue">))</span>
-    <span class=" -Color -Color-Green">if</span> image_records<span class=" -Color -Color-Blue">:</span>
-        <span class=" -Color -Color-Green">return</span> <span class=" -Color -Color-Green">True</span><span class=" -Color -Color-Blue">,</span> saved<span class=" -Color -Color-Blue">,</span> image_recs
-    <span class=" -Color -Color-Green">return</span> <span class=" -Color -Color-Green">True</span><span class=" -Color -Color-Blue">,</span> saved
-<span class=" -Color -Color-Red">File:</span>      ~/0000_GitHub/PmagPy/pmagpy/ipmag.py
-<span class=" -Color -Color-Red">Type:</span>      function
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ipmag.plot_aniso<span class="o">??</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Red">Signature:</span>
-ipmag<span class=" -Color -Color-Blue">.</span>plot_aniso<span class=" -Color -Color-Blue">(</span>
-    fignum<span class=" -Color -Color-Blue">,</span>
-    aniso_df<span class=" -Color -Color-Blue">,</span>
-    Dir<span class=" -Color -Color-Blue">=[],</span>
-    PDir<span class=" -Color -Color-Blue">=[],</span>
-    ipar<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span>
-    ihext<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">True</span><span class=" -Color -Color-Blue">,</span>
-    ivec<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span>
-    iboot<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span>
-    vec<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">,</span>
-    num_bootstraps<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">1000</span><span class=" -Color -Color-Blue">,</span>
-    title<span class=" -Color -Color-Blue">=&#39;&#39;,</span>
-<span class=" -Color -Color-Blue">)</span>
-<span class=" -Color -Color-Red">Docstring:</span> &lt;no docstring&gt;
-<span class=" -Color -Color-Red">Source:</span>   
-<span class=" -Color -Color-Green">def</span> plot_aniso<span class=" -Color -Color-Blue">(</span>fignum<span class=" -Color -Color-Blue">,</span> aniso_df<span class=" -Color -Color-Blue">,</span> Dir<span class=" -Color -Color-Blue">=[],</span> PDir<span class=" -Color -Color-Blue">=[],</span> ipar<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span> ihext<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">True</span><span class=" -Color -Color-Blue">,</span> ivec<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span>
-               iboot<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span> vec<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">,</span> num_bootstraps<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">1000</span><span class=" -Color -Color-Blue">,</span> title<span class=" -Color -Color-Blue">=&quot;&quot;):</span>
-    figs <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">{}</span>
-    ipar <span class=" -Color -Color-Blue">=</span> int<span class=" -Color -Color-Blue">(</span>ipar<span class=" -Color -Color-Blue">)</span>
-    ihext <span class=" -Color -Color-Blue">=</span> int<span class=" -Color -Color-Blue">(</span>ihext<span class=" -Color -Color-Blue">)</span>
-    ivec <span class=" -Color -Color-Blue">=</span> int<span class=" -Color -Color-Blue">(</span>ivec<span class=" -Color -Color-Blue">)</span>
-    iboot <span class=" -Color -Color-Blue">=</span> int<span class=" -Color -Color-Blue">(</span>iboot<span class=" -Color -Color-Blue">)</span>
-    Ss<span class=" -Color -Color-Blue">,</span> V1<span class=" -Color -Color-Blue">,</span> V2<span class=" -Color -Color-Blue">,</span> V3 <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">[],</span> <span class=" -Color -Color-Blue">[],</span> <span class=" -Color -Color-Blue">[],</span> <span class=" -Color -Color-Blue">[]</span>
-    <span class=" -Color -Color-Green">for</span> ind<span class=" -Color -Color-Blue">,</span> rec <span class=" -Color -Color-Green">in</span> aniso_df<span class=" -Color -Color-Blue">.</span>iterrows<span class=" -Color -Color-Blue">():</span>
-        s <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">[</span>float<span class=" -Color -Color-Blue">(</span>i<span class=" -Color -Color-Blue">.</span>strip<span class=" -Color -Color-Blue">())</span> <span class=" -Color -Color-Green">for</span> i <span class=" -Color -Color-Green">in</span> rec<span class=" -Color -Color-Blue">[&#39;aniso_s&#39;].</span>split<span class=" -Color -Color-Blue">(&#39;:&#39;)]</span>
-        <span class=" -Color -Color-Green">if</span> s<span class=" -Color -Color-Blue">[</span><span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">]</span> <span class=" -Color -Color-Blue">&lt;=</span> <span class=" -Color -Color-Cyan">1.0</span><span class=" -Color -Color-Blue">:</span>
-            Ss<span class=" -Color -Color-Blue">.</span>append<span class=" -Color -Color-Blue">(</span>s<span class=" -Color -Color-Blue">)</span>  <span class=" -Color -Color-Red"># protect against crap</span>
-            tau<span class=" -Color -Color-Blue">,</span> Vdir <span class=" -Color -Color-Blue">=</span> pmag<span class=" -Color -Color-Blue">.</span>doseigs<span class=" -Color -Color-Blue">(</span>s<span class=" -Color -Color-Blue">)</span>
-            V1<span class=" -Color -Color-Blue">.</span>append<span class=" -Color -Color-Blue">([</span>Vdir<span class=" -Color -Color-Blue">[</span><span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">][</span><span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">],</span> Vdir<span class=" -Color -Color-Blue">[</span><span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">][</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">]])</span>
-            V2<span class=" -Color -Color-Blue">.</span>append<span class=" -Color -Color-Blue">([</span>Vdir<span class=" -Color -Color-Blue">[</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">][</span><span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">],</span> Vdir<span class=" -Color -Color-Blue">[</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">][</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">]])</span>
-            V3<span class=" -Color -Color-Blue">.</span>append<span class=" -Color -Color-Blue">([</span>Vdir<span class=" -Color -Color-Blue">[</span><span class=" -Color -Color-Cyan">2</span><span class=" -Color -Color-Blue">][</span><span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">],</span> Vdir<span class=" -Color -Color-Blue">[</span><span class=" -Color -Color-Cyan">2</span><span class=" -Color -Color-Blue">][</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">]])</span>
-    Ss <span class=" -Color -Color-Blue">=</span> np<span class=" -Color -Color-Blue">.</span>array<span class=" -Color -Color-Blue">(</span>Ss<span class=" -Color -Color-Blue">)</span>
-    <span class=" -Color -Color-Green">if</span> Ss<span class=" -Color -Color-Blue">.</span>shape<span class=" -Color -Color-Blue">[</span><span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">]</span> <span class=" -Color -Color-Blue">&gt;</span> <span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">:</span>
-        <span class=" -Color -Color-Red"># plot the data</span>
-        plot_net<span class=" -Color -Color-Blue">(</span>fignum<span class=" -Color -Color-Blue">)</span>
-        figs<span class=" -Color -Color-Blue">[&#39;data&#39;]</span> <span class=" -Color -Color-Blue">=</span> fignum
-        <span class=" -Color -Color-Green">if</span> <span class=" -Color -Color-Green">not</span> pmagplotlib<span class=" -Color -Color-Blue">.</span>isServer<span class=" -Color -Color-Blue">:</span>
-            plt<span class=" -Color -Color-Blue">.</span>title<span class=" -Color -Color-Blue">(</span>title<span class=" -Color -Color-Blue">+&#39;:&#39;+&#39; V1=squares,V2=triangles,V3=circles&#39;)</span>
-        plot_di<span class=" -Color -Color-Blue">(</span>di_block<span class=" -Color -Color-Blue">=</span>V1<span class=" -Color -Color-Blue">,</span> color<span class=" -Color -Color-Blue">=&#39;r&#39;,</span> marker<span class=" -Color -Color-Blue">=&#39;s&#39;,</span> markersize<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">20</span><span class=" -Color -Color-Blue">)</span>
-        plot_di<span class=" -Color -Color-Blue">(</span>di_block<span class=" -Color -Color-Blue">=</span>V2<span class=" -Color -Color-Blue">,</span> color<span class=" -Color -Color-Blue">=&#39;b&#39;,</span> marker<span class=" -Color -Color-Blue">=&#39;^&#39;,</span> markersize<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">20</span><span class=" -Color -Color-Blue">)</span>
-        plot_di<span class=" -Color -Color-Blue">(</span>di_block<span class=" -Color -Color-Blue">=</span>V3<span class=" -Color -Color-Blue">,</span> color<span class=" -Color -Color-Blue">=&#39;k&#39;,</span> marker<span class=" -Color -Color-Blue">=&#39;o&#39;,</span> markersize<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">20</span><span class=" -Color -Color-Blue">)</span>
-        <span class=" -Color -Color-Red"># plot the confidence</span>
-        nf<span class=" -Color -Color-Blue">,</span> sigma<span class=" -Color -Color-Blue">,</span> avs <span class=" -Color -Color-Blue">=</span> pmag<span class=" -Color -Color-Blue">.</span>sbar<span class=" -Color -Color-Blue">(</span>Ss<span class=" -Color -Color-Blue">)</span>
-        hpars <span class=" -Color -Color-Blue">=</span> pmag<span class=" -Color -Color-Blue">.</span>dohext<span class=" -Color -Color-Blue">(</span>nf<span class=" -Color -Color-Blue">,</span> sigma<span class=" -Color -Color-Blue">,</span> avs<span class=" -Color -Color-Blue">)</span>  <span class=" -Color -Color-Red"># get the Hext parameters</span>
-        <span class=" -Color -Color-Green">if</span> len<span class=" -Color -Color-Blue">(</span>PDir<span class=" -Color -Color-Blue">)</span> <span class=" -Color -Color-Blue">&gt;</span> <span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">:</span>
-            pmagplotlib<span class=" -Color -Color-Blue">.</span>plot_circ<span class=" -Color -Color-Blue">(</span>fignum<span class=" -Color -Color-Blue">+</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">,</span> PDir<span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Cyan">90.</span><span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Blue">&#39;g&#39;)</span>
-        figs<span class=" -Color -Color-Blue">[&#39;conf&#39;]</span> <span class=" -Color -Color-Blue">=</span> fignum <span class=" -Color -Color-Blue">+</span> <span class=" -Color -Color-Cyan">1</span>
-        plot_net<span class=" -Color -Color-Blue">(</span>fignum<span class=" -Color -Color-Blue">+</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">)</span>
-        <span class=" -Color -Color-Green">if</span> <span class=" -Color -Color-Green">not</span> pmagplotlib<span class=" -Color -Color-Blue">.</span>isServer<span class=" -Color -Color-Blue">:</span>
-            plt<span class=" -Color -Color-Blue">.</span>title<span class=" -Color -Color-Blue">(</span>title<span class=" -Color -Color-Blue">+&#39;:&#39;+&#39;Confidence Ellipses&#39;)</span>
-        plot_di<span class=" -Color -Color-Blue">(</span>dec<span class=" -Color -Color-Blue">=</span>hpars<span class=" -Color -Color-Blue">[&#39;v1_dec&#39;],</span> inc<span class=" -Color -Color-Blue">=</span>hpars<span class=" -Color -Color-Blue">[&#39;v1_inc&#39;],</span>
-                color<span class=" -Color -Color-Blue">=&#39;r&#39;,</span> marker<span class=" -Color -Color-Blue">=&#39;s&#39;,</span> markersize<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">30</span><span class=" -Color -Color-Blue">)</span>
-        plot_di<span class=" -Color -Color-Blue">(</span>dec<span class=" -Color -Color-Blue">=</span>hpars<span class=" -Color -Color-Blue">[&#39;v2_dec&#39;],</span> inc<span class=" -Color -Color-Blue">=</span>hpars<span class=" -Color -Color-Blue">[&#39;v2_inc&#39;],</span>
-                color<span class=" -Color -Color-Blue">=&#39;b&#39;,</span> marker<span class=" -Color -Color-Blue">=&#39;^&#39;,</span> markersize<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">30</span><span class=" -Color -Color-Blue">)</span>
-        plot_di<span class=" -Color -Color-Blue">(</span>dec<span class=" -Color -Color-Blue">=</span>hpars<span class=" -Color -Color-Blue">[&#39;v3_dec&#39;],</span> inc<span class=" -Color -Color-Blue">=</span>hpars<span class=" -Color -Color-Blue">[&#39;v3_inc&#39;],</span>
-                color<span class=" -Color -Color-Blue">=&#39;k&#39;,</span> marker<span class=" -Color -Color-Blue">=&#39;o&#39;,</span> markersize<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">30</span><span class=" -Color -Color-Blue">)</span>
-        <span class=" -Color -Color-Green">if</span> len<span class=" -Color -Color-Blue">(</span>PDir<span class=" -Color -Color-Blue">)</span> <span class=" -Color -Color-Blue">&gt;</span> <span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">:</span>
-            pmagplotlib<span class=" -Color -Color-Blue">.</span>plot_circ<span class=" -Color -Color-Blue">(</span>fignum<span class=" -Color -Color-Blue">+</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">,</span> PDir<span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Cyan">90.</span><span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Blue">&#39;g&#39;)</span>
-        <span class=" -Color -Color-Red"># plot the confidence ellipses or vectors as desired</span>
-        <span class=" -Color -Color-Green">if</span> ihext<span class=" -Color -Color-Blue">:</span>  <span class=" -Color -Color-Red"># plot the Hext ellipses</span>
-            ellpars <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">[</span>hpars<span class=" -Color -Color-Blue">[&quot;v1_dec&quot;],</span> hpars<span class=" -Color -Color-Blue">[&quot;v1_inc&quot;],</span> hpars<span class=" -Color -Color-Blue">[&quot;e12&quot;],</span> hpars<span class=" -Color -Color-Blue">[&quot;v2_dec&quot;],</span>
-                       hpars<span class=" -Color -Color-Blue">[&quot;v2_inc&quot;],</span> hpars<span class=" -Color -Color-Blue">[&quot;e13&quot;],</span> hpars<span class=" -Color -Color-Blue">[&quot;v3_dec&quot;],</span> hpars<span class=" -Color -Color-Blue">[&quot;v3_inc&quot;]]</span>
-            pmagplotlib<span class=" -Color -Color-Blue">.</span>plot_ell<span class=" -Color -Color-Blue">(</span>fignum<span class=" -Color -Color-Blue">+</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">,</span> ellpars<span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Blue">&#39;r-,&#39;,</span> <span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">)</span>
-            ellpars <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">[</span>hpars<span class=" -Color -Color-Blue">[&quot;v2_dec&quot;],</span> hpars<span class=" -Color -Color-Blue">[&quot;v2_inc&quot;],</span> hpars<span class=" -Color -Color-Blue">[&quot;e23&quot;],</span> hpars<span class=" -Color -Color-Blue">[&quot;v3_dec&quot;],</span>
-                       hpars<span class=" -Color -Color-Blue">[&quot;v3_inc&quot;],</span> hpars<span class=" -Color -Color-Blue">[&quot;e12&quot;],</span> hpars<span class=" -Color -Color-Blue">[&quot;v1_dec&quot;],</span> hpars<span class=" -Color -Color-Blue">[&quot;v1_inc&quot;]]</span>
-            pmagplotlib<span class=" -Color -Color-Blue">.</span>plot_ell<span class=" -Color -Color-Blue">(</span>fignum<span class=" -Color -Color-Blue">+</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">,</span> ellpars<span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Blue">&#39;b-,&#39;,</span> <span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">)</span>
-            ellpars <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">[</span>hpars<span class=" -Color -Color-Blue">[&quot;v3_dec&quot;],</span> hpars<span class=" -Color -Color-Blue">[&quot;v3_inc&quot;],</span> hpars<span class=" -Color -Color-Blue">[&quot;e13&quot;],</span> hpars<span class=" -Color -Color-Blue">[&quot;v1_dec&quot;],</span>
-                       hpars<span class=" -Color -Color-Blue">[&quot;v1_inc&quot;],</span> hpars<span class=" -Color -Color-Blue">[&quot;e23&quot;],</span> hpars<span class=" -Color -Color-Blue">[&quot;v2_dec&quot;],</span> hpars<span class=" -Color -Color-Blue">[&quot;v2_inc&quot;]]</span>
-            pmagplotlib<span class=" -Color -Color-Blue">.</span>plot_ell<span class=" -Color -Color-Blue">(</span>fignum<span class=" -Color -Color-Blue">+</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">,</span> ellpars<span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Blue">&#39;k-,&#39;,</span> <span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">)</span>
-            <span class=" -Color -Color-Green">if</span> len<span class=" -Color -Color-Blue">(</span>Dir<span class=" -Color -Color-Blue">)</span> <span class=" -Color -Color-Blue">&gt;</span> <span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">:</span>   <span class=" -Color -Color-Red"># plot the comparison direction components</span>
-                    <span class=" -Color -Color-Red"># put in dimap and plot as white symbol with axis color?</span>
-                plot_di<span class=" -Color -Color-Blue">(</span>di_block<span class=" -Color -Color-Blue">=[</span>Dir<span class=" -Color -Color-Blue">],</span> color<span class=" -Color -Color-Blue">=&#39;green&#39;,</span>
-                        marker<span class=" -Color -Color-Blue">=&#39;*&#39;,</span> markersize<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">200</span><span class=" -Color -Color-Blue">)</span>
-        <span class=" -Color -Color-Green">if</span> iboot<span class=" -Color -Color-Blue">:</span>  <span class=" -Color -Color-Red"># put on the bootstrapped confidence bounds</span>
-            Tmean<span class=" -Color -Color-Blue">,</span> Vmean<span class=" -Color -Color-Blue">,</span> Taus<span class=" -Color -Color-Blue">,</span> BVs <span class=" -Color -Color-Blue">=</span> pmag<span class=" -Color -Color-Blue">.</span>s_boot<span class=" -Color -Color-Blue">(</span>
-                Ss<span class=" -Color -Color-Blue">,</span> ipar<span class=" -Color -Color-Blue">,</span> num_bootstraps<span class=" -Color -Color-Blue">)</span>  <span class=" -Color -Color-Red"># get eigenvectors of mean tensor</span>
-            BVs_trans <span class=" -Color -Color-Blue">=</span> np<span class=" -Color -Color-Blue">.</span>array<span class=" -Color -Color-Blue">(</span>BVs<span class=" -Color -Color-Blue">).</span>transpose<span class=" -Color -Color-Blue">()</span>
-            <span class=" -Color -Color-Green">if</span> ivec<span class=" -Color -Color-Blue">:</span>
-                plot_di<span class=" -Color -Color-Blue">(</span>dec<span class=" -Color -Color-Blue">=</span>BVs_trans<span class=" -Color -Color-Blue">[</span><span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">][</span><span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">],</span> inc<span class=" -Color -Color-Blue">=</span>BVs_trans<span class=" -Color -Color-Blue">[</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">]</span>
-                        <span class=" -Color -Color-Blue">[</span><span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">],</span> color<span class=" -Color -Color-Blue">=&#39;r&#39;,</span> marker<span class=" -Color -Color-Blue">=&#39;.&#39;)</span>
-                plot_di<span class=" -Color -Color-Blue">(</span>dec<span class=" -Color -Color-Blue">=</span>BVs_trans<span class=" -Color -Color-Blue">[</span><span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">][</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">],</span> inc<span class=" -Color -Color-Blue">=</span>BVs_trans<span class=" -Color -Color-Blue">[</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">]</span>
-                        <span class=" -Color -Color-Blue">[</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">],</span> color<span class=" -Color -Color-Blue">=&#39;b&#39;,</span> marker<span class=" -Color -Color-Blue">=&#39;.&#39;)</span>
-                plot_di<span class=" -Color -Color-Blue">(</span>dec<span class=" -Color -Color-Blue">=</span>BVs_trans<span class=" -Color -Color-Blue">[</span><span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">][</span><span class=" -Color -Color-Cyan">2</span><span class=" -Color -Color-Blue">],</span> inc<span class=" -Color -Color-Blue">=</span>BVs_trans<span class=" -Color -Color-Blue">[</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">]</span>
-                        <span class=" -Color -Color-Blue">[</span><span class=" -Color -Color-Cyan">2</span><span class=" -Color -Color-Blue">],</span> color<span class=" -Color -Color-Blue">=&#39;k&#39;,</span> marker<span class=" -Color -Color-Blue">=&#39;.&#39;)</span>
-                <span class=" -Color -Color-Red"># put in dimap and plot as white symbol with axis color?</span>
-                <span class=" -Color -Color-Green">if</span> len<span class=" -Color -Color-Blue">(</span>Dir<span class=" -Color -Color-Blue">)</span> <span class=" -Color -Color-Blue">&gt;</span> <span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">:</span>   <span class=" -Color -Color-Red"># plot the comparison direction components</span>
-                    plot_di<span class=" -Color -Color-Blue">(</span>di_block<span class=" -Color -Color-Blue">=[</span>Dir<span class=" -Color -Color-Blue">],</span> color<span class=" -Color -Color-Blue">=&#39;green&#39;,</span>
-                            marker<span class=" -Color -Color-Blue">=&#39;*&#39;,</span> markersize<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">200</span><span class=" -Color -Color-Blue">)</span>
-                <span class=" -Color -Color-Red"># do the eigenvalue cdfs</span>
-                Taus <span class=" -Color -Color-Blue">=</span> np<span class=" -Color -Color-Blue">.</span>array<span class=" -Color -Color-Blue">(</span>Taus<span class=" -Color -Color-Blue">).</span>transpose<span class=" -Color -Color-Blue">()</span>
-                colors <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">[&#39;r&#39;,</span> <span class=" -Color -Color-Blue">&#39;b&#39;,</span> <span class=" -Color -Color-Blue">&#39;k&#39;]</span>
-                styles <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">[&#39;dotted&#39;,</span> <span class=" -Color -Color-Blue">&#39;dashed&#39;,</span> <span class=" -Color -Color-Blue">&#39;solid&#39;]</span>
-                <span class=" -Color -Color-Green">for</span> t <span class=" -Color -Color-Green">in</span> range<span class=" -Color -Color-Blue">(</span><span class=" -Color -Color-Cyan">3</span><span class=" -Color -Color-Blue">):</span>  <span class=" -Color -Color-Red"># step through eigenvalues</span>
-                    <span class=" -Color -Color-Red"># get a sorted list of this eigenvalue</span>
-                    ts <span class=" -Color -Color-Blue">=</span> np<span class=" -Color -Color-Blue">.</span>sort<span class=" -Color -Color-Blue">(</span>Taus<span class=" -Color -Color-Blue">[</span>t<span class=" -Color -Color-Blue">])</span>
-                    pmagplotlib<span class=" -Color -Color-Blue">.</span>plot_cdf<span class=" -Color -Color-Blue">(</span>
-                        fignum<span class=" -Color -Color-Blue">+</span><span class=" -Color -Color-Cyan">2</span><span class=" -Color -Color-Blue">,</span> ts<span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Blue">&quot;&quot;,</span> colors<span class=" -Color -Color-Blue">[</span>t<span class=" -Color -Color-Blue">],</span> <span class=" -Color -Color-Blue">&quot;&quot;)</span>  <span class=" -Color -Color-Red"># plot the CDF</span>
-                    figs<span class=" -Color -Color-Blue">[&#39;tcdf&#39;]</span> <span class=" -Color -Color-Blue">=</span> fignum <span class=" -Color -Color-Blue">+</span> <span class=" -Color -Color-Cyan">2</span>
-                    <span class=" -Color -Color-Red"># minimum 95% conf bound</span>
-                    plt<span class=" -Color -Color-Blue">.</span>axvline<span class=" -Color -Color-Blue">(</span>ts<span class=" -Color -Color-Blue">[</span>int<span class=" -Color -Color-Blue">(</span><span class=" -Color -Color-Cyan">0.025</span><span class=" -Color -Color-Blue">*</span>len<span class=" -Color -Color-Blue">(</span>ts<span class=" -Color -Color-Blue">))],</span>
-                                color<span class=" -Color -Color-Blue">=</span>colors<span class=" -Color -Color-Blue">[</span>t<span class=" -Color -Color-Blue">],</span> linestyle<span class=" -Color -Color-Blue">=</span>styles<span class=" -Color -Color-Blue">[</span>t<span class=" -Color -Color-Blue">])</span>
-                    <span class=" -Color -Color-Red"># max 95% conf bound</span>
-                    plt<span class=" -Color -Color-Blue">.</span>axvline<span class=" -Color -Color-Blue">(</span>ts<span class=" -Color -Color-Blue">[</span>int<span class=" -Color -Color-Blue">(</span><span class=" -Color -Color-Cyan">0.975</span><span class=" -Color -Color-Blue">*</span>len<span class=" -Color -Color-Blue">(</span>ts<span class=" -Color -Color-Blue">))],</span>
-                                color<span class=" -Color -Color-Blue">=</span>colors<span class=" -Color -Color-Blue">[</span>t<span class=" -Color -Color-Blue">],</span> linestyle<span class=" -Color -Color-Blue">=</span>styles<span class=" -Color -Color-Blue">[</span>t<span class=" -Color -Color-Blue">])</span>
-                plt<span class=" -Color -Color-Blue">.</span>xlabel<span class=" -Color -Color-Blue">(&#39;Eigenvalues&#39;)</span>
-                <span class=" -Color -Color-Red"># do cartesian coordinates of selected eigenvectori [using vec] vs Dir</span>
-                <span class=" -Color -Color-Green">if</span> len<span class=" -Color -Color-Blue">(</span>Dir<span class=" -Color -Color-Blue">)</span> <span class=" -Color -Color-Blue">&gt;</span> <span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">:</span>
-                    V <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">[</span>row<span class=" -Color -Color-Blue">[</span>vec<span class=" -Color -Color-Blue">-</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">]</span> <span class=" -Color -Color-Green">for</span> row <span class=" -Color -Color-Green">in</span> BVs<span class=" -Color -Color-Blue">]</span>
-                    X <span class=" -Color -Color-Blue">=</span> pmag<span class=" -Color -Color-Blue">.</span>dir2cart<span class=" -Color -Color-Blue">(</span>V<span class=" -Color -Color-Blue">)</span>
-                    comp_X <span class=" -Color -Color-Blue">=</span> pmag<span class=" -Color -Color-Blue">.</span>dir2cart<span class=" -Color -Color-Blue">(</span>Dir<span class=" -Color -Color-Blue">)</span>
-                    <span class=" -Color -Color-Green">for</span> i <span class=" -Color -Color-Green">in</span> range<span class=" -Color -Color-Blue">(</span><span class=" -Color -Color-Cyan">3</span><span class=" -Color -Color-Blue">):</span>
-                        xs <span class=" -Color -Color-Blue">=</span> np<span class=" -Color -Color-Blue">.</span>sort<span class=" -Color -Color-Blue">(</span>np<span class=" -Color -Color-Blue">.</span>array<span class=" -Color -Color-Blue">([</span>row<span class=" -Color -Color-Blue">[</span>i<span class=" -Color -Color-Blue">]</span> <span class=" -Color -Color-Green">for</span> row <span class=" -Color -Color-Green">in</span> X<span class=" -Color -Color-Blue">]))</span>
-                        pmagplotlib<span class=" -Color -Color-Blue">.</span>plot_cdf<span class=" -Color -Color-Blue">(</span>
-                            fignum<span class=" -Color -Color-Blue">+</span>i<span class=" -Color -Color-Blue">+</span><span class=" -Color -Color-Cyan">3</span><span class=" -Color -Color-Blue">,</span> xs<span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Blue">&quot;&quot;,</span> colors<span class=" -Color -Color-Blue">[</span>i<span class=" -Color -Color-Blue">],</span> <span class=" -Color -Color-Blue">&quot;&quot;)</span>  <span class=" -Color -Color-Red"># plot the CDF</span>
-                        figs<span class=" -Color -Color-Blue">[&#39;cdf_&#39;</span> <span class=" -Color -Color-Blue">+</span> str<span class=" -Color -Color-Blue">(</span>i<span class=" -Color -Color-Blue">)]</span> <span class=" -Color -Color-Blue">=</span> fignum <span class=" -Color -Color-Blue">+</span> i <span class=" -Color -Color-Blue">+</span> <span class=" -Color -Color-Cyan">3</span>
-                        <span class=" -Color -Color-Red"># minimum 95% conf bound</span>
-                        plt<span class=" -Color -Color-Blue">.</span>axvline<span class=" -Color -Color-Blue">(</span>xs<span class=" -Color -Color-Blue">[</span>int<span class=" -Color -Color-Blue">(</span><span class=" -Color -Color-Cyan">0.025</span><span class=" -Color -Color-Blue">*</span>len<span class=" -Color -Color-Blue">(</span>xs<span class=" -Color -Color-Blue">))],</span>
-                                    color<span class=" -Color -Color-Blue">=</span>colors<span class=" -Color -Color-Blue">[</span>vec<span class=" -Color -Color-Blue">-</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">],</span> linestyle<span class=" -Color -Color-Blue">=</span>styles<span class=" -Color -Color-Blue">[</span>i<span class=" -Color -Color-Blue">])</span>
-                        <span class=" -Color -Color-Red"># max 95% conf bound</span>
-                        plt<span class=" -Color -Color-Blue">.</span>axvline<span class=" -Color -Color-Blue">(</span>xs<span class=" -Color -Color-Blue">[</span>int<span class=" -Color -Color-Blue">(</span><span class=" -Color -Color-Cyan">0.975</span><span class=" -Color -Color-Blue">*</span>len<span class=" -Color -Color-Blue">(</span>xs<span class=" -Color -Color-Blue">))],</span>
-                                    color<span class=" -Color -Color-Blue">=</span>colors<span class=" -Color -Color-Blue">[</span>vec<span class=" -Color -Color-Blue">-</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">],</span> linestyle<span class=" -Color -Color-Blue">=</span>styles<span class=" -Color -Color-Blue">[</span>i<span class=" -Color -Color-Blue">])</span>
-                        <span class=" -Color -Color-Red"># put on the comparison direction</span>
-                        plt<span class=" -Color -Color-Blue">.</span>axvline<span class=" -Color -Color-Blue">(</span>
-                            comp_X<span class=" -Color -Color-Blue">[</span><span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">][</span>i<span class=" -Color -Color-Blue">],</span> color<span class=" -Color -Color-Blue">=&#39;lightgreen&#39;,</span> linewidth<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">3</span><span class=" -Color -Color-Blue">)</span>
-            <span class=" -Color -Color-Green">else</span><span class=" -Color -Color-Blue">:</span>
-                bpars <span class=" -Color -Color-Blue">=</span> pmag<span class=" -Color -Color-Blue">.</span>sbootpars<span class=" -Color -Color-Blue">(</span>Taus<span class=" -Color -Color-Blue">,</span> BVs<span class=" -Color -Color-Blue">)</span>
-
-                ellpars <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">[</span>hpars<span class=" -Color -Color-Blue">[&quot;v1_dec&quot;],</span> hpars<span class=" -Color -Color-Blue">[&quot;v1_inc&quot;],</span> bpars<span class=" -Color -Color-Blue">[&quot;v1_zeta&quot;],</span> bpars<span class=" -Color -Color-Blue">[&quot;v1_zeta_dec&quot;],</span>
-                           bpars<span class=" -Color -Color-Blue">[&quot;v1_zeta_inc&quot;],</span> bpars<span class=" -Color -Color-Blue">[&quot;v1_eta&quot;],</span> bpars<span class=" -Color -Color-Blue">[&quot;v1_eta_dec&quot;],</span> bpars<span class=" -Color -Color-Blue">[&quot;v1_eta_inc&quot;]]</span>
-                pmagplotlib<span class=" -Color -Color-Blue">.</span>plot_ell<span class=" -Color -Color-Blue">(</span>fignum<span class=" -Color -Color-Blue">+</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">,</span> ellpars<span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Blue">&#39;r-,&#39;,</span> <span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">)</span>
-                ellpars <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">[</span>hpars<span class=" -Color -Color-Blue">[&quot;v2_dec&quot;],</span> hpars<span class=" -Color -Color-Blue">[&quot;v2_inc&quot;],</span> bpars<span class=" -Color -Color-Blue">[&quot;v2_zeta&quot;],</span> bpars<span class=" -Color -Color-Blue">[&quot;v2_zeta_dec&quot;],</span>
-                           bpars<span class=" -Color -Color-Blue">[&quot;v2_zeta_inc&quot;],</span> bpars<span class=" -Color -Color-Blue">[&quot;v2_eta&quot;],</span> bpars<span class=" -Color -Color-Blue">[&quot;v2_eta_dec&quot;],</span> bpars<span class=" -Color -Color-Blue">[&quot;v2_eta_inc&quot;]]</span>
-                pmagplotlib<span class=" -Color -Color-Blue">.</span>plot_ell<span class=" -Color -Color-Blue">(</span>fignum<span class=" -Color -Color-Blue">+</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">,</span> ellpars<span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Blue">&#39;b-,&#39;,</span> <span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">)</span>
-                ellpars <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Blue">[</span>hpars<span class=" -Color -Color-Blue">[&quot;v3_dec&quot;],</span> hpars<span class=" -Color -Color-Blue">[&quot;v3_inc&quot;],</span> bpars<span class=" -Color -Color-Blue">[&quot;v3_zeta&quot;],</span> bpars<span class=" -Color -Color-Blue">[&quot;v3_zeta_dec&quot;],</span>
-                           bpars<span class=" -Color -Color-Blue">[&quot;v3_zeta_inc&quot;],</span> bpars<span class=" -Color -Color-Blue">[&quot;v3_eta&quot;],</span> bpars<span class=" -Color -Color-Blue">[&quot;v3_eta_dec&quot;],</span> bpars<span class=" -Color -Color-Blue">[&quot;v3_eta_inc&quot;]]</span>
-                pmagplotlib<span class=" -Color -Color-Blue">.</span>plot_ell<span class=" -Color -Color-Blue">(</span>fignum<span class=" -Color -Color-Blue">+</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">,</span> ellpars<span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Blue">&#39;k-,&#39;,</span> <span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">)</span>
-                <span class=" -Color -Color-Green">if</span> len<span class=" -Color -Color-Blue">(</span>Dir<span class=" -Color -Color-Blue">)</span> <span class=" -Color -Color-Blue">&gt;</span> <span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">:</span>   <span class=" -Color -Color-Red"># plot the comparison direction components</span>
-                    plot_di<span class=" -Color -Color-Blue">(</span>di_block<span class=" -Color -Color-Blue">=[</span>Dir<span class=" -Color -Color-Blue">],</span> color<span class=" -Color -Color-Blue">=&#39;green&#39;,</span>
-                            marker<span class=" -Color -Color-Blue">=&#39;*&#39;,</span> markersize<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">200</span><span class=" -Color -Color-Blue">)</span>
-    <span class=" -Color -Color-Green">return</span> figs
-<span class=" -Color -Color-Red">File:</span>      ~/0000_GitHub/PmagPy/pmagpy/ipmag.py
-<span class=" -Color -Color-Red">Type:</span>      function
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ipmag.aniso_magic_nb<span class="o">??</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Red">Signature:</span>
-ipmag<span class=" -Color -Color-Blue">.</span>aniso_magic_nb<span class=" -Color -Color-Blue">(</span>
-    infile<span class=" -Color -Color-Blue">=&#39;specimens.txt&#39;,</span>
-    samp_file<span class=" -Color -Color-Blue">=&#39;samples.txt&#39;,</span>
-    site_file<span class=" -Color -Color-Blue">=&#39;sites.txt&#39;,</span>
-    verbose<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">True</span><span class=" -Color -Color-Blue">,</span>
-    ipar<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span>
-    ihext<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">True</span><span class=" -Color -Color-Blue">,</span>
-    ivec<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span>
-    isite<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span>
-    iboot<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span>
-    vec<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">,</span>
-    Dir<span class=" -Color -Color-Blue">=[],</span>
-    PDir<span class=" -Color -Color-Blue">=[],</span>
-    crd<span class=" -Color -Color-Blue">=&#39;s&#39;,</span>
-    num_bootstraps<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">1000</span><span class=" -Color -Color-Blue">,</span>
-    dir_path<span class=" -Color -Color-Blue">=&#39;.&#39;,</span>
-    fignum<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">,</span>
-    save_plots<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">True</span><span class=" -Color -Color-Blue">,</span>
-    interactive<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span>
-    fmt<span class=" -Color -Color-Blue">=&#39;png&#39;,</span>
-    contribution<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
-<span class=" -Color -Color-Blue">)</span>
-<span class=" -Color -Color-Red">Source:</span>   
-<span class=" -Color -Color-Green">def</span> aniso_magic_nb<span class=" -Color -Color-Blue">(</span>infile<span class=" -Color -Color-Blue">=&#39;specimens.txt&#39;,</span> samp_file<span class=" -Color -Color-Blue">=&#39;samples.txt&#39;,</span> site_file<span class=" -Color -Color-Blue">=&#39;sites.txt&#39;,</span> verbose<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">True</span><span class=" -Color -Color-Blue">,</span>
-                   ipar<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span> ihext<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">True</span><span class=" -Color -Color-Blue">,</span> ivec<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span> isite<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span> iboot<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span> vec<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">0</span><span class=" -Color -Color-Blue">,</span>
-                   Dir<span class=" -Color -Color-Blue">=[],</span> PDir<span class=" -Color -Color-Blue">=[],</span> crd<span class=" -Color -Color-Blue">=&quot;s&quot;,</span> num_bootstraps<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">1000</span><span class=" -Color -Color-Blue">,</span> dir_path<span class=" -Color -Color-Blue">=&quot;.&quot;,</span> fignum<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">1</span><span class=" -Color -Color-Blue">,</span>
-                   save_plots<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">True</span><span class=" -Color -Color-Blue">,</span> interactive<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span> fmt<span class=" -Color -Color-Blue">=&quot;png&quot;,</span> contribution<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">):</span>
-    <span class=" -Color -Color-Blue">&quot;&quot;&quot;</span>
-<span class=" -Color -Color-Blue">    Wrapper for aniso_magic</span>
-<span class=" -Color -Color-Blue">    &quot;&quot;&quot;</span>
-    <span class=" -Color -Color-Green">return</span> aniso_magic<span class=" -Color -Color-Blue">(</span>infile<span class=" -Color -Color-Blue">,</span> samp_file<span class=" -Color -Color-Blue">,</span> site_file<span class=" -Color -Color-Blue">,</span> verbose<span class=" -Color -Color-Blue">,</span> ipar<span class=" -Color -Color-Blue">,</span> ihext<span class=" -Color -Color-Blue">,</span> ivec<span class=" -Color -Color-Blue">,</span>
-                       isite<span class=" -Color -Color-Blue">,</span> iboot<span class=" -Color -Color-Blue">,</span> vec<span class=" -Color -Color-Blue">,</span> Dir<span class=" -Color -Color-Blue">,</span> PDir<span class=" -Color -Color-Blue">,</span> crd<span class=" -Color -Color-Blue">,</span> num_bootstraps<span class=" -Color -Color-Blue">,</span>
-                       dir_path<span class=" -Color -Color-Blue">,</span> fignum<span class=" -Color -Color-Blue">,</span> save_plots<span class=" -Color -Color-Blue">,</span> interactive<span class=" -Color -Color-Blue">,</span> fmt<span class=" -Color -Color-Blue">,</span> contribution<span class=" -Color -Color-Blue">)</span>
-<span class=" -Color -Color-Red">File:</span>      ~/0000_GitHub/PmagPy/pmagpy/ipmag.py
-<span class=" -Color -Color-Red">Type:</span>      function
-</pre></div>
-</div>
-</div>
-</div>
+<p>Here are all of the parameters that can be used within the <code class="docutils literal notranslate"><span class="pre">ipmag.aniso_magic_nb()</span></code> function:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">contribution</span></code>: pmagpy contribution_builder.Contribution object; if not provided will be created in directory (default: None). If provided, infile/samp_file/site_file may be left blank</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">infile</span></code>: Specimens formatted file with aniso_s data (default: ‘specimens.txt’)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">samp_file</span></code>: Samples formatted file with sample =&gt; site relationship (default: ‘samples.txt’)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">site_file</span></code>: Sites formatted file with site =&gt; location relationship (default: ‘sites.txt’)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">verbose</span></code>: Boolean, if True, print messages to output (default: True)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ipar</span></code>: Confidence bound parameter; if True, perform parametric bootstrap - requires non-blank aniso_s_sigma (default: False)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ihext</span></code>: Confidence bound parameter; if True, Hext ellipses (default: True)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ivec</span></code>: Confidence bound parameter; if True, plot bootstrapped eigenvectors instead of ellipses (default: False)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">isite</span></code>: Confidence bound parameter; if True, plot by site - requires non-blank samp_file (default: False)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">iboot</span></code>: Confidence bound parameter; if True, bootstrap ellipses (default: False)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vec</span></code>: Eigenvector for comparison with Dir (default: 0)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Dir</span></code>: List of [Dec, Inc] for comparison direction (default: [])</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PDir</span></code>: List of [Pole_dec, Pole_Inc] for pole to plane for comparison; green dots are on the lower hemisphere, cyan are on the upper hemisphere (default: [])</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">crd</span></code>: String, coordinate system for plotting (‘s’ for specimen coordinates, ‘g’ for geographic coordinates, ‘t’ for tilt corrected coordinates) (default: ‘s’)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">num_bootstraps</span></code>: Integer, number of bootstraps to perform (default: 1000)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dir_path</span></code>: String, directory path (default: ‘.’)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fignum</span></code>: Integer, matplotlib figure number (default: 1)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">save_plots</span></code>: Boolean, if True, create and save all requested plots (default: True)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">interactive</span></code>: Boolean, if True, interactively plot and display for each specimen (default: False)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fmt</span></code>: String, format for figures (‘svg’, ‘jpg’, ‘pdf’, ‘png’) (default: ‘png’)</p></li>
+</ul>
+</section>
 </section>
 </section>
 </section>
@@ -1349,7 +877,10 @@ ipmag<span class=" -Color -Color-Blue">.</span>aniso_magic_nb<span class=" -Colo
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-data">Plot the data</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-by-contribution-with-hext-ellipses">Plot by contribution with Hext ellipses</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-by-site-with-hext-ellipses">Plot by site with Hext ellipses</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-by-site-with-bootstrap-uncertainty">Plot by site with bootstrap uncertainty</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-by-site-with-bootstrap-uncertainty">Plot by site with bootstrap uncertainty</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bootstrap-ellipses">Bootstrap ellipses</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
