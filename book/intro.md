@@ -51,8 +51,7 @@ Develop new contributions and analyze existing datasets in the MagIC database.
 This page links to available notebooks that have been developed to use RockmagPy to analyze data from rock magnetic experiments.
 The notebook versions that are shown within this book are static (they don't run the code).
 Some of the interactive features that have been developed are not visible as they would be in a running notebook. 
-They do give an overall sense of what functions are available within RockmagPy and explain
-some associated methods.
+They do give an overall sense of what functions are available within RockmagPy and explain some associated methods.
 
 ### Code/data nuts and bolts
 
@@ -69,15 +68,16 @@ These notebooks support the analysis of data generated during experiments conduc
 ### Kappabridge data analysis
 
 - [*Thermomagnetic Curves*](../kappa_thermomagnetic.ipynb) *not yet developed*
-- [*Anisotropy of Magnetic Susceptibility*](../kappa_anisotropy.ipynb) *not yet developed*
+- [**Anisotropy of Magnetic Susceptibility (AMS)**](../Anisotropy_plot_AMS.ipynb) Within this notebook, AMS data are plotted and different methods for estimating the confidence of the associated axes are shown.
 
 ### MPMS data analysis
 
 These notebooks support the analysis of low-temperature experimental data conducted on a Magnetic Property Measurement System (MPMS).
 
-- [**MPMS Data Plotting (DC)**](../MPMS_plot_dc.ipynb) Within this notebook, MPMS experiments where remanence was measured upon warming and cooling. This plotting includes the calculation and visualization of derivative curves.
+- [**MPMS Data Plotting (DC)**](../MPMS_plot_dc.ipynb) Within this notebook, MPMS experiments where remanence was measured upon warming and cooling are plotted. This plotting includes the calculation and visualization of derivative curves.
 - [**MPMS Data Plotting (AC)**](../MPMS_plot_ac.ipynb) *not yet developed*
-- [**Verwey Transition Fitting**](../MPMS_verwey_fit.ipynb) In this notebook, Verwey temperature estimates can be made from remanence upon warming experiments conducted on an MPMS.
+- [**Verwey Transition Fitting**](../MPMS_verwey_fit.ipynb) Within this notebook, Verwey temperature estimates can be made from remanence upon warming experiments conducted on an MPMS.
+- [**Goethite Component Fitting**](../MPMS_geothite_fit.ipynb) Within this notebook, the reversible component of room-temperature to low-temperature cycling experiments (that can be attributed to minerals such as goethite) can be numerically fit and removed.
 
 # Acknowledgements
 

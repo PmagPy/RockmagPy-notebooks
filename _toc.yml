@@ -10,6 +10,12 @@ parts:
     - file: rockmag_data_unpack
   - caption: MPMS notebooks
     chapters:
-    - file: MPMS_plot
+    - file: MPMS_plot_dc
     - file: MPMS_verwey_fit
     - file: MPMS_goethite_fit
+  - caption: Anisotropy notebooks
+    chapters:
+    - file: Anisotropy_plot_AMS
+  - caption: More resources
+    chapters:
+    - file: book/resources.md

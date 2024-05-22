@@ -105,7 +105,7 @@ def plot_mpms_data(fc_data, zfc_data, rtsirm_cool_data, rtsirm_warm_data,
                    fc_color='#1f77b4', zfc_color='#ff7f0e', rtsirm_cool_color='#17becf', rtsirm_warm_color='#d62728',
                    fc_marker='.', zfc_marker='.', rtsirm_cool_marker='.', rtsirm_warm_marker='.',
                    symbol_size=10, use_plotly=False, plot_derivative=False, return_figure=False,
-                   drop_first=False):
+                   drop_first=False, drop_last=False):
     """
     Plots MPMS data and optionally its derivatives for Field Cooled, Zero Field Cooled, RTSIRM Cooling, and RTSIRM Warming using either Matplotlib or Plotly.
 
@@ -125,6 +125,12 @@ def plot_mpms_data(fc_data, zfc_data, rtsirm_cool_data, rtsirm_warm_data,
         zfc_data = zfc_data[1:]
         rtsirm_cool_data = rtsirm_cool_data[1:]
         rtsirm_warm_data = rtsirm_warm_data[1:]
+        
+    if drop_last:
+        fc_data = fc_data[:-1]
+        zfc_data = zfc_data[:-1]
+        rtsirm_cool_data = rtsirm_cool_data[:-1]
+        rtsirm_warm_data = rtsirm_warm_data[:-1]
         
     if plot_derivative:
         fc_derivative = thermomag_derivative(fc_data['meas_temp'], fc_data['magn_mass'])
@@ -232,6 +238,7 @@ def plot_mpms_data(fc_data, zfc_data, rtsirm_cool_data, rtsirm_warm_data,
         if return_figure:
             return fig
 
+
 def plot_hyst_data(hyst_data,
                    hyst_color='#1f77b4',
                    hyst_marker='.',
@@ -290,6 +297,7 @@ def plot_hyst_data(hyst_data,
         
         if return_figure:
             return fig
+
 
 def make_mpms_plots(measurements):
     """
@@ -409,7 +417,7 @@ def make_hyst_plots(measurements):
     display(specimen_dropdown, plot_choice, out)
 
     
-def thermomag_derivative(temps, mags):
+def thermomag_derivative(temps, mags, drop_first=False, drop_last=False):
     """
     Calculates the derivative of magnetization with respect to temperature and optionally
     drops the data corresponding to the highest and/or lowest temperature.
@@ -1411,14 +1419,24 @@ def goethite_removal(rtsirm_warm_data,
                    marker='s', linestyle='-', markersize=symbol_size, label='RTSIRM Warming (goethite removed)')
     axs[0, 1].plot(rtsirm_cool_temps, rtsirm_cool_mags_corrected, color=rtsirm_cool_color, 
                    marker='s', linestyle='-', markersize=symbol_size, label='RTSIRM Cooling (goethite removed)')
+    
+    ax0 = axs[0, 0] 
+    rectangle = patches.Rectangle((t_min, ax0.get_ylim()[0]), t_max - t_min, 
+                            ax0.get_ylim()[1] - ax0.get_ylim()[0], 
+                            linewidth=0, edgecolor=None, facecolor='gray', 
+                            alpha=0.3)
+    ax0.add_patch(rectangle)
+    rect_legend_patch = patches.Patch(color='gray', alpha=0.3, label='excluded from background fit')
+    handles, labels = ax0.get_legend_handles_labels()
+    handles.append(rect_legend_patch)  # Add the rectangle legend patch
+    
     for ax in axs[0, :]:
         ax.set_xlabel("Temperature (K)")
         ax.set_ylabel("Magnetization (Am$^2$/kg)")
         ax.legend()
         ax.grid(True)
         ax.set_xlim(0, 300)
-        
-        
+             
     rtsirm_cool_derivative = thermomag_derivative(rtsirm_cool_data['meas_temp'], 
                                                        rtsirm_cool_data['magn_mass'], drop_first=True)
     rtsirm_warm_derivative = thermomag_derivative(rtsirm_warm_data['meas_temp'], 
@@ -1428,7 +1446,6 @@ def goethite_removal(rtsirm_warm_data,
                                                        rtsirm_cool_mags_corrected, drop_first=True)
     rtsirm_warm_derivative_corrected = thermomag_derivative(rtsirm_warm_data['meas_temp'], 
                                                        rtsirm_warm_mags_corrected, drop_last=True)
-
 
     axs[1, 0].plot(rtsirm_cool_derivative['T'], rtsirm_cool_derivative['dM_dT'], 
                    marker='o', linestyle='-', color=rtsirm_cool_color, markersize=symbol_size, label='RTSIRM Cooling Derivative')
