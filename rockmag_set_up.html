@@ -389,6 +389,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-step">First step!</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebooks-and-jupyterhub">Jupyter notebooks and JupyterHub</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#upload-and-download-from-jupyterhub">Upload and download from JupyterHub</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebook-anatomy">Jupyter notebook anatomy</a></li>
@@ -412,6 +413,10 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="getting-going-with-rockmag-py-on-jupyterhub">
 <h1>Getting going with <a class="reference external" href="http://rockmag.py">rockmag.py</a> on JupyterHub<a class="headerlink" href="#getting-going-with-rockmag-py-on-jupyterhub" title="Link to this heading">#</a></h1>
+<section id="first-step">
+<h2>First step!<a class="headerlink" href="#first-step" title="Link to this heading">#</a></h2>
+<p><strong>Change kernel in JupyterHub to Python 3.10</strong></p>
+</section>
 <section id="jupyter-notebooks-and-jupyterhub">
 <h2>Jupyter notebooks and JupyterHub<a class="headerlink" href="#jupyter-notebooks-and-jupyterhub" title="Link to this heading">#</a></h2>
 <p>The <a class="reference external" href="https://jupyter-notebook-beginner-guide.readthedocs.io/en/latest/what_is_jupyter.html">Jupyter notebook</a> environment environment enables us to interactively run code and visualize the output complete with annotated notes (like this one!). Such a notebook can be run locally on one’s computer with a Python installation or can be run on a JupyterHub such as the <a class="reference external" href="https://jupyterhub.earthref.org/">EarthRef JupyterHub</a> server.</p>
@@ -446,7 +451,8 @@ document.write(`
 <p>Running the cell (by selecting it and then pressing run), will install the latest version of <code class="docutils literal notranslate"><span class="pre">PmagPy</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>pmagpy<span class="w"> </span>--user<span class="w"> </span>--upgrade<span class="w"> </span>#<span class="w"> </span>install<span class="w"> </span>or<span class="w"> </span>upgrade<span class="w"> </span>pmagpy<span class="w"> </span><span class="k">in</span><span class="w"> </span>your<span class="w"> </span>user<span class="w"> </span>packages
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> install pmagpy --user --upgrade # install or upgrade pmagpy in your user packages
+<span class="o">%</span><span class="k">pip</span> install cartopy --user --upgrade # install or upgrade cartopy in your user packages
 </pre></div>
 </div>
 </div>
@@ -562,6 +568,7 @@ Saving to: ‘STDOUT’
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-step">First step!</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebooks-and-jupyterhub">Jupyter notebooks and JupyterHub</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#upload-and-download-from-jupyterhub">Upload and download from JupyterHub</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebook-anatomy">Jupyter notebook anatomy</a></li>
