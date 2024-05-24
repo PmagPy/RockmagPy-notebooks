@@ -1,0 +1,1261 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Plot high temperature susceptibility data (Kappabridge X-T) &#8212; RockmagPy Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'high_T_susceptibility';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="book/intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/rockmagpy.png" class="logo__image only-light" alt="RockmagPy Documentation - Home"/>
+    <script>document.write(`<img src="_static/rockmagpy.png" class="logo__image only-dark" alt="RockmagPy Documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="book/intro.html">
+                    RockmagPy: tools for rock magnetic data analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Nuts &amp; Bolts</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="rockmag_set_up.html">Getting going with rockmag.py on JupyterHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rockmag_data_unpack.html">Rock magnetic experiments data import</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">MPMS notebooks</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="MPMS_plot_dc.html">Plot MPMS data (DC)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MPMS_verwey_fit.html">Estimate the Verwey transition temperature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MPMS_goethite_fit.html">Fit and remove the goethite component</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Anisotropy notebooks</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Anisotropy_plot_AMS.html">Plot and analyze anisotropy data (AMS)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">More resources</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="book/resources.html">Resources for learning more about rock magnetism</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/pmagpy/rockmagpy-notebooks" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/pmagpy/rockmagpy-notebooks/issues/new?title=Issue%20on%20page%20%2Fhigh_T_susceptibility.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/high_T_susceptibility.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Plot high temperature susceptibility data (Kappabridge X-T)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-scientific-python-libraries">Import scientific python libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-data">Import data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-project-export-contains-data-from-all-the-experiments">The project export contains data from all the experiments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-isolate-the-kappabridge-x-t-data-from-your-project-export">Let’s isolate the Kappabridge X-T data from your project export</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#now-let-s-select-a-specimen-and-its-x-t-experiment-of-interest">Now let’s select a specimen and its X-T experiment of interest</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#now-let-s-plot-the-x-t-data-based-on-the-selection-of-the-previous-cell">Now let’s plot the X-T data based on the selection of the previous cell</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-selected-experiment-data">plot the selected experiment data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-the-data">save the data</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="plot-high-temperature-susceptibility-data-kappabridge-x-t">
+<h1>Plot high temperature susceptibility data (Kappabridge X-T)<a class="headerlink" href="#plot-high-temperature-susceptibility-data-kappabridge-x-t" title="Link to this heading">#</a></h1>
+<p>This notebook visualizes data from high-temperature experiments conducted on a Kappabridge instrument and exported to MagIC format.</p>
+<section id="import-scientific-python-libraries">
+<h2>Import scientific python libraries<a class="headerlink" href="#import-scientific-python-libraries" title="Link to this heading">#</a></h2>
+<p>Run the cell below to import the functions needed for the notebook.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rockmag</span> <span class="k">as</span> <span class="nn">rmag</span>
+<span class="kn">import</span> <span class="nn">pmagpy.contribution_builder</span> <span class="k">as</span> <span class="nn">cb</span>
+<span class="kn">import</span> <span class="nn">pmagpy.ipmag</span> <span class="k">as</span> <span class="nn">ipmag</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="import-data">
+<h2>Import data<a class="headerlink" href="#import-data" title="Link to this heading">#</a></h2>
+<p>We can take the same approach as in the <code class="docutils literal notranslate"><span class="pre">rockmag_data_unpack.ipynb</span></code> notebook to bring the MagIC data into the notebook as a Contribution. To bring in a different contribution, set the directory path (currently <code class="docutils literal notranslate"><span class="pre">'./example_data/SSRM2022C'</span></code>) and the name of the file (currently <code class="docutils literal notranslate"><span class="pre">'SSRM2022C_IRMDB_export.txt'</span></code>) to be those relevant to your data.</p>
+<p><strong>change the directory path and file name in the cell below to load your own data</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set the dir_path to the directory where the measurements.txt file is located</span>
+<span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;./example_data/SSRM2022C&#39;</span>
+
+<span class="c1"># set the name of the MagIC file</span>
+<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="s1">&#39;SSRM2022C_IRMDB_export.txt&#39;</span><span class="p">,</span> 
+                     <span class="n">dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">,</span>
+                     <span class="n">input_dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">)</span>
+
+<span class="c1"># create a contribution object from the tables in the directory</span>
+<span class="n">contribution</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">Contribution</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
+<span class="n">measurements</span> <span class="o">=</span> <span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;measurements&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
+<span class="n">measurements</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>working on:  &#39;contribution\r&#39;
+1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/contribution.txt
+  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/contribution.txt
+working on:  &#39;specimens\r&#39;
+46  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/specimens.txt
+  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/specimens.txt
+working on:  &#39;samples\r&#39;
+16  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/samples.txt
+  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/samples.txt
+working on:  &#39;sites\r&#39;
+5  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/sites.txt
+  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/sites.txt
+working on:  &#39;locations\r&#39;
+5  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/locations.txt
+  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/locations.txt
+working on:  &#39;measurements\r&#39;
+137958  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/measurements.txt
+  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/measurements.txt
+-I- Using online data model
+-I- Getting method codes from earthref.org
+-I- Importing controlled vocabularies from https://earthref.org
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>dir_dec</th>
+      <th>dir_inc</th>
+      <th>experiment</th>
+      <th>instrument_codes</th>
+      <th>magn_mass</th>
+      <th>magn_moment</th>
+      <th>magn_x</th>
+      <th>magn_y</th>
+      <th>magn_z</th>
+      <th>meas_field_dc</th>
+      <th>meas_pos_z</th>
+      <th>meas_temp</th>
+      <th>measurement</th>
+      <th>method_codes</th>
+      <th>quality</th>
+      <th>sequence</th>
+      <th>specimen</th>
+      <th>standard</th>
+      <th>susc_chi_mass</th>
+      <th>timestamp</th>
+      <th>treat_ac_field</th>
+      <th>treat_dc_field</th>
+      <th>treat_dc_field_phi</th>
+      <th>treat_dc_field_theta</th>
+      <th>treat_step_num</th>
+    </tr>
+    <tr>
+      <th>measurement name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-KappaF-LP-X-T-6829</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>298.9</td>
+      <td>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</td>
+      <td>LP-X-T</td>
+      <td>g</td>
+      <td>32767.0</td>
+      <td>DA4-r</td>
+      <td>u</td>
+      <td>-0.000007</td>
+      <td>2022:06:08:14:04:23.00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-KappaF-LP-X-T-6829</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>302.8</td>
+      <td>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</td>
+      <td>LP-X-T</td>
+      <td>g</td>
+      <td>32767.0</td>
+      <td>DA4-r</td>
+      <td>u</td>
+      <td>-0.000007</td>
+      <td>2022:06:08:14:04:23.00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-KappaF-LP-X-T-6829</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>307.5</td>
+      <td>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</td>
+      <td>LP-X-T</td>
+      <td>g</td>
+      <td>32767.0</td>
+      <td>DA4-r</td>
+      <td>u</td>
+      <td>-0.000007</td>
+      <td>2022:06:08:14:04:23.00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-KappaF-LP-X-T-6829</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>312.4</td>
+      <td>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</td>
+      <td>LP-X-T</td>
+      <td>g</td>
+      <td>32767.0</td>
+      <td>DA4-r</td>
+      <td>u</td>
+      <td>-0.000007</td>
+      <td>2022:06:08:14:04:23.00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-KappaF-LP-X-T-6829</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>318.2</td>
+      <td>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</td>
+      <td>LP-X-T</td>
+      <td>g</td>
+      <td>32767.0</td>
+      <td>DA4-r</td>
+      <td>u</td>
+      <td>-0.000007</td>
+      <td>2022:06:08:14:04:23.00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>nan</th>
+      <td>89.287256</td>
+      <td>69.154282</td>
+      <td>DX1-4b-ARM_aniso-LP-AN-ARM-0</td>
+      <td>IRM-SRM-U</td>
+      <td>NaN</td>
+      <td>6.015930e-08</td>
+      <td>2.663010e-10</td>
+      <td>2.140620e-08</td>
+      <td>5.622140e-08</td>
+      <td>NaN</td>
+      <td>0.25</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>LP-AN-ARM</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>DX1-4b</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>2022:06:14:17:01:41.00</td>
+      <td>0.2</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>nan</th>
+      <td>89.179101</td>
+      <td>-46.279529</td>
+      <td>DA4-1C-ARM_aniso-LP-AN-ARM-0</td>
+      <td>IRM-SRM-U</td>
+      <td>NaN</td>
+      <td>5.568630e-06</td>
+      <td>5.514000e-08</td>
+      <td>3.848310e-06</td>
+      <td>-4.024560e-06</td>
+      <td>NaN</td>
+      <td>0.05</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>LP-AN-ARM</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>DA4-1C</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>2022:06:14:17:09:04.00</td>
+      <td>0.2</td>
+      <td>0.00005</td>
+      <td>-45.0</td>
+      <td>90.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>nan</th>
+      <td>78.668498</td>
+      <td>-42.932098</td>
+      <td>DX1-4b-ARM_aniso-LP-AN-ARM-0</td>
+      <td>IRM-SRM-U</td>
+      <td>NaN</td>
+      <td>2.991990e-07</td>
+      <td>4.304250e-08</td>
+      <td>2.147920e-07</td>
+      <td>-2.037940e-07</td>
+      <td>NaN</td>
+      <td>0.25</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>LP-AN-ARM</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>DX1-4b</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>2022:06:14:17:09:25.00</td>
+      <td>0.2</td>
+      <td>0.00005</td>
+      <td>-45.0</td>
+      <td>90.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>nan</th>
+      <td>-263.526376</td>
+      <td>41.525431</td>
+      <td>DA4-1C-ARMdemag(T,Hac)-LP-ARM-AFD-0</td>
+      <td>IRM-SRM-U</td>
+      <td>NaN</td>
+      <td>2.338400e-07</td>
+      <td>-1.973810e-08</td>
+      <td>1.739510e-07</td>
+      <td>1.550250e-07</td>
+      <td>NaN</td>
+      <td>0.05</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>LP-ARM-AFD</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>DA4-1C</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>2022:06:14:17:19:07.00</td>
+      <td>0.2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>nan</th>
+      <td>-256.886343</td>
+      <td>65.097030</td>
+      <td>DX1-4b-ARMdemag(T,Hac)-LP-ARM-AFD-0</td>
+      <td>IRM-SRM-U</td>
+      <td>NaN</td>
+      <td>5.565400e-08</td>
+      <td>-5.317000e-09</td>
+      <td>2.282380e-08</td>
+      <td>5.047940e-08</td>
+      <td>NaN</td>
+      <td>0.25</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>LP-ARM-AFD</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>DX1-4b</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>2022:06:14:17:19:28.00</td>
+      <td>0.2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>137958 rows × 25 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="the-project-export-contains-data-from-all-the-experiments">
+<h2>The project export contains data from all the experiments<a class="headerlink" href="#the-project-export-contains-data-from-all-the-experiments" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>LP refers to lab protocol</p></li>
+<li><p>X-T refers to high-temperature susceptibility vs. temperature experiments done on the Kappabridge</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">measurements</span><span class="o">.</span><span class="n">method_codes</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;LP-X-T&#39;, &#39;LP-HYS&#39;, &#39;LP-BCR-BF&#39;, &#39;LP-FORC&#39;, &#39;LP-DIR-AF&#39;,
+       &#39;LP-AN-ARM&#39;, &#39;LP-ARM-AFD&#39;], dtype=object)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="let-s-isolate-the-kappabridge-x-t-data-from-your-project-export">
+<h2>Let’s isolate the Kappabridge X-T data from your project export<a class="headerlink" href="#let-s-isolate-the-kappabridge-x-t-data-from-your-project-export" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># the .dropna(axis=1, how=&#39;all&#39;).reset_index(drop=1) code is used to remove columns that are all NaNs and reset the index</span>
+<span class="n">XT_measurements</span> <span class="o">=</span> <span class="n">measurements</span><span class="p">[</span><span class="n">measurements</span><span class="p">[</span><span class="s1">&#39;method_codes&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;LP-X-T&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">XT_measurements</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>experiment</th>
+      <th>meas_temp</th>
+      <th>measurement</th>
+      <th>method_codes</th>
+      <th>quality</th>
+      <th>sequence</th>
+      <th>specimen</th>
+      <th>standard</th>
+      <th>susc_chi_mass</th>
+      <th>timestamp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>IRM-KappaF-LP-X-T-6829</td>
+      <td>298.9</td>
+      <td>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</td>
+      <td>LP-X-T</td>
+      <td>g</td>
+      <td>32767.0</td>
+      <td>DA4-r</td>
+      <td>u</td>
+      <td>-0.000007</td>
+      <td>2022:06:08:14:04:23.00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>IRM-KappaF-LP-X-T-6829</td>
+      <td>302.8</td>
+      <td>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</td>
+      <td>LP-X-T</td>
+      <td>g</td>
+      <td>32767.0</td>
+      <td>DA4-r</td>
+      <td>u</td>
+      <td>-0.000007</td>
+      <td>2022:06:08:14:04:23.00</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>IRM-KappaF-LP-X-T-6829</td>
+      <td>307.5</td>
+      <td>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</td>
+      <td>LP-X-T</td>
+      <td>g</td>
+      <td>32767.0</td>
+      <td>DA4-r</td>
+      <td>u</td>
+      <td>-0.000007</td>
+      <td>2022:06:08:14:04:23.00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>IRM-KappaF-LP-X-T-6829</td>
+      <td>312.4</td>
+      <td>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</td>
+      <td>LP-X-T</td>
+      <td>g</td>
+      <td>32767.0</td>
+      <td>DA4-r</td>
+      <td>u</td>
+      <td>-0.000007</td>
+      <td>2022:06:08:14:04:23.00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>IRM-KappaF-LP-X-T-6829</td>
+      <td>318.2</td>
+      <td>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</td>
+      <td>LP-X-T</td>
+      <td>g</td>
+      <td>32767.0</td>
+      <td>DA4-r</td>
+      <td>u</td>
+      <td>-0.000007</td>
+      <td>2022:06:08:14:04:23.00</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="now-let-s-select-a-specimen-and-its-x-t-experiment-of-interest">
+<h2>Now let’s select a specimen and its X-T experiment of interest<a class="headerlink" href="#now-let-s-select-a-specimen-and-its-x-t-experiment-of-interest" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>One could do multiple rounds of X-T experiments on the same specimen</p></li>
+<li><p>so choose in the <code class="docutils literal notranslate"><span class="pre">first</span> <span class="pre">dropdown</span> <span class="pre">menu</span></code> the specimen of interest</p></li>
+<li><p>the choose in the <code class="docutils literal notranslate"><span class="pre">second</span> <span class="pre">dropdown</span> <span class="pre">menu</span></code> the experiment of interest</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># make two drop down ipywidgets for the user to select the sample and the associated experiment</span>
+<span class="n">specimen_dropdown</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span>
+    <span class="n">options</span><span class="o">=</span><span class="n">XT_measurements</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">(),</span>
+    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;specimen:&#39;</span><span class="p">,</span>
+    <span class="n">disabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">experiment_dropdown</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span>
+    <span class="n">options</span><span class="o">=</span><span class="n">XT_measurements</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">(),</span>
+    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Experiment:&#39;</span><span class="p">,</span>
+    <span class="n">disabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="c1"># make sure to set the default value of the experiment dropdown to the first experiment in the specimen dropdown</span>
+<span class="n">experiment_dropdown</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">XT_measurements</span><span class="p">[</span><span class="n">XT_measurements</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">specimen_dropdown</span><span class="o">.</span><span class="n">value</span><span class="p">][</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+
+<span class="c1"># make sure to update the experiment dropdown based on the specimen selected</span>
+<span class="k">def</span> <span class="nf">update_experiment</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="n">experiment_dropdown</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">XT_measurements</span><span class="p">[</span><span class="n">XT_measurements</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">specimen_dropdown</span><span class="o">.</span><span class="n">value</span><span class="p">][</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+
+<span class="n">specimen_dropdown</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">update_experiment</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">)</span>
+
+<span class="c1"># display the dropdowns</span>
+<span class="n">display</span><span class="p">(</span><span class="n">specimen_dropdown</span><span class="p">,</span> <span class="n">experiment_dropdown</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "d5e18e9fed944f1aa276385ac0303041", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "d844428b91cd40e19ecb2ce5873068d3", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+</section>
+<section id="now-let-s-plot-the-x-t-data-based-on-the-selection-of-the-previous-cell">
+<h2>Now let’s plot the X-T data based on the selection of the previous cell<a class="headerlink" href="#now-let-s-plot-the-x-t-data-based-on-the-selection-of-the-previous-cell" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define function for splitting the curves into warm and cool cycles</span>
+<span class="k">def</span> <span class="nf">split_warm_cool</span><span class="p">(</span><span class="n">experiment</span><span class="p">):</span>
+    <span class="n">Tlist</span> <span class="o">=</span> <span class="n">experiment</span><span class="p">[</span><span class="s1">&#39;meas_temp&#39;</span><span class="p">]</span> <span class="c1"># temperature list</span>
+    <span class="n">Xlist</span> <span class="o">=</span> <span class="n">experiment</span><span class="p">[</span><span class="s1">&#39;susc_chi_mass&#39;</span><span class="p">]</span> <span class="c1"># Chi list</span>
+    
+    <span class="n">warmorcool</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">Tlist</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">)</span><span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="c1">#     print(warmorcool)</span>
+    <span class="n">warm_T</span> <span class="o">=</span> <span class="p">[</span><span class="n">Tlist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">warmorcool</span><span class="p">))</span> <span class="k">if</span> <span class="n">warmorcool</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">cool_T</span> <span class="o">=</span> <span class="p">[</span><span class="n">Tlist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">warmorcool</span><span class="p">))</span> <span class="k">if</span> <span class="n">warmorcool</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">warm_X</span> <span class="o">=</span> <span class="p">[</span><span class="n">Xlist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">warmorcool</span><span class="p">))</span> <span class="k">if</span> <span class="n">warmorcool</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">cool_X</span> <span class="o">=</span> <span class="p">[</span><span class="n">Xlist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">warmorcool</span><span class="p">))</span> <span class="k">if</span> <span class="n">warmorcool</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">warm_T</span><span class="p">,</span> <span class="n">warm_X</span><span class="p">,</span> <span class="n">cool_T</span><span class="p">,</span> <span class="n">cool_X</span>
+
+<span class="c1"># define function for plotting the X-T curve</span>
+<span class="k">def</span> <span class="nf">plot_X_T</span><span class="p">(</span><span class="n">experiment</span><span class="p">):</span>
+    <span class="n">warm_T</span><span class="p">,</span> <span class="n">warm_X</span><span class="p">,</span> <span class="n">cool_T</span><span class="p">,</span> <span class="n">cool_X</span> <span class="o">=</span> <span class="n">split_warm_cool</span><span class="p">(</span><span class="n">experiment</span><span class="p">)</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">warm_T</span><span class="p">,</span> <span class="n">warm_X</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;warm cycle&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cool_T</span><span class="p">,</span> <span class="n">cool_X</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;cool cycle&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Temperature (K)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Susceptibility ($\chi$) (m$^3$/kg)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Susceptibility vs Temperature&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">ax</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="plot-the-selected-experiment-data">
+<h2>plot the selected experiment data<a class="headerlink" href="#plot-the-selected-experiment-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected_experiment</span> <span class="o">=</span> <span class="n">XT_measurements</span><span class="p">[(</span><span class="n">XT_measurements</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">specimen_dropdown</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">&amp;</span> 
+                                      <span class="p">(</span><span class="n">XT_measurements</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">experiment_dropdown</span><span class="o">.</span><span class="n">value</span><span class="p">)]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plot_X_T</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/8738be7b1f706cfba58ce208b66a9c9ebf94609779494fd384cc7ac562d25cb9.png"><img alt="_images/8738be7b1f706cfba58ce208b66a9c9ebf94609779494fd384cc7ac562d25cb9.png" src="_images/8738be7b1f706cfba58ce208b66a9c9ebf94609779494fd384cc7ac562d25cb9.png" style="width: 574px; height: 558px;" /></a>
+</div>
+</div>
+</section>
+<section id="save-the-data">
+<h2>save the data<a class="headerlink" href="#save-the-data" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>you can put the name of the file (including its directory relative to this notebook) in the text box below</p></li>
+<li><p>the click the <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">data</span></code> button to save the data</p></li>
+<li><p>the available file formats for figures are:</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">eps</span></code>: ‘Encapsulated Postscript’,</p>
+<p><code class="docutils literal notranslate"><span class="pre">jpg</span></code>: ‘Joint Photographic Experts Group’,</p>
+<p><code class="docutils literal notranslate"><span class="pre">jpeg</span></code>: ‘Joint Photographic Experts Group’,</p>
+<p><code class="docutils literal notranslate"><span class="pre">pdf</span></code>: ‘Portable Document Format’,</p>
+<p><code class="docutils literal notranslate"><span class="pre">pgf</span></code>: ‘PGF code for LaTeX’,</p>
+<p><code class="docutils literal notranslate"><span class="pre">png</span></code>: ‘Portable Network Graphics’,</p>
+<p><code class="docutils literal notranslate"><span class="pre">ps</span></code>: ‘Postscript’,</p>
+<p><code class="docutils literal notranslate"><span class="pre">raw</span></code>: ‘Raw RGBA bitmap’,</p>
+<p><code class="docutils literal notranslate"><span class="pre">rgba</span></code>: ‘Raw RGBA bitmap’,</p>
+<p><code class="docutils literal notranslate"><span class="pre">svg</span></code>: ‘Scalable Vector Graphics’,</p>
+<p><code class="docutils literal notranslate"><span class="pre">svgz</span></code>: ‘Scalable Vector Graphics’,</p>
+<p><code class="docutils literal notranslate"><span class="pre">tif</span></code>: ‘Tagged Image File Format’</p>
+<p><code class="docutils literal notranslate"><span class="pre">tiff</span></code>: ‘Tagged Image File Format’</p>
+<p><strong>but just do pdf, png, or jpg</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># now let&#39;s make an ipywitgets text box and a button for saving the plot to a given directory and file name </span>
+<span class="n">output_text</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span>
+    <span class="n">value</span><span class="o">=</span><span class="s1">&#39;output.png&#39;</span><span class="p">,</span>
+    <span class="n">placeholder</span><span class="o">=</span><span class="s1">&#39;output.png&#39;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Output file:&#39;</span><span class="p">,</span>
+    <span class="n">disabled</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+
+<span class="n">save_button</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span>
+    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Save Plot&#39;</span><span class="p">,</span>
+    <span class="n">disabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">button_style</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="c1"># &#39;success&#39;, &#39;info&#39;, &#39;warning&#39;, &#39;danger&#39; or &#39;&#39;</span>
+    <span class="n">tooltip</span><span class="o">=</span><span class="s1">&#39;Save the plot&#39;</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="s1">&#39;save&#39;</span> <span class="c1"># (FontAwesome names without the `fa-` prefix)</span>
+<span class="p">)</span>
+
+<span class="n">out</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Output</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">save_plot</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">out</span><span class="p">:</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_X_T</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">output_text</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    
+<span class="n">save_button</span><span class="o">.</span><span class="n">on_click</span><span class="p">(</span><span class="n">save_plot</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">output_text</span><span class="p">,</span> <span class="n">save_button</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "034e2bb52ac04241bd43301cea8d61d6", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "61bac3a101634cceaea01badb1a2ddb6", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-scientific-python-libraries">Import scientific python libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-data">Import data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-project-export-contains-data-from-all-the-experiments">The project export contains data from all the experiments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-isolate-the-kappabridge-x-t-data-from-your-project-export">Let’s isolate the Kappabridge X-T data from your project export</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#now-let-s-select-a-specimen-and-its-x-t-experiment-of-interest">Now let’s select a specimen and its X-T experiment of interest</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#now-let-s-plot-the-x-t-data-based-on-the-selection-of-the-previous-cell">Now let’s plot the X-T data based on the selection of the previous cell</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-selected-experiment-data">plot the selected experiment data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-the-data">save the data</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By RockmagPy Contributors
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
