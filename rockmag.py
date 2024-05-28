@@ -8,6 +8,7 @@ import ipywidgets as widgets
 from IPython.display import display
 
 
+
 def extract_mpms_data(df, specimen_name):
     """
     Extracts and separates MPMS (Magnetic Property Measurement System) data 
@@ -1197,3 +1198,85 @@ def interactive_goethite_removal(measurements, specimen_dropdown):
 #             print(f"Warning: Line '{item}' does not have two elements and will be skipped")
 
 #     return data_df
+
+# define function for splitting the curves into warm and cool cycles
+def split_warm_cool(experiment):
+    '''
+    splits the X-T curve into warm and cool cycles
+
+    Parameters
+    ----------
+    experiment : pandas DataFrame
+        the IRM experiment data exported into MagIC format
+
+    Returns
+    -------
+    warm_T : list
+        list of temperatures for the warm cycle
+    warm_X : list
+        list of susceptibilities for the warm cycle
+    cool_T : list
+        list of temperatures for the cool cycle
+    '''
+    Tlist = experiment['meas_temp'] # temperature list
+    Xlist = experiment['susc_chi_mass'] # Chi list
+    
+    warmorcool = np.array(np.insert((np.diff(Tlist) > 0 )* 1, 0, 1))
+#     print(warmorcool)
+    warm_T = [Tlist[i] for i in range(len(warmorcool)) if warmorcool[i]==1]
+    cool_T = [Tlist[i] for i in range(len(warmorcool)) if warmorcool[i]==0]
+    warm_X = [Xlist[i] for i in range(len(warmorcool)) if warmorcool[i]==1]
+    cool_X = [Xlist[i] for i in range(len(warmorcool)) if warmorcool[i]==0]
+
+    return warm_T, warm_X, cool_T, cool_X
+
+# define function for plotting the X-T curve
+def plot_X_T(experiment, temp_unit='C', remove_holder=True, min_temp=None, max_temp=None):
+    '''
+    plot the high temperature X-T curve
+
+    Parameters
+    ----------
+    experiment : pandas DataFrame
+        the IRM experiment data exported into MagIC format
+    temp_unit : str
+        the unit of temperature, either 'K' or 'C'
+    
+    Returns
+    -------
+    ax : matplotlib axis
+        the axis object for the plot
+    '''
+    warm_T, warm_X, cool_T, cool_X = split_warm_cool(experiment)
+
+    fig, ax = plt.subplots(figsize=(6,6))
+    if temp_unit == 'K':
+        ax.set_xlabel('Temperature (K)', fontsize=16)
+    elif temp_unit == 'C':
+        warm_T = [T-273.15 for T in warm_T]
+        cool_T = [T-273.15 for T in cool_T]
+        ax.set_xlabel('Temperature (C)', fontsize=16)
+    else:
+        raise ValueError('temp_unit must be either "K" or "C"')
+    
+    if remove_holder:
+        assert min_temp is not None, 'min_temp must be provided'
+        assert min_temp < max_temp, 'min_temp must be less than max_temp'
+        assert min_temp < max(warm_T), 'min_temp must be less than the maximum temperature in the warm cycle'
+        assert max_temp is not None, 'max_temp must be provided'
+        # now use the min max temp range to select the holder X data
+        holder_warm_X = [X for X, T in zip(warm_X, warm_T) if T>=min_temp and T<=max_temp]
+        holder_cool_X = [X for X, T in zip(cool_X, cool_T) if T>=min_temp and T<=max_temp]
+        holder_warm_X_average = np.mean(holder_warm_X)
+        holder_cool_X_average = np.mean(holder_cool_X)
+        warm_X = [X - holder_warm_X_average for X in warm_X]
+        cool_X = [X - holder_cool_X_average for X in cool_X]
+
+    ax.plot(warm_T, warm_X, color='red', label='warm cycle')
+    ax.plot(cool_T, cool_X, color='blue', label='cool cycle')
+    ax.set_ylabel('Susceptibility ($\chi$) (m$^3$/kg)', fontsize=16)
+    ax.set_title('Susceptibility vs Temperature', fontsize=16)
+    ax.legend(fontsize=12)
+    ax.grid()
+    return ax
+
