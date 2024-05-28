@@ -395,7 +395,6 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-isolate-the-kappabridge-x-t-data-from-your-project-export">Let’s isolate the Kappabridge X-T data from your project export</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#now-let-s-select-a-specimen-and-its-x-t-experiment-of-interest">Now let’s select a specimen and its X-T experiment of interest</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#now-let-s-plot-the-x-t-data-based-on-the-selection-of-the-previous-cell">Now let’s plot the X-T data based on the selection of the previous cell</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-selected-experiment-data">plot the selected experiment data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-the-data">save the data</a></li>
 </ul>
             </nav>
@@ -436,44 +435,51 @@ document.write(`
 </section>
 <section id="import-data">
 <h2>Import data<a class="headerlink" href="#import-data" title="Link to this heading">#</a></h2>
-<p>We can take the same approach as in the <code class="docutils literal notranslate"><span class="pre">rockmag_data_unpack.ipynb</span></code> notebook to bring the MagIC data into the notebook as a Contribution. To bring in a different contribution, set the directory path (currently <code class="docutils literal notranslate"><span class="pre">'./example_data/SSRM2022C'</span></code>) and the name of the file (currently <code class="docutils literal notranslate"><span class="pre">'SSRM2022C_IRMDB_export.txt'</span></code>) to be those relevant to your data.</p>
+<p>We can take the same approach as in the <code class="docutils literal notranslate"><span class="pre">rockmag_data_unpack.ipynb</span></code> notebook to bring the MagIC data into the notebook as a Contribution. To bring in a different contribution, set the directory path (currently <code class="docutils literal notranslate"><span class="pre">'./example_data/SSRM2022C'</span></code>) and the share key for your MagIC contribution which you can find by clicking on the “Share” button in the MagIC database.</p>
+<figure>
+  <img src="book/images/MagIC_private_contribution_1.png" alt="Description of the image" width="800">
+</figure>
+<p>copy the share key highlighted in grey in the following image to the <code class="docutils literal notranslate"><span class="pre">share_key</span></code> variable in the cell below.</p>
+<figure>
+  <img src="book/images/MagIC_private_contribution_2.png" alt="Description of the image" width="800">
+</figure>
 <p><strong>change the directory path and file name in the cell below to load your own data</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set the dir_path to the directory where the measurements.txt file is located</span>
-<span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;./example_data/SSRM2022C&#39;</span>
-
-<span class="c1"># set the name of the MagIC file</span>
-<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="s1">&#39;SSRM2022C_IRMDB_export.txt&#39;</span><span class="p">,</span> 
-                     <span class="n">dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">,</span>
-                     <span class="n">input_dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">)</span>
-
-<span class="c1"># create a contribution object from the tables in the directory</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define the path to the folder </span>
+<span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;example_data/SSRM2022C&#39;</span>
+<span class="c1"># download the data from the MagIC database using my private contribution key </span>
+<span class="n">result</span><span class="p">,</span> <span class="n">magic_file</span> <span class="o">=</span> <span class="n">ipmag</span><span class="o">.</span><span class="n">download_magic_from_id</span><span class="p">(</span><span class="s1">&#39;20100&#39;</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">dir_path</span><span class="p">,</span> <span class="n">share_key</span><span class="o">=</span><span class="s1">&#39;6dea85ab-0a90-4e2d-a0dd-426b85123283&#39;</span><span class="p">)</span>
+<span class="c1"># unpack the MagIC file</span>
+<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="n">magic_file</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">)</span>
+<span class="c1"># get the contribution object</span>
 <span class="n">contribution</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">Contribution</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
+<span class="c1"># get the measurements table</span>
 <span class="n">measurements</span> <span class="o">=</span> <span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;measurements&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
 <span class="n">measurements</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>working on:  &#39;contribution\r&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Download successful. File saved to: example_data/SSRM2022C/magic_contribution_20100.txt
+working on:  &#39;contribution&#39;
 1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/contribution.txt
-  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/contribution.txt
-working on:  &#39;specimens\r&#39;
-46  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/specimens.txt
-  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/specimens.txt
-working on:  &#39;samples\r&#39;
+contribution  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/contribution.txt
+working on:  &#39;locations&#39;
+6  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/locations.txt
+locations  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/locations.txt
+working on:  &#39;sites&#39;
+6  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/sites.txt
+sites  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/sites.txt
+working on:  &#39;samples&#39;
 16  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/samples.txt
-  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/samples.txt
-working on:  &#39;sites\r&#39;
-5  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/sites.txt
-  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/sites.txt
-working on:  &#39;locations\r&#39;
-5  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/locations.txt
-  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/locations.txt
-working on:  &#39;measurements\r&#39;
-137958  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/measurements.txt
-  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/measurements.txt
+samples  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/samples.txt
+working on:  &#39;specimens&#39;
+47  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/specimens.txt
+specimens  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/specimens.txt
+working on:  &#39;measurements&#39;
+139658  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/measurements.txt
+measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/measurements.txt
 -I- Using online data model
 -I- Getting method codes from earthref.org
 -I- Importing controlled vocabularies from https://earthref.org
@@ -503,10 +509,13 @@ working on:  &#39;measurements\r&#39;
       <th>instrument_codes</th>
       <th>magn_mass</th>
       <th>magn_moment</th>
+      <th>magn_r2_det</th>
       <th>magn_x</th>
       <th>magn_y</th>
       <th>magn_z</th>
+      <th>meas_field_ac</th>
       <th>meas_field_dc</th>
+      <th>meas_freq</th>
       <th>meas_pos_z</th>
       <th>meas_temp</th>
       <th>measurement</th>
@@ -516,6 +525,7 @@ working on:  &#39;measurements\r&#39;
       <th>specimen</th>
       <th>standard</th>
       <th>susc_chi_mass</th>
+      <th>susc_chi_qdr_mass</th>
       <th>timestamp</th>
       <th>treat_ac_field</th>
       <th>treat_dc_field</th>
@@ -550,31 +560,39 @@ working on:  &#39;measurements\r&#39;
       <th></th>
       <th></th>
       <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</th>
+      <th>DX1-4r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-14656-1</th>
       <td>NaN</td>
       <td>NaN</td>
-      <td>IRM-KappaF-LP-X-T-6829</td>
-      <td>None</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-14656</td>
+      <td>IRM-MPMS3</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>298.9</td>
-      <td>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</td>
-      <td>LP-X-T</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0003</td>
+      <td>NaN</td>
+      <td>1.00</td>
+      <td>NaN</td>
+      <td>9.99</td>
+      <td>DX1-4r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-146...</td>
+      <td>LP-X:LP-X-T:LP-X-F:LP-X-H</td>
       <td>g</td>
-      <td>32767.0</td>
-      <td>DA4-r</td>
+      <td>1.0</td>
+      <td>DX1-4r</td>
       <td>u</td>
-      <td>-0.000007</td>
-      <td>2022:06:08:14:04:23.00</td>
+      <td>3.660000e-07</td>
+      <td>-5.430000e-10</td>
+      <td>2024:05:23:16:36:06.00</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -582,27 +600,31 @@ working on:  &#39;measurements\r&#39;
       <td>NaN</td>
     </tr>
     <tr>
-      <th>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</th>
+      <th>DX1-4r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-14656-2</th>
       <td>NaN</td>
       <td>NaN</td>
-      <td>IRM-KappaF-LP-X-T-6829</td>
-      <td>None</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-14656</td>
+      <td>IRM-MPMS3</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>302.8</td>
-      <td>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</td>
-      <td>LP-X-T</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0003</td>
+      <td>NaN</td>
+      <td>10.01</td>
+      <td>NaN</td>
+      <td>9.99</td>
+      <td>DX1-4r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-146...</td>
+      <td>LP-X:LP-X-T:LP-X-F:LP-X-H</td>
       <td>g</td>
-      <td>32767.0</td>
-      <td>DA4-r</td>
+      <td>2.0</td>
+      <td>DX1-4r</td>
       <td>u</td>
-      <td>-0.000007</td>
-      <td>2022:06:08:14:04:23.00</td>
+      <td>3.640000e-07</td>
+      <td>1.560000e-09</td>
+      <td>2024:05:23:16:36:06.00</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -610,27 +632,31 @@ working on:  &#39;measurements\r&#39;
       <td>NaN</td>
     </tr>
     <tr>
-      <th>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</th>
+      <th>DX1-4r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-14656-3</th>
       <td>NaN</td>
       <td>NaN</td>
-      <td>IRM-KappaF-LP-X-T-6829</td>
-      <td>None</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-14656</td>
+      <td>IRM-MPMS3</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>307.5</td>
-      <td>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</td>
-      <td>LP-X-T</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0003</td>
+      <td>NaN</td>
+      <td>100.06</td>
+      <td>NaN</td>
+      <td>9.99</td>
+      <td>DX1-4r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-146...</td>
+      <td>LP-X:LP-X-T:LP-X-F:LP-X-H</td>
       <td>g</td>
-      <td>32767.0</td>
-      <td>DA4-r</td>
+      <td>3.0</td>
+      <td>DX1-4r</td>
       <td>u</td>
-      <td>-0.000007</td>
-      <td>2022:06:08:14:04:23.00</td>
+      <td>3.610000e-07</td>
+      <td>1.880000e-09</td>
+      <td>2024:05:23:16:36:06.00</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -638,27 +664,31 @@ working on:  &#39;measurements\r&#39;
       <td>NaN</td>
     </tr>
     <tr>
-      <th>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</th>
+      <th>DX1-4r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-14656-4</th>
       <td>NaN</td>
       <td>NaN</td>
-      <td>IRM-KappaF-LP-X-T-6829</td>
-      <td>None</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-14656</td>
+      <td>IRM-MPMS3</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>312.4</td>
-      <td>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</td>
-      <td>LP-X-T</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0003</td>
+      <td>NaN</td>
+      <td>1.00</td>
+      <td>NaN</td>
+      <td>20.00</td>
+      <td>DX1-4r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-146...</td>
+      <td>LP-X:LP-X-T:LP-X-F:LP-X-H</td>
       <td>g</td>
-      <td>32767.0</td>
-      <td>DA4-r</td>
+      <td>4.0</td>
+      <td>DX1-4r</td>
       <td>u</td>
-      <td>-0.000007</td>
-      <td>2022:06:08:14:04:23.00</td>
+      <td>1.960000e-07</td>
+      <td>1.340000e-09</td>
+      <td>2024:05:23:16:36:06.00</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -666,27 +696,31 @@ working on:  &#39;measurements\r&#39;
       <td>NaN</td>
     </tr>
     <tr>
-      <th>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</th>
+      <th>DX1-4r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-14656-5</th>
       <td>NaN</td>
       <td>NaN</td>
-      <td>IRM-KappaF-LP-X-T-6829</td>
-      <td>None</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-14656</td>
+      <td>IRM-MPMS3</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>318.2</td>
-      <td>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</td>
-      <td>LP-X-T</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0003</td>
+      <td>NaN</td>
+      <td>10.01</td>
+      <td>NaN</td>
+      <td>20.00</td>
+      <td>DX1-4r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-146...</td>
+      <td>LP-X:LP-X-T:LP-X-F:LP-X-H</td>
       <td>g</td>
-      <td>32767.0</td>
-      <td>DA4-r</td>
+      <td>5.0</td>
+      <td>DX1-4r</td>
       <td>u</td>
-      <td>-0.000007</td>
-      <td>2022:06:08:14:04:23.00</td>
+      <td>1.950000e-07</td>
+      <td>8.300000e-10</td>
+      <td>2024:05:23:16:36:06.00</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -720,6 +754,10 @@ working on:  &#39;measurements\r&#39;
       <td>...</td>
       <td>...</td>
       <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
     </tr>
     <tr>
       <th>nan</th>
@@ -728,10 +766,13 @@ working on:  &#39;measurements\r&#39;
       <td>DX1-4b-ARM_aniso-LP-AN-ARM-0</td>
       <td>IRM-SRM-U</td>
       <td>NaN</td>
-      <td>6.015930e-08</td>
-      <td>2.663010e-10</td>
-      <td>2.140620e-08</td>
-      <td>5.622140e-08</td>
+      <td>6.020000e-08</td>
+      <td>NaN</td>
+      <td>2.660000e-10</td>
+      <td>2.140000e-08</td>
+      <td>5.620000e-08</td>
+      <td>NaN</td>
+      <td>NaN</td>
       <td>NaN</td>
       <td>0.25</td>
       <td>NaN</td>
@@ -741,6 +782,7 @@ working on:  &#39;measurements\r&#39;
       <td>NaN</td>
       <td>DX1-4b</td>
       <td>None</td>
+      <td>NaN</td>
       <td>NaN</td>
       <td>2022:06:14:17:01:41.00</td>
       <td>0.2</td>
@@ -756,10 +798,13 @@ working on:  &#39;measurements\r&#39;
       <td>DA4-1C-ARM_aniso-LP-AN-ARM-0</td>
       <td>IRM-SRM-U</td>
       <td>NaN</td>
-      <td>5.568630e-06</td>
-      <td>5.514000e-08</td>
-      <td>3.848310e-06</td>
-      <td>-4.024560e-06</td>
+      <td>5.570000e-06</td>
+      <td>NaN</td>
+      <td>5.510000e-08</td>
+      <td>3.850000e-06</td>
+      <td>-4.020000e-06</td>
+      <td>NaN</td>
+      <td>NaN</td>
       <td>NaN</td>
       <td>0.05</td>
       <td>NaN</td>
@@ -769,6 +814,7 @@ working on:  &#39;measurements\r&#39;
       <td>NaN</td>
       <td>DA4-1C</td>
       <td>None</td>
+      <td>NaN</td>
       <td>NaN</td>
       <td>2022:06:14:17:09:04.00</td>
       <td>0.2</td>
@@ -784,10 +830,13 @@ working on:  &#39;measurements\r&#39;
       <td>DX1-4b-ARM_aniso-LP-AN-ARM-0</td>
       <td>IRM-SRM-U</td>
       <td>NaN</td>
-      <td>2.991990e-07</td>
-      <td>4.304250e-08</td>
-      <td>2.147920e-07</td>
-      <td>-2.037940e-07</td>
+      <td>2.990000e-07</td>
+      <td>NaN</td>
+      <td>4.300000e-08</td>
+      <td>2.150000e-07</td>
+      <td>-2.040000e-07</td>
+      <td>NaN</td>
+      <td>NaN</td>
       <td>NaN</td>
       <td>0.25</td>
       <td>NaN</td>
@@ -797,6 +846,7 @@ working on:  &#39;measurements\r&#39;
       <td>NaN</td>
       <td>DX1-4b</td>
       <td>None</td>
+      <td>NaN</td>
       <td>NaN</td>
       <td>2022:06:14:17:09:25.00</td>
       <td>0.2</td>
@@ -812,10 +862,13 @@ working on:  &#39;measurements\r&#39;
       <td>DA4-1C-ARMdemag(T,Hac)-LP-ARM-AFD-0</td>
       <td>IRM-SRM-U</td>
       <td>NaN</td>
-      <td>2.338400e-07</td>
-      <td>-1.973810e-08</td>
-      <td>1.739510e-07</td>
-      <td>1.550250e-07</td>
+      <td>2.340000e-07</td>
+      <td>NaN</td>
+      <td>-1.970000e-08</td>
+      <td>1.740000e-07</td>
+      <td>1.550000e-07</td>
+      <td>NaN</td>
+      <td>NaN</td>
       <td>NaN</td>
       <td>0.05</td>
       <td>NaN</td>
@@ -825,6 +878,7 @@ working on:  &#39;measurements\r&#39;
       <td>NaN</td>
       <td>DA4-1C</td>
       <td>None</td>
+      <td>NaN</td>
       <td>NaN</td>
       <td>2022:06:14:17:19:07.00</td>
       <td>0.2</td>
@@ -840,10 +894,13 @@ working on:  &#39;measurements\r&#39;
       <td>DX1-4b-ARMdemag(T,Hac)-LP-ARM-AFD-0</td>
       <td>IRM-SRM-U</td>
       <td>NaN</td>
-      <td>5.565400e-08</td>
-      <td>-5.317000e-09</td>
-      <td>2.282380e-08</td>
-      <td>5.047940e-08</td>
+      <td>5.570000e-08</td>
+      <td>NaN</td>
+      <td>-5.320000e-09</td>
+      <td>2.280000e-08</td>
+      <td>5.050000e-08</td>
+      <td>NaN</td>
+      <td>NaN</td>
       <td>NaN</td>
       <td>0.25</td>
       <td>NaN</td>
@@ -854,6 +911,7 @@ working on:  &#39;measurements\r&#39;
       <td>DX1-4b</td>
       <td>None</td>
       <td>NaN</td>
+      <td>NaN</td>
       <td>2022:06:14:17:19:28.00</td>
       <td>0.2</td>
       <td>NaN</td>
@@ -863,7 +921,7 @@ working on:  &#39;measurements\r&#39;
     </tr>
   </tbody>
 </table>
-<p>137958 rows × 25 columns</p>
+<p>139658 rows × 29 columns</p>
 </div></div></div>
 </div>
 </section>
@@ -880,8 +938,10 @@ working on:  &#39;measurements\r&#39;
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;LP-X-T&#39;, &#39;LP-HYS&#39;, &#39;LP-BCR-BF&#39;, &#39;LP-FORC&#39;, &#39;LP-DIR-AF&#39;,
-       &#39;LP-AN-ARM&#39;, &#39;LP-ARM-AFD&#39;], dtype=object)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;LP-X:LP-X-T:LP-X-F:LP-X-H&#39;, &#39;LP-X:LP-X-T:LP-X-F&#39;, &#39;LP-X-T&#39;,
+       &#39;LP-HYS&#39;, &#39;LP-BCR-BF&#39;, &#39;LP-FORC&#39;, &#39;LP-FC&#39;, &#39;LP-ZFC&#39;,
+       &#39;LP-CW-SIRM:LP-MC&#39;, &#39;LP-CW-SIRM:LP-MW&#39;, &#39;LP-DIR-AF&#39;, &#39;LP-AN-ARM&#39;,
+       &#39;LP-ARM-AFD&#39;], dtype=object)
 </pre></div>
 </div>
 </div>
@@ -917,6 +977,7 @@ working on:  &#39;measurements\r&#39;
     <tr style="text-align: right;">
       <th></th>
       <th>experiment</th>
+      <th>instrument_codes</th>
       <th>meas_temp</th>
       <th>measurement</th>
       <th>method_codes</th>
@@ -931,68 +992,73 @@ working on:  &#39;measurements\r&#39;
   <tbody>
     <tr>
       <th>0</th>
-      <td>IRM-KappaF-LP-X-T-6829</td>
-      <td>298.9</td>
-      <td>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</td>
+      <td>IRM-KappaF-LP-X-T-6819</td>
+      <td>IRM-MPMS3</td>
+      <td>297.1</td>
+      <td>blank_2022-06-03-IRM-KappaF-LP-X-T-6819-6819-89</td>
       <td>LP-X-T</td>
       <td>g</td>
-      <td>32767.0</td>
-      <td>DA4-r</td>
+      <td>89.0</td>
+      <td>blank_2022-06-03</td>
       <td>u</td>
-      <td>-0.000007</td>
-      <td>2022:06:08:14:04:23.00</td>
+      <td>-1.550000e-09</td>
+      <td>2022:06:03:11:54:06.00</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>IRM-KappaF-LP-X-T-6829</td>
-      <td>302.8</td>
-      <td>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</td>
+      <td>IRM-KappaF-LP-X-T-6819</td>
+      <td>IRM-MPMS3</td>
+      <td>301.9</td>
+      <td>blank_2022-06-03-IRM-KappaF-LP-X-T-6819-6819-89</td>
       <td>LP-X-T</td>
       <td>g</td>
-      <td>32767.0</td>
-      <td>DA4-r</td>
+      <td>89.0</td>
+      <td>blank_2022-06-03</td>
       <td>u</td>
-      <td>-0.000007</td>
-      <td>2022:06:08:14:04:23.00</td>
+      <td>-1.550000e-09</td>
+      <td>2022:06:03:11:54:06.00</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>IRM-KappaF-LP-X-T-6829</td>
-      <td>307.5</td>
-      <td>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</td>
+      <td>IRM-KappaF-LP-X-T-6819</td>
+      <td>IRM-MPMS3</td>
+      <td>308.1</td>
+      <td>blank_2022-06-03-IRM-KappaF-LP-X-T-6819-6819-89</td>
       <td>LP-X-T</td>
       <td>g</td>
-      <td>32767.0</td>
-      <td>DA4-r</td>
+      <td>89.0</td>
+      <td>blank_2022-06-03</td>
       <td>u</td>
-      <td>-0.000007</td>
-      <td>2022:06:08:14:04:23.00</td>
+      <td>-1.550000e-09</td>
+      <td>2022:06:03:11:54:06.00</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>IRM-KappaF-LP-X-T-6829</td>
-      <td>312.4</td>
-      <td>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</td>
+      <td>IRM-KappaF-LP-X-T-6819</td>
+      <td>IRM-MPMS3</td>
+      <td>313.4</td>
+      <td>blank_2022-06-03-IRM-KappaF-LP-X-T-6819-6819-89</td>
       <td>LP-X-T</td>
       <td>g</td>
-      <td>32767.0</td>
-      <td>DA4-r</td>
+      <td>89.0</td>
+      <td>blank_2022-06-03</td>
       <td>u</td>
-      <td>-0.000007</td>
-      <td>2022:06:08:14:04:23.00</td>
+      <td>-1.550000e-09</td>
+      <td>2022:06:03:11:54:06.00</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>IRM-KappaF-LP-X-T-6829</td>
-      <td>318.2</td>
-      <td>DA4-r-IRM-KappaF-LP-X-T-6829-6829-32767</td>
+      <td>IRM-KappaF-LP-X-T-6819</td>
+      <td>IRM-MPMS3</td>
+      <td>319.5</td>
+      <td>blank_2022-06-03-IRM-KappaF-LP-X-T-6819-6819-89</td>
       <td>LP-X-T</td>
       <td>g</td>
-      <td>32767.0</td>
-      <td>DA4-r</td>
+      <td>89.0</td>
+      <td>blank_2022-06-03</td>
       <td>u</td>
-      <td>-0.000007</td>
-      <td>2022:06:08:14:04:23.00</td>
+      <td>-1.550000e-09</td>
+      <td>2022:06:03:11:54:06.00</td>
     </tr>
   </tbody>
 </table>
@@ -1035,59 +1101,24 @@ working on:  &#39;measurements\r&#39;
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "d5e18e9fed944f1aa276385ac0303041", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "d844428b91cd40e19ecb2ce5873068d3", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "c41860a5386c4414a52f36887eb0afec", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "a7ac846136cf45ea812852943f1fddbd", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="now-let-s-plot-the-x-t-data-based-on-the-selection-of-the-previous-cell">
 <h2>Now let’s plot the X-T data based on the selection of the previous cell<a class="headerlink" href="#now-let-s-plot-the-x-t-data-based-on-the-selection-of-the-previous-cell" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define function for splitting the curves into warm and cool cycles</span>
-<span class="k">def</span> <span class="nf">split_warm_cool</span><span class="p">(</span><span class="n">experiment</span><span class="p">):</span>
-    <span class="n">Tlist</span> <span class="o">=</span> <span class="n">experiment</span><span class="p">[</span><span class="s1">&#39;meas_temp&#39;</span><span class="p">]</span> <span class="c1"># temperature list</span>
-    <span class="n">Xlist</span> <span class="o">=</span> <span class="n">experiment</span><span class="p">[</span><span class="s1">&#39;susc_chi_mass&#39;</span><span class="p">]</span> <span class="c1"># Chi list</span>
-    
-    <span class="n">warmorcool</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">Tlist</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">)</span><span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="c1">#     print(warmorcool)</span>
-    <span class="n">warm_T</span> <span class="o">=</span> <span class="p">[</span><span class="n">Tlist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">warmorcool</span><span class="p">))</span> <span class="k">if</span> <span class="n">warmorcool</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">cool_T</span> <span class="o">=</span> <span class="p">[</span><span class="n">Tlist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">warmorcool</span><span class="p">))</span> <span class="k">if</span> <span class="n">warmorcool</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">warm_X</span> <span class="o">=</span> <span class="p">[</span><span class="n">Xlist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">warmorcool</span><span class="p">))</span> <span class="k">if</span> <span class="n">warmorcool</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">cool_X</span> <span class="o">=</span> <span class="p">[</span><span class="n">Xlist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">warmorcool</span><span class="p">))</span> <span class="k">if</span> <span class="n">warmorcool</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span>
-
-    <span class="k">return</span> <span class="n">warm_T</span><span class="p">,</span> <span class="n">warm_X</span><span class="p">,</span> <span class="n">cool_T</span><span class="p">,</span> <span class="n">cool_X</span>
-
-<span class="c1"># define function for plotting the X-T curve</span>
-<span class="k">def</span> <span class="nf">plot_X_T</span><span class="p">(</span><span class="n">experiment</span><span class="p">):</span>
-    <span class="n">warm_T</span><span class="p">,</span> <span class="n">warm_X</span><span class="p">,</span> <span class="n">cool_T</span><span class="p">,</span> <span class="n">cool_X</span> <span class="o">=</span> <span class="n">split_warm_cool</span><span class="p">(</span><span class="n">experiment</span><span class="p">)</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">warm_T</span><span class="p">,</span> <span class="n">warm_X</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;warm cycle&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cool_T</span><span class="p">,</span> <span class="n">cool_X</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;cool cycle&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Temperature (K)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Susceptibility ($\chi$) (m$^3$/kg)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Susceptibility vs Temperature&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">ax</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="plot-the-selected-experiment-data">
-<h2>plot the selected experiment data<a class="headerlink" href="#plot-the-selected-experiment-data" title="Link to this heading">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected_experiment</span> <span class="o">=</span> <span class="n">XT_measurements</span><span class="p">[(</span><span class="n">XT_measurements</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">specimen_dropdown</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">&amp;</span> 
                                       <span class="p">(</span><span class="n">XT_measurements</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">experiment_dropdown</span><span class="o">.</span><span class="n">value</span><span class="p">)]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
 
-<span class="n">ax</span> <span class="o">=</span> <span class="n">plot_X_T</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">plot_X_T</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">temp_unit</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">remove_holder</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">min_temp</span><span class="o">=</span><span class="mi">650</span><span class="p">,</span> <span class="n">max_temp</span><span class="o">=</span><span class="mi">700</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/8738be7b1f706cfba58ce208b66a9c9ebf94609779494fd384cc7ac562d25cb9.png"><img alt="_images/8738be7b1f706cfba58ce208b66a9c9ebf94609779494fd384cc7ac562d25cb9.png" src="_images/8738be7b1f706cfba58ce208b66a9c9ebf94609779494fd384cc7ac562d25cb9.png" style="width: 574px; height: 558px;" /></a>
+<a class="reference internal image-reference" href="_images/6c7b379483f29991455020db5d3177bf683422c0768d616adf1031c3f760c687.png"><img alt="_images/6c7b379483f29991455020db5d3177bf683422c0768d616adf1031c3f760c687.png" src="_images/6c7b379483f29991455020db5d3177bf683422c0768d616adf1031c3f760c687.png" style="width: 560px; height: 558px;" /></a>
 </div>
 </div>
 </section>
@@ -1134,7 +1165,7 @@ working on:  &#39;measurements\r&#39;
 <span class="k">def</span> <span class="nf">save_plot</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
     <span class="k">with</span> <span class="n">out</span><span class="p">:</span>
         <span class="n">out</span><span class="o">.</span><span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_X_T</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">)</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">plot_X_T</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">output_text</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     
@@ -1145,7 +1176,7 @@ working on:  &#39;measurements\r&#39;
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "034e2bb52ac04241bd43301cea8d61d6", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "61bac3a101634cceaea01badb1a2ddb6", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1cae5f050871465cb84e2a87bc9bbe2f", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "e4eae287ca2d45b1a53b0ea4e143103c", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 </section>
@@ -1202,7 +1233,6 @@ working on:  &#39;measurements\r&#39;
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-isolate-the-kappabridge-x-t-data-from-your-project-export">Let’s isolate the Kappabridge X-T data from your project export</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#now-let-s-select-a-specimen-and-its-x-t-experiment-of-interest">Now let’s select a specimen and its X-T experiment of interest</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#now-let-s-plot-the-x-t-data-based-on-the-selection-of-the-previous-cell">Now let’s plot the X-T data based on the selection of the previous cell</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-selected-experiment-data">plot the selected experiment data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-the-data">save the data</a></li>
 </ul>
   </nav></div>
