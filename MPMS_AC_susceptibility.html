@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Plot high temperature susceptibility data (Kappabridge X-T) &#8212; RockmagPy Documentation</title>
+    <title>Plot MPMS AC susceptibility data &#8212; RockmagPy Documentation</title>
   
   
   
@@ -57,7 +57,7 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'high_T_susceptibility';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'MPMS_AC_susceptibility';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -266,7 +266,7 @@
       
       
       
-      <li><a href="https://github.com/pmagpy/rockmagpy-notebooks/issues/new?title=Issue%20on%20page%20%2Fhigh_T_susceptibility.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/pmagpy/rockmagpy-notebooks/issues/new?title=Issue%20on%20page%20%2FMPMS_AC_susceptibility.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -296,7 +296,7 @@
       
       
       
-      <li><a href="_sources/high_T_susceptibility.ipynb" target="_blank"
+      <li><a href="_sources/MPMS_AC_susceptibility.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -380,7 +380,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Plot high temperature susceptibility data (Kappabridge X-T)</h1>
+    <h1>Plot MPMS AC susceptibility data</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -393,9 +393,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-scientific-python-libraries">Import scientific python libraries</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-data">Import data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-project-export-contains-data-from-all-the-experiments">The project export contains data from all the experiments</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-isolate-the-kappabridge-x-t-data-from-your-project-export">Let’s isolate the Kappabridge X-T data from your project export</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-filter-for-the-mpms-ac-x-t-data-from-your-project-export">Let’s filter for the MPMS AC X-T data from your project export</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#now-let-s-select-a-specimen-and-its-x-t-experiment-of-interest">Now let’s select a specimen and its X-T experiment of interest</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#now-let-s-plot-the-x-t-data-based-on-the-selection-of-the-previous-cell">Now let’s plot the X-T data based on the selection of the previous cell</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-the-data">save the data</a></li>
 </ul>
             </nav>
@@ -408,9 +407,10 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="plot-high-temperature-susceptibility-data-kappabridge-x-t">
-<h1>Plot high temperature susceptibility data (Kappabridge X-T)<a class="headerlink" href="#plot-high-temperature-susceptibility-data-kappabridge-x-t" title="Link to this heading">#</a></h1>
-<p>This notebook visualizes data from high-temperature experiments conducted on a Kappabridge instrument and exported to MagIC format.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="plot-mpms-ac-susceptibility-data">
+<h1>Plot MPMS AC susceptibility data<a class="headerlink" href="#plot-mpms-ac-susceptibility-data" title="Link to this heading">#</a></h1>
+<p>This notebook visualizes data from low-temperature experiments conducted on an MPMS instrument and exported to MagIC format.</p>
+<p><strong>MPMS AC in phase and out of phase susceptibility vs temperature</strong></p>
 <section id="import-scientific-python-libraries">
 <h2>Import scientific python libraries<a class="headerlink" href="#import-scientific-python-libraries" title="Link to this heading">#</a></h2>
 <p>Run the cell below to import the functions needed for the notebook.</p>
@@ -930,7 +930,7 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
 <h2>The project export contains data from all the experiments<a class="headerlink" href="#the-project-export-contains-data-from-all-the-experiments" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>LP refers to lab protocol</p></li>
-<li><p>X-T refers to high-temperature susceptibility vs. temperature experiments done on the Kappabridge</p></li>
+<li><p>let’s extract the AC susceptibility data measured on the MPMS</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -948,12 +948,12 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
 </div>
 </div>
 </section>
-<section id="let-s-isolate-the-kappabridge-x-t-data-from-your-project-export">
-<h2>Let’s isolate the Kappabridge X-T data from your project export<a class="headerlink" href="#let-s-isolate-the-kappabridge-x-t-data-from-your-project-export" title="Link to this heading">#</a></h2>
+<section id="let-s-filter-for-the-mpms-ac-x-t-data-from-your-project-export">
+<h2>Let’s filter for the MPMS AC X-T data from your project export<a class="headerlink" href="#let-s-filter-for-the-mpms-ac-x-t-data-from-your-project-export" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># the .dropna(axis=1, how=&#39;all&#39;).reset_index(drop=1) code is used to remove columns that are all NaNs and reset the index</span>
-<span class="n">XT_measurements</span> <span class="o">=</span> <span class="n">measurements</span><span class="p">[</span><span class="n">measurements</span><span class="p">[</span><span class="s1">&#39;method_codes&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;LP-X-T&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">XT_measurements</span> <span class="o">=</span> <span class="n">measurements</span><span class="p">[</span><span class="n">measurements</span><span class="p">[</span><span class="s1">&#39;method_codes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;LP-X:LP-X-T:LP-X-F&#39;</span><span class="p">)]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">XT_measurements</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -979,6 +979,8 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
       <th></th>
       <th>experiment</th>
       <th>instrument_codes</th>
+      <th>meas_field_ac</th>
+      <th>meas_freq</th>
       <th>meas_temp</th>
       <th>measurement</th>
       <th>method_codes</th>
@@ -987,79 +989,95 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
       <th>specimen</th>
       <th>standard</th>
       <th>susc_chi_mass</th>
+      <th>susc_chi_qdr_mass</th>
       <th>timestamp</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>IRM-KappaF-LP-X-T-6819</td>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-14656</td>
       <td>IRM-MPMS3</td>
-      <td>297.1</td>
-      <td>blank_2022-06-03-IRM-KappaF-LP-X-T-6819-6819-89</td>
-      <td>LP-X-T</td>
+      <td>0.0003</td>
+      <td>1.00</td>
+      <td>9.99</td>
+      <td>DX1-4r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-146...</td>
+      <td>LP-X:LP-X-T:LP-X-F:LP-X-H</td>
       <td>g</td>
-      <td>89.0</td>
-      <td>blank_2022-06-03</td>
+      <td>1.0</td>
+      <td>DX1-4r</td>
       <td>u</td>
-      <td>-1.550000e-09</td>
-      <td>2022:06:03:11:54:06.00</td>
+      <td>3.660000e-07</td>
+      <td>-5.430000e-10</td>
+      <td>2024:05:23:16:36:06.00</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>IRM-KappaF-LP-X-T-6819</td>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-14656</td>
       <td>IRM-MPMS3</td>
-      <td>301.9</td>
-      <td>blank_2022-06-03-IRM-KappaF-LP-X-T-6819-6819-89</td>
-      <td>LP-X-T</td>
+      <td>0.0003</td>
+      <td>10.01</td>
+      <td>9.99</td>
+      <td>DX1-4r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-146...</td>
+      <td>LP-X:LP-X-T:LP-X-F:LP-X-H</td>
       <td>g</td>
-      <td>89.0</td>
-      <td>blank_2022-06-03</td>
+      <td>2.0</td>
+      <td>DX1-4r</td>
       <td>u</td>
-      <td>-1.550000e-09</td>
-      <td>2022:06:03:11:54:06.00</td>
+      <td>3.640000e-07</td>
+      <td>1.560000e-09</td>
+      <td>2024:05:23:16:36:06.00</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>IRM-KappaF-LP-X-T-6819</td>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-14656</td>
       <td>IRM-MPMS3</td>
-      <td>308.1</td>
-      <td>blank_2022-06-03-IRM-KappaF-LP-X-T-6819-6819-89</td>
-      <td>LP-X-T</td>
+      <td>0.0003</td>
+      <td>100.06</td>
+      <td>9.99</td>
+      <td>DX1-4r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-146...</td>
+      <td>LP-X:LP-X-T:LP-X-F:LP-X-H</td>
       <td>g</td>
-      <td>89.0</td>
-      <td>blank_2022-06-03</td>
+      <td>3.0</td>
+      <td>DX1-4r</td>
       <td>u</td>
-      <td>-1.550000e-09</td>
-      <td>2022:06:03:11:54:06.00</td>
+      <td>3.610000e-07</td>
+      <td>1.880000e-09</td>
+      <td>2024:05:23:16:36:06.00</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>IRM-KappaF-LP-X-T-6819</td>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-14656</td>
       <td>IRM-MPMS3</td>
-      <td>313.4</td>
-      <td>blank_2022-06-03-IRM-KappaF-LP-X-T-6819-6819-89</td>
-      <td>LP-X-T</td>
+      <td>0.0003</td>
+      <td>1.00</td>
+      <td>20.00</td>
+      <td>DX1-4r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-146...</td>
+      <td>LP-X:LP-X-T:LP-X-F:LP-X-H</td>
       <td>g</td>
-      <td>89.0</td>
-      <td>blank_2022-06-03</td>
+      <td>4.0</td>
+      <td>DX1-4r</td>
       <td>u</td>
-      <td>-1.550000e-09</td>
-      <td>2022:06:03:11:54:06.00</td>
+      <td>1.960000e-07</td>
+      <td>1.340000e-09</td>
+      <td>2024:05:23:16:36:06.00</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>IRM-KappaF-LP-X-T-6819</td>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-14656</td>
       <td>IRM-MPMS3</td>
-      <td>319.5</td>
-      <td>blank_2022-06-03-IRM-KappaF-LP-X-T-6819-6819-89</td>
-      <td>LP-X-T</td>
+      <td>0.0003</td>
+      <td>10.01</td>
+      <td>20.00</td>
+      <td>DX1-4r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-146...</td>
+      <td>LP-X:LP-X-T:LP-X-F:LP-X-H</td>
       <td>g</td>
-      <td>89.0</td>
-      <td>blank_2022-06-03</td>
+      <td>5.0</td>
+      <td>DX1-4r</td>
       <td>u</td>
-      <td>-1.550000e-09</td>
-      <td>2022:06:03:11:54:06.00</td>
+      <td>1.950000e-07</td>
+      <td>8.300000e-10</td>
+      <td>2024:05:23:16:36:06.00</td>
     </tr>
   </tbody>
 </table>
@@ -1102,24 +1120,69 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "c41860a5386c4414a52f36887eb0afec", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "a7ac846136cf45ea812852943f1fddbd", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "376408b21b2548e8b6410f3a4d4cb2c7", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "bc21658e7ae14ac4a4cf8b1089f48244", "version_major": 2, "version_minor": 0}</script></div>
 </div>
-</section>
-<section id="now-let-s-plot-the-x-t-data-based-on-the-selection-of-the-previous-cell">
-<h2>Now let’s plot the X-T data based on the selection of the previous cell<a class="headerlink" href="#now-let-s-plot-the-x-t-data-based-on-the-selection-of-the-previous-cell" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_MPMS_AC_X_T</span><span class="p">(</span><span class="n">experiment</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">phase</span><span class="o">=</span><span class="s1">&#39;in&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function plots the AC susceptibility data from the MPMS-X for a given experiment</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    experiment : pandas DataFrame</span>
+<span class="sd">        The experiment table from the MagIC contribution</span>
+<span class="sd">    frequency : float</span>
+<span class="sd">        The frequency of the AC measurement in Hz</span>
+<span class="sd">    phase : str</span>
+<span class="sd">        The phase of the AC measurement (&#39;in&#39; or &#39;out&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">phase</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;in&#39;</span><span class="p">,</span> <span class="s1">&#39;out&#39;</span><span class="p">],</span> <span class="s1">&#39;phase should be either &quot;in&quot; or &quot;out&quot;&#39;</span>
+    <span class="k">assert</span> <span class="n">frequency</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">frequency</span> <span class="ow">in</span> <span class="n">experiment</span><span class="p">[</span><span class="s1">&#39;frequency&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">(),</span> <span class="s1">&#39;frequency should be one of the available frequencies&#39;</span>
+
+    <span class="k">if</span> <span class="n">frequency</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># that means we will plot all frequencies</span>
+        <span class="n">meas_freqs</span> <span class="o">=</span> <span class="n">experiment</span><span class="p">[</span><span class="s1">&#39;meas_freq&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">meas_freqs</span> <span class="o">=</span> <span class="p">[</span><span class="n">frequency</span><span class="p">]</span>
+    
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">meas_freq</span> <span class="ow">in</span> <span class="n">meas_freqs</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">experiment</span><span class="p">[(</span><span class="n">experiment</span><span class="p">[</span><span class="s1">&#39;meas_freq&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">meas_freq</span><span class="p">)]</span>
+        <span class="c1"># plot the data</span>
+        <span class="k">if</span> <span class="n">phase</span> <span class="o">==</span> <span class="s1">&#39;in&#39;</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;meas_temp&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;susc_chi_mass&#39;</span><span class="p">],</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">meas_freq</span><span class="si">}</span><span class="s1"> Hz&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;meas_temp&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;susc_chi_qdr_mass&#39;</span><span class="p">],</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">meas_freq</span><span class="si">}</span><span class="s1"> Hz&#39;</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Temperature (K)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$m^3/kg$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;AC Susceptibility &#39;</span><span class="o">+</span><span class="n">phase</span><span class="o">+</span><span class="s1">&#39; phase&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">ax</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected_experiment</span> <span class="o">=</span> <span class="n">XT_measurements</span><span class="p">[(</span><span class="n">XT_measurements</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">specimen_dropdown</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">&amp;</span> 
                                       <span class="p">(</span><span class="n">XT_measurements</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">experiment_dropdown</span><span class="o">.</span><span class="n">value</span><span class="p">)]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
-
-<span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">plot_X_T</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">temp_unit</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">remove_holder</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">min_temp</span><span class="o">=</span><span class="mi">650</span><span class="p">,</span> <span class="n">max_temp</span><span class="o">=</span><span class="mi">700</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_MPMS_AC_X_T</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">phase</span><span class="o">=</span><span class="s1">&#39;in&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/6c7b379483f29991455020db5d3177bf683422c0768d616adf1031c3f760c687.png"><img alt="_images/6c7b379483f29991455020db5d3177bf683422c0768d616adf1031c3f760c687.png" src="_images/6c7b379483f29991455020db5d3177bf683422c0768d616adf1031c3f760c687.png" style="width: 560px; height: 558px;" /></a>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:title={&#39;center&#39;:&#39;AC Susceptibility in phase&#39;}, xlabel=&#39;Temperature (K)&#39;, ylabel=&#39;$m^3/kg$&#39;&gt;
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/67535d3859ce1f85a6cd4ab0d43c18c73461974a4d7238e1ac23c685b8793c51.png"><img alt="_images/67535d3859ce1f85a6cd4ab0d43c18c73461974a4d7238e1ac23c685b8793c51.png" src="_images/67535d3859ce1f85a6cd4ab0d43c18c73461974a4d7238e1ac23c685b8793c51.png" style="width: 549px; height: 558px;" /></a>
 </div>
 </div>
 </section>
@@ -1166,7 +1229,7 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
 <span class="k">def</span> <span class="nf">save_plot</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
     <span class="k">with</span> <span class="n">out</span><span class="p">:</span>
         <span class="n">out</span><span class="o">.</span><span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">plot_X_T</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">)</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">plot_MPMS_AC_X_T</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">output_text</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     
@@ -1177,7 +1240,7 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1cae5f050871465cb84e2a87bc9bbe2f", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "e4eae287ca2d45b1a53b0ea4e143103c", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a3fdbdbd7cae449fb60c89e29bedcf46", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "f7d0814f63dd416d98e0ff2c5ff69d4e", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 </section>
@@ -1231,9 +1294,8 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-scientific-python-libraries">Import scientific python libraries</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-data">Import data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-project-export-contains-data-from-all-the-experiments">The project export contains data from all the experiments</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-isolate-the-kappabridge-x-t-data-from-your-project-export">Let’s isolate the Kappabridge X-T data from your project export</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-filter-for-the-mpms-ac-x-t-data-from-your-project-export">Let’s filter for the MPMS AC X-T data from your project export</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#now-let-s-select-a-specimen-and-its-x-t-experiment-of-interest">Now let’s select a specimen and its X-T experiment of interest</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#now-let-s-plot-the-x-t-data-based-on-the-selection-of-the-previous-cell">Now let’s plot the X-T data based on the selection of the previous cell</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-the-data">save the data</a></li>
 </ul>
   </nav></div>
