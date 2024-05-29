@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Plot high temperature susceptibility data (Kappabridge X-T) &#8212; RockmagPy Documentation</title>
+    <title>Plot high temperature susceptibility data (Kappabridge \(\chi\)-T) &#8212; RockmagPy Documentation</title>
   
   
   
@@ -57,9 +57,13 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'high_T_susceptibility';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Plot and analyze anisotropy data (AMS)" href="Anisotropy_plot_AMS.html" />
+    <link rel="prev" title="Fit and remove the goethite component" href="MPMS_goethite_fit.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -121,8 +125,6 @@
     <div class="bd-container__inner bd-page-width">
       
       
-      
-        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -187,6 +189,10 @@
 <li class="toctree-l1"><a class="reference internal" href="MPMS_plot_dc.html">Plot MPMS data (DC)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="MPMS_verwey_fit.html">Estimate the Verwey transition temperature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="MPMS_goethite_fit.html">Fit and remove the goethite component</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Thermomagnetic notebooks</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Plot high temperature susceptibility data (Kappabridge <span class="math notranslate nohighlight">\(\chi\)</span>-T)</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Anisotropy notebooks</span></p>
 <ul class="nav bd-sidenav">
@@ -380,7 +386,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Plot high temperature susceptibility data (Kappabridge X-T)</h1>
+    <h1>Plot high temperature susceptibility data (Kappabridge \chi-T)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -396,7 +402,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-isolate-the-kappabridge-x-t-data-from-your-project-export">Let’s isolate the Kappabridge X-T data from your project export</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#now-let-s-select-a-specimen-and-its-x-t-experiment-of-interest">Now let’s select a specimen and its X-T experiment of interest</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#now-let-s-plot-the-x-t-data-based-on-the-selection-of-the-previous-cell">Now let’s plot the X-T data based on the selection of the previous cell</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-the-data">save the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-the-plot">Save the plot</a></li>
 </ul>
             </nav>
         </div>
@@ -408,8 +414,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="plot-high-temperature-susceptibility-data-kappabridge-x-t">
-<h1>Plot high temperature susceptibility data (Kappabridge X-T)<a class="headerlink" href="#plot-high-temperature-susceptibility-data-kappabridge-x-t" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="plot-high-temperature-susceptibility-data-kappabridge-chi-t">
+<h1>Plot high temperature susceptibility data (Kappabridge <span class="math notranslate nohighlight">\(\chi\)</span>-T)<a class="headerlink" href="#plot-high-temperature-susceptibility-data-kappabridge-chi-t" title="Link to this heading">#</a></h1>
 <p>This notebook visualizes data from high-temperature experiments conducted on a Kappabridge instrument and exported to MagIC format.</p>
 <section id="import-scientific-python-libraries">
 <h2>Import scientific python libraries<a class="headerlink" href="#import-scientific-python-libraries" title="Link to this heading">#</a></h2>
@@ -436,26 +442,29 @@ document.write(`
 </section>
 <section id="import-data">
 <h2>Import data<a class="headerlink" href="#import-data" title="Link to this heading">#</a></h2>
-<p>We can take the same approach as in the <code class="docutils literal notranslate"><span class="pre">rockmag_data_unpack.ipynb</span></code> notebook to bring the MagIC data into the notebook as a Contribution. To bring in a different contribution, set the directory path (currently <code class="docutils literal notranslate"><span class="pre">'./example_data/SSRM2022C'</span></code>) and the share key for your MagIC contribution which you can find by clicking on the “Share” button in the MagIC database.</p>
+<p>We can take the same approach as in the <code class="docutils literal notranslate"><span class="pre">rockmag_data_unpack.ipynb</span></code> notebook to bring the MagIC data into the notebook as a Contribution.</p>
+<p>To bring in a different contribution than the one shown in this example:</p>
+<ul class="simple">
+<li><p>set the directory path (currently <code class="docutils literal notranslate"><span class="pre">'./example_data/SSRM2022C'</span></code>)</p></li>
+<li><p>set the <code class="docutils literal notranslate"><span class="pre">magic_id</span></code> (20100 for this private contribution)</p></li>
+<li><p>if the contribution is private, set the share key for your MagIC contribution which you can find by clicking on the “Share” button in the MagIC database.</p></li>
+</ul>
 <figure>
   <img src="book/images/MagIC_private_contribution_1.png" alt="Description of the image" width="800">
 </figure>
-<p>copy the share key highlighted in grey in the following image to the <code class="docutils literal notranslate"><span class="pre">share_key</span></code> variable in the cell below.</p>
+<p>Copy the share key highlighted in grey in the following image to the <code class="docutils literal notranslate"><span class="pre">share_key</span></code> parameter in the cell below.</p>
 <figure>
   <img src="book/images/MagIC_private_contribution_2.png" alt="Description of the image" width="800">
-</figure>
-<p><strong>change the directory path and file name in the cell below to load your own data</strong></p>
-<div class="cell docutils container">
+</figure><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define the path to the folder </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#define these three parameters to match your data</span>
+<span class="n">magic_id</span> <span class="o">=</span> <span class="s1">&#39;20100&#39;</span>
+<span class="n">share_key</span> <span class="o">=</span> <span class="s1">&#39;1068543b-13d5-4b7b-9069-cc35de784e38&#39;</span>
 <span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;example_data/SSRM2022C&#39;</span>
-<span class="c1"># download the data from the MagIC database using my private contribution key </span>
-<span class="n">result</span><span class="p">,</span> <span class="n">magic_file</span> <span class="o">=</span> <span class="n">ipmag</span><span class="o">.</span><span class="n">download_magic_from_id</span><span class="p">(</span><span class="s1">&#39;20100&#39;</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">dir_path</span><span class="p">,</span> <span class="n">share_key</span><span class="o">=</span><span class="s1">&#39;1068543b-13d5-4b7b-9069-cc35de784e38&#39;</span><span class="p">)</span>
-<span class="c1"># unpack the MagIC file</span>
+
+<span class="n">result</span><span class="p">,</span> <span class="n">magic_file</span> <span class="o">=</span> <span class="n">ipmag</span><span class="o">.</span><span class="n">download_magic_from_id</span><span class="p">(</span><span class="n">magic_id</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">dir_path</span><span class="p">,</span> <span class="n">share_key</span><span class="o">=</span><span class="n">share_key</span><span class="p">)</span>
 <span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="n">magic_file</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">)</span>
-<span class="c1"># get the contribution object</span>
 <span class="n">contribution</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">Contribution</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
-<span class="c1"># get the measurements table</span>
 <span class="n">measurements</span> <span class="o">=</span> <span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;measurements&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
 <span class="n">measurements</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
 </pre></div>
@@ -464,23 +473,23 @@ document.write(`
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Download successful. File saved to: example_data/SSRM2022C/magic_contribution_20100.txt
 working on:  &#39;contribution&#39;
-1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/contribution.txt
-contribution  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/contribution.txt
+1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/SSRM2022C/contribution.txt
+contribution  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/SSRM2022C/contribution.txt
 working on:  &#39;locations&#39;
-6  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/locations.txt
-locations  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/locations.txt
+6  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/SSRM2022C/locations.txt
+locations  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/SSRM2022C/locations.txt
 working on:  &#39;sites&#39;
-6  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/sites.txt
-sites  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/sites.txt
+6  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/SSRM2022C/sites.txt
+sites  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/SSRM2022C/sites.txt
 working on:  &#39;samples&#39;
-16  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/samples.txt
-samples  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/samples.txt
+16  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/SSRM2022C/samples.txt
+samples  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/SSRM2022C/samples.txt
 working on:  &#39;specimens&#39;
-47  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/specimens.txt
-specimens  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/specimens.txt
+47  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/SSRM2022C/specimens.txt
+specimens  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/SSRM2022C/specimens.txt
 working on:  &#39;measurements&#39;
-139658  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/measurements.txt
-measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/measurements.txt
+141061  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/SSRM2022C/measurements.txt
+measurements  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/SSRM2022C/measurements.txt
 -I- Using online data model
 -I- Getting method codes from earthref.org
 -I- Importing controlled vocabularies from https://earthref.org
@@ -569,10 +578,10 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
   </thead>
   <tbody>
     <tr>
-      <th>DX1-4r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-14656-1</th>
+      <th>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-1</th>
       <td>NaN</td>
       <td>NaN</td>
-      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-14656</td>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667</td>
       <td>IRM-MPMS3</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -584,16 +593,16 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
       <td>NaN</td>
       <td>1.00</td>
       <td>NaN</td>
-      <td>9.99</td>
-      <td>DX1-4r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-146...</td>
-      <td>LP-X:LP-X-T:LP-X-F:LP-X-H</td>
+      <td>10.0</td>
+      <td>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-1</td>
+      <td>LP-X:LP-X-T:LP-X-F</td>
       <td>g</td>
       <td>1.0</td>
-      <td>DX1-4r</td>
+      <td>DA4-r</td>
       <td>u</td>
-      <td>3.660000e-07</td>
-      <td>-5.430000e-10</td>
-      <td>2024:05:23:16:36:06.00</td>
+      <td>6.320000e-07</td>
+      <td>1.350000e-09</td>
+      <td>2024:05:29:09:35:19.00</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -601,10 +610,10 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
       <td>NaN</td>
     </tr>
     <tr>
-      <th>DX1-4r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-14656-2</th>
+      <th>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-2</th>
       <td>NaN</td>
       <td>NaN</td>
-      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-14656</td>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667</td>
       <td>IRM-MPMS3</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -614,18 +623,18 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
       <td>NaN</td>
       <td>0.0003</td>
       <td>NaN</td>
-      <td>10.01</td>
+      <td>5.32</td>
       <td>NaN</td>
-      <td>9.99</td>
-      <td>DX1-4r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-146...</td>
-      <td>LP-X:LP-X-T:LP-X-F:LP-X-H</td>
+      <td>10.0</td>
+      <td>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-2</td>
+      <td>LP-X:LP-X-T:LP-X-F</td>
       <td>g</td>
       <td>2.0</td>
-      <td>DX1-4r</td>
+      <td>DA4-r</td>
       <td>u</td>
-      <td>3.640000e-07</td>
-      <td>1.560000e-09</td>
-      <td>2024:05:23:16:36:06.00</td>
+      <td>6.300000e-07</td>
+      <td>1.500000e-09</td>
+      <td>2024:05:29:09:35:19.00</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -633,10 +642,10 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
       <td>NaN</td>
     </tr>
     <tr>
-      <th>DX1-4r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-14656-3</th>
+      <th>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-3</th>
       <td>NaN</td>
       <td>NaN</td>
-      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-14656</td>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667</td>
       <td>IRM-MPMS3</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -646,18 +655,18 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
       <td>NaN</td>
       <td>0.0003</td>
       <td>NaN</td>
-      <td>100.06</td>
+      <td>28.26</td>
       <td>NaN</td>
-      <td>9.99</td>
-      <td>DX1-4r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-146...</td>
-      <td>LP-X:LP-X-T:LP-X-F:LP-X-H</td>
+      <td>10.0</td>
+      <td>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-3</td>
+      <td>LP-X:LP-X-T:LP-X-F</td>
       <td>g</td>
       <td>3.0</td>
-      <td>DX1-4r</td>
+      <td>DA4-r</td>
       <td>u</td>
-      <td>3.610000e-07</td>
-      <td>1.880000e-09</td>
-      <td>2024:05:23:16:36:06.00</td>
+      <td>6.320000e-07</td>
+      <td>9.640000e-10</td>
+      <td>2024:05:29:09:35:19.00</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -665,10 +674,10 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
       <td>NaN</td>
     </tr>
     <tr>
-      <th>DX1-4r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-14656-4</th>
+      <th>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-4</th>
       <td>NaN</td>
       <td>NaN</td>
-      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-14656</td>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667</td>
       <td>IRM-MPMS3</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -678,18 +687,18 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
       <td>NaN</td>
       <td>0.0003</td>
       <td>NaN</td>
-      <td>1.00</td>
+      <td>150.47</td>
       <td>NaN</td>
-      <td>20.00</td>
-      <td>DX1-4r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-146...</td>
-      <td>LP-X:LP-X-T:LP-X-F:LP-X-H</td>
+      <td>10.0</td>
+      <td>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-4</td>
+      <td>LP-X:LP-X-T:LP-X-F</td>
       <td>g</td>
       <td>4.0</td>
-      <td>DX1-4r</td>
+      <td>DA4-r</td>
       <td>u</td>
-      <td>1.960000e-07</td>
-      <td>1.340000e-09</td>
-      <td>2024:05:23:16:36:06.00</td>
+      <td>6.300000e-07</td>
+      <td>1.550000e-09</td>
+      <td>2024:05:29:09:35:19.00</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -697,10 +706,10 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
       <td>NaN</td>
     </tr>
     <tr>
-      <th>DX1-4r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-14656-5</th>
+      <th>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-5</th>
       <td>NaN</td>
       <td>NaN</td>
-      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-14656</td>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667</td>
       <td>IRM-MPMS3</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -710,18 +719,18 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
       <td>NaN</td>
       <td>0.0003</td>
       <td>NaN</td>
-      <td>10.01</td>
+      <td>800.46</td>
       <td>NaN</td>
-      <td>20.00</td>
-      <td>DX1-4r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-146...</td>
-      <td>LP-X:LP-X-T:LP-X-F:LP-X-H</td>
+      <td>10.0</td>
+      <td>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-5</td>
+      <td>LP-X:LP-X-T:LP-X-F</td>
       <td>g</td>
       <td>5.0</td>
-      <td>DX1-4r</td>
+      <td>DA4-r</td>
       <td>u</td>
-      <td>1.950000e-07</td>
-      <td>8.300000e-10</td>
-      <td>2024:05:23:16:36:06.00</td>
+      <td>6.400000e-07</td>
+      <td>-5.730000e-09</td>
+      <td>2024:05:29:09:35:19.00</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -922,15 +931,17 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
     </tr>
   </tbody>
 </table>
-<p>139658 rows × 29 columns</p>
+<p>141061 rows × 29 columns</p>
 </div></div></div>
 </div>
 </section>
 <section id="the-project-export-contains-data-from-all-the-experiments">
 <h2>The project export contains data from all the experiments<a class="headerlink" href="#the-project-export-contains-data-from-all-the-experiments" title="Link to this heading">#</a></h2>
+<p>Each measurement in a MagIC measurements table has a <code class="docutils literal notranslate"><span class="pre">method_codes</span></code> value. These method codes come from a “controlled vocabulary” (<a class="reference external" href="https://www2.earthref.org/MagIC/method-codes">https://www2.earthref.org/MagIC/method-codes</a>).</p>
+<p>In the method codes used for the example contribution:</p>
 <ul class="simple">
-<li><p>LP refers to lab protocol</p></li>
-<li><p>X-T refers to high-temperature susceptibility vs. temperature experiments done on the Kappabridge</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LP</span></code> refers to lab protocol</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">X-T</span></code> refers to susceptibility vs. temperature experiments done on the Kappabridge</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -939,7 +950,7 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;LP-X:LP-X-T:LP-X-F:LP-X-H&#39;, &#39;LP-X:LP-X-T:LP-X-F&#39;, &#39;LP-X-T&#39;,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;LP-X:LP-X-T:LP-X-F&#39;, &#39;LP-X:LP-X-T:LP-X-F:LP-X-H&#39;, &#39;LP-X-T&#39;,
        &#39;LP-HYS&#39;, &#39;LP-BCR-BF&#39;, &#39;LP-FORC&#39;, &#39;LP-FC&#39;, &#39;LP-ZFC&#39;,
        &#39;LP-CW-SIRM:LP-MC&#39;, &#39;LP-CW-SIRM:LP-MW&#39;, &#39;LP-DIR-AF&#39;, &#39;LP-AN-ARM&#39;,
        &#39;LP-ARM-AFD&#39;], dtype=object)
@@ -1075,108 +1086,45 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># make two drop down ipywidgets for the user to select the sample and the associated experiment</span>
-<span class="n">specimen_dropdown</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span>
-    <span class="n">options</span><span class="o">=</span><span class="n">XT_measurements</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">(),</span>
-    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;specimen:&#39;</span><span class="p">,</span>
-    <span class="n">disabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">experiment_dropdown</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span>
-    <span class="n">options</span><span class="o">=</span><span class="n">XT_measurements</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">(),</span>
-    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Experiment:&#39;</span><span class="p">,</span>
-    <span class="n">disabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="c1"># make sure to set the default value of the experiment dropdown to the first experiment in the specimen dropdown</span>
-<span class="n">experiment_dropdown</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">XT_measurements</span><span class="p">[</span><span class="n">XT_measurements</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">specimen_dropdown</span><span class="o">.</span><span class="n">value</span><span class="p">][</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
-
-<span class="c1"># make sure to update the experiment dropdown based on the specimen selected</span>
-<span class="k">def</span> <span class="nf">update_experiment</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
-    <span class="n">experiment_dropdown</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">XT_measurements</span><span class="p">[</span><span class="n">XT_measurements</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">specimen_dropdown</span><span class="o">.</span><span class="n">value</span><span class="p">][</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
-
-<span class="n">specimen_dropdown</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">update_experiment</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">)</span>
-
-<span class="c1"># display the dropdowns</span>
-<span class="n">display</span><span class="p">(</span><span class="n">specimen_dropdown</span><span class="p">,</span> <span class="n">experiment_dropdown</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">specimen</span><span class="p">,</span> <span class="n">experiment</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">interactive_specimen_experiment_selection</span><span class="p">(</span><span class="n">XT_measurements</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "c41860a5386c4414a52f36887eb0afec", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "a7ac846136cf45ea812852943f1fddbd", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "6f214570722744fc91afdaf9c1d6d761", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "7e8c136d47f345e2a76f94c9457ad319", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="now-let-s-plot-the-x-t-data-based-on-the-selection-of-the-previous-cell">
 <h2>Now let’s plot the X-T data based on the selection of the previous cell<a class="headerlink" href="#now-let-s-plot-the-x-t-data-based-on-the-selection-of-the-previous-cell" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected_experiment</span> <span class="o">=</span> <span class="n">XT_measurements</span><span class="p">[(</span><span class="n">XT_measurements</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">specimen_dropdown</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">&amp;</span> 
-                                      <span class="p">(</span><span class="n">XT_measurements</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">experiment_dropdown</span><span class="o">.</span><span class="n">value</span><span class="p">)]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected_experiment</span> <span class="o">=</span> <span class="n">XT_measurements</span><span class="p">[(</span><span class="n">XT_measurements</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">specimen</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">&amp;</span> 
+                                      <span class="p">(</span><span class="n">XT_measurements</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">experiment</span><span class="o">.</span><span class="n">value</span><span class="p">)]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">plot_X_T</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">temp_unit</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">remove_holder</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">min_temp</span><span class="o">=</span><span class="mi">650</span><span class="p">,</span> <span class="n">max_temp</span><span class="o">=</span><span class="mi">700</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">plot_X_T</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">temp_unit</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">remove_holder</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">min_temp</span><span class="o">=</span><span class="mi">650</span><span class="p">,</span> <span class="n">max_temp</span><span class="o">=</span><span class="mi">700</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/6c7b379483f29991455020db5d3177bf683422c0768d616adf1031c3f760c687.png"><img alt="_images/6c7b379483f29991455020db5d3177bf683422c0768d616adf1031c3f760c687.png" src="_images/6c7b379483f29991455020db5d3177bf683422c0768d616adf1031c3f760c687.png" style="width: 560px; height: 558px;" /></a>
+<a class="reference internal image-reference" href="_images/d947541fe9db23e30a871935dd43df309c6c25fa5d092a176bc63326a4eb74f6.png"><img alt="_images/d947541fe9db23e30a871935dd43df309c6c25fa5d092a176bc63326a4eb74f6.png" src="_images/d947541fe9db23e30a871935dd43df309c6c25fa5d092a176bc63326a4eb74f6.png" style="width: 396px; height: 394px;" /></a>
 </div>
 </div>
 </section>
-<section id="save-the-data">
-<h2>save the data<a class="headerlink" href="#save-the-data" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>you can put the name of the file (including its directory relative to this notebook) in the text box below</p></li>
-<li><p>the click the <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">data</span></code> button to save the data</p></li>
-<li><p>the available file formats for figures are:</p></li>
-</ul>
-<p><code class="docutils literal notranslate"><span class="pre">eps</span></code>: ‘Encapsulated Postscript’,</p>
-<p><code class="docutils literal notranslate"><span class="pre">jpg</span></code>: ‘Joint Photographic Experts Group’,</p>
-<p><code class="docutils literal notranslate"><span class="pre">jpeg</span></code>: ‘Joint Photographic Experts Group’,</p>
-<p><code class="docutils literal notranslate"><span class="pre">pdf</span></code>: ‘Portable Document Format’,</p>
-<p><code class="docutils literal notranslate"><span class="pre">pgf</span></code>: ‘PGF code for LaTeX’,</p>
-<p><code class="docutils literal notranslate"><span class="pre">png</span></code>: ‘Portable Network Graphics’,</p>
-<p><code class="docutils literal notranslate"><span class="pre">ps</span></code>: ‘Postscript’,</p>
-<p><code class="docutils literal notranslate"><span class="pre">raw</span></code>: ‘Raw RGBA bitmap’,</p>
-<p><code class="docutils literal notranslate"><span class="pre">rgba</span></code>: ‘Raw RGBA bitmap’,</p>
-<p><code class="docutils literal notranslate"><span class="pre">svg</span></code>: ‘Scalable Vector Graphics’,</p>
-<p><code class="docutils literal notranslate"><span class="pre">svgz</span></code>: ‘Scalable Vector Graphics’,</p>
-<p><code class="docutils literal notranslate"><span class="pre">tif</span></code>: ‘Tagged Image File Format’</p>
-<p><code class="docutils literal notranslate"><span class="pre">tiff</span></code>: ‘Tagged Image File Format’</p>
-<p><strong>but just do pdf, png, or jpg</strong></p>
+<section id="save-the-plot">
+<h2>Save the plot<a class="headerlink" href="#save-the-plot" title="Link to this heading">#</a></h2>
+<p>Put the name of the file in the cell below. There are many available file formats for figures such as: <code class="docutils literal notranslate"><span class="pre">jpg</span></code>, <code class="docutils literal notranslate"><span class="pre">pdf</span></code>, <code class="docutils literal notranslate"><span class="pre">png</span></code>. Whatever you choose in the file name will be the file type.</p>
+<p>Set the <code class="docutils literal notranslate"><span class="pre">save_directory</span></code>. If you want it to be the folder that the notebook is in, set it to be <code class="docutils literal notranslate"><span class="pre">'.'</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># now let&#39;s make an ipywitgets text box and a button for saving the plot to a given directory and file name </span>
-<span class="n">output_text</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span>
-    <span class="n">value</span><span class="o">=</span><span class="s1">&#39;output.png&#39;</span><span class="p">,</span>
-    <span class="n">placeholder</span><span class="o">=</span><span class="s1">&#39;output.png&#39;</span><span class="p">,</span>
-    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Output file:&#39;</span><span class="p">,</span>
-    <span class="n">disabled</span><span class="o">=</span><span class="kc">False</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">file_name</span> <span class="o">=</span> <span class="s1">&#39;output.png&#39;</span>
+<span class="n">save_directory</span> <span class="o">=</span> <span class="s1">&#39;./example_data/SSRM2022C&#39;</span> 
 
-<span class="n">save_button</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span>
-    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Save Plot&#39;</span><span class="p">,</span>
-    <span class="n">disabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">button_style</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="c1"># &#39;success&#39;, &#39;info&#39;, &#39;warning&#39;, &#39;danger&#39; or &#39;&#39;</span>
-    <span class="n">tooltip</span><span class="o">=</span><span class="s1">&#39;Save the plot&#39;</span><span class="p">,</span>
-    <span class="n">icon</span><span class="o">=</span><span class="s1">&#39;save&#39;</span> <span class="c1"># (FontAwesome names without the `fa-` prefix)</span>
-<span class="p">)</span>
-
-<span class="n">out</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Output</span><span class="p">()</span>
-<span class="k">def</span> <span class="nf">save_plot</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
-    <span class="k">with</span> <span class="n">out</span><span class="p">:</span>
-        <span class="n">out</span><span class="o">.</span><span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">plot_X_T</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">output_text</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-    
-<span class="n">save_button</span><span class="o">.</span><span class="n">on_click</span><span class="p">(</span><span class="n">save_plot</span><span class="p">)</span>
-
-<span class="n">display</span><span class="p">(</span><span class="n">output_text</span><span class="p">,</span> <span class="n">save_button</span><span class="p">)</span>
+<span class="n">file_path</span> <span class="o">=</span> <span class="n">save_directory</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">file_name</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1cae5f050871465cb84e2a87bc9bbe2f", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "e4eae287ca2d45b1a53b0ea4e143103c", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 </section>
@@ -1211,6 +1159,24 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="MPMS_goethite_fit.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Fit and remove the goethite component</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Anisotropy_plot_AMS.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Plot and analyze anisotropy data (AMS)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -1233,7 +1199,7 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-isolate-the-kappabridge-x-t-data-from-your-project-export">Let’s isolate the Kappabridge X-T data from your project export</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#now-let-s-select-a-specimen-and-its-x-t-experiment-of-interest">Now let’s select a specimen and its X-T experiment of interest</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#now-let-s-plot-the-x-t-data-based-on-the-selection-of-the-previous-cell">Now let’s plot the X-T data based on the selection of the previous cell</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-the-data">save the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-the-plot">Save the plot</a></li>
 </ul>
   </nav></div>
 
