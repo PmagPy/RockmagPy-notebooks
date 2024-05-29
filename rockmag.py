@@ -994,6 +994,34 @@ def interactive_specimen_selection(measurements):
     return specimen_dropdown
 
 
+def interactive_specimen_experiment_selection(measurements):
+    # make two drop down ipywidgets for the user to select the sample and the associated experiment
+    specimen_dropdown = widgets.Dropdown(
+        options = measurements['specimen'].unique(),
+        description = 'specimen:',
+        disabled = False,
+    )
+
+    experiment_dropdown = widgets.Dropdown(
+        options = measurements['experiment'].unique(),
+        description = 'Experiment:',
+        disabled = False,
+    )
+    # make sure to set the default value of the experiment dropdown to the first experiment in the specimen dropdown
+    experiment_dropdown.options = measurements[measurements['specimen']==specimen_dropdown.value]['experiment'].unique()
+
+    # make sure to update the experiment dropdown based on the specimen selected
+    def update_experiment(*args):
+        experiment_dropdown.options = measurements[measurements['specimen']==specimen_dropdown.value]['experiment'].unique()
+
+    specimen_dropdown.observe(update_experiment, 'value')
+
+    # display the dropdowns
+    display(specimen_dropdown, experiment_dropdown)
+    
+    return specimen_dropdown, experiment_dropdown
+
+
 def goethite_removal(rtsirm_warm_data, 
                      rtsirm_cool_data,
                      t_min=150, t_max=290, poly_deg=2,
@@ -1278,5 +1306,5 @@ def plot_X_T(experiment, temp_unit='C', remove_holder=True, min_temp=None, max_t
     ax.set_title('Susceptibility vs Temperature', fontsize=16)
     ax.legend(fontsize=12)
     ax.grid()
-    return ax
+    return fig, ax
 
