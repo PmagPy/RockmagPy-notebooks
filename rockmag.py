@@ -7,6 +7,11 @@ from plotly.subplots import make_subplots
 import ipywidgets as widgets
 from IPython.display import display
 
+from lmfit import Parameters, Model # for fitting
+from lmfit.models import SkewedGaussianModel
+
+import statsmodels.api as sm
+lowess = sm.nonparametric.lowess
 
 
 def extract_mpms_data(df, specimen_name):
@@ -1335,3 +1340,189 @@ def plot_MPMS_AC_X_T(experiment, frequency=None, phase='in', figsize=(6,6)):
         ax2.set_title('AC Susceptibility out phase', fontsize=16)
         ax2.legend()
         return fig, (ax1, ax2)
+
+def backfield_data_processing(experiment, smooth_frac=0.0, drop_first=False):
+    '''
+    Function to process the backfield data
+    including shifting the magnetic moment to be positive values
+              taking the log base 10 of the magnetic field values
+    and writing these new fields into the experiment attribute table
+
+    Parameters
+    ----------
+    experiment : DataFrame
+        DataFrame containing the backfield data
+    smooth_frac : float
+        Fraction of the data to be used for smoothing, value must be between 0 and 1
+    drop_first : bool
+        Whether to drop the first data point or not
+        in some cases you may want to drop the first data point to avoid negative log values
+    
+    Returns
+    -------
+    experiment dataframe with the new attributes
+    '''
+    assert smooth_frac >= 0 and smooth_frac <= 1, 'smooth_frac must be between 0 and 1'
+    assert isinstance(drop_first, bool), 'drop_first must be a boolean'
+    # check and make sure to force drop first row if the first treat field is in the wrong direction
+    if experiment['treat_dc_field'].iloc[0] > 0:
+        drop_first = True
+    if drop_first:
+        experiment = experiment.iloc[1:].reset_index(drop=1)
+    
+    # to plot the backfield data in the conventional way, we need to shift the magnetization to be positive
+    experiment['magn_mass_shift'] = [i - experiment['magn_mass'].min() for i in experiment['magn_mass']]
+    # we then calculate the log10 of the treatment fields
+    experiment['log_dc_field'] = np.log10(-experiment['treat_dc_field']*1e3)
+    # loess smoothing
+    spl = lowess(experiment['magn_mass_shift'], experiment['log_dc_field'], frac=smooth_frac)
+    experiment['smoothed_magn_mass_shift'] = spl[:, 1]
+    experiment['smoothed_log_dc_field'] = spl[:, 0]
+    return experiment
+    
+def plot_backfield_data(experiment, figsize=(5, 12)):
+    fig, (ax1, ax2, ax3) = plt.subplots(nrows=3, ncols=1, figsize=figsize)
+
+    # raw data
+    ax1.scatter(experiment['treat_dc_field'], experiment['magn_mass'], c='black', marker='o', s=10, label='raw backfield data')
+    ax1.plot(experiment['treat_dc_field'], experiment['magn_mass'], c='black')
+    ax1.set_xlabel('treatment field (T)', fontsize=14)
+    ax1.set_ylabel('magnetization (Am$^2$/kg)', fontsize=14)
+    ax1.set_title('raw backfield data')
+    ax1.legend()
+    # processed data as curve on top of raw scattered data points in log10 space
+    ax2.scatter(experiment['log_dc_field'], experiment['magn_mass_shift'], c='grey', marker='o', s=10, label='shifted raw data')
+    ax2.plot(experiment['smoothed_log_dc_field'], experiment['smoothed_magn_mass_shift'], c='k', label='smoothed shifted raw data')
+    ax2ticks = ax2.get_xticks()
+    ax2.set_xticklabels([f'{round(10**i, 1)}' for i in ax2ticks])
+    ax2.set_xlabel('treatment field (mT)', fontsize=14)
+    ax2.set_ylabel('magnetization (Am$^2$/kg)', fontsize=14)
+    ax2.set_title('processed backfield data')
+    ax2.legend()
+    # coercivity spectrum
+    # first show the raw data in the derivative space
+    raw_derivatives_y = -np.diff(experiment['magn_mass_shift'])/np.diff(experiment['log_dc_field'])
+    # take the middle points of the logB values, and also get rid of the nan values
+    raw_derivatives_x = experiment['log_dc_field'].rolling(window=2).mean().dropna()
+    # derivatives of smoothed data
+    smoothed_derivatives_y = -np.diff(experiment['smoothed_magn_mass_shift'])/np.diff(experiment['smoothed_log_dc_field'])
+    smoothed_derivatives_x = experiment['smoothed_log_dc_field'].rolling(window=2).mean().dropna()
+    ax3.scatter(raw_derivatives_x, raw_derivatives_y, c='grey', marker='o', s=10, label='raw coercivity spectrum')
+    ax3.plot(smoothed_derivatives_x, smoothed_derivatives_y, c='k', label='smoothed coercivity spectrum')
+    ax3ticks = ax3.get_xticks()
+    ax3.set_xticklabels([f'{round(10**i, 1)}' for i in ax3ticks])
+    ax3.set_xlabel('treatment field (mT)', fontsize=14)
+    ax3.set_ylabel('dM/dB', fontsize=14)
+    ax3.set_title('coercivity spectrum')
+    ax3.legend()
+    plt.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.1, hspace=0.4, wspace=0.2)
+
+    return fig, (ax1, ax2, ax3)
+
+def backfield_unmixing(experiment, n_comps=1, parameters=None):
+    '''
+    backfield unmixing for a single experiment
+
+    Parameters
+    ----------
+    experiment : DataFrame
+        DataFrame containing the backfield data
+        by default we unmix on the smothed data
+    n_comps : int
+        Number of components to unmix the data into
+    params : Pandas DataFrame
+        Initial values for the model parameters
+        should be constructed as the following columns:
+        - amplitude in arbitrary scale
+        - center in unit of mT
+        - sigma in unit of mT
+        - gamma in arbitrary scale
+        |amplitude|center|sigma|gamma|
+        |---|---|---|---|
+        |1.0|100|10|0.0|
+        |...|...|...|...|
+        the program will automatically go through the rows and extract these inital parameter values
+        If the parameters are not given, we will run an automated program to make initial guess
+        
+    Returns
+    '''
+
+    assert n_comps > 0, 'n_component must be greater than 0'
+    assert isinstance(n_comps, int), 'n_component must be an integer'
+    assert isinstance(parameters, pd.DataFrame), f"Expected a pandas DataFrame, but got {type(variable).__name__}"
+    assert n_comps == parameters.shape[0], 'number of components must match the number of rows in the parameters table'
+    # re-calculate the derivatives based on the smoothed data columns
+    smoothed_derivatives_y = -np.diff(experiment['smoothed_magn_mass_shift'])/np.diff(experiment['smoothed_log_dc_field'])
+    smoothed_derivatives_x = experiment['smoothed_log_dc_field'].rolling(window=2).mean().dropna()
+
+    # create the model depending on the number of components specified
+    composite_model = None
+    params = Parameters()
+    for i in range(n_comps):
+        prefix = f'g{i+1}_'
+        model = SkewedGaussianModel(prefix=prefix)
+        
+        # Initial parameter guesses
+        params.add(f'{prefix}amplitude', value=parameters['amplitude'][i])
+        params.add(f'{prefix}center', value=np.log10(parameters['center'][i]))
+        params.add(f'{prefix}sigma', value=np.log10(parameters['sigma'][i]))
+        params.add(f'{prefix}gamma', value=parameters['gamma'][i])
+        
+        # now let's set bounds to the parameters to help fitting algorithm converge
+        params[f'{prefix}amplitude'].min = 0  # Bounds for amplitude parameters
+        params[f'{prefix}amplitude'].max = np.max(smoothed_derivatives_y)
+        params[f'{prefix}center'].min = experiment['smoothed_log_dc_field'].min()  # Bounds for center parameters
+        params[f'{prefix}center'].max = experiment['smoothed_log_dc_field'].max()  # Bounds for center parameters
+        params[f'{prefix}sigma'].min = 0
+        params[f'{prefix}sigma'].max = experiment['smoothed_log_dc_field'].max()-experiment['smoothed_log_dc_field'].min()  # Bounds for sigma parameters
+
+        if composite_model is None:
+            composite_model = model
+        else:
+            composite_model += model
+
+    result = composite_model.fit(smoothed_derivatives_y, params, x=smoothed_derivatives_x)
+
+    # now use the resultant fit to update the parameters table and return it
+    for i in range(n_comps):
+        prefix = f'g{i+1}_'
+        parameters.loc[i, 'amplitude'] = result.params[f'{prefix}amplitude'].value
+        parameters.loc[i, 'center'] = 10**result.params[f'{prefix}center'].value # convert back to mT
+        parameters.loc[i, 'sigma'] = 10**result.params[f'{prefix}sigma'].value # convert back to mT
+        parameters.loc[i, 'gamma'] = result.params[f'{prefix}gamma'].value
+
+    return result, parameters
+
+def plot_backfield_unmixing_result(experiment, result, sigma=2, figsize=(8,6)):
+    raw_derivatives_y = -np.diff(experiment['magn_mass_shift'])/np.diff(experiment['log_dc_field'])
+    raw_derivatives_x = experiment['log_dc_field'].rolling(window=2).mean().dropna()
+    smoothed_derivatives_x = experiment['smoothed_log_dc_field'].rolling(window=2).mean().dropna()
+
+    comps = result.eval_components(x=smoothed_derivatives_x)
+    dely = result.eval_uncertainty(sigma=sigma)
+
+    fig, ax = plt.subplots(figsize=figsize)
+    # first plot the scatter raw dMdB data
+    ax.scatter(raw_derivatives_x, raw_derivatives_y, c='grey', marker='o', s=10, label='raw coercivity spectrum')
+    # plot the total best fit
+    ax.plot(raw_derivatives_x, result.best_fit, '-', label='total spectrum best fit')
+    ax.fill_between(smoothed_derivatives_x,
+                            result.best_fit-dely,
+                            result.best_fit+dely,
+                            color="#8A8A8A", 
+                            label=f'total {sigma}-$\sigma$ band', alpha=0.5)
+    if len(result.components) > 1:
+        for i in range(len(result.components)):
+
+            ax.plot(smoothed_derivatives_x, comps[f'g{i+1}_'], c='C0', label=f'component #{i+1}, {sigma}-$\sigma$ band')
+            ax.fill_between(smoothed_derivatives_x,
+                                    comps[f'g{i+1}_']-result.dely_comps[f'g{i+1}_'],
+                                    comps[f'g{i+1}_']+result.dely_comps[f'g{i+1}_'],
+                                    color=f'C{i}', alpha=0.5)
+    xticks = ax.get_xticks()
+    ax.set_xticklabels([f'{int(10**i)}' for i in xticks])
+    ax.legend()
+    ax.set_title('coercivity unmixing results')
+    ax.set_xlabel('treatment field (mT)', fontsize=14)
+    ax.set_ylabel('dM/dB', fontsize=14)
+    return fig, ax
