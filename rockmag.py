@@ -1200,33 +1200,6 @@ def interactive_goethite_removal(measurements, specimen_dropdown):
 
     display(ui, out)
 
-# Function that needs to be further developed that could be used to read in the data from the compact MagIC format
-# def read_and_process_compact_format(file_path):
-#     # Initialize variables to store asterisk lines and data lines
-#     asterisk_lines = []
-#     data_lines = []
-
-#     # Read the file and separate lines starting with '*' and others
-#     with open(file_path, 'r') as file:
-#         for line in file:
-#             if line.strip().startswith('*'):
-#                 asterisk_lines.append(line.strip().strip('*').split('\t'))
-#             else:
-#                 data_lines.append(line)
-
-#     # Create a DataFrame from the data lines
-#     data_string = ''.join(data_lines)
-#     data_df = pd.read_csv(StringIO(data_string), sep='\t', skiprows=1)
-
-#     # Process asterisk lines to add them as columns in the DataFrame
-#     for item in asterisk_lines:
-#         if len(item) == 2:  # Assuming each asterisk line has exactly two elements
-#             data_df[item[0]] = item[1]
-#         else:
-#             print(f"Warning: Line '{item}' does not have two elements and will be skipped")
-
-#     return data_df
-
 # define function for splitting the curves into warm and cool cycles
 def split_warm_cool(experiment):
     '''
@@ -1307,4 +1280,3 @@ def plot_X_T(experiment, temp_unit='C', remove_holder=True, min_temp=None, max_t
     ax.legend(fontsize=12)
     ax.grid()
     return fig, ax
-
