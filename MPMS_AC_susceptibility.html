@@ -445,16 +445,20 @@ document.write(`
 </section>
 <section id="import-data">
 <h2>Import data<a class="headerlink" href="#import-data" title="Link to this heading">#</a></h2>
-<p>We can take the same approach as in the <code class="docutils literal notranslate"><span class="pre">rockmag_data_unpack.ipynb</span></code> notebook to bring the MagIC data into the notebook as a Contribution. To bring in a different contribution, set the directory path (currently <code class="docutils literal notranslate"><span class="pre">'./example_data/SSRM2022C'</span></code>) and the share key for your MagIC contribution which you can find by clicking on the “Share” button in the MagIC database.</p>
+<p>We can take the same approach as in the <code class="docutils literal notranslate"><span class="pre">rockmag_data_unpack.ipynb</span></code> notebook to bring the MagIC data into the notebook as a Contribution.</p>
+<p>To bring in a different contribution than the one shown in this example:</p>
+<ul class="simple">
+<li><p>set the directory path (currently <code class="docutils literal notranslate"><span class="pre">'./example_data/SSRM2022C'</span></code>)</p></li>
+<li><p>set the <code class="docutils literal notranslate"><span class="pre">magic_id</span></code> (20100 for this private contribution)</p></li>
+<li><p>if the contribution is private, set the share key for your MagIC contribution which you can find by clicking on the “Share” button in the MagIC database.</p></li>
+</ul>
 <figure>
-  <img src="book/images/MagIC_private_contribution_1.png" alt="Description of the image" width="800">
+  <img src="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/MagIC_private_contribution_1.png" alt="Description of the image" width="800">
 </figure>
-<p>copy the share key highlighted in grey in the following image to the <code class="docutils literal notranslate"><span class="pre">share_key</span></code> variable in the cell below.</p>
+<p>Copy the share key highlighted in grey in the following image to the <code class="docutils literal notranslate"><span class="pre">share_key</span></code> parameter in the cell below.</p>
 <figure>
-  <img src="book/images/MagIC_private_contribution_2.png" alt="Description of the image" width="800">
-</figure>
-<p><strong>change the directory path and file name in the cell below to load your own data</strong></p>
-<div class="cell docutils container">
+  <img src="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/MagIC_private_contribution_2.png" alt="Description of the image" width="800">
+</figure><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#define these three parameters to match your data</span>
 <span class="n">magic_id</span> <span class="o">=</span> <span class="s1">&#39;20100&#39;</span>
