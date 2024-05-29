@@ -421,11 +421,26 @@ document.write(`
 <h1>Getting going with <a class="reference external" href="http://rockmag.py">rockmag.py</a> on JupyterHub<a class="headerlink" href="#getting-going-with-rockmag-py-on-jupyterhub" title="Link to this heading">#</a></h1>
 <section id="first-step">
 <h2>First step!<a class="headerlink" href="#first-step" title="Link to this heading">#</a></h2>
-<p><strong>Change kernel in JupyterHub to Python 3.10</strong></p>
+<p><strong>Log into your JupyterHub server</strong></p>
+<figure>
+  <img src="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/JupyterHub_login.png" alt="Description of the image" width="250">
+</figure>
+<p><strong>Then upload this notebook into your own EarthRef JupyterHub server</strong></p>
+<figure>
+  <img src="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/JupyterHub_upload.png" alt="Description of the image" width="800">
+</figure>
+<p><span style="color: red;"><strong>Then change kernel in JupyterHub to Python 3.10</strong></span></p>
+<figure>
+  <img src="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/JupyterHub_change_kernel.png" alt="Description of the image" width="800">
+</figure>
+<p><strong>Finally, execute this notebook by clicking <code class="docutils literal notranslate"><span class="pre">Cell</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">All</span></code></strong></p>
+<figure>
+  <img src="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/JupyterHub_Cell_run_all.png" alt="Description of the image" width="800">
+</figure>
 </section>
 <section id="jupyter-notebooks-and-jupyterhub">
 <h2>Jupyter notebooks and JupyterHub<a class="headerlink" href="#jupyter-notebooks-and-jupyterhub" title="Link to this heading">#</a></h2>
-<p>The <a class="reference external" href="https://jupyter-notebook-beginner-guide.readthedocs.io/en/latest/what_is_jupyter.html">Jupyter notebook</a> environment environment enables us to interactively run code and visualize the output complete with annotated notes (like this one!). Such a notebook can be run locally on one’s computer with a Python installation or can be run on a JupyterHub such as the <a class="reference external" href="https://jupyterhub.earthref.org/">EarthRef JupyterHub</a> server.</p>
+<p>The <a class="reference external" href="https://jupyter-notebook-beginner-guide.readthedocs.io/en/latest/what_is_jupyter.html">Jupyter notebook</a> environment enables us to interactively run code and visualize the output complete with annotated notes (like this one!). Such a notebook can be run locally on one’s computer with a Python installation or can be run on a JupyterHub such as the <a class="reference external" href="https://jupyterhub.earthref.org/">EarthRef JupyterHub</a> server.</p>
 <section id="upload-and-download-from-jupyterhub">
 <h3>Upload and download from JupyterHub<a class="headerlink" href="#upload-and-download-from-jupyterhub" title="Link to this heading">#</a></h3>
 <p>To upload data from a computer, click the ‘Upload’ button.  To download a particular image or data file, it can be opened and then downloaded using the File menu. You can upload this notebook (which you can <a class="reference external" href="https://github.com/PmagPy/RockmagPy-notebooks/blob/main/rockmag_set_up.ipynb">download here</a>
@@ -463,7 +478,37 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already up-to-date: pmagpy in ./.local/lib/python3.6/site-packages (4.2.115)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting pmagpy
+  Downloading pmagpy-4.2.121-py3-none-any.whl (42.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">42.7/42.7 MB</span> <span class=" -Color -Color-Red">11.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>00:0100:01
+?25hInstalling collected packages: pmagpy
+<span class=" -Color -Color-Yellow">  WARNING: The script pmagpy is installed in &#39;/Users/yimingzhang/.local/bin&#39; which is not on PATH.</span>
+<span class=" -Color -Color-Yellow">  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.</span>
+Successfully installed pmagpy-4.2.121
+Note: you may need to restart the kernel to use updated packages.
+Requirement already satisfied: cartopy in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (0.22.1.dev74+g234a077)
+Collecting cartopy
+  Downloading Cartopy-0.23.0-cp39-cp39-macosx_10_9_x86_64.whl (10.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">10.9/10.9 MB</span> <span class=" -Color -Color-Red">11.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>00:0100:01
+?25hRequirement already satisfied: packaging&gt;=20 in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from cartopy) (23.1)
+Requirement already satisfied: pyshp&gt;=2.3 in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from cartopy) (2.3.1)
+Requirement already satisfied: shapely&gt;=1.7 in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from cartopy) (2.0.2)
+Requirement already satisfied: matplotlib&gt;=3.5 in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from cartopy) (3.5.2)
+Requirement already satisfied: numpy&gt;=1.21 in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from cartopy) (1.24.2)
+Requirement already satisfied: pyproj&gt;=3.3.1 in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from cartopy) (3.6.1)
+Requirement already satisfied: cycler&gt;=0.10 in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from matplotlib&gt;=3.5-&gt;cartopy) (0.11.0)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from matplotlib&gt;=3.5-&gt;cartopy) (2.8.2)
+Requirement already satisfied: pyparsing&gt;=2.2.1 in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from matplotlib&gt;=3.5-&gt;cartopy) (3.0.9)
+Requirement already satisfied: pillow&gt;=6.2.0 in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from matplotlib&gt;=3.5-&gt;cartopy) (9.4.0)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from matplotlib&gt;=3.5-&gt;cartopy) (1.4.2)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from matplotlib&gt;=3.5-&gt;cartopy) (4.25.0)
+Requirement already satisfied: certifi in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from pyproj&gt;=3.3.1-&gt;cartopy) (2023.11.17)
+Requirement already satisfied: six&gt;=1.5 in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib&gt;=3.5-&gt;cartopy) (1.16.0)
+Installing collected packages: cartopy
+<span class=" -Color -Color-Yellow">  WARNING: The script cartopy_feature_download is installed in &#39;/Users/yimingzhang/.local/bin&#39; which is not on PATH.</span>
+<span class=" -Color -Color-Yellow">  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.</span>
+Successfully installed cartopy-0.23.0
+Note: you may need to restart the kernel to use updated packages.
 </pre></div>
 </div>
 </div>
@@ -481,21 +526,21 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--2024-02-07 16:42:21--  https://github.com/PmagPy/RockmagPy-notebooks/tarball/master
-Resolving github.com (github.com)... 192.30.255.112
-Connecting to github.com (github.com)|192.30.255.112|:443... connected.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--2024-05-29 15:32:17--  https://github.com/PmagPy/RockmagPy-notebooks/tarball/master
+Resolving github.com (github.com)... 140.82.113.4
+Connecting to github.com (github.com)|140.82.113.4|:443... connected.
 HTTP request sent, awaiting response... 302 Found
 Location: https://codeload.github.com/PmagPy/RockmagPy-notebooks/legacy.tar.gz/main [following]
---2024-02-07 16:42:21--  https://codeload.github.com/PmagPy/RockmagPy-notebooks/legacy.tar.gz/main
-Resolving codeload.github.com (codeload.github.com)... 192.30.255.120
-Connecting to codeload.github.com (codeload.github.com)|192.30.255.120|:443... connected.
+--2024-05-29 15:32:17--  https://codeload.github.com/PmagPy/RockmagPy-notebooks/legacy.tar.gz/main
+Resolving codeload.github.com (codeload.github.com)... 140.82.114.9
+Connecting to codeload.github.com (codeload.github.com)|140.82.114.9|:443... connected.
 HTTP request sent, awaiting response... 200 OK
 Length: unspecified [application/x-gzip]
-Saving to: ‘STDOUT’
+Saving to: &#39;STDOUT&#39;
 
--                       [ &lt;=&gt;                ]   1.11M  --.-KB/s    in 0.08s   
+-                       [     &lt;=&gt;            ]   9.55M  10.4MB/s    in 0.9s    
 
-2024-02-07 16:42:22 (13.9 MB/s) - written to stdout [1162285]
+2024-05-29 15:32:18 (10.4 MB/s) - written to stdout [10014943]
 </pre></div>
 </div>
 </div>
