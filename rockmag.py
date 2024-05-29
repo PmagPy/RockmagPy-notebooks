@@ -1280,3 +1280,58 @@ def plot_X_T(experiment, temp_unit='C', remove_holder=True, min_temp=None, max_t
     ax.legend(fontsize=12)
     ax.grid()
     return fig, ax
+
+def plot_MPMS_AC_X_T(experiment, frequency=None, phase='in', figsize=(6,6)):
+    """
+    This function plots the AC susceptibility data from the MPMS-X for a given experiment
+    
+    Parameters
+    ----------
+    experiment : pandas DataFrame
+        The experiment table from the MagIC contribution
+    frequency : float
+        The frequency of the AC measurement in Hz
+    phase : str
+        The phase of the AC measurement ('in' or 'out' or 'both')
+    """
+    assert phase in ['in', 'out', 'both'], 'phase should be either "in" or "out" or "both"'
+    assert frequency is None or frequency in experiment['frequency'].unique(), 'frequency should be one of the available frequencies'
+
+    if frequency is None:
+        # that means we will plot all frequencies
+        meas_freqs = experiment['meas_freq'].unique()
+    else:
+        meas_freqs = [frequency]
+
+    if phase != 'both':
+        
+        fig, ax = plt.subplots(figsize=figsize)
+        for meas_freq in meas_freqs:
+            data = experiment[(experiment['meas_freq']==meas_freq)]
+            # plot the data
+            if phase == 'in':
+                ax.plot(data['meas_temp'], data['susc_chi_mass'], 'o-', label=f'{meas_freq} Hz')
+            else:
+                ax.plot(data['meas_temp'], data['susc_chi_qdr_mass'], 'o-', label=f'{meas_freq} Hz')
+
+        ax.set_xlabel('Temperature (K)', fontsize=16)
+        ax.set_ylabel('$m^3/kg$', fontsize=16)
+        ax.set_title('AC Susceptibility '+phase+' phase', fontsize=16)
+        ax.legend()
+        return fig, ax
+    else:
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=figsize)
+        for meas_freq in meas_freqs:
+            data = experiment[(experiment['meas_freq']==meas_freq)]
+            # plot the data
+            ax1.plot(data['meas_temp'], data['susc_chi_mass'], 'o-', label=f'{meas_freq} Hz')
+            ax2.plot(data['meas_temp'], data['susc_chi_qdr_mass'], 'o-', label=f'{meas_freq} Hz')
+        ax1.set_xlabel('Temperature (K)', fontsize=16)
+        ax1.set_ylabel('$m^3/kg$', fontsize=16)
+        ax1.set_title('AC Susceptibility in phase', fontsize=16)
+        ax1.legend()
+        ax2.set_xlabel('Temperature (K)', fontsize=16)
+        ax2.set_ylabel('$m^3/kg$', fontsize=16)
+        ax2.set_title('AC Susceptibility out phase', fontsize=16)
+        ax2.legend()
+        return fig, (ax1, ax2)
