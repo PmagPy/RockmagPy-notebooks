@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Plot MPMS AC susceptibility data &#8212; RockmagPy Documentation</title>
+    <title>Plot MPMS data (AC susceptibility) &#8212; RockmagPy Documentation</title>
   
   
   
@@ -57,11 +57,11 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'MPMS_AC_susceptibility';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'MPMS_plot_ac';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Plot and analyze anisotropy data (AMS)" href="Anisotropy_plot_AMS.html" />
-    <link rel="prev" title="Plot high temperature susceptibility data (Kappabridge \(\chi\)-T)" href="high_T_susceptibility.html" />
+    <link rel="next" title="Estimate the Verwey transition temperature" href="MPMS_verwey_fit.html" />
+    <link rel="prev" title="Plot MPMS data (DC)" href="MPMS_plot_dc.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -183,15 +183,15 @@
 <li class="toctree-l1"><a class="reference internal" href="rockmag_data_unpack.html">Rock magnetic experiments data import</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">MPMS notebooks</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="MPMS_plot_dc.html">Plot MPMS data (DC)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Plot MPMS data (AC susceptibility)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="MPMS_verwey_fit.html">Estimate the Verwey transition temperature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="MPMS_goethite_fit.html">Fit and remove the goethite component</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Thermomagnetic notebooks</span></p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="high_T_susceptibility.html">Plot high temperature susceptibility data (Kappabridge <span class="math notranslate nohighlight">\(\chi\)</span>-T)</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Plot MPMS AC susceptibility data</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Anisotropy notebooks</span></p>
 <ul class="nav bd-sidenav">
@@ -271,7 +271,7 @@
       
       
       
-      <li><a href="https://github.com/pmagpy/rockmagpy-notebooks/issues/new?title=Issue%20on%20page%20%2FMPMS_AC_susceptibility.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/pmagpy/rockmagpy-notebooks/issues/new?title=Issue%20on%20page%20%2FMPMS_plot_ac.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -301,7 +301,7 @@
       
       
       
-      <li><a href="_sources/MPMS_AC_susceptibility.ipynb" target="_blank"
+      <li><a href="_sources/MPMS_plot_ac.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -385,7 +385,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Plot MPMS AC susceptibility data</h1>
+    <h1>Plot MPMS data (AC susceptibility)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -417,8 +417,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="plot-mpms-ac-susceptibility-data">
-<h1>Plot MPMS AC susceptibility data<a class="headerlink" href="#plot-mpms-ac-susceptibility-data" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="plot-mpms-data-ac-susceptibility">
+<h1>Plot MPMS data (AC susceptibility)<a class="headerlink" href="#plot-mpms-data-ac-susceptibility" title="Link to this heading">#</a></h1>
 <p>This notebook visualizes data from low-temperature experiments conducted on an MPMS instrument and exported to MagIC format.</p>
 <p><strong>MPMS AC in phase and out of phase susceptibility vs temperature</strong></p>
 <section id="import-scientific-python-libraries">
@@ -1212,20 +1212,20 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="high_T_susceptibility.html"
+       href="MPMS_plot_dc.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Plot high temperature susceptibility data (Kappabridge <span class="math notranslate nohighlight">\(\chi\)</span>-T)</p>
+        <p class="prev-next-title">Plot MPMS data (DC)</p>
       </div>
     </a>
     <a class="right-next"
-       href="Anisotropy_plot_AMS.html"
+       href="MPMS_verwey_fit.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Plot and analyze anisotropy data (AMS)</p>
+        <p class="prev-next-title">Estimate the Verwey transition temperature</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
