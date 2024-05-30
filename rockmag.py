@@ -15,8 +15,12 @@ except ImportError:
     Model = None
     SkewedGaussianModel = None
 
-import statsmodels.api as sm
-lowess = sm.nonparametric.lowess
+try:
+    import statsmodels.api as sm
+    lowess = sm.nonparametric.lowess
+except ImportError:
+    sm = None
+    lowess = None
 
 
 def extract_mpms_data(df, specimen_name):
