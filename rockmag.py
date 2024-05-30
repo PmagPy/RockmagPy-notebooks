@@ -10,6 +10,10 @@ from IPython.display import display
 try:
     from lmfit import Parameters, Model  # for fitting
     from lmfit.models import SkewedGaussianModel
+except ImportError:
+    Parameters = None
+    Model = None
+    SkewedGaussianModel = None
 
 import statsmodels.api as sm
 lowess = sm.nonparametric.lowess
