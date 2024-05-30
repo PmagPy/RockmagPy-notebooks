@@ -7,8 +7,9 @@ from plotly.subplots import make_subplots
 import ipywidgets as widgets
 from IPython.display import display
 
-from lmfit import Parameters, Model # for fitting
-from lmfit.models import SkewedGaussianModel
+try:
+    from lmfit import Parameters, Model  # for fitting
+    from lmfit.models import SkewedGaussianModel
 
 import statsmodels.api as sm
 lowess = sm.nonparametric.lowess
