@@ -11,12 +11,12 @@ parts:
   - caption: MPMS notebooks
     chapters:
     - file: MPMS_plot_dc
+    - file: MPMS_plot_ac
     - file: MPMS_verwey_fit
     - file: MPMS_goethite_fit
   - caption: Thermomagnetic notebooks
     chapters:
     - file: high_T_susceptibility
-    - file: MPMS_AC_susceptibility
   - caption: Anisotropy notebooks
     chapters:
     - file: Anisotropy_plot_AMS
