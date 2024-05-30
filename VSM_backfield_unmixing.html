@@ -452,12 +452,9 @@ document.write(`
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span> 
-<span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
-<span class="kn">from</span> <span class="nn">plotly.subplots</span> <span class="kn">import</span> <span class="n">make_subplots</span>
 <span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
-<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">interactive</span><span class="p">,</span> <span class="n">Layout</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">interactive</span><span class="p">,</span> <span class="n">Layout</span><span class="p">,</span> <span class="n">FloatSlider</span>
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">clear_output</span>
-<span class="kn">import</span> <span class="nn">plotly.io</span> <span class="k">as</span> <span class="nn">pio</span>
 
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">skewnorm</span>
 
@@ -479,41 +476,30 @@ document.write(`
 <h3>Let’s first use the skewnromal distribution in Scipy to visualize what skewnormal distributions look like<a class="headerlink" href="#let-s-first-use-the-skewnromal-distribution-in-scipy-to-visualize-what-skewnormal-distributions-look-like" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create data range</span>
-<span class="n">x_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
-
-<span class="c1"># Create initial Skew Normal distribution with default parameters</span>
-<span class="n">initial_location</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">initial_scale</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">initial_skewness</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">initial_y_values</span> <span class="o">=</span> <span class="n">skewnorm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x_values</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">initial_skewness</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">initial_location</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">initial_scale</span><span class="p">)</span>
-
-<span class="c1"># Create Plotly figure</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">FigureWidget</span><span class="p">()</span>
-
-<span class="c1"># Add Skew Normal distribution curve to the figure</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_values</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">initial_y_values</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Skew Normal Distribution&#39;</span><span class="p">))</span>
-
-<span class="c1"># Update layout of the figure</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Skew Normal Distribution&#39;</span><span class="p">,</span>
-                  <span class="n">xaxis_title</span><span class="o">=</span><span class="s1">&#39;X&#39;</span><span class="p">,</span>
-                  <span class="n">yaxis_title</span><span class="o">=</span><span class="s1">&#39;Probability Density&#39;</span><span class="p">,</span>
-                  <span class="n">template</span><span class="o">=</span><span class="s1">&#39;plotly_white&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Function to update the plot</span>
+<span class="k">def</span> <span class="nf">update_plot</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">skewness</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">skewnorm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">skewness</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">location</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Skew Normal Distribution&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Skew Normal Distribution&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Probability Density&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
 <span class="c1"># Create sliders for parameters</span>
-<span class="nd">@interact</span><span class="p">(</span><span class="n">Location</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">Scale</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="n">Skewness</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="n">Location</span><span class="o">=</span><span class="n">initial_location</span><span class="p">,</span> <span class="n">Scale</span><span class="o">=</span><span class="n">initial_scale</span><span class="p">,</span> <span class="n">Skewness</span><span class="o">=</span><span class="n">initial_skewness</span><span class="p">):</span>
-    <span class="c1"># Calculate the Skew Normal distribution with new parameters</span>
-    <span class="n">y_values</span> <span class="o">=</span> <span class="n">skewnorm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x_values</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">Skewness</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">Location</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">Scale</span><span class="p">)</span>
-    <span class="c1"># Update the data of the figure with new y values</span>
-    <span class="k">with</span> <span class="n">fig</span><span class="o">.</span><span class="n">batch_update</span><span class="p">():</span>
-        <span class="n">fig</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y_values</span>
-    <span class="k">return</span> <span class="n">fig</span>
+<span class="n">location_slider</span> <span class="o">=</span> <span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="o">=-</span><span class="mi">10</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Location&#39;</span><span class="p">);</span>
+<span class="n">scale_slider</span> <span class="o">=</span> <span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Scale&#39;</span><span class="p">);</span>
+<span class="n">skewness_slider</span> <span class="o">=</span> <span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="o">=-</span><span class="mi">10</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Skewness&#39;</span><span class="p">);</span>
+
+<span class="c1"># Create interactive plot</span>
+<span class="n">interact</span><span class="p">(</span><span class="n">update_plot</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="n">location_slider</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale_slider</span><span class="p">,</span> <span class="n">skewness</span><span class="o">=</span><span class="n">skewness_slider</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ad75bd1e4ab74298af3c9b31b982d46d", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "f0ec50967a58482ab5876d9935e54310", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 </section>
@@ -556,13 +542,13 @@ working on:  &#39;sites&#39;
 6  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/sites.txt
 sites  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/sites.txt
 working on:  &#39;samples&#39;
-16  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/samples.txt
+28  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/samples.txt
 samples  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/samples.txt
 working on:  &#39;specimens&#39;
 47  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/specimens.txt
 specimens  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/specimens.txt
 working on:  &#39;measurements&#39;
-141061  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/measurements.txt
+140501  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/measurements.txt
 measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2022C/measurements.txt
 -I- Using online data model
 -I- Getting method codes from earthref.org
@@ -674,8 +660,8 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
       <td>1.0</td>
       <td>DA4-r</td>
       <td>u</td>
-      <td>6.320000e-07</td>
-      <td>1.350000e-09</td>
+      <td>6.321000e-07</td>
+      <td>1.348000e-09</td>
       <td>2024:05:29:09:35:19.00</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -706,8 +692,8 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
       <td>2.0</td>
       <td>DA4-r</td>
       <td>u</td>
-      <td>6.300000e-07</td>
-      <td>1.500000e-09</td>
+      <td>6.296000e-07</td>
+      <td>1.504000e-09</td>
       <td>2024:05:29:09:35:19.00</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -738,8 +724,8 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
       <td>3.0</td>
       <td>DA4-r</td>
       <td>u</td>
-      <td>6.320000e-07</td>
-      <td>9.640000e-10</td>
+      <td>6.317000e-07</td>
+      <td>9.637000e-10</td>
       <td>2024:05:29:09:35:19.00</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -770,8 +756,8 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
       <td>4.0</td>
       <td>DA4-r</td>
       <td>u</td>
-      <td>6.300000e-07</td>
-      <td>1.550000e-09</td>
+      <td>6.297000e-07</td>
+      <td>1.548000e-09</td>
       <td>2024:05:29:09:35:19.00</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -802,8 +788,8 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
       <td>5.0</td>
       <td>DA4-r</td>
       <td>u</td>
-      <td>6.400000e-07</td>
-      <td>-5.730000e-09</td>
+      <td>6.397000e-07</td>
+      <td>-5.734000e-09</td>
       <td>2024:05:29:09:35:19.00</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -850,11 +836,11 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
       <td>DX1-4b-ARM_aniso-LP-AN-ARM-0</td>
       <td>IRM-SRM-U</td>
       <td>NaN</td>
-      <td>6.020000e-08</td>
+      <td>6.015930e-08</td>
       <td>NaN</td>
-      <td>2.660000e-10</td>
-      <td>2.140000e-08</td>
-      <td>5.620000e-08</td>
+      <td>2.663010e-10</td>
+      <td>2.140620e-08</td>
+      <td>5.622140e-08</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -882,11 +868,11 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
       <td>DA4-1C-ARM_aniso-LP-AN-ARM-0</td>
       <td>IRM-SRM-U</td>
       <td>NaN</td>
-      <td>5.570000e-06</td>
+      <td>5.568630e-06</td>
       <td>NaN</td>
-      <td>5.510000e-08</td>
-      <td>3.850000e-06</td>
-      <td>-4.020000e-06</td>
+      <td>5.514000e-08</td>
+      <td>3.848310e-06</td>
+      <td>-4.024560e-06</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -914,11 +900,11 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
       <td>DX1-4b-ARM_aniso-LP-AN-ARM-0</td>
       <td>IRM-SRM-U</td>
       <td>NaN</td>
-      <td>2.990000e-07</td>
+      <td>2.991990e-07</td>
       <td>NaN</td>
-      <td>4.300000e-08</td>
-      <td>2.150000e-07</td>
-      <td>-2.040000e-07</td>
+      <td>4.304250e-08</td>
+      <td>2.147920e-07</td>
+      <td>-2.037940e-07</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -946,11 +932,11 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
       <td>DA4-1C-ARMdemag(T,Hac)-LP-ARM-AFD-0</td>
       <td>IRM-SRM-U</td>
       <td>NaN</td>
-      <td>2.340000e-07</td>
+      <td>2.338400e-07</td>
       <td>NaN</td>
-      <td>-1.970000e-08</td>
-      <td>1.740000e-07</td>
-      <td>1.550000e-07</td>
+      <td>-1.973810e-08</td>
+      <td>1.739510e-07</td>
+      <td>1.550250e-07</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -978,11 +964,11 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
       <td>DX1-4b-ARMdemag(T,Hac)-LP-ARM-AFD-0</td>
       <td>IRM-SRM-U</td>
       <td>NaN</td>
-      <td>5.570000e-08</td>
+      <td>5.565400e-08</td>
       <td>NaN</td>
-      <td>-5.320000e-09</td>
-      <td>2.280000e-08</td>
-      <td>5.050000e-08</td>
+      <td>-5.317000e-09</td>
+      <td>2.282380e-08</td>
+      <td>5.047940e-08</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1005,7 +991,7 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
     </tr>
   </tbody>
 </table>
-<p>141061 rows × 29 columns</p>
+<p>140501 rows × 29 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -1092,7 +1078,7 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
       <th>DA2-rIRM-VSM4-LP-BCR-BF-2280561</th>
       <td>IRM-VSM4-LP-BCR-BF-228056</td>
       <td>IRM-VSM4</td>
-      <td>0.00622</td>
+      <td>0.006222</td>
       <td>DA2-rIRM-VSM4-LP-BCR-BF-2280561</td>
       <td>LP-BCR-BF</td>
       <td>g</td>
@@ -1105,7 +1091,7 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
       <th>DA2-rIRM-VSM4-LP-BCR-BF-2280562</th>
       <td>IRM-VSM4-LP-BCR-BF-228056</td>
       <td>IRM-VSM4</td>
-      <td>0.00613</td>
+      <td>0.006128</td>
       <td>DA2-rIRM-VSM4-LP-BCR-BF-2280562</td>
       <td>LP-BCR-BF</td>
       <td>g</td>
@@ -1118,40 +1104,40 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
       <th>DA2-rIRM-VSM4-LP-BCR-BF-2280563</th>
       <td>IRM-VSM4-LP-BCR-BF-228056</td>
       <td>IRM-VSM4</td>
-      <td>0.00602</td>
+      <td>0.006019</td>
       <td>DA2-rIRM-VSM4-LP-BCR-BF-2280563</td>
       <td>LP-BCR-BF</td>
       <td>g</td>
       <td>DA2-r</td>
       <td>294</td>
       <td>2022:06:02:11:29:50.00</td>
-      <td>-0.001030</td>
+      <td>-0.001027</td>
     </tr>
     <tr>
       <th>DA2-rIRM-VSM4-LP-BCR-BF-2280564</th>
       <td>IRM-VSM4-LP-BCR-BF-228056</td>
       <td>IRM-VSM4</td>
-      <td>0.00591</td>
+      <td>0.005908</td>
       <td>DA2-rIRM-VSM4-LP-BCR-BF-2280564</td>
       <td>LP-BCR-BF</td>
       <td>g</td>
       <td>DA2-r</td>
       <td>294</td>
       <td>2022:06:02:11:29:50.00</td>
-      <td>-0.001580</td>
+      <td>-0.001583</td>
     </tr>
     <tr>
       <th>DA2-rIRM-VSM4-LP-BCR-BF-2280565</th>
       <td>IRM-VSM4-LP-BCR-BF-228056</td>
       <td>IRM-VSM4</td>
-      <td>0.00579</td>
+      <td>0.005789</td>
       <td>DA2-rIRM-VSM4-LP-BCR-BF-2280565</td>
       <td>LP-BCR-BF</td>
       <td>g</td>
       <td>DA2-r</td>
       <td>294</td>
       <td>2022:06:02:11:29:50.00</td>
-      <td>-0.002170</td>
+      <td>-0.002168</td>
     </tr>
   </tbody>
 </table>
@@ -1172,14 +1158,14 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "b2c10e429c1f49bbaa0d9ee4b6371218", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "ed7036ab939b445fa748da5481b1fec4", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ba586e9b364a417aa26d9f6d69c16eae", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "ea80906b09ba4a7e942b8201a11b7add", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <section id="we-need-to-do-some-preprocessing-on-the-raw-data-in-order-to-unmix-the-spectrum">
 <h3>We need to do some preprocessing on the raw data in order to unmix the spectrum<a class="headerlink" href="#we-need-to-do-some-preprocessing-on-the-raw-data-in-order-to-unmix-the-spectrum" title="Link to this heading">#</a></h3>
 <p>pick your own <code class="docutils literal notranslate"><span class="pre">smooth_frac</span></code> value between 0 and 1 for smoothing the raw backfield data</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smooth_frac</span> <span class="o">=</span> <span class="mf">0.1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smooth_frac</span> <span class="o">=</span> <span class="mf">0.03</span>
 
 <span class="n">selected_experiment</span> <span class="o">=</span> <span class="n">backfield_measurements</span><span class="p">[(</span><span class="n">backfield_measurements</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">specimen</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">&amp;</span> 
                                       <span class="p">(</span><span class="n">backfield_measurements</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">experiment</span><span class="o">.</span><span class="n">value</span><span class="p">)]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -1195,7 +1181,7 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/ccd4a7ce0c3705c83a275ff8abb2854d95bf65e6d5a1d0d7cb65f34102c02149.png"><img alt="_images/ccd4a7ce0c3705c83a275ff8abb2854d95bf65e6d5a1d0d7cb65f34102c02149.png" src="_images/ccd4a7ce0c3705c83a275ff8abb2854d95bf65e6d5a1d0d7cb65f34102c02149.png" style="width: 518px; height: 1049px;" /></a>
+<a class="reference internal image-reference" href="_images/37fe0c0ee0536d9834c2badf4cb9fbbf7de4282a65cb22bf7dae64304f81a8a3.png"><img alt="_images/37fe0c0ee0536d9834c2badf4cb9fbbf7de4282a65cb22bf7dae64304f81a8a3.png" src="_images/37fe0c0ee0536d9834c2badf4cb9fbbf7de4282a65cb22bf7dae64304f81a8a3.png" style="width: 510px; height: 1049px;" /></a>
 </div>
 </div>
 </section>
@@ -1210,7 +1196,7 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;amplitude&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">],</span> <span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">],</span> <span class="s1">&#39;sigma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">10.0</span><span class="p">],</span> <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">]})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;amplitude&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">],</span> <span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50</span><span class="p">],</span> <span class="s1">&#39;sigma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">10.0</span><span class="p">],</span> <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">]})</span>
 <span class="n">parameters</span>
 </pre></div>
 </div>
@@ -1244,7 +1230,7 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
     <tr>
       <th>0</th>
       <td>0.01</td>
-      <td>100</td>
+      <td>50</td>
       <td>10.0</td>
       <td>0</td>
     </tr>
@@ -1260,7 +1246,7 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/d9963df895655855261085c376935bc08b90014734aa1fed1109f17ab2518d9c.png"><img alt="_images/d9963df895655855261085c376935bc08b90014734aa1fed1109f17ab2518d9c.png" src="_images/d9963df895655855261085c376935bc08b90014734aa1fed1109f17ab2518d9c.png" style="width: 725px; height: 551px;" /></a>
+<a class="reference internal image-reference" href="_images/446964f5a130e75373561cc030efb95b6833dbe31e846bad55cc9cc0c7664aa9.png"><img alt="_images/446964f5a130e75373561cc030efb95b6833dbe31e846bad55cc9cc0c7664aa9.png" src="_images/446964f5a130e75373561cc030efb95b6833dbe31e846bad55cc9cc0c7664aa9.png" style="width: 713px; height: 551px;" /></a>
 </div>
 </div>
 </section>
