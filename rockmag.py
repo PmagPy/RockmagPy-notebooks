@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.colors as colors
 import matplotlib.patches as patches
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
@@ -1246,7 +1247,12 @@ def split_warm_cool(experiment):
     return warm_T, warm_X, cool_T, cool_X
 
 # define function for plotting the X-T curve
-def plot_X_T(experiment, temp_unit='C', remove_holder=True, min_temp=None, max_temp=None):
+def plot_X_T(experiment, 
+             temp_unit='C', 
+             smooth_window=0,
+             remove_holder=True, 
+             min_temp=None, 
+             max_temp=None):
     '''
     plot the high temperature X-T curve
 
@@ -1256,21 +1262,28 @@ def plot_X_T(experiment, temp_unit='C', remove_holder=True, min_temp=None, max_t
         the IRM experiment data exported into MagIC format
     temp_unit : str
         the unit of temperature, either 'K' or 'C'
-    
+    smooth_window : int
+        the window size for smoothing the data
+    remove_holder : bool
+        whether to remove the holder signal
+    min_temp : float
+        the minimum temperature for the holder signal
+    max_temp : float
+        the maximum temperature for the holder signal
+
     Returns
     -------
-    ax : matplotlib axis
-        the axis object for the plot
+    fig : plotly.graph_objs.Figure
+        the plotly figure object
     '''
     warm_T, warm_X, cool_T, cool_X = split_warm_cool(experiment)
 
-    fig, ax = plt.subplots(figsize=(6,6))
-    if temp_unit == 'K':
-        ax.set_xlabel('Temperature (K)', fontsize=16)
-    elif temp_unit == 'C':
+    # Create a plot for the 'heat' dataset with red points and a line
+    fig_heat = go.Figure()
+    if temp_unit == 'C':
         warm_T = [T-273.15 for T in warm_T]
         cool_T = [T-273.15 for T in cool_T]
-        ax.set_xlabel('Temperature (C)', fontsize=16)
+
     else:
         raise ValueError('temp_unit must be either "K" or "C"')
     
@@ -1287,13 +1300,343 @@ def plot_X_T(experiment, temp_unit='C', remove_holder=True, min_temp=None, max_t
         warm_X = [X - holder_warm_X_average for X in warm_X]
         cool_X = [X - holder_cool_X_average for X in cool_X]
 
-    ax.plot(warm_T, warm_X, color='red', label='warm cycle')
-    ax.plot(cool_T, cool_X, color='blue', label='cool cycle')
-    ax.set_ylabel('Susceptibility ($\chi$) (m$^3$/kg)', fontsize=16)
-    ax.set_title('Susceptibility vs Temperature', fontsize=16)
-    ax.legend(fontsize=12)
-    ax.grid()
-    return fig, ax
+    smoothed_warm_T, smoothed_warm_X, smoothed_warm_Tvars, smoothed_warm_Xvars = X_T_running_average(warm_T, warm_X, smooth_window)
+    smoothed_cool_T, smoothed_cool_X, smoothed_cool_Tvars, smoothed_cool_Xvars = X_T_running_average(cool_T, cool_X, smooth_window)
+
+    # Add heat data as a scatter plot with red points and lines
+    fig_heat.add_trace(go.Scatter(
+        x=warm_T,
+        y=warm_X,
+        mode='markers',
+        marker=dict(color='red', opacity=0.5),
+        name='Heating - zero corrected'
+    ))
+    fig_heat.add_trace(go.Scatter(
+        x=smoothed_warm_T,
+        y=smoothed_warm_X,
+        mode='lines',
+        line=dict(color='red'),
+        name='Heating - zero corrected - smoothed'
+    ))
+    # Create a scatter plot for the 'cooling' dataset with blue points and a line
+    fig_cool = go.Figure()
+
+    # Add cooling data as a scatter plot with blue points and lines
+    fig_cool.add_trace(go.Scatter(
+        x=cool_T,
+        y=cool_X,
+        mode='markers',
+        marker=dict(color='blue', opacity=0.5),
+        name='Cooling - zero corrected'
+    ))
+    fig_cool.add_trace(go.Scatter(
+        x=smoothed_cool_T,
+        y=smoothed_cool_X,
+        mode='lines',
+        line=dict(color='blue'),
+        name='Cooling - zero corrected - smoothed'
+    ))
+
+    # Combine the two figures
+    fig = go.Figure(data=fig_heat.data + fig_cool.data)
+
+    width = 900  # Adjust the width to your preference
+    height = int(width / 1.618)  # Calculate height based on the golden ratio
+
+    # Update the layout with a unified title and labels
+    fig.update_layout(
+            title={
+            'text': f"{experiment['specimen'].unique()[0]}",
+            'x': 0.5,  # Center the title
+            'xanchor': 'center'
+        },
+        width=width,
+        height=height,
+        xaxis_title=f'Temperature (&deg;{temp_unit})',
+        yaxis_title='<i>k</i> (m<sup>3</sup> kg<sup>-1</sup>)',
+        showlegend=True,
+        paper_bgcolor='white',  # Background color of the entire plot
+        plot_bgcolor='white',   # Background color of the plotting area
+        font=dict(
+            family='Roboto, sans-serif',
+            size=18,
+            color="Black"
+        ),
+        xaxis=dict(
+            tick0=0,  # Start at 0
+            dtick=100,  # Tick every 100 units
+            gridcolor='lightgray',  # Color of the grid lines
+            gridwidth=1,  # Width of the grid lines
+            showline=True,  # Show x-axis line
+            linewidth=1,  # Width of the x-axis line
+            linecolor='black'  # Color of the x-axis line
+        ),
+        yaxis=dict(
+            # Automatic tick marks on the y-axis
+            autorange= True,  # Reversed for easier reading
+            tickformat='.1e',  # Scientific notation format
+            gridcolor='lightgray',  # Color of the grid lines
+            gridwidth=1,  # Width of the grid lines
+            showline=True,  # Show y-axis line
+            linewidth=1,  # Width of the y-axis line
+            linecolor='black'  # Color of the y-axis line
+        ),
+            shapes=[
+            # Frame around the plot
+            dict(
+                type='rect',
+                xref='paper', yref='paper',
+                x0=0, y0=0, x1=1, y1=1,
+                line=dict(color='black', width=2)
+            )
+        ],
+        margin=dict(
+            l=50,  # Adjust left margin
+            r=50,  # Adjust right margin
+            b=50,  # Adjust bottom margin
+            t=80   # Adjust top margin for title
+        )
+    )
+
+    # add a new figure below the X-T plot
+
+    fig_dxdt = go.Figure()
+    dxdt = np.gradient(smoothed_warm_X, smoothed_warm_T)
+    fig_dxdt.add_trace(go.Scatter(
+        x=smoothed_warm_T,
+        y=dxdt,
+        mode='markers+lines',
+        line=dict(color='red'),
+        name='Heating - dX/dT smoothed'
+    ))
+
+    dxdt = np.gradient(smoothed_cool_X, smoothed_cool_T)
+    fig_dxdt.add_trace(go.Scatter(
+        x=smoothed_cool_T,
+        y=dxdt,
+        mode='markers+lines',
+        line=dict(color='blue'),
+        name='Cooling - dX/dT smoothed'
+    ))
+
+    fig_dxdt.update_layout(
+        title={
+            'text': f"{experiment['specimen'].unique()[0]} - dX/dT",
+            'x': 0.5,  # Center the title
+            'xanchor': 'center'
+        },
+        width=width,
+        height=height,
+        xaxis_title=f'Temperature (&deg;{temp_unit})',
+        yaxis_title='dX/dT',
+        showlegend=True,
+        paper_bgcolor='white',  # Background color of the entire plot
+        plot_bgcolor='white',   # Background color of the plotting area
+        font=dict(
+            family='Roboto, sans-serif',
+            size=18,
+            color="Black"
+        ),
+        xaxis=dict(
+            tick0=0,  # Start at 0
+            dtick=100,  # Tick every 100 units
+            gridcolor='lightgray',  # Color of the grid lines
+            gridwidth=1,  # Width of the grid lines
+            showline=True,  # Show x-axis line
+            linewidth=1,  # Width of the x-axis line
+            linecolor='black'  # Color of the x-axis line
+        ),
+        yaxis=dict(
+            # Automatic tick marks on the y-axis
+            autorange=True,  # Reversed for easier reading
+            tickformat='.1e',  # Scientific notation format
+            gridcolor='lightgray',  # Color of the grid lines
+            gridwidth=1,  # Width of the grid lines
+            showline=True,  # Show y-axis line
+            linewidth=1,  # Width of the y-axis line
+            linecolor='black'  # Color of the y-axis line
+        ),
+        shapes=[
+            # Frame around the plot
+            dict(
+                type='rect',
+                xref='paper', yref='paper',
+                x0=0, y0=0, x1=1, y1=1,
+                line=dict(color='black', width=2)
+            )
+        ],
+        margin=dict(
+            l=50,  # Adjust left margin
+            r=50,  # Adjust right margin
+            b=50,  # Adjust bottom margin
+            t=80   # Adjust top margin for title
+        )
+    )
+
+    # add a new figure below the X-T plot
+    fig_inv = go.Figure()
+    inv_warm_X = [1/X for X in smoothed_warm_X]
+    inv_cool_X = [1/X for X in smoothed_cool_X]
+    fig_inv.add_trace(go.Scatter(
+        x=smoothed_warm_T,
+        y=inv_warm_X,
+        mode='markers+lines',
+        line=dict(color='red'),
+        name='Heating - 1/X smoothed'
+    ))
+    fig_inv.add_trace(go.Scatter(
+        x=smoothed_cool_T,
+        y=inv_cool_X,
+        mode='markers+lines',
+        line=dict(color='blue'),
+        name='Cooling - 1/X smoothed'
+    ))
+
+    fig_inv.update_layout(
+        title={
+            'text': f"{experiment['specimen'].unique()[0]} - 1/X",
+            'x': 0.5,  # Center the title
+            'xanchor': 'center'
+        },
+        width=width,
+        height=height,
+        xaxis_title=f'Temperature (&deg;{temp_unit})',
+        yaxis_title='1/X',
+        showlegend=True,
+        paper_bgcolor='white',  # Background color of the entire plot
+        plot_bgcolor='white',   # Background color of the plotting area
+        font=dict(
+            family='Roboto, sans-serif',
+            size=18,
+            color="Black"
+        ),
+        xaxis=dict(
+            tick0=0,  # Start at 0
+            dtick=100,  # Tick every 100 units
+            gridcolor='lightgray',  # Color of the grid lines
+            gridwidth=1,  # Width of the grid lines
+            showline=True,  # Show x-axis line
+            linewidth=1,  # Width of the x-axis line
+            linecolor='black'  # Color of the x-axis line
+        ),
+        yaxis=dict(
+            # Automatic tick marks on the y-axis
+            autorange=True,  # Reversed for easier reading
+            tickformat='.1e',  # Scientific notation format
+            gridcolor='lightgray',  # Color of the grid lines
+            gridwidth=1,  # Width of the grid lines
+            showline=True,  # Show y-axis line
+            linewidth=1,  # Width of the y-axis line
+            linecolor='black'  # Color of the y-axis line
+        ),
+        shapes=[
+            # Frame around the plot
+            dict(
+                type='rect',
+                xref='paper', yref='paper',
+                x0=0, y0=0, x1=1, y1=1,
+                line=dict(color='black', width=2)
+            )
+        ],
+        margin=dict(
+            l=50,  # Adjust left margin
+            r=50,  # Adjust right margin
+            b=50,  # Adjust bottom margin
+            t=80   # Adjust top margin for title
+        )
+    )
+
+
+    # display the main figure
+    fig.show()
+
+    # display and return the other two figures depending on the plot_dxdt and plot_inv
+    fig_dxdt.show()
+    fig_inv.show()
+
+    return fig, fig_dxdt, fig_inv
+
+
+def X_T_running_average(temp_list, chi_list, temp_window):
+    if not temp_list or not chi_list or temp_window <= 0:
+        return temp_list, chi_list, [], []
+    
+    avg_temps = []
+    avg_chis = []
+    temp_vars = []
+    chi_vars = []
+    n = len(temp_list)
+    
+    for i in range(n):
+        # Determine the temperature range for the current point
+        temp_center = temp_list[i]
+        start_temp = temp_center - temp_window / 2
+        end_temp = temp_center + temp_window / 2
+        
+        # Get the indices within the temperature range
+        indices = [j for j, t in enumerate(temp_list) if start_temp <= t <= end_temp]
+        
+        # Calculate the average temperature and susceptibility for the current window
+        if indices:
+            temp_range = [temp_list[j] for j in indices]
+            chi_range = [chi_list[j] for j in indices]
+            avg_temp = sum(temp_range) / len(temp_range)
+            avg_chi = sum(chi_range) / len(chi_range)
+            temp_var = np.var(temp_range)
+            chi_var = np.var(chi_range)
+        else:
+            avg_temp = temp_center
+            avg_chi = chi_list[i]
+            temp_var = 0
+            chi_var = 0
+        
+        avg_temps.append(avg_temp)
+        avg_chis.append(avg_chi)
+        temp_vars.append(temp_var)
+        chi_vars.append(chi_var)
+    
+    return avg_temps, avg_chis, temp_vars, chi_vars
+
+def optimize_X_T_running_average_window(experiment, min_temp_window=0, max_temp_window=50, steps=50):
+    warm_T, warm_X, cool_T, cool_X = split_warm_cool(experiment)
+    windows = np.linspace(min_temp_window, max_temp_window, steps)
+    fig, ax = plt.subplots(figsize=(10, 6))
+
+    # Normalize the colormap
+    norm = colors.Normalize(vmin=min_temp_window, vmax=max_temp_window)
+
+    for window in windows:
+        _, warm_avg_chis, _, warm_chi_vars = X_T_running_average(warm_T, warm_X, window)
+        warm_avg_rms, warm_avg_variance = calculate_avg_variance_and_rms(warm_X, warm_avg_chis, warm_chi_vars)
+        _, cool_avg_chis, _, cool_chi_vars = X_T_running_average(cool_T, cool_X, window)  
+        cool_avg_rms, cool_avg_variance = calculate_avg_variance_and_rms(cool_X, cool_avg_chis, cool_chi_vars)
+
+        ax.scatter(warm_avg_variance, warm_avg_rms, c=window, cmap='Reds', norm=norm)
+        ax.scatter(cool_avg_variance, cool_avg_rms, c=window, cmap='Blues', norm=norm)
+        # ax.text(warm_avg_variance, warm_avg_rms, f'{window:.2f}°C', fontsize=12, ha='right')
+        # ax.text(cool_avg_variance, cool_avg_rms, f'{window:.2f}°C', fontsize=12, ha='right')
+    ax.set_xlabel('Average Variance', fontsize=14)
+    ax.set_ylabel('Average RMS', fontsize=14)
+    ax.set_title('Average RMS vs Average Variance plot\nfor optimizing the running average window size')
+    ax.invert_yaxis()
+    # show the colormaps and make sure the range is correct
+    warm_cbar = plt.colorbar(plt.cm.ScalarMappable(cmap='Reds', norm=norm))
+    warm_cbar.set_label('Warm cycle window size (°C)')
+    cool_cbar = plt.colorbar(plt.cm.ScalarMappable(cmap='Blues', norm=norm))
+    cool_cbar.set_label('Cool cycle window size (°C)')
+
+    return fig, ax   
+
+
+def calculate_avg_variance_and_rms(chi_list, avg_chis, chi_vars):
+    rms_list = np.sqrt([(chi - avg_chi)**2 for chi, avg_chi in zip(chi_list, avg_chis)])
+    total_rms = np.sum(rms_list)
+    avg_rms = total_rms / len(rms_list)
+    
+    total_variance = np.sum(chi_vars)
+    avg_variance = total_variance / len(chi_vars)
+    
+    return avg_rms, avg_variance
 
 def plot_MPMS_AC_X_T(experiment, frequency=None, phase='in', figsize=(6,6)):
     """
