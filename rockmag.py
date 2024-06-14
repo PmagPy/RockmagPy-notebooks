@@ -7,6 +7,8 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import ipywidgets as widgets
 from IPython.display import display
+from scipy.interpolate import interp1d
+
 
 try:
     from lmfit import Parameters, Model  # for fitting
@@ -1878,3 +1880,21 @@ def plot_backfield_unmixing_result(experiment, result, sigma=2, figsize=(8,6)):
     ax.set_xlabel('treatment field (mT)', fontsize=14)
     ax.set_ylabel('dM/dB', fontsize=14)
     return fig, ax
+	
+def kDTA_interp(blank_time, blank_temp, sample_time, sample_temp):
+	'''
+	Function to calculate residual temperature from sample and blank time and temperature data.
+	Inputs:
+	Outputs:
+	'''
+	#interpolation
+	t_max = max(max(blank_time), max(sample_time))### change to accomodate temp max
+	
+	t = np.arange(0,t_max + 15,15)
+	int_blank = interp1d(blank_time[:-5],blank_temp[:-5], kind = 'linear', bounds_error = False)
+	temp_blank = int_blank(t)
+	
+	int_sample = interp1d(sample_time[:-5],sample_temp[:-5], kind = 'linear', bounds_error = False)
+	temp_sample = int_sample(t)
+	
+	return t, temp_blank, temp_sample
