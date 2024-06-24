@@ -413,8 +413,15 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#we-need-to-do-some-preprocessing-on-the-raw-data-in-order-to-unmix-the-spectrum">We need to do some preprocessing on the raw data in order to unmix the spectrum</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1">Example 1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#now-let-s-do-the-unmixing">Now let’s do the unmixing</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-initial-guesses-for-skewnormal-distribution-parameters">set up initial guesses for skewnormal distribution parameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2">Example 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3">Example 3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Now let’s do the unmixing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">set up initial guesses for skewnormal distribution parameters</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-the-plot">Save the plot</a></li>
@@ -505,7 +512,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a22a89c261944a33bb9b78d017d5c970", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "626dad222eb44e89a025beb3872d060a", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 </section>
@@ -523,9 +530,9 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define the path to the folder </span>
-<span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;example_data/SSRM2022C&#39;</span>
+<span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;example_data/SSRM2024C&#39;</span>
 <span class="c1"># download the data from the MagIC database using my private contribution key </span>
-<span class="n">result</span><span class="p">,</span> <span class="n">magic_file</span> <span class="o">=</span> <span class="n">ipmag</span><span class="o">.</span><span class="n">download_magic_from_id</span><span class="p">(</span><span class="s1">&#39;20100&#39;</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">dir_path</span><span class="p">,</span> <span class="n">share_key</span><span class="o">=</span><span class="s1">&#39;1068543b-13d5-4b7b-9069-cc35de784e38&#39;</span><span class="p">)</span>
+<span class="n">result</span><span class="p">,</span> <span class="n">magic_file</span> <span class="o">=</span> <span class="n">ipmag</span><span class="o">.</span><span class="n">download_magic_from_id</span><span class="p">(</span><span class="s1">&#39;20133&#39;</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">dir_path</span><span class="p">,</span> <span class="n">share_key</span><span class="o">=</span><span class="s1">&#39;3b58527f-872b-4e64-a0f1-1e57120c9f15&#39;</span><span class="p">)</span>
 <span class="c1"># unpack the MagIC file</span>
 <span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="n">magic_file</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">)</span>
 <span class="c1"># get the contribution object</span>
@@ -537,25 +544,25 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Download successful. File saved to: example_data/SSRM2022C/magic_contribution_20100.txt
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Download successful. File saved to: example_data/SSRM2024C/magic_contribution_20133.txt
 working on:  &#39;contribution&#39;
-1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/contribution.txt
-contribution  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/contribution.txt
+1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2024C/contribution.txt
+contribution  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2024C/contribution.txt
 working on:  &#39;locations&#39;
-6  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/locations.txt
-locations  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/locations.txt
+1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2024C/locations.txt
+locations  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2024C/locations.txt
 working on:  &#39;sites&#39;
-6  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/sites.txt
-sites  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/sites.txt
+16  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2024C/sites.txt
+sites  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2024C/sites.txt
 working on:  &#39;samples&#39;
-28  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/samples.txt
-samples  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/samples.txt
+28  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2024C/samples.txt
+samples  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2024C/samples.txt
 working on:  &#39;specimens&#39;
-47  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/specimens.txt
-specimens  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/specimens.txt
+50  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2024C/specimens.txt
+specimens  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2024C/specimens.txt
 working on:  &#39;measurements&#39;
-140501  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/measurements.txt
-measurements  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/measurements.txt
+16966  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2024C/measurements.txt
+measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2024C/measurements.txt
 -I- Using online data model
 -I- Getting method codes from earthref.org
 -I- Importing controlled vocabularies from https://earthref.org
@@ -598,6 +605,7 @@ measurements  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/examp
       <th>method_codes</th>
       <th>quality</th>
       <th>sequence</th>
+      <th>software_packages</th>
       <th>specimen</th>
       <th>standard</th>
       <th>susc_chi_mass</th>
@@ -605,14 +613,9 @@ measurements  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/examp
       <th>timestamp</th>
       <th>treat_ac_field</th>
       <th>treat_dc_field</th>
-      <th>treat_dc_field_phi</th>
-      <th>treat_dc_field_theta</th>
-      <th>treat_step_num</th>
     </tr>
     <tr>
       <th>measurement name</th>
-      <th></th>
-      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -644,162 +647,152 @@ measurements  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/examp
   </thead>
   <tbody>
     <tr>
-      <th>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-1</th>
+      <th>IRM-Magnon-14466-0</th>
       <td>NaN</td>
       <td>NaN</td>
-      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667</td>
-      <td>IRM-MPMS3</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>IRM-Magnon-LP-X:LP-X-F:LP-X-H-14466</td>
+      <td>IRM-Magnon</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.0003</td>
       <td>NaN</td>
-      <td>1.00</td>
       <td>NaN</td>
-      <td>10.0</td>
-      <td>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-1</td>
-      <td>LP-X:LP-X-T:LP-X-F</td>
+      <td>NaN</td>
+      <td>0.000377</td>
+      <td>NaN</td>
+      <td>31.0</td>
+      <td>NaN</td>
+      <td>293.0</td>
+      <td>IRM-Magnon-14466-0</td>
+      <td>LP-X:LP-X-F:LP-X-H</td>
       <td>g</td>
-      <td>1.0</td>
-      <td>DA4-r</td>
+      <td>NaN</td>
+      <td>IRMDB Version2</td>
+      <td>MA1-1b</td>
       <td>u</td>
-      <td>6.321000e-07</td>
-      <td>1.348000e-09</td>
-      <td>2024:05:29:09:35:19.00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>0.001594</td>
+      <td>0.000006</td>
+      <td>2024:06:05:15:51:58.00</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
     <tr>
-      <th>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-2</th>
+      <th>IRM-Magnon-14466-1</th>
       <td>NaN</td>
       <td>NaN</td>
-      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667</td>
-      <td>IRM-MPMS3</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>IRM-Magnon-LP-X:LP-X-F:LP-X-H-14466</td>
+      <td>IRM-Magnon</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.0003</td>
       <td>NaN</td>
-      <td>5.32</td>
       <td>NaN</td>
-      <td>10.0</td>
-      <td>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-2</td>
-      <td>LP-X:LP-X-T:LP-X-F</td>
+      <td>NaN</td>
+      <td>0.000377</td>
+      <td>NaN</td>
+      <td>305.0</td>
+      <td>NaN</td>
+      <td>293.0</td>
+      <td>IRM-Magnon-14466-1</td>
+      <td>LP-X:LP-X-F:LP-X-H</td>
       <td>g</td>
-      <td>2.0</td>
-      <td>DA4-r</td>
+      <td>NaN</td>
+      <td>IRMDB Version2</td>
+      <td>MA1-1b</td>
       <td>u</td>
-      <td>6.296000e-07</td>
-      <td>1.504000e-09</td>
-      <td>2024:05:29:09:35:19.00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>0.001610</td>
+      <td>0.000006</td>
+      <td>2024:06:05:15:51:58.00</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
     <tr>
-      <th>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-3</th>
+      <th>IRM-Magnon-14466-2</th>
       <td>NaN</td>
       <td>NaN</td>
-      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667</td>
-      <td>IRM-MPMS3</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>IRM-Magnon-LP-X:LP-X-F:LP-X-H-14466</td>
+      <td>IRM-Magnon</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.0003</td>
       <td>NaN</td>
-      <td>28.26</td>
       <td>NaN</td>
-      <td>10.0</td>
-      <td>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-3</td>
-      <td>LP-X:LP-X-T:LP-X-F</td>
+      <td>NaN</td>
+      <td>0.000377</td>
+      <td>NaN</td>
+      <td>1030.0</td>
+      <td>NaN</td>
+      <td>293.0</td>
+      <td>IRM-Magnon-14466-2</td>
+      <td>LP-X:LP-X-F:LP-X-H</td>
       <td>g</td>
-      <td>3.0</td>
-      <td>DA4-r</td>
+      <td>NaN</td>
+      <td>IRMDB Version2</td>
+      <td>MA1-1b</td>
       <td>u</td>
-      <td>6.317000e-07</td>
-      <td>9.637000e-10</td>
-      <td>2024:05:29:09:35:19.00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>0.001605</td>
+      <td>0.000014</td>
+      <td>2024:06:05:15:51:58.00</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
     <tr>
-      <th>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-4</th>
+      <th>IRM-Magnon-14466-3</th>
       <td>NaN</td>
       <td>NaN</td>
-      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667</td>
-      <td>IRM-MPMS3</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>IRM-Magnon-LP-X:LP-X-F:LP-X-H-14466</td>
+      <td>IRM-Magnon</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.0003</td>
       <td>NaN</td>
-      <td>150.47</td>
       <td>NaN</td>
-      <td>10.0</td>
-      <td>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-4</td>
-      <td>LP-X:LP-X-T:LP-X-F</td>
+      <td>NaN</td>
+      <td>0.000151</td>
+      <td>NaN</td>
+      <td>1030.0</td>
+      <td>NaN</td>
+      <td>293.0</td>
+      <td>IRM-Magnon-14466-3</td>
+      <td>LP-X:LP-X-F:LP-X-H</td>
       <td>g</td>
-      <td>4.0</td>
-      <td>DA4-r</td>
+      <td>NaN</td>
+      <td>IRMDB Version2</td>
+      <td>MA1-1b</td>
       <td>u</td>
-      <td>6.297000e-07</td>
-      <td>1.548000e-09</td>
-      <td>2024:05:29:09:35:19.00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>0.001600</td>
+      <td>0.000012</td>
+      <td>2024:06:05:15:51:58.00</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
     <tr>
-      <th>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-5</th>
+      <th>IRM-Magnon-14466-4</th>
       <td>NaN</td>
       <td>NaN</td>
-      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667</td>
-      <td>IRM-MPMS3</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>IRM-Magnon-LP-X:LP-X-F:LP-X-H-14466</td>
+      <td>IRM-Magnon</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.0003</td>
       <td>NaN</td>
-      <td>800.46</td>
       <td>NaN</td>
-      <td>10.0</td>
-      <td>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-5</td>
-      <td>LP-X:LP-X-T:LP-X-F</td>
+      <td>NaN</td>
+      <td>0.000050</td>
+      <td>NaN</td>
+      <td>1030.0</td>
+      <td>NaN</td>
+      <td>293.0</td>
+      <td>IRM-Magnon-14466-4</td>
+      <td>LP-X:LP-X-F:LP-X-H</td>
       <td>g</td>
-      <td>5.0</td>
-      <td>DA4-r</td>
+      <td>NaN</td>
+      <td>IRMDB Version2</td>
+      <td>MA1-1b</td>
       <td>u</td>
-      <td>6.397000e-07</td>
-      <td>-5.734000e-09</td>
-      <td>2024:05:29:09:35:19.00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>0.001590</td>
+      <td>0.000010</td>
+      <td>2024:06:05:15:51:58.00</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
@@ -832,172 +825,160 @@ measurements  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/examp
       <td>...</td>
       <td>...</td>
       <td>...</td>
-      <td>...</td>
-      <td>...</td>
     </tr>
     <tr>
       <th>nan</th>
-      <td>89.287256</td>
-      <td>69.154282</td>
-      <td>DX1-4b-ARM_aniso-LP-AN-ARM-0</td>
+      <td>38.182488</td>
+      <td>23.926673</td>
+      <td>SJ1-5b-NRM_demag(T,Hac)-LP-DIR-AF-0</td>
       <td>IRM-SRM-U</td>
       <td>NaN</td>
-      <td>6.015930e-08</td>
+      <td>5.942540e-08</td>
       <td>NaN</td>
-      <td>2.663010e-10</td>
-      <td>2.140620e-08</td>
-      <td>5.622140e-08</td>
+      <td>4.269700e-08</td>
+      <td>3.357810e-08</td>
+      <td>2.410100e-08</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.25</td>
+      <td>0.45</td>
       <td>NaN</td>
       <td>None</td>
-      <td>LP-AN-ARM</td>
+      <td>LP-DIR-AF</td>
       <td>None</td>
       <td>NaN</td>
-      <td>DX1-4b</td>
+      <td>None</td>
+      <td>SJ1-5b</td>
       <td>None</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>2022:06:14:17:01:41.00</td>
-      <td>0.2</td>
-      <td>0.00000</td>
-      <td>0.0</td>
-      <td>0.0</td>
+      <td>2024:06:05:09:35:29.00</td>
+      <td>0.17</td>
       <td>NaN</td>
     </tr>
     <tr>
       <th>nan</th>
-      <td>89.179101</td>
-      <td>-46.279529</td>
-      <td>DA4-1C-ARM_aniso-LP-AN-ARM-0</td>
+      <td>-194.492598</td>
+      <td>-32.183836</td>
+      <td>MA1-1b-NRM_demag(T,Hac)-LP-DIR-AF-0</td>
       <td>IRM-SRM-U</td>
       <td>NaN</td>
-      <td>5.568630e-06</td>
+      <td>2.107890e-06</td>
       <td>NaN</td>
-      <td>5.514000e-08</td>
-      <td>3.848310e-06</td>
-      <td>-4.024560e-06</td>
+      <td>-1.727230e-06</td>
+      <td>4.464540e-07</td>
+      <td>-1.122740e-06</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.05</td>
+      <td>0.65</td>
       <td>NaN</td>
       <td>None</td>
-      <td>LP-AN-ARM</td>
+      <td>LP-DIR-AF</td>
       <td>None</td>
       <td>NaN</td>
-      <td>DA4-1C</td>
+      <td>None</td>
+      <td>MA1-1b</td>
       <td>None</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>2022:06:14:17:09:04.00</td>
-      <td>0.2</td>
-      <td>0.00005</td>
-      <td>-45.0</td>
-      <td>90.0</td>
+      <td>2024:06:05:09:35:51.00</td>
+      <td>0.17</td>
       <td>NaN</td>
     </tr>
     <tr>
       <th>nan</th>
-      <td>78.668498</td>
-      <td>-42.932098</td>
-      <td>DX1-4b-ARM_aniso-LP-AN-ARM-0</td>
+      <td>-215.249814</td>
+      <td>-18.923425</td>
+      <td>MA1-2b-NRM_demag(T,Hac)-LP-DIR-AF-0</td>
       <td>IRM-SRM-U</td>
       <td>NaN</td>
-      <td>2.991990e-07</td>
+      <td>8.466490e-07</td>
       <td>NaN</td>
-      <td>4.304250e-08</td>
-      <td>2.147920e-07</td>
-      <td>-2.037940e-07</td>
+      <td>-6.540420e-07</td>
+      <td>4.622280e-07</td>
+      <td>-2.745720e-07</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.25</td>
+      <td>0.85</td>
       <td>NaN</td>
       <td>None</td>
-      <td>LP-AN-ARM</td>
+      <td>LP-DIR-AF</td>
       <td>None</td>
       <td>NaN</td>
-      <td>DX1-4b</td>
+      <td>None</td>
+      <td>MA1-2b</td>
       <td>None</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>2022:06:14:17:09:25.00</td>
-      <td>0.2</td>
-      <td>0.00005</td>
-      <td>-45.0</td>
-      <td>90.0</td>
+      <td>2024:06:05:09:36:13.00</td>
+      <td>0.17</td>
       <td>NaN</td>
     </tr>
     <tr>
       <th>nan</th>
-      <td>-263.526376</td>
-      <td>41.525431</td>
-      <td>DA4-1C-ARMdemag(T,Hac)-LP-ARM-AFD-0</td>
+      <td>-210.301191</td>
+      <td>-4.890774</td>
+      <td>MA1-3b-NRM_demag(T,Hac)-LP-DIR-AF-0</td>
       <td>IRM-SRM-U</td>
       <td>NaN</td>
-      <td>2.338400e-07</td>
+      <td>1.792450e-06</td>
       <td>NaN</td>
-      <td>-1.973810e-08</td>
-      <td>1.739510e-07</td>
-      <td>1.550250e-07</td>
+      <td>-1.541940e-06</td>
+      <td>9.010800e-07</td>
+      <td>-1.528180e-07</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.05</td>
+      <td>1.05</td>
       <td>NaN</td>
       <td>None</td>
-      <td>LP-ARM-AFD</td>
+      <td>LP-DIR-AF</td>
       <td>None</td>
       <td>NaN</td>
-      <td>DA4-1C</td>
+      <td>None</td>
+      <td>MA1-3b</td>
       <td>None</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>2022:06:14:17:19:07.00</td>
-      <td>0.2</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>2024:06:05:09:36:36.00</td>
+      <td>0.17</td>
       <td>NaN</td>
     </tr>
     <tr>
       <th>nan</th>
-      <td>-256.886343</td>
-      <td>65.097030</td>
-      <td>DX1-4b-ARMdemag(T,Hac)-LP-ARM-AFD-0</td>
+      <td>184.133604</td>
+      <td>13.586462</td>
+      <td>MA1-8b-NRM_demag(T,Hac)-LP-DIR-AF-0</td>
       <td>IRM-SRM-U</td>
       <td>NaN</td>
-      <td>5.565400e-08</td>
+      <td>1.217370e-06</td>
       <td>NaN</td>
-      <td>-5.317000e-09</td>
-      <td>2.282380e-08</td>
-      <td>5.047940e-08</td>
+      <td>-1.180220e-06</td>
+      <td>-8.529500e-08</td>
+      <td>2.859740e-07</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.25</td>
+      <td>1.25</td>
       <td>NaN</td>
       <td>None</td>
-      <td>LP-ARM-AFD</td>
+      <td>LP-DIR-AF</td>
       <td>None</td>
       <td>NaN</td>
-      <td>DX1-4b</td>
+      <td>None</td>
+      <td>MA1-8b</td>
       <td>None</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>2022:06:14:17:19:28.00</td>
-      <td>0.2</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>2024:06:05:09:36:58.00</td>
+      <td>0.17</td>
       <td>NaN</td>
     </tr>
   </tbody>
 </table>
-<p>140501 rows × 29 columns</p>
+<p>16966 rows × 27 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -1007,10 +988,9 @@ measurements  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/examp
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;LP-X:LP-X-T:LP-X-F&#39;, &#39;LP-X:LP-X-T:LP-X-F:LP-X-H&#39;, &#39;LP-X-T&#39;,
-       &#39;LP-HYS&#39;, &#39;LP-BCR-BF&#39;, &#39;LP-FORC&#39;, &#39;LP-FC&#39;, &#39;LP-ZFC&#39;,
-       &#39;LP-CW-SIRM:LP-MC&#39;, &#39;LP-CW-SIRM:LP-MW&#39;, &#39;LP-DIR-AF&#39;, &#39;LP-AN-ARM&#39;,
-       &#39;LP-ARM-AFD&#39;], dtype=object)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;LP-X:LP-X-F:LP-X-H&#39;, &#39;LP-X:LP-X-T:LP-X-F&#39;, &#39;LP-X-T&#39;, &#39;LP-HYS&#39;,
+       &#39;LP-BCR-BF&#39;, &#39;LP-FC&#39;, &#39;LP-ZFC&#39;, &#39;LP-CW-SIRM:LP-MC&#39;,
+       &#39;LP-CW-SIRM:LP-MW&#39;, &#39;LP-DIR-AF&#39;], dtype=object)
 </pre></div>
 </div>
 </div>
@@ -1081,69 +1061,69 @@ measurements  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/examp
   </thead>
   <tbody>
     <tr>
-      <th>DA2-rIRM-VSM4-LP-BCR-BF-2280561</th>
-      <td>IRM-VSM4-LP-BCR-BF-228056</td>
-      <td>IRM-VSM4</td>
-      <td>0.006222</td>
-      <td>DA2-rIRM-VSM4-LP-BCR-BF-2280561</td>
+      <th>MA1-5-r gelcapIRM-VSM3-LP-BCR-BF-2393701</th>
+      <td>IRM-VSM3-LP-BCR-BF-239370</td>
+      <td>IRM-VSM3</td>
+      <td>0.002470</td>
+      <td>MA1-5-r gelcapIRM-VSM3-LP-BCR-BF-2393701</td>
       <td>LP-BCR-BF</td>
       <td>g</td>
-      <td>DA2-r</td>
-      <td>294</td>
-      <td>2022:06:02:11:29:50.00</td>
-      <td>-0.000010</td>
+      <td>MA1-5-r gelcap</td>
+      <td>300</td>
+      <td>2024:06:06:15:41:00.00</td>
+      <td>-0.000070</td>
     </tr>
     <tr>
-      <th>DA2-rIRM-VSM4-LP-BCR-BF-2280562</th>
-      <td>IRM-VSM4-LP-BCR-BF-228056</td>
-      <td>IRM-VSM4</td>
-      <td>0.006128</td>
-      <td>DA2-rIRM-VSM4-LP-BCR-BF-2280562</td>
+      <th>MA1-5-r gelcapIRM-VSM3-LP-BCR-BF-2393702</th>
+      <td>IRM-VSM3-LP-BCR-BF-239370</td>
+      <td>IRM-VSM3</td>
+      <td>0.001872</td>
+      <td>MA1-5-r gelcapIRM-VSM3-LP-BCR-BF-2393702</td>
       <td>LP-BCR-BF</td>
       <td>g</td>
-      <td>DA2-r</td>
-      <td>294</td>
-      <td>2022:06:02:11:29:50.00</td>
-      <td>-0.000499</td>
+      <td>MA1-5-r gelcap</td>
+      <td>300</td>
+      <td>2024:06:06:15:41:00.00</td>
+      <td>-0.005054</td>
     </tr>
     <tr>
-      <th>DA2-rIRM-VSM4-LP-BCR-BF-2280563</th>
-      <td>IRM-VSM4-LP-BCR-BF-228056</td>
-      <td>IRM-VSM4</td>
-      <td>0.006019</td>
-      <td>DA2-rIRM-VSM4-LP-BCR-BF-2280563</td>
+      <th>MA1-5-r gelcapIRM-VSM3-LP-BCR-BF-2393703</th>
+      <td>IRM-VSM3-LP-BCR-BF-239370</td>
+      <td>IRM-VSM3</td>
+      <td>0.001353</td>
+      <td>MA1-5-r gelcapIRM-VSM3-LP-BCR-BF-2393703</td>
       <td>LP-BCR-BF</td>
       <td>g</td>
-      <td>DA2-r</td>
-      <td>294</td>
-      <td>2022:06:02:11:29:50.00</td>
-      <td>-0.001027</td>
+      <td>MA1-5-r gelcap</td>
+      <td>300</td>
+      <td>2024:06:06:15:41:00.00</td>
+      <td>-0.010090</td>
     </tr>
     <tr>
-      <th>DA2-rIRM-VSM4-LP-BCR-BF-2280564</th>
-      <td>IRM-VSM4-LP-BCR-BF-228056</td>
-      <td>IRM-VSM4</td>
-      <td>0.005908</td>
-      <td>DA2-rIRM-VSM4-LP-BCR-BF-2280564</td>
+      <th>MA1-5-r gelcapIRM-VSM3-LP-BCR-BF-2393704</th>
+      <td>IRM-VSM3-LP-BCR-BF-239370</td>
+      <td>IRM-VSM3</td>
+      <td>0.000952</td>
+      <td>MA1-5-r gelcapIRM-VSM3-LP-BCR-BF-2393704</td>
       <td>LP-BCR-BF</td>
       <td>g</td>
-      <td>DA2-r</td>
-      <td>294</td>
-      <td>2022:06:02:11:29:50.00</td>
-      <td>-0.001583</td>
+      <td>MA1-5-r gelcap</td>
+      <td>300</td>
+      <td>2024:06:06:15:41:00.00</td>
+      <td>-0.015070</td>
     </tr>
     <tr>
-      <th>DA2-rIRM-VSM4-LP-BCR-BF-2280565</th>
-      <td>IRM-VSM4-LP-BCR-BF-228056</td>
-      <td>IRM-VSM4</td>
-      <td>0.005789</td>
-      <td>DA2-rIRM-VSM4-LP-BCR-BF-2280565</td>
+      <th>MA1-5-r gelcapIRM-VSM3-LP-BCR-BF-2393705</th>
+      <td>IRM-VSM3-LP-BCR-BF-239370</td>
+      <td>IRM-VSM3</td>
+      <td>0.000591</td>
+      <td>MA1-5-r gelcapIRM-VSM3-LP-BCR-BF-2393705</td>
       <td>LP-BCR-BF</td>
       <td>g</td>
-      <td>DA2-r</td>
-      <td>294</td>
-      <td>2022:06:02:11:29:50.00</td>
-      <td>-0.002168</td>
+      <td>MA1-5-r gelcap</td>
+      <td>300</td>
+      <td>2024:06:06:15:41:00.00</td>
+      <td>-0.020050</td>
     </tr>
   </tbody>
 </table>
@@ -1164,17 +1144,23 @@ measurements  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/examp
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "77daee4c42884e9799939ea577f26a56", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "fa37c37a36044d15bd2643423391cc83", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "d325ef72ea2e43cbade7617d01c95c35", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "7b6542f8220f4973bf25dd549112c962", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <section id="we-need-to-do-some-preprocessing-on-the-raw-data-in-order-to-unmix-the-spectrum">
 <h3>We need to do some preprocessing on the raw data in order to unmix the spectrum<a class="headerlink" href="#we-need-to-do-some-preprocessing-on-the-raw-data-in-order-to-unmix-the-spectrum" title="Link to this heading">#</a></h3>
 <p>pick your own <code class="docutils literal notranslate"><span class="pre">smooth_frac</span></code> value between 0 and 1 for smoothing the raw backfield data</p>
+</section>
+</section>
+<section id="example-1">
+<h2>Example 1<a class="headerlink" href="#example-1" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smooth_frac</span> <span class="o">=</span> <span class="mf">0.0</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">specimne_1</span> <span class="o">=</span> <span class="s1">&#39;SJ1-4-r gelcap&#39;</span>
+<span class="n">experiment_1</span> <span class="o">=</span> <span class="s1">&#39;IRM-VSM4-LP-BCR-BF-239364&#39;</span>
+<span class="n">smooth_frac</span> <span class="o">=</span> <span class="mf">0.0</span>
 
-<span class="n">selected_experiment</span> <span class="o">=</span> <span class="n">backfield_measurements</span><span class="p">[(</span><span class="n">backfield_measurements</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">specimen</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">&amp;</span> 
-                                      <span class="p">(</span><span class="n">backfield_measurements</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">experiment</span><span class="o">.</span><span class="n">value</span><span class="p">)]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">selected_experiment</span> <span class="o">=</span> <span class="n">backfield_measurements</span><span class="p">[(</span><span class="n">backfield_measurements</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">specimne_1</span><span class="p">)</span> <span class="o">&amp;</span> 
+                                      <span class="p">(</span><span class="n">backfield_measurements</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">experiment_1</span><span class="p">)]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">selected_experiment</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">backfield_data_processing</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">smooth_frac</span><span class="o">=</span><span class="n">smooth_frac</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1187,10 +1173,9 @@ measurements  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/examp
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/37fe0c0ee0536d9834c2badf4cb9fbbf7de4282a65cb22bf7dae64304f81a8a3.png"><img alt="_images/37fe0c0ee0536d9834c2badf4cb9fbbf7de4282a65cb22bf7dae64304f81a8a3.png" src="_images/37fe0c0ee0536d9834c2badf4cb9fbbf7de4282a65cb22bf7dae64304f81a8a3.png" style="width: 510px; height: 1049px;" /></a>
+<a class="reference internal image-reference" href="_images/214bb9a50dabb0b561519667fcfff9733073a4fac619fff38fe179c806aa4788.png"><img alt="_images/214bb9a50dabb0b561519667fcfff9733073a4fac619fff38fe179c806aa4788.png" src="_images/214bb9a50dabb0b561519667fcfff9733073a4fac619fff38fe179c806aa4788.png" style="width: 510px; height: 1049px;" /></a>
 </div>
 </div>
-</section>
 </section>
 <section id="now-let-s-do-the-unmixing">
 <h2>Now let’s do the unmixing<a class="headerlink" href="#now-let-s-do-the-unmixing" title="Link to this heading">#</a></h2>
@@ -1202,7 +1187,7 @@ measurements  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/examp
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;amplitude&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.00003</span><span class="p">],</span> <span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">20</span><span class="p">],</span> <span class="s1">&#39;sigma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">10.0</span><span class="p">],</span> <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">]})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;amplitude&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.006</span><span class="p">],</span> <span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="s1">&#39;sigma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">10.0</span><span class="p">],</span> <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]})</span>
 <span class="n">parameters</span>
 </pre></div>
 </div>
@@ -1235,8 +1220,8 @@ measurements  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/examp
   <tbody>
     <tr>
       <th>0</th>
-      <td>0.00003</td>
-      <td>20</td>
+      <td>0.006</td>
+      <td>9</td>
       <td>10.0</td>
       <td>0</td>
     </tr>
@@ -1246,13 +1231,186 @@ measurements  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/examp
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="p">,</span> <span class="n">updated_parameters</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">backfield_unmixing</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">n_comps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">updated_parameters</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="p">,</span> <span class="n">updated_parameters</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">backfield_unmixing</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">n_comps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">)</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">plot_backfield_unmixing_result</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/6daa8241561e4ebf71964e3cfbeee741b053f97865f802077548cc5616807efb.png"><img alt="_images/6daa8241561e4ebf71964e3cfbeee741b053f97865f802077548cc5616807efb.png" src="_images/6daa8241561e4ebf71964e3cfbeee741b053f97865f802077548cc5616807efb.png" style="width: 713px; height: 551px;" /></a>
+<a class="reference internal image-reference" href="_images/1c65fc2b73ad423c9f3a1138950026e191f5e386effc8093263771413dc5db96.png"><img alt="_images/1c65fc2b73ad423c9f3a1138950026e191f5e386effc8093263771413dc5db96.png" src="_images/1c65fc2b73ad423c9f3a1138950026e191f5e386effc8093263771413dc5db96.png" style="width: 713px; height: 551px;" /></a>
+</div>
+</div>
+</section>
+</section>
+<section id="example-2">
+<h2>Example 2<a class="headerlink" href="#example-2" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>we can also try to fit this data with two components</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;amplitude&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.006</span><span class="p">,</span> <span class="mf">0.002</span><span class="p">],</span> <span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span> <span class="s1">&#39;sigma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">10.0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]})</span>
+<span class="n">parameters</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>amplitude</th>
+      <th>center</th>
+      <th>sigma</th>
+      <th>gamma</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.006</td>
+      <td>9</td>
+      <td>10.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.002</td>
+      <td>50</td>
+      <td>10.0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="p">,</span> <span class="n">updated_parameters</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">backfield_unmixing</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">n_comps</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">plot_backfield_unmixing_result</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/8f7cec1757b2b66c950d3ec1a3178adb66302982449afc8535354fce9a1602ee.png"><img alt="_images/8f7cec1757b2b66c950d3ec1a3178adb66302982449afc8535354fce9a1602ee.png" src="_images/8f7cec1757b2b66c950d3ec1a3178adb66302982449afc8535354fce9a1602ee.png" style="width: 713px; height: 551px;" /></a>
+</div>
+</div>
+</section>
+<section id="example-3">
+<h2>Example 3<a class="headerlink" href="#example-3" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">specimne_2</span> <span class="o">=</span> <span class="s1">&#39;MA1-OX-r&#39;</span>
+<span class="n">experiment_2</span> <span class="o">=</span> <span class="s1">&#39;IRM-VSM4-LP-BCR-BF-239379&#39;</span>
+<span class="n">smooth_frac</span> <span class="o">=</span> <span class="mf">0.03</span>
+
+<span class="n">selected_experiment</span> <span class="o">=</span> <span class="n">backfield_measurements</span><span class="p">[(</span><span class="n">backfield_measurements</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">specimne_2</span><span class="p">)</span> <span class="o">&amp;</span> 
+                                      <span class="p">(</span><span class="n">backfield_measurements</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">experiment_2</span><span class="p">)]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">selected_experiment</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">backfield_data_processing</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">smooth_frac</span><span class="o">=</span><span class="n">smooth_frac</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">)</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">plot_backfield_data</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/33dffd734877be4911e000da50f32815aefcf9507e14e960233736e027c43bc3.png"><img alt="_images/33dffd734877be4911e000da50f32815aefcf9507e14e960233736e027c43bc3.png" src="_images/33dffd734877be4911e000da50f32815aefcf9507e14e960233736e027c43bc3.png" style="width: 501px; height: 1049px;" /></a>
+</div>
+</div>
+</section>
+<section id="id1">
+<h2>Now let’s do the unmixing<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<section id="id2">
+<h3>set up initial guesses for skewnormal distribution parameters<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>you need to set up your own Pandas DataFrame table for the initial guesses of the skewnormal distribution parameters</p></li>
+<li><p>the parameter table gets updated each time you run the unmixing algorithm</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;amplitude&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span> <span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">],</span> <span class="s1">&#39;sigma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span> <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]})</span>
+<span class="n">parameters</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>amplitude</th>
+      <th>center</th>
+      <th>sigma</th>
+      <th>gamma</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.10</td>
+      <td>10</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.35</td>
+      <td>100</td>
+      <td>10</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.10</td>
+      <td>1000</td>
+      <td>50</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="p">,</span> <span class="n">updated_parameters</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">backfield_unmixing</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">n_comps</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">plot_backfield_unmixing_result</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/3b6fe9d16ccff4b5f3d66b1b541abb909ff49476e5fc48badb3a5f6e9596a383.png"><img alt="_images/3b6fe9d16ccff4b5f3d66b1b541abb909ff49476e5fc48badb3a5f6e9596a383.png" src="_images/3b6fe9d16ccff4b5f3d66b1b541abb909ff49476e5fc48badb3a5f6e9596a383.png" style="width: 705px; height: 551px;" /></a>
 </div>
 </div>
 </section>
@@ -1264,10 +1422,10 @@ measurements  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/examp
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">file_name</span> <span class="o">=</span> <span class="s1">&#39;output.png&#39;</span>
-<span class="n">save_directory</span> <span class="o">=</span> <span class="s1">&#39;./example_data/SSRM2022C&#39;</span> 
+<span class="n">save_directory</span> <span class="o">=</span> <span class="s1">&#39;./example_data/SSRM2024C&#39;</span> 
 
 <span class="n">file_path</span> <span class="o">=</span> <span class="n">save_directory</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">file_name</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="c1"># fig.savefig(file_path, dpi=300)</span>
 </pre></div>
 </div>
 </div>
@@ -1353,8 +1511,15 @@ measurements  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/examp
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#we-need-to-do-some-preprocessing-on-the-raw-data-in-order-to-unmix-the-spectrum">We need to do some preprocessing on the raw data in order to unmix the spectrum</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1">Example 1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#now-let-s-do-the-unmixing">Now let’s do the unmixing</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-initial-guesses-for-skewnormal-distribution-parameters">set up initial guesses for skewnormal distribution parameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2">Example 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3">Example 3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Now let’s do the unmixing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">set up initial guesses for skewnormal distribution parameters</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-the-plot">Save the plot</a></li>
