@@ -62,12 +62,12 @@ They do give an overall sense of what functions are available within RockmagPy a
 
 These notebooks support the analysis of data generated during experiments conducted on a vibrating sample magnetometer (VSM).
 
-- [*Hysteresis Loop Analysis*](../VSM_hysteresis.ipynb) *not yet developed*
-- [*Back Field Curves*](../VSM_backfield.ipynb) *not yet developed*
+- [*Hysteresis Loop Analysis*](../VSM_hysteresis.ipynb) *in development as of summer 2024*
+- [**Back Field Coercivity Spectra Unmixing**](../VSM_backfield_unmixing.ipynb) *(this notebook and the associated coercivity spectra analysis functions are still under active development)*
 
 ### Kappabridge data analysis
 
-- [*Thermomagnetic Curves*](../kappa_thermomagnetic.ipynb) *not yet developed*
+- [**Thermomagnetic Curves**](../high_T_susceptibility.ipynb) This notebook plots and analyzes data from high temperature susceptibility experiments.
 - [**Anisotropy of Magnetic Susceptibility (AMS)**](../Anisotropy_plot_AMS.ipynb) Within this notebook, AMS data are plotted and different methods for estimating the confidence of the associated axes are shown.
 
 ### MPMS data analysis
