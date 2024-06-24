@@ -1250,9 +1250,7 @@ def split_warm_cool(experiment):
 def plot_X_T(experiment, 
              temp_unit='C', 
              smooth_window=0,
-             remove_holder=True, 
-             min_temp=None, 
-             max_temp=None):
+             remove_holder=True):
     '''
     plot the high temperature X-T curve
 
@@ -1266,10 +1264,6 @@ def plot_X_T(experiment,
         the window size for smoothing the data
     remove_holder : bool
         whether to remove the holder signal
-    min_temp : float
-        the minimum temperature for the holder signal
-    max_temp : float
-        the maximum temperature for the holder signal
 
     Returns
     -------
@@ -1288,17 +1282,11 @@ def plot_X_T(experiment,
         raise ValueError('temp_unit must be either "K" or "C"')
     
     if remove_holder:
-        assert min_temp is not None, 'min_temp must be provided'
-        assert min_temp < max_temp, 'min_temp must be less than max_temp'
-        assert min_temp < max(warm_T), 'min_temp must be less than the maximum temperature in the warm cycle'
-        assert max_temp is not None, 'max_temp must be provided'
         # now use the min max temp range to select the holder X data
-        holder_warm_X = [X for X, T in zip(warm_X, warm_T) if T>=min_temp and T<=max_temp]
-        holder_cool_X = [X for X, T in zip(cool_X, cool_T) if T>=min_temp and T<=max_temp]
-        holder_warm_X_average = np.mean(holder_warm_X)
-        holder_cool_X_average = np.mean(holder_cool_X)
-        warm_X = [X - holder_warm_X_average for X in warm_X]
-        cool_X = [X - holder_cool_X_average for X in cool_X]
+        holder_warm_X = min(warm_X)
+        holder_cool_X = min(cool_X)
+        warm_X = [X - holder_warm_X for X in warm_X]
+        cool_X = [X - holder_cool_X for X in cool_X]
 
     smoothed_warm_T, smoothed_warm_X, smoothed_warm_Tvars, smoothed_warm_Xvars = X_T_running_average(warm_T, warm_X, smooth_window)
     smoothed_cool_T, smoothed_cool_X, smoothed_cool_Tvars, smoothed_cool_Xvars = X_T_running_average(cool_T, cool_X, smooth_window)
@@ -1788,7 +1776,7 @@ def plot_backfield_data(experiment, figsize=(5, 12)):
 
     return fig, (ax1, ax2, ax3)
 
-def backfield_unmixing(experiment, n_comps=1, parameters=None):
+def backfield_unmixing(experiment, n_comps=1, parameters=None, iter=True, n_iter=3):
     '''
     backfield unmixing for a single experiment
 
@@ -1812,14 +1800,30 @@ def backfield_unmixing(experiment, n_comps=1, parameters=None):
         |...|...|...|...|
         the program will automatically go through the rows and extract these inital parameter values
         If the parameters are not given, we will run an automated program to make initial guess
+
+    iter : bool
+        Whether to iterate the fitting process or not. It is useful to iterate the fitting process
+        to make sure the parameters are converged
+    n_iter : int
+        Number of iterations to run the fitting process
         
     Returns
+    -------
+    result : lmfit.model.ModelResult
+        The result of the fitting process
+    parameters : DataFrame
+        The updated parameters table
     '''
 
     assert n_comps > 0, 'n_component must be greater than 0'
     assert isinstance(n_comps, int), 'n_component must be an integer'
-    assert isinstance(parameters, pd.DataFrame), f"Expected a pandas DataFrame, but got {type(variable).__name__}"
+    assert isinstance(parameters, pd.DataFrame), f"Expected a pandas DataFrame, but got {type(parameters).__name__}"
     assert n_comps == parameters.shape[0], 'number of components must match the number of rows in the parameters table'
+    assert n_iter > 0, 'n_iter must be greater than 0'
+
+    if not iter:
+        n_iter = 1
+
     # re-calculate the derivatives based on the smoothed data columns
     smoothed_derivatives_y = -np.diff(experiment['smoothed_magn_mass_shift'])/np.diff(experiment['smoothed_log_dc_field'])
     smoothed_derivatives_x = experiment['smoothed_log_dc_field'].rolling(window=2).mean().dropna()
@@ -1850,15 +1854,21 @@ def backfield_unmixing(experiment, n_comps=1, parameters=None):
         else:
             composite_model += model
 
-    result = composite_model.fit(smoothed_derivatives_y, params, x=smoothed_derivatives_x)
+    def fitting_function(y, params, x):
+        result = composite_model.fit(y, params, x=x)
+        for i in range(n_comps):
+            prefix = f'g{i+1}_'
+            parameters.loc[i, 'amplitude'] = result.params[f'{prefix}amplitude'].value
+            parameters.loc[i, 'center'] = 10**result.params[f'{prefix}center'].value # convert back to mT
+            parameters.loc[i, 'sigma'] = 10**result.params[f'{prefix}sigma'].value # convert back to mT
+            parameters.loc[i, 'gamma'] = result.params[f'{prefix}gamma'].value
+        return result, parameters
 
-    # now use the resultant fit to update the parameters table and return it
-    for i in range(n_comps):
-        prefix = f'g{i+1}_'
-        parameters.loc[i, 'amplitude'] = result.params[f'{prefix}amplitude'].value
-        parameters.loc[i, 'center'] = 10**result.params[f'{prefix}center'].value # convert back to mT
-        parameters.loc[i, 'sigma'] = 10**result.params[f'{prefix}sigma'].value # convert back to mT
-        parameters.loc[i, 'gamma'] = result.params[f'{prefix}gamma'].value
+    result, parameters = fitting_function(smoothed_derivatives_y, params, x=smoothed_derivatives_x)
+
+    if iter:
+        for i in range(n_iter):
+            result, parameters = fitting_function(smoothed_derivatives_y, result.params, x=smoothed_derivatives_x)
 
     return result, parameters
 
