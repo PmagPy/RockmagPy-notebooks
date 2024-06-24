@@ -1884,7 +1884,7 @@ def plot_backfield_unmixing_result(experiment, result, sigma=2, figsize=(8,6)):
     # first plot the scatter raw dMdB data
     ax.scatter(raw_derivatives_x, raw_derivatives_y, c='grey', marker='o', s=10, label='raw coercivity spectrum')
     # plot the total best fit
-    ax.plot(raw_derivatives_x, result.best_fit, '-', label='total spectrum best fit')
+    ax.plot(raw_derivatives_x, result.best_fit, '-', color='k', alpha=0.6, label='total spectrum best fit')
     ax.fill_between(smoothed_derivatives_x,
                             result.best_fit-dely,
                             result.best_fit+dely,
@@ -1893,7 +1893,7 @@ def plot_backfield_unmixing_result(experiment, result, sigma=2, figsize=(8,6)):
     if len(result.components) > 1:
         for i in range(len(result.components)):
 
-            ax.plot(smoothed_derivatives_x, comps[f'g{i+1}_'], c='C0', label=f'component #{i+1}, {sigma}-$\sigma$ band')
+            ax.plot(smoothed_derivatives_x, comps[f'g{i+1}_'], c=f'C{i}', label=f'component #{i+1}, {sigma}-$\sigma$ band')
             ax.fill_between(smoothed_derivatives_x,
                                     comps[f'g{i+1}_']-result.dely_comps[f'g{i+1}_'],
                                     comps[f'g{i+1}_']+result.dely_comps[f'g{i+1}_'],
