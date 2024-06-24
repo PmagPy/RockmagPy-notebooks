@@ -1695,24 +1695,25 @@ def plot_MPMS_AC_X_T(experiment, frequency=None, phase='in', figsize=(6,6)):
 
 def backfield_data_processing(experiment, smooth_frac=0.0, drop_first=False):
     '''
-    Function to process the backfield data
-    including shifting the magnetic moment to be positive values
-              taking the log base 10 of the magnetic field values
-    and writing these new fields into the experiment attribute table
+    Function to process the backfield data including shifting the magnetic 
+    moment to be positive values taking the log base 10 of the magnetic 
+    field values and writing these new fields into the experiment attribute 
+    table
 
     Parameters
     ----------
     experiment : DataFrame
         DataFrame containing the backfield data
     smooth_frac : float
-        Fraction of the data to be used for smoothing, value must be between 0 and 1
+        Fraction of the data to be used for LOWESS smoothing, value must be between 0 and 1
     drop_first : bool
         Whether to drop the first data point or not
         in some cases you may want to drop the first data point to avoid negative log values
     
     Returns
     -------
-    experiment dataframe with the new attributes
+    DataFrame
+        The processed experiment DataFrame with new attributes.
     '''
     assert smooth_frac >= 0 and smooth_frac <= 1, 'smooth_frac must be between 0 and 1'
     assert isinstance(drop_first, bool), 'drop_first must be a boolean'
@@ -1733,6 +1734,22 @@ def backfield_data_processing(experiment, smooth_frac=0.0, drop_first=False):
     return experiment
     
 def plot_backfield_data(experiment, figsize=(5, 12)):
+    """
+    Plot backfield data including raw, processed, and coercivity spectrum plots.
+
+    Parameters
+    ----------
+    experiment : DataFrame
+        DataFrame containing the backfield data with columns 'treat_dc_field', 
+        'magn_mass', 'log_dc_field', 'magn_mass_shift', 
+        'smoothed_log_dc_field', and 'smoothed_magn_mass_shift'.
+    figsize : tuple of int, optional
+        Size of the figure to be created (default is (5, 12)).
+
+    Returns
+    -------
+    The matplotlib figure and axes objects: (fig, (ax1, ax2, ax3)).
+    """
     fig, (ax1, ax2, ax3) = plt.subplots(nrows=3, ncols=1, figsize=figsize)
 
     # raw data
