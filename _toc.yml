@@ -14,6 +14,9 @@ parts:
     - file: MPMS_plot_ac
     - file: MPMS_verwey_fit
     - file: MPMS_goethite_fit
+  - caption: VSM notebooks
+    chapters:
+    - file: VSM_backfield_unmixing
   - caption: Thermomagnetic notebooks
     chapters:
     - file: high_T_susceptibility
