@@ -105,7 +105,7 @@ def plot_mpms_data(fc_data, zfc_data, rtsirm_cool_data, rtsirm_warm_data,
                    fc_color='#1f77b4', zfc_color='#ff7f0e', rtsirm_cool_color='#17becf', rtsirm_warm_color='#d62728',
                    fc_marker='.', zfc_marker='.', rtsirm_cool_marker='.', rtsirm_warm_marker='.',
                    symbol_size=10, use_plotly=False, plot_derivative=False, return_figure=False,
-                   drop_first=False):
+                   drop_first=False, drop_last=False):
     """
     Plots MPMS data and optionally its derivatives for Field Cooled, Zero Field Cooled, RTSIRM Cooling, and RTSIRM Warming using either Matplotlib or Plotly.
 
@@ -125,6 +125,12 @@ def plot_mpms_data(fc_data, zfc_data, rtsirm_cool_data, rtsirm_warm_data,
         zfc_data = zfc_data[1:]
         rtsirm_cool_data = rtsirm_cool_data[1:]
         rtsirm_warm_data = rtsirm_warm_data[1:]
+        
+    if drop_last:
+        fc_data = fc_data[:-1]
+        zfc_data = zfc_data[:-1]
+        rtsirm_cool_data = rtsirm_cool_data[:-1]
+        rtsirm_warm_data = rtsirm_warm_data[:-1]
         
     if plot_derivative:
         fc_derivative = thermomag_derivative(fc_data['meas_temp'], fc_data['magn_mass'])
@@ -232,6 +238,7 @@ def plot_mpms_data(fc_data, zfc_data, rtsirm_cool_data, rtsirm_warm_data,
         if return_figure:
             return fig
 
+
 def plot_hyst_data(hyst_data,
                    hyst_color='#1f77b4',
                    hyst_marker='.',
@@ -290,6 +297,7 @@ def plot_hyst_data(hyst_data,
         
         if return_figure:
             return fig
+
 
 def make_mpms_plots(measurements):
     """
@@ -409,7 +417,7 @@ def make_hyst_plots(measurements):
     display(specimen_dropdown, plot_choice, out)
 
     
-def thermomag_derivative(temps, mags):
+def thermomag_derivative(temps, mags, drop_first=False, drop_last=False):
     """
     Calculates the derivative of magnetization with respect to temperature and optionally
     drops the data corresponding to the highest and/or lowest temperature.
@@ -776,13 +784,17 @@ def interactive_verwey_specimen_method_selection(measurements):
     
     return specimen_dropdown, method_dropdown
 
-def y_polate(n, xarr, yarr, xval, yval):
+def y_polate(n, xarr, yarr, xval):
     # linear interpolation/extrapolation, returns best-fit y for a specified x (e.g. for Mr)
     intercept, slope = linefit1(n, xarr, yarr)
     ycal = intercept + slope * xval
 
     return ycal
+def x_polate(n, xarr, yarr, yval):
+    intercept, slope = linefit1(n, xarr, yarr)
+    xcal = (yval-intercept) / slope
 
+    return xcal
 
 def linefit1(n, xarr, yarr):
     sum_x = sum(xarr)
@@ -889,7 +901,7 @@ def loop_grid(n_loop, polydegree, nsmooth, loop_fields, loop_moments, B_offset, 
             xvals[2] = loop_fields[j - k] - B_offset
             yvals[2] = loop_moments[j - k] - M_offset
 
-        ycal = y_polate(2, xvals, yvals, grid_fields[i], grid_moments[i])
+        ycal = y_polate(2, xvals, yvals, grid_fields[i])  #, grid_moments[i])
         grid_moments[i]=ycal
         #print(grid_moments[i])
     j -= 1
@@ -918,7 +930,7 @@ def loop_grid(n_loop, polydegree, nsmooth, loop_fields, loop_moments, B_offset, 
             xvals[2] = loop_fields[j - k] - B_offset
             yvals[2] = loop_moments[j - k] - M_offset
 
-        ycal = y_polate(2, xvals, yvals, grid_fields[i], grid_moments[i])
+        ycal = y_polate(2, xvals, yvals, grid_fields[i])   #, grid_moments[i])
         grid_moments[i] = ycal
         #print(grid_moments[i])
     j = 2
@@ -1028,6 +1040,282 @@ def loop_test_linearity(n_looppoints, loop_fields, loop_moments):
 
     return FNL, slope, intercept
 
+def loop_errorcal(n_looppoints, loopfields, moments):
+
+    r2, boff1, moff1 = loop_Hshift_brent(n_looppoints, loopfields, moments, -loopfields[0] / 2, 0, loopfields[0] / 2, 1E-6)
+    #result = brent(objective_function, brack=(-loopfields[0] / 2, 0, loopfields[0] / 2), tol=1E-6)
+
+    M_offset = moff1
+    B_offset = boff1
+
+    if 1 + r2 > 0:
+        M_sn = math.sqrt(1 + r2)  # =sqrt(1-R^2) = sqrt(SSD/SST) ~ noise/signal
+    else:
+        M_sn = 0
+
+    return M_offset, B_offset, M_sn
+
+def loop_Hshift_brent(n_looppoints, loopfields, moments, ax, bx, cx, tol):
+   # def loop_R2(n_looppoints, loop_fields, loop_moments, H_shift, V_shift):
+        # Define loop_R2 function here or import it from another module
+   #     pass
+
+    itmax = 100
+    cgold = 0.3819660
+    zeps = 1.0E-10
+
+    a = ax if ax < cx else cx
+    b = ax if ax > cx else cx
+    v = bx
+    w = v
+    x26 = v   #changing x to x26 because seems like python does not like me using x
+    e = 0.0
+    #fx = -loop_R2(n_looppoints, loop_fields, loop_moments, x)
+    fx=loop_R2v2(n_looppoints, loopfields, moments, x26)[0]
+    fx = fx * -1
+    #print(fx)
+    fv = fx
+    fw = fx
+    d = 0
+    goto_1 = True
+    goto_2 = True
+    for iter in range(1, itmax + 1):
+        xm = 0.5 * (a + b)
+        tol1 = tol * abs(x26) + zeps
+        tol2 = 2.0 * tol1
+
+        if abs(x26 - xm) <= (tol2 - 0.5 * (b - a)):
+            break
+
+        if abs(e) > tol1:
+            r = (x26 - w) * (fx - fv)
+            q = (x26 - v) * (fx - fw)
+            p = (x26 - v) * q - (x26 - w) * r
+            q = 2.0 * (q - r)
+
+            if q > 0.0:
+                p = -p
+            q = abs(q)
+            etemp = e
+            e = d
+            goto_1 = True
+
+            if abs(p) >= abs(0.5 * q * etemp) or p <= q * (a - x26) or p >= q * (b - x26):
+                goto_1 = True
+            else:
+                d = p / q
+                u = x26 + d
+
+                if (u - a) < tol2 or (b - u) < tol2:
+                    d = sign(tol1, xm - x26)
+                goto_2 = True
+                goto_1 = False
+
+        if goto_1: #or (not goto_1 and abs(d) >= tol1):
+            if x26 >= xm:
+                e = a - x26
+            else:
+                e = b - x26
+            d = cgold * e
+
+        if goto_2: #or (not goto_2 and abs(d) >= tol1):
+            if abs(d) >= tol1:
+                u = x26 + d
+            else:
+                u = x26 + sign(tol1, d)
+            fu=loop_R2v2(n_looppoints, loopfields, moments, u)[0]
+            fu = fu * -1
+            if fu <= fx:
+                if u >= x26:
+                    a = x26
+                else:
+                    b = x26
+                v = w
+                fv = fw
+                w = x26
+                fw = fx
+                x26 = u
+                fx = fu
+            else:
+                if u < x26:
+                    a = u
+                else:
+                    b = u
+                if fu <= fw or w == x26:
+                    v = w
+                    fv = fw
+                    w = u
+                    fw = fu
+                elif fu <= fv or v == x26 or v == 2:
+                    v = u
+                    fv = fu
+
+    boff1 = x26
+    r2 = fx
+    moff1 = loop_R2v2(n_looppoints, loopfields, moments, u)[1]   #moff1 = loop_R2v2(n_looppoints, loop_fields, loop_moments, u)[1]
+    return r2, boff1, moff1
+
+def loop_R2v2(n_looppoints, loopfields, moments, x26):
+    n = n_looppoints
+    min2 = 9E9
+    max2 = -min2
+    loop_fields_Hshift = []
+    for i in range(n):
+        loop_fields_Hshift.append(loopfields[i] - x26)  #loop_fields.append(float(s1))
+
+    for i in range(n):
+        if loop_fields_Hshift[i] > max2:
+            max2 = loop_fields_Hshift[i]
+
+    for i in range(n):
+        if loop_fields_Hshift[i] < min2:
+            min2 = loop_fields_Hshift[i]
+
+    min1 = -max2
+    max1 = -min2
+    n1 = n // 2
+    i2 = 0
+    x1 = np.zeros(n1)
+    y1 = np.zeros(n1)
+
+    n2 = 0
+    for i in range(n1, n):
+        x22 = loop_fields_Hshift[i]
+        if min1 < x22 < max1:
+            while -loop_fields_Hshift[i2] < x22:
+                i2 += 1
+            if i2 > 0:
+                n2 += 1
+                x1[n2] = moments[i]
+                dx = (-loop_fields_Hshift[i2] - x22) / (-loop_fields_Hshift[i2] + loop_fields_Hshift[i2 - 1])
+                dy = dx * (-moments[i2] + moments[i2 - 1])
+                y = -moments[i2] - dy
+                y1[n2] = -y
+
+    intercept, slope, rsqr = linefit2(n2, x1, y1)
+    V_shift = intercept / 2
+    r2 = rsqr
+    return r2, V_shift
+
+def sign(a, b):
+    return abs(a) if b > 0.0 else -abs(a)
+
+def loop_errorcal2(n_looppoints, loop_fields, loop_moments, M_offset, B_offset):
+    n = n_looppoints
+    min2 = 9E9
+    max2 = -min2
+    ErrX = np.zeros(n_looppoints)
+    ErrY = np.zeros(n_looppoints)
+    for i in range(n):
+        loop_fields[i] -= B_offset
+
+    for i in range(n):
+        if loop_fields[i] > max2:
+            max2 = loop_fields[i]
+
+    for i in range(n):
+        if loop_fields[i] < min2:
+            min2 = loop_fields[i]
+
+    min1 = -max2
+    max1 = -min2
+    n1 = n // 2
+    i2 = 1
+    n2 = 0
+
+    for i in range(n1, n):
+        x = loop_fields[i]
+        y0 = loop_moments[i]
+        if (x - min1 > 1E-10) and (x < max1):
+            while -loop_fields[i2] < x:
+                i2 += 1
+            if i2 > 0:
+                n2 += 1
+                ErrX[n2] = -x
+                dx = (-loop_fields[i2] - x) / (-loop_fields[i2] + loop_fields[i2 - 1])
+                dy = dx * (-loop_moments[i2] + loop_moments[i2 - 1])
+                y = -loop_moments[i2] - dy
+                ErrY[n2] = y0 - y
+    return ErrX, ErrY
+
+
+def loop_delta_M(n_looppoints, loopfields, moments):
+    # Initialize variables
+    n2 = n_looppoints // 2
+    xarr = np.zeros(n2 + 1)  # array needs to be filled with zeros
+    yarr = np.zeros(n2 + 1)
+    mrh = np.zeros(n2 + 1)
+
+    E_hys = 0
+    Mrhmax = 0
+    noise1 = 0
+
+    # Main loop
+    for i in range(1, n2 + 1):
+        j = n_looppoints + 51 - i
+        if j > n_looppoints:
+            j = n_looppoints
+        while not (loopfields[j - 1] <= loopfields[i - 1] or j == n_looppoints // 2):
+            j -= 1
+
+        xarr[0] = loopfields[j - 1]
+        xarr[1] = loopfields[j]
+        yarr[0] = moments[j - 1]
+        yarr[1] = moments[j]
+
+        if xarr[0] == xarr[1]:
+            y1 = yarr[0]
+        else:
+            y1 = y_polate(2, xarr, yarr, loopfields[i - 1])
+
+        mrh[i - 1] = (moments[i - 1] - y1) / 2
+
+        if mrh[i - 1] > Mrhmax:
+            Mrhmax = mrh[i - 1]
+
+        if i > 1:
+            E_hys -= (mrh[i - 1] + mrh[i - 2]) / 2 * (loopfields[i - 1] - loopfields[i - 2])
+            noise1 += (mrh[i - 1] - mrh[i - 2]) ** 2
+
+    noise1 = np.sqrt(noise1 / n2)
+    drift1 = np.sum(mrh[:10])
+
+    # Calculate Brh, Bih
+    MS = np.mean(moments[2:6])
+    j = 0
+    while not (moments[j] - mrh[j] <= MS / 2 or j == n_looppoints // 2):
+        j += 1
+    xarr[0] = loopfields[j - 1]
+    xarr[1] = loopfields[j - 2]
+    yarr[0] = moments[j - 1] - mrh[j - 1]
+    yarr[1] = moments[j - 2] - mrh[j - 2]
+    x1 = x_polate(2, xarr, yarr, MS / 2)
+    Bih = x1
+
+    j = 0
+    while not (mrh[j] >= Mrhmax / 2 or j == n_looppoints // 2):
+        j += 1
+    xarr[0] = loopfields[j - 1]
+    xarr[1] = loopfields[j - 2]
+    yarr[0] = mrh[j - 1]
+    yarr[1] = mrh[j - 2]
+    x1 = x_polate(2, xarr, yarr, Mrhmax / 2)
+    Brh = x1
+
+    return mrh, E_hys, Brh, Bih
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1131,14 +1419,24 @@ def goethite_removal(rtsirm_warm_data,
                    marker='s', linestyle='-', markersize=symbol_size, label='RTSIRM Warming (goethite removed)')
     axs[0, 1].plot(rtsirm_cool_temps, rtsirm_cool_mags_corrected, color=rtsirm_cool_color, 
                    marker='s', linestyle='-', markersize=symbol_size, label='RTSIRM Cooling (goethite removed)')
+    
+    ax0 = axs[0, 0] 
+    rectangle = patches.Rectangle((t_min, ax0.get_ylim()[0]), t_max - t_min, 
+                            ax0.get_ylim()[1] - ax0.get_ylim()[0], 
+                            linewidth=0, edgecolor=None, facecolor='gray', 
+                            alpha=0.3)
+    ax0.add_patch(rectangle)
+    rect_legend_patch = patches.Patch(color='gray', alpha=0.3, label='excluded from background fit')
+    handles, labels = ax0.get_legend_handles_labels()
+    handles.append(rect_legend_patch)  # Add the rectangle legend patch
+    
     for ax in axs[0, :]:
         ax.set_xlabel("Temperature (K)")
         ax.set_ylabel("Magnetization (Am$^2$/kg)")
         ax.legend()
         ax.grid(True)
         ax.set_xlim(0, 300)
-        
-        
+             
     rtsirm_cool_derivative = thermomag_derivative(rtsirm_cool_data['meas_temp'], 
                                                        rtsirm_cool_data['magn_mass'], drop_first=True)
     rtsirm_warm_derivative = thermomag_derivative(rtsirm_warm_data['meas_temp'], 
@@ -1148,7 +1446,6 @@ def goethite_removal(rtsirm_warm_data,
                                                        rtsirm_cool_mags_corrected, drop_first=True)
     rtsirm_warm_derivative_corrected = thermomag_derivative(rtsirm_warm_data['meas_temp'], 
                                                        rtsirm_warm_mags_corrected, drop_last=True)
-
 
     axs[1, 0].plot(rtsirm_cool_derivative['T'], rtsirm_cool_derivative['dM_dT'], 
                    marker='o', linestyle='-', color=rtsirm_cool_color, markersize=symbol_size, label='RTSIRM Cooling Derivative')
