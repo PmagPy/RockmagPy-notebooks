@@ -1381,6 +1381,47 @@ def interactive_specimen_experiment_selection(measurements):
     return specimen_dropdown, experiment_dropdown
 
 
+def interactive_method_specimen_selection(measurements):
+    # make two drop down ipywidgets for the user to select the experiment and the associated specimen
+
+    method_dropdown = widgets.Dropdown(
+        options = measurements['method_codes'].unique(),
+        description = 'Method Code:',
+        disabled = False,
+    )
+	
+    specimen_dropdown = widgets.Dropdown(
+        options = measurements['specimen'].unique(),
+        description = 'Specimen:',
+        disabled = False,
+    )
+	
+    experiment_dropdown = widgets.Dropdown(
+        options = measurements['experiment'].unique(),
+        description = 'Experiment:',
+        disabled = False,
+    )	
+
+    # make sure to set the default value of the specimen dropdown to the first specimen in the experiment dropdown
+    specimen_dropdown.options = measurements[measurements['method_codes']==method_dropdown.value]['specimen'].unique()
+    experiment_dropdown.options = measurements[measurements['specimen']==specimen_dropdown.value]['experiment'].unique()
+
+    # make sure to update the experiment dropdown based on the specimen selected
+    def update_specimen(*args):
+        specimen_dropdown.options = measurements[measurements['method_codes']==method_dropdown.value]['specimen'].unique()
+
+    def update_experiment(*args):
+        experiment_dropdown.options = measurements[(measurements['specimen']==specimen_dropdown.value) & (measurements['method_codes']==method_dropdown.value)]['experiment'].unique()
+
+    method_dropdown.observe(update_specimen, 'value')
+    specimen_dropdown.observe(update_experiment, 'value')
+
+    # display the dropdowns
+    display(method_dropdown, specimen_dropdown, experiment_dropdown)
+    
+    return method_dropdown, specimen_dropdown, experiment_dropdown
+
+
 
 def goethite_removal(rtsirm_warm_data, 
                      rtsirm_cool_data,
