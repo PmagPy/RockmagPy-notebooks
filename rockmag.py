@@ -240,6 +240,7 @@ def plot_mpms_data(fc_data, zfc_data, rtsirm_cool_data, rtsirm_warm_data,
 
 
 def plot_hyst_data(hyst_data,
+                   data_type,
                    hyst_color='#1f77b4',
                    hyst_marker='.',
                    symbol_size=5, use_plotly=False, return_figure=False):
@@ -257,17 +258,20 @@ def plot_hyst_data(hyst_data,
         fig: The matplotlib.figure.Figure object containing the plot (only when using Matplotlib).
     """
 
+    data_units_dict_mplt = {'magn_mass': 'Am$^2$/kg', 'magn_moment': 'Am$^2$', 'magn_volume': 'A/m'}
+    data_units_dict_plotly = {'magn_mass': 'Am2/kg', 'magn_moment': 'Am2', 'magn_volume': 'A/m'}
+
     if use_plotly:
         rows, cols = (1, 1)
         fig = make_subplots(rows=rows, cols=cols)
         
         # Add original data traces
-        fig.add_trace(go.Scatter(x=hyst_data['meas_field_dc'], y=hyst_data['magn_mass'], mode='markers+lines', name='Hyst', marker=dict(color=hyst_color)), row=1,    col=1)
+        fig.add_trace(go.Scatter(x=hyst_data['meas_field_dc'], y=hyst_data[data_type], mode='markers+lines', name='Hyst', marker=dict(color=hyst_color)), row=1,    col=1)
         
         # Update layout and axis titles
         # Set y-axis label for the first row to 'M (Am2/kg)'
-        fig.update_yaxes(title_text="M (Am2/kg)", row=1, col=1)
-        fig.update_yaxes(title_text="M (Am2/kg)", row=1, col=2)
+        fig.update_yaxes(title_text='M '+ data_units_dict_plotly[data_type], row=1, col=1)
+        fig.update_yaxes(title_text='M '+ data_units_dict_plotly[data_type], row=1, col=2)
 
         fig.update_xaxes(title_text="Field (Tesla)", row=1, col=1)
 
@@ -282,11 +286,11 @@ def plot_hyst_data(hyst_data,
             
         # Plot original data
 
-        axs[0].plot(hyst_data['meas_field_dc'], hyst_data['magn_mass'], color=hyst_color, marker=hyst_marker, linestyle='-', markersize=symbol_size, label='Loop')
-        axs[1].plot(hyst_data['meas_field_dc'], hyst_data['magn_mass'], color=hyst_color, marker=hyst_marker, linestyle='-', markersize=symbol_size, label='Loop')
+        axs[0].plot(hyst_data['meas_field_dc'], hyst_data[data_type], color=hyst_color, marker=hyst_marker, linestyle='-', markersize=symbol_size, label='Loop')
+        axs[1].plot(hyst_data['meas_field_dc'], hyst_data[data_type], color=hyst_color, marker=hyst_marker, linestyle='-', markersize=symbol_size, label='Loop')
         for ax in axs:
             ax.set_xlabel("Field (Tesla)")
-            ax.set_ylabel("Magnetization (Am$^2$/kg)")
+            ax.set_ylabel("Magnetization " + data_units_dict_mplt[data_type])
             ax.legend()
             ax.grid(True)
             #ax.set_xlim(0, 300)
@@ -358,7 +362,7 @@ def make_mpms_plots(measurements):
     display(specimen_dropdown, plot_choice, out)
            
 
-def make_hyst_plots(measurements):
+def make_hyst_plots(measurements, data_type='magn_mass'):
     """
     Create a UI for specimen selection and dynamically update Hysteresis loop plots based on the selected
     specimen and plot library choice. This version adds event handlers to ensure updates occur
@@ -389,6 +393,7 @@ def make_hyst_plots(measurements):
         disabled=False
     )
 
+	
     # Interactive output container
     out = widgets.Output()
 
@@ -399,13 +404,14 @@ def make_hyst_plots(measurements):
         with out:
             out.clear_output(wait=True)
             hyst_data = extract_hysteresis_data(measurements, specimen_name)
-            plot_hyst_data(hyst_data, use_plotly=use_plotly)
+            plot_hyst_data(hyst_data, use_plotly=use_plotly, data_type=data_type)
 
     def on_specimen_change(change):
         update_hyst_plots(change['new'], plot_choice.value)
 
     def on_plot_choice_change(change):
         update_hyst_plots(specimen_dropdown.value, change['new'])
+
 
     specimen_dropdown.observe(on_specimen_change, names='value')
     plot_choice.observe(on_plot_choice_change, names='value')
