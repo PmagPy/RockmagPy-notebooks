@@ -11,3 +11,7 @@ The notebooks within this repository can all be seen as webpages here: https://p
 ## Contributing
 
 While the repository is not yet ready for general use, contributions, suggestions, and feedback are welcome. _Thank you for your interest in contributing to the `rockmag.py` function library and the broader `pmagpy` project!_ 🌍🧲
+
+## License
+
+This code can be freely used, modified, and shared. It is licensed under a 3-clause BSD license. See [the license](https://github.com/PmagPy/RockmagPy-notebooks/blob/main/LICENSE) for details.
