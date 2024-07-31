@@ -470,7 +470,25 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-I- Using online data model
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>working on:  &#39;contribution\r&#39;
+1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/contribution.txt
+  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/contribution.txt
+working on:  &#39;specimens\r&#39;
+15  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/specimens.txt
+  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/specimens.txt
+working on:  &#39;samples\r&#39;
+5  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/samples.txt
+  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/samples.txt
+working on:  &#39;sites\r&#39;
+5  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/sites.txt
+  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/sites.txt
+working on:  &#39;locations\r&#39;
+10  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/locations.txt
+  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/locations.txt
+working on:  &#39;measurements\r&#39;
+5018  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/measurements.txt
+  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/measurements.txt
+-I- Using online data model
 -I- Getting method codes from earthref.org
 -I- Importing controlled vocabularies from https://earthref.org
 </pre></div>
@@ -510,7 +528,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ff2b45c726a344958a9545422921d3a1", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "4ff4b22712ed4fc58a0cf5761541b33b", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p>Once a sample is selected, we can estimate the Verwey transition using the method described above. Adjust the sliders to change the range of the background that is being fit, the temperature range that is being excluded from the background fit, and the polynomial degree that is being used for the background fit.</p>
 <p><em>Note: if you change the specimen or method in the dropdown menus above, rerun the code in the cell below to do the fit for the new specimen.</em></p>
@@ -521,7 +539,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "4236adea99ba4591bb9f3c7b3b7233f1", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "9f705c0ea4374d0cb8dd0417169d9a31", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "af3fe483a0584907a3ac0281756dba61", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "59c30f79f7f641eca9984123a5c87fa2", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="use-the-rmag-verwey-estimate-function">
@@ -1621,6 +1639,75 @@ document.write(`
   </tbody>
 </table>
 </div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">def</span> <span class="nf">contribution_to_magic</span><span class="p">(</span><span class="n">contribution</span><span class="p">,</span> <span class="n">dir_path</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Write a contribution object to MagIC-formatted files in the specified directory.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    contribution : Contribution</span>
+<span class="sd">        A contribution object containing tables to be written to a MagIC-formatted file.</span>
+<span class="sd">    dir_path : str</span>
+<span class="sd">        The directory path where the MagIC-formatted file will be written.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dir_path</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
+        
+    <span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;specimens&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">write_magic_file</span><span class="p">(</span><span class="n">dir_path</span><span class="o">=</span><span class="n">dir_path</span><span class="p">)</span>
+    <span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;samples&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">write_magic_file</span><span class="p">(</span><span class="n">dir_path</span><span class="o">=</span><span class="n">dir_path</span><span class="p">)</span>
+    <span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;sites&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">write_magic_file</span><span class="p">(</span><span class="n">dir_path</span><span class="o">=</span><span class="n">dir_path</span><span class="p">)</span>
+    <span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;locations&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">write_magic_file</span><span class="p">(</span><span class="n">dir_path</span><span class="o">=</span><span class="n">dir_path</span><span class="p">)</span>
+    <span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;measurements&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">write_magic_file</span><span class="p">(</span><span class="n">dir_path</span><span class="o">=</span><span class="n">dir_path</span><span class="p">)</span>
+    
+    <span class="n">ipmag</span><span class="o">.</span><span class="n">upload_magic</span><span class="p">(</span><span class="n">dir_path</span><span class="o">=</span><span class="n">dir_path</span><span class="p">,</span> <span class="n">input_dir_path</span><span class="o">=</span><span class="n">dir_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">contribution_to_magic</span><span class="p">(</span><span class="n">contribution</span><span class="p">,</span> <span class="n">dir_path</span><span class="o">=</span><span class="n">dir_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-I- overwriting /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/specimens.txt
+-I- 18 records written to specimens file
+-I- overwriting /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/samples.txt
+-I- 5 records written to samples file
+-I- overwriting /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/sites.txt
+-I- 5 records written to sites file
+-I- overwriting /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/locations.txt
+-I- 10 records written to locations file
+-I- overwriting /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/measurements.txt
+-I- 5018 records written to measurements file
+-I- /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/locations.txt file successfully read in
+10  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/upload.txt
+-I- /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/locations.txt written to  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/upload.txt
+-I- /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/samples.txt file successfully read in
+5  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/upload.txt
+-I- /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/samples.txt written to  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/upload.txt
+-I- /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/specimens.txt file successfully read in
+18  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/upload.txt
+-I- /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/specimens.txt written to  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/upload.txt
+-I- /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/sites.txt file successfully read in
+5  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/upload.txt
+-I- /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/sites.txt written to  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/upload.txt
+-I- /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/measurements.txt file successfully read in
+-I- dropping these columns: external_database_ids from the /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/measurements.txt table
+5018  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/upload.txt
+-I- /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/measurements.txt written to  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/upload.txt
+Finished preparing upload file: /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/ECMB_31.Jul.2024.txt 
+Validating upload file with public endpoint
+status_code= 500
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 </section>
