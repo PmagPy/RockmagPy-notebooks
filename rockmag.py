@@ -282,17 +282,17 @@ def plot_hyst_data(hyst_data,
             
     else:
         # Matplotlib plotting
-        fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(12, 4))
+        fig, axs = plt.subplots(nrows=1, ncols=1, figsize=(6, 4))
             
         # Plot original data
 
-        axs[0].plot(hyst_data['meas_field_dc'], hyst_data[data_type], color=hyst_color, marker=hyst_marker, linestyle='-', markersize=symbol_size, label='Loop')
-        axs[1].plot(hyst_data['meas_field_dc'], hyst_data[data_type], color=hyst_color, marker=hyst_marker, linestyle='-', markersize=symbol_size, label='Loop')
-        for ax in axs:
-            ax.set_xlabel("Field (Tesla)")
-            ax.set_ylabel("Magnetization " + data_units_dict_mplt[data_type])
-            ax.legend()
-            ax.grid(True)
+        axs.plot(hyst_data['meas_field_dc'], hyst_data[data_type], color=hyst_color, marker=hyst_marker, linestyle='-', markersize=symbol_size, label='Loop')
+        #axs[1].plot(hyst_data['meas_field_dc'], hyst_data[data_type], color=hyst_color, marker=hyst_marker, linestyle='-', markersize=symbol_size, label='Loop')
+        #for ax in axs:
+        axs.set_xlabel("Field (Tesla)")
+        axs.set_ylabel("Magnetization " + data_units_dict_mplt[data_type])
+        axs.legend()
+        axs.grid(True)
             #ax.set_xlim(0, 300)
     
 
@@ -395,9 +395,9 @@ def make_hyst_plots(measurements):
 	
     # Radio buttons for plot data_types
     data_type_choice = widgets.RadioButtons(
-        options=[('magn_mass', 'magn_mass'), ('magn_moment', 'magn_moment'), ('magn_volume', 'magn_volume')],
+        options=[('Mass normalized', 'magn_mass'), ('Moment Am^2', 'magn_moment'), ('Volume normalized', 'magn_volume')],
         value='magn_mass',
-        description='Measuement units:',
+        description='Units:',
         disabled=False
     )
 
@@ -1399,23 +1399,23 @@ def interactive_specimen_experiment_selection(measurements):
     return specimen_dropdown, experiment_dropdown
 
 
-def interactive_method_specimen_selection(measurements):
+def interactive_method_specimen_selection_hyst(measurements):
     # make two drop down ipywidgets for the user to select the experiment and the associated specimen
 
     method_dropdown = widgets.Dropdown(
-        options = measurements['method_codes'].unique(),
+        options = measurements[measurements['method_codes'].str.contains("HYS")]['method_codes'].unique(),
         description = 'Method Code:',
         disabled = False,
     )
 	
     specimen_dropdown = widgets.Dropdown(
-        options = measurements['specimen'].unique(),
+        options = measurements[measurements['method_codes'].str.contains("HYS")]['specimen'].unique(),
         description = 'Specimen:',
         disabled = False,
     )
 	
     experiment_dropdown = widgets.Dropdown(
-        options = measurements['experiment'].unique(),
+        options = measurements[measurements['method_codes'].str.contains("HYS")]['experiment'].unique(),
         description = 'Experiment:',
         disabled = False,
     )	
