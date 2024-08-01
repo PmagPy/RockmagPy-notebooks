@@ -362,7 +362,7 @@ def make_mpms_plots(measurements):
     display(specimen_dropdown, plot_choice, out)
            
 
-def make_hyst_plots(measurements, data_type='magn_mass'):
+def make_hyst_plots(measurements):
     """
     Create a UI for specimen selection and dynamically update Hysteresis loop plots based on the selected
     specimen and plot library choice. This version adds event handlers to ensure updates occur
@@ -392,12 +392,20 @@ def make_hyst_plots(measurements, data_type='magn_mass'):
         description='Plot with:',
         disabled=False
     )
+	
+    # Radio buttons for plot data_types
+    data_type_choice = widgets.RadioButtons(
+        options=[('magn_mass', 'magn_mass'), ('magn_moment', 'magn_moment'), ('magn_volume', 'magn_volume')],
+        value='magn_mass',
+        description='Measuement units:',
+        disabled=False
+    )
 
 	
     # Interactive output container
     out = widgets.Output()
 
-    def update_hyst_plots(specimen_name, use_plotly):
+    def update_hyst_plots(specimen_name, use_plotly, data_type):
         """
         Update hysteresis loop based on the selected specimen and plotting library choice.
         """
@@ -407,20 +415,24 @@ def make_hyst_plots(measurements, data_type='magn_mass'):
             plot_hyst_data(hyst_data, use_plotly=use_plotly, data_type=data_type)
 
     def on_specimen_change(change):
-        update_hyst_plots(change['new'], plot_choice.value)
+        update_hyst_plots(change['new'], plot_choice.value, data_type_choice.value)
 
     def on_plot_choice_change(change):
-        update_hyst_plots(specimen_dropdown.value, change['new'])
+        update_hyst_plots(specimen_dropdown.value, change['new'], data_type_choice.value)
+	
+    def on_data_type_change(change):
+        update_hyst_plots(specimen_dropdown.value, plot_choice.value, change['new'])
 
 
     specimen_dropdown.observe(on_specimen_change, names='value')
     plot_choice.observe(on_plot_choice_change, names='value')
+    data_type_choice.observe(on_data_type_change, names='value')
 
     # Initial plot to ensure something is displayed right away
-    update_hyst_plots(specimen_dropdown.value, plot_choice.value)
+    update_hyst_plots(specimen_dropdown.value, plot_choice.value, data_type_choice.value)
 
     # Display UI components
-    display(specimen_dropdown, plot_choice, out)
+    display(specimen_dropdown, plot_choice, data_type_choice, out)
 
     
 def thermomag_derivative(temps, mags, drop_first=False, drop_last=False):
