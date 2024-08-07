@@ -467,6 +467,8 @@ def make_hyst_plots(measurements):
     # Display UI components
     display(specimen_dropdown, plot_choice, data_type_choice, out)
 
+    return data_type_choice
+
     
 def thermomag_derivative(temps, mags, drop_first=False, drop_last=False):
     """
