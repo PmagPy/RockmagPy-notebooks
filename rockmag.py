@@ -239,11 +239,13 @@ def plot_mpms_data(fc_data, zfc_data, rtsirm_cool_data, rtsirm_warm_data,
             return fig
 
 
-def plot_hyst_data(hyst_data,
-                   data_type,
+def plot_hyst_data(hyst_data=None,
+                   fields=None,
+                   moments=None,
+                   data_type=None,
                    hyst_color='#1f77b4',
                    hyst_marker='.',
-                   symbol_size=5, use_plotly=False, return_figure=False):
+                   symbol_size=5, use_plotly=False, return_figure=False, double_plot=False, **kwargs):
     """
     Plots hysteresis data using either Matplotlib or Plotly.
 
@@ -260,18 +262,32 @@ def plot_hyst_data(hyst_data,
 
     data_units_dict_mplt = {'magn_mass': 'Am$^2$/kg', 'magn_moment': 'Am$^2$', 'magn_volume': 'A/m'}
     data_units_dict_plotly = {'magn_mass': 'Am2/kg', 'magn_moment': 'Am2', 'magn_volume': 'A/m'}
+    
+    # for multiple plots
+    n_plots = double_plot + 1
+    fields1 = kwargs.get('fields1', None)
+    moments1 = kwargs.get('moments1', None)
 
     if use_plotly:
-        rows, cols = (1, 1)
+        rows, cols = (1, n_plots)
         fig = make_subplots(rows=rows, cols=cols)
         
         # Add original data traces
-        fig.add_trace(go.Scatter(x=hyst_data['meas_field_dc'], y=hyst_data[data_type], mode='markers+lines', name='Hyst', marker=dict(color=hyst_color)), row=1,    col=1)
+        if hyst_data is not None:
+            fig.add_trace(go.Scatter(x=hyst_data['meas_field_dc'], y=hyst_data[data_type], mode='markers+lines', name='Hyst', marker=dict(color=hyst_color)), row=1,    col=1)
+        elif fields is not None:
+            fig.add_trace(go.Scatter(x=fields, y=moments, mode='markers+lines', name='Hyst', marker=dict(color=hyst_color)), row=1,    col=1)
+
+        if double_plot == True:
+            fig.add_trace(go.Scatter(x=fields1, y=moments1, mode='markers+lines', name='Hyst', marker=dict(color=hyst_color)), row=1,    col=2)
+
         
         # Update layout and axis titles
         # Set y-axis label for the first row to 'M (Am2/kg)'
         fig.update_yaxes(title_text='M '+ data_units_dict_plotly[data_type], row=1, col=1)
-        fig.update_yaxes(title_text='M '+ data_units_dict_plotly[data_type], row=1, col=2)
+		
+        if double_plot == True:
+            fig.update_yaxes(title_text='M '+ data_units_dict_plotly[data_type], row=1, col=2)
 
         fig.update_xaxes(title_text="Field (Tesla)", row=1, col=1)
 
@@ -282,25 +298,42 @@ def plot_hyst_data(hyst_data,
             
     else:
         # Matplotlib plotting
-        fig, axs = plt.subplots(nrows=1, ncols=1, figsize=(6, 4))
+        fig, axs = plt.subplots(nrows=1, ncols=n_plots, figsize=(6 * n_plots, 4))
             
         # Plot original data
+        if n_plots == 2:
+            ax0 = axs[0]
+        else:
+            ax0 = axs
 
-        axs.plot(hyst_data['meas_field_dc'], hyst_data[data_type], color=hyst_color, marker=hyst_marker, linestyle='-', markersize=symbol_size, label='Loop')
-        #axs[1].plot(hyst_data['meas_field_dc'], hyst_data[data_type], color=hyst_color, marker=hyst_marker, linestyle='-', markersize=symbol_size, label='Loop')
+
+        if hyst_data is not None:
+            ax0.plot(hyst_data['meas_field_dc'], hyst_data[data_type], color=hyst_color, marker=hyst_marker, linestyle='-', markersize=symbol_size, label='Loop')
+        elif fields is not None:
+            ax0.plot(fields, moments, color=hyst_color, marker=hyst_marker, linestyle='-', markersize=symbol_size, label='Loop')
+
+		
         #for ax in axs:
-        axs.set_xlabel("Field (Tesla)")
-        axs.set_ylabel("Magnetization " + data_units_dict_mplt[data_type])
-        axs.legend()
-        axs.grid(True)
+        ax0.set_xlabel("Field (Tesla)")
+        ax0.set_ylabel("Magnetization " + data_units_dict_mplt[data_type])
+        ax0.legend()
+        ax0.grid(True)
             #ax.set_xlim(0, 300)
     
+        if double_plot == True:			
+            axs[1].plot(fields1, moments1, color=hyst_color, marker=hyst_marker, linestyle='-', markersize=symbol_size, label='Loop')
+            axs[1].set_xlabel("Field (Tesla)")
+            axs[1].set_ylabel("Magnetization " + data_units_dict_mplt[data_type])
+            axs[1].legend()
+            axs[1].grid(True)
+
 
         fig.tight_layout()
-        plt.show()
         
         if return_figure:
-            return fig
+            return fig, axs
+        else:
+            plt.show()
 
 
 def make_mpms_plots(measurements):
