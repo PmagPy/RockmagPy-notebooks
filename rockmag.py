@@ -429,13 +429,6 @@ def make_hyst_plots(measurements):
         description='Plot with:',
         disabled=False
     )
-    # Radio buttons for plot data_types
-    data_type_choice = widgets.RadioButtons(
-        options=[('Mass normalized', 'magn_mass'), ('Moment Am^2', 'magn_moment'), ('Volume normalized', 'magn_volume')],
-        value='magn_mass',
-        description='Units:',
-        disabled=False
-    )
 
 	
     # Interactive output container
