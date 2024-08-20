@@ -429,7 +429,6 @@ def make_hyst_plots(measurements):
         description='Plot with:',
         disabled=False
     )
-	
     # Radio buttons for plot data_types
     data_type_choice = widgets.RadioButtons(
         options=[('Mass normalized', 'magn_mass'), ('Moment Am^2', 'magn_moment'), ('Volume normalized', 'magn_volume')],
@@ -442,34 +441,46 @@ def make_hyst_plots(measurements):
     # Interactive output container
     out = widgets.Output()
 
-    def update_hyst_plots(specimen_name, use_plotly, data_type):
+    def det_data_type(data):
+        if data['magn_mass'].isnull().all() == False:
+            data_type = 'magn_mass'
+        elif data['magn_moment'].isnull().all() == False:
+            data_type = 'mag_moment'
+        else:
+            data_type = 'magn_volume'
+		
+        return data_type
+
+    def update_hyst_plots(specimen_name, use_plotly):#, data_type):
         """
         Update hysteresis loop based on the selected specimen and plotting library choice.
         """
         with out:
             out.clear_output(wait=True)
             hyst_data = extract_hysteresis_data(measurements, specimen_name)
+            data_type = det_data_type(hyst_data)
+			
             plot_hyst_data(hyst_data, use_plotly=use_plotly, data_type=data_type)
 
+        return data_type
+
     def on_specimen_change(change):
-        update_hyst_plots(change['new'], plot_choice.value, data_type_choice.value)
+        data_type = update_hyst_plots(change['new'], plot_choice.value)#, data_type_choice.value)
+        return data_type
 
     def on_plot_choice_change(change):
-        update_hyst_plots(specimen_dropdown.value, change['new'], data_type_choice.value)
-	
-    def on_data_type_change(change):
-        update_hyst_plots(specimen_dropdown.value, plot_choice.value, change['new'])
+        data_type = update_hyst_plots(specimen_dropdown.value, change['new'])#, data_type_choice.value)
+        return data_type
 
 
     specimen_dropdown.observe(on_specimen_change, names='value')
     plot_choice.observe(on_plot_choice_change, names='value')
-    data_type_choice.observe(on_data_type_change, names='value')
 
     # Initial plot to ensure something is displayed right away
-    update_hyst_plots(specimen_dropdown.value, plot_choice.value, data_type_choice.value)
+    update_hyst_plots(specimen_dropdown.value, plot_choice.value)
 
     # Display UI components
-    display(specimen_dropdown, plot_choice, data_type_choice, out)
+    display(specimen_dropdown, plot_choice, out)
 
     return data_type_choice
 
