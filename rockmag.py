@@ -497,6 +497,65 @@ def determine_magn_data_type(data):
 
     return data_type
 
+def make_hyst_plots2(measurements):
+    """
+    Create a UI for specimen selection and dynamically update Hysteresis loop plots based on the selected
+    specimen and plot library choice. This version adds event handlers to ensure updates occur
+    upon initial selection.
+
+    Parameters:
+    experiments : pandas.DataFrame
+        The dataframe containing experiment data with columns including 'specimen' and 'method_codes'.
+    measurements : pandas.DataFrame
+        The dataframe containing measurement data used for plotting Hysteresis loop data.
+		
+	Output:
+	specimen : ipywidgets.widgets.widget_selection.Dropdown
+	    dropdown specimen widget variable
+    """
+
+    # choose your specimen of choice
+    method, specimen, experiement = interactive_method_specimen_selection_hyst(measurements)
+	
+	# Radio buttons for plot library choice
+    plot_choice = widgets.RadioButtons(
+    options=[('matplotlib', False), ('plotly', True)],
+    description='Plot with:',
+    disabled=False)
+	
+    # Interactive output container
+    out = widgets.Output()
+	
+	#plot the chosen function
+    def update_hyst_plots(specimen_name, use_plotly):#, data_type):
+        """
+        Update hysteresis loop based on the selected specimen and plotting library choice.
+        """
+        with out:
+            out.clear_output(wait=True)
+            hyst_data, data_type = extract_hysteresis_data(measurements, specimen_name)
+			
+            plot_hyst_data(hyst_data, use_plotly=use_plotly, data_type=data_type)
+	
+	# functions to update plot
+    def on_specimen_change(change):
+        update_hyst_plots(change['new'], plot_choice.value)
+
+    def on_plot_choice_change(change):
+        update_hyst_plots(specimen.value, change['new'])
+	
+    # Monitor for changes in selection	
+    specimen.observe(on_specimen_change, names='value')
+    plot_choice.observe(on_plot_choice_change, names='value')
+	
+	# initial plotting of th efirst specimen
+    update_hyst_plots(specimen.value, plot_choice.value)
+	
+	# elements to display
+    display(plot_choice, out)
+	
+    return specimen
+	
 
     
 def thermomag_derivative(temps, mags, drop_first=False, drop_last=False):
