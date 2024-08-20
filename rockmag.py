@@ -73,8 +73,12 @@ def extract_hysteresis_data(df, specimen_name):
     specimen_df = df[df['specimen'] == specimen_name]
 
     hyst_data = specimen_df[specimen_df['method_codes'].str.contains('LP-HYS', na=False)]
+	
+    data_type = determine_magn_data_type(hyst_data)
 
-    return hyst_data
+    print('Data Extracted!')
+
+    return hyst_data, data_type
 
 def get_plotly_marker(matplotlib_marker):
     """
