@@ -475,7 +475,28 @@ def make_hyst_plots(measurements):
     # Display UI components
     display(specimen_dropdown, plot_choice, out)
 
-    return data_type_choice
+
+def determine_magn_data_type(data):
+    '''
+    Search through data and determine which magnetization column is populatat. This function will choose the first column from a tiered list that is not null. The options in preferential order are: mass normalized, moment, volume ormalized.
+	
+    Inputs: 
+    data : pandas.DataFrame
+	    dataframe with MagIC database columns names
+    Outputs: 
+        data_type : str
+            column name of non-null 
+	'''
+
+    if data['magn_mass'].isnull().all() == False:
+        data_type = 'magn_mass'
+    elif data['magn_moment'].isnull().all() == False:
+        data_type = 'mag_moment'
+    else:
+        data_type = 'magn_volume'
+
+    return data_type
+
 
     
 def thermomag_derivative(temps, mags, drop_first=False, drop_last=False):
