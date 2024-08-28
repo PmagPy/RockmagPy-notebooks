@@ -1445,7 +1445,24 @@ def loop_delta_M(n_looppoints, loopfields, moments):
 
     return mrh, E_hys, Brh, Bih
 
+def Qfactor(M_sn):
+    """
+    A quality factor Q is calculated for both the whole curve, Q, and the ferromagnetic part, Qf.
+    Q is the decimal log of the signal/noise ratio, calculated from the mean square mismatch
+    between symmetrically equivalent moments, and typically ranges between 0 (s/n~1) and ~3 (s/n~1000).
+    A higher value indicates better quality data.
+    
+    Input: (s/n)**-1/2
 
+    """
+    
+    
+    if M_sn > 0:
+        Q = math.log(M_sn, 10) * -1 # potentially off by a factor of 2
+    else:
+        Q = 10
+    
+    return Q
 
 
 
