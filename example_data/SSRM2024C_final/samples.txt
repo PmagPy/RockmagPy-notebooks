@@ -1,0 +1,31 @@
+tab 	samples
+azimuth	contribution_id	description	dip	height	lat	lon	sample	site
+181.3	This study		47		44.8862	281.613	HH8-3	HH8
+181.3	This study		47		44.8862	281.613	HH8-3	HH8
+211.7	This study		34		44.0768	-74.0569	MA1-1	MA1
+222.7	This study		34		44.0768	-74.0569	MA1-2	MA1
+222.7	This study		34		44.0768	-74.0569	MA1-2	MA1
+215.7	This study		41		44.0768	-74.0569	MA1-3	MA1
+	This study		90				MA1-5-r	SJ-5
+226.7	This study		34		44.0768	-74.0569	MA1-5	MA1
+236.7	This study		39		44.0768	-74.0569	MA1-8	MA1
+211.7	This study		34		44.0768	-74.0569	MA1-1	MA1
+289.3	This study		26		43.9712	-74.0498	MA5-4	MA5
+289.3	This study		26		43.9712	-74.0498	MA5-4	MA5
+181.5	This study		42		48.4591	288.423	SJ1-1	SJ1
+181.5	This study		42		48.4591	288.423	SJ1-1	SJ1
+189.5	This study		40		48.4591	288.423	SJ1-2	SJ1
+179.5	This study		35		48.4591	288.423	SJ1-3	SJ1
+179.5	This study		35		48.4591	288.423	SJ1-3	SJ1
+	This study		90				SJ1-4-r	SJ-5
+174.5	This study		54		48.4591	288.423	SJ1-5	SJ1
+174.5	This study		54		48.4591	288.423	SJ1-5	SJ1
+	This study		90				SJ5-5-r	SJ-5
+38.9	This study		43		48.4395	288.531	SJ5-5	SJ5
+38.9	This study		43		48.4395	288.531	SJ5-5	SJ5
+77.6	This study		73		44.862	282.255	TH1-1	TH1
+77.6	This study		73		44.862	282.255	TH1-1	TH1
+11.6	This study		21		45.4766	280.023	WS3-1	WS3
+11.6	This study		21		45.4766	280.023	WS3-1	WS3
+308.7	This study		42		45.647	280.083	WS9-1	WS9
+308.7	This study		42		45.647	280.083	WS9-1	WS9

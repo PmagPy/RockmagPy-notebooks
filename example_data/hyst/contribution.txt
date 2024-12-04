@@ -1,0 +1,3 @@
+tab 	contribution
+contributor	data_model_version	id	lab_names	reference	version
+@spra0111	3.0	19216	Institute of Rock Magnetism (University of Minnesota, USA):Geomagnetism Laboratory (University of Liverpool, UK)	HTTPS://DOI.ORG/10.1029/2021GC009795	1

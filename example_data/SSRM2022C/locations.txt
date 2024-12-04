@@ -1,0 +1,8 @@
+tab 	locations
+contribution_id	lat_n	lat_s	location	lon_e	lon_w
+This study			kappa-HT		
+This study	47.8818	47.8818	Lake_Three	-91.4443	-91.4443
+This study	47.8854	47.8854	Lake_Three	-91.4451	-91.4451
+This study	46.7521	46.7521	Skyline_Parkway	-92.1751	-92.1751
+This study	46.7521	46.7521	Skyline_Parkway	-92.1751	-92.1751
+This study	46.7534	46.7534	Skyline_Parkway	-92.1759	-92.1759

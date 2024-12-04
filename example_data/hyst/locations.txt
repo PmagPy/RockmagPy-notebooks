@@ -1,0 +1,10 @@
+tab 	locations
+age	age_high	age_low	age_sigma	age_unit	citations	geologic_classes	lat_n	lat_s	lithologies	location	location_type	lon_e	lon_w	method_codes
+1.113			0.02	Ma	This study	Metamorphic	45.30762	45.30762	Clinker	1.113Ma	Outcrop	253.775283	253.775283	GM-UTHHE
+	4	0		Ma	This study	Metamorphic	45.569161	45.569161	Clinker	Undated-4	Outcrop	253.798825	253.798825	GM-CC-STRAT
+	4	0		Ma	This study	Metamorphic	45.2091	45.2091	Clinker	Undated-1	Outcrop	253.775867	253.775867	GM-CC-STRAT
+	4	0		Ma	This study	Metamorphic	45.44373	45.44373	Clinker	Undated-2	Outcrop	253.91285	253.91285	GM-CC-STRAT
+0.089			0.0065	Ma	This study	Metamorphic	45.55423	45.55423	Clinker	0.089Ma	Outcrop	254.10515	254.10515	GM-UTHHE
+0.237			0.0085	Ma	This study	Metamorphic	45.44687	45.44687	Clinker	0.237Ma	Outcrop	253.911133	253.911133	GM-UTHHE
+	4	0		Ma	This study	Metamorphic	45.6907	45.6907	Clinker	Undated-3	Outcrop	254.03285	254.03285	GM-CC-STRAT
+0.217			0.0635	Ma	This study	Metamorphic	45.71123	45.71123	Clinker	0.217Ma	Outcrop	254.026867	254.026867	GM-UTHHE

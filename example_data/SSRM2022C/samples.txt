@@ -1,0 +1,30 @@
+tab 	samples
+azimuth	contribution_id	dip	lat	lon	sample	site
+	This study	90				
+	This study	90				
+	This study	90				
+0	This study	90	47.8818	-91.4443	DA2-1	DA2
+0	This study	90	47.8818	-91.4443	DA2-A	DA2
+0	This study	90	47.8818	-91.4443	DA2-A	DA2
+0	This study	90	47.8818	-91.4443	DA2-r	DA2
+0	This study	90	47.8818	-91.4443	DA2-r	DA2
+29	This study	40	47.8854	-91.4451	DA4-1	DA4
+0	This study	90	47.8854	-91.4451	DA4-A	DA4
+0	This study	90	47.8854	-91.4451	DA4-A	DA4
+0	This study	90	47.8854	-91.4451	DA4-r	DA4
+0	This study	90	47.8854	-91.4451	DA4-r	DA4
+0	This study	90	46.7521	-92.1751	DX1-1r	DX1
+0	This study	90	46.7521	-92.1751	DX1-4A	DX1
+0	This study	90	46.7521	-92.1751	DX1-4A	DX1
+83	This study	52	46.7521	-92.1751	DX1-1	DX1
+83	This study	52	46.7521	-92.1751	DX1-4	DX1
+0	This study	90	46.7521	-92.1751	DX1-4r	DX1
+0	This study	90	46.7521	-92.1751	DX1-4r	DX1
+0	This study	90	46.7521	-92.1751	DX1-4r	DX1
+0	This study	90	46.7521	-92.1751	DX1-4r	DX1
+100	This study	57	46.7521	-92.1751	DX1-5	DX1
+100	This study	57	46.7521	-92.1751	DX1-5	DX1
+0	This study	90	46.7534	-92.1759	DX2-A	DX2
+0	This study	90	46.7534	-92.1759	DX2-A	DX2
+0	This study	90	46.7534	-92.1759	DX2-r	DX2
+0	This study	90	46.7534	-92.1759	DX2-r	DX2

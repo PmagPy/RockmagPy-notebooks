@@ -1,0 +1,379 @@
+tab 	specimens
+analysts	citations	description	method_codes	sample	specimen	specimen_alternatives	volume	weight
+Courtney_S	This study	unoriented chip from drilled 1.113 Ma 1-1 site	SP-SAW:LP-LT	CNF1-1	CNF1-1a	95772		0.0001044
+Courtney_S	This study	unoriented chip from drilled 1.113 Ma 1-1 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF1-1	CNF1-1b	95773		0.0023238
+Courtney_S	This study	oriented core from drilled 1.113 Ma 1-1 site	SP-SS-C-PMAG:LP-TRM-AFD	CNF1-1	CNF1-1c	95774		0.0089972
+Courtney_S	This study	unoriented chip from drilled 1.113 Ma 1-2 site	SP-SAW:LP-LT	CNF1-2	CNF1-2a	95775		0.0001709
+Courtney_S	This study	unoriented chip from drilled 1.113 Ma 1-2 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF1-2	CNF1-2b	95776		0.0033206
+Courtney_S	This study	unoriented chip from drilled 1.113 Ma 1-3 site	SP-SAW:LP-LT	CNF1-3	CNF1-3a	95778		0.0001204
+Courtney_S	This study	unoriented chip from drilled 1.113 Ma 1-3 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF1-3	CNF1-3b	95779		0.0027715
+Courtney_S	This study	unoriented chip from Undated-4 10-1 site	SP-SAW:LP-LT	CNF10-1	CNF10-1a	95798		0.0002333
+Courtney_S	This study	unoriented chip from Undated-4 10-1 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF10-1	CNF10-1b	95799		0.0042117
+Courtney_S	This study	unoriented chip from Undated-4 10-2 site	SP-SAW:LP-LT	CNF10-2	CNF10-2a	95800		0.0001777
+Courtney_S	This study	unoriented chip from Undated-4 10-2 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF10-2	CNF10-2b	95801		0.002291
+Courtney_S	This study	unoriented chip from Undated-4 10-3 site	SP-SAW:LP-LT	CNF10-3	CNF10-3a	95803		6.57E-05
+Courtney_S	This study	unoriented chip from drilled 1.113 Ma 1-1 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF10-3	CNF10-3b	95804		0.0051469
+Courtney_S	This study	oriented core from Undated-4 10-3 site	SP-SS-C-PMAG:LP-TRM-AFD	CNF10-3	CNF10-3c	95805		0.0185686
+Courtney_S	This study	unoriented chip from drilled 1.113 Ma 2-1 site	SP-SAW:LP-LT	CNF2-1	CNF2-1a	95766		0.0001056
+Courtney_S	This study	unoriented chip from drilled 1.113 Ma 1-1 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF2-1	CNF2-1b	95767		0.0010338
+Courtney_S	This study	oriented core from drilled 1.113 Ma 2-1 site	SP-SS-C-PMAG:LP-TRM-AFD	CNF2-1	CNF2-1c	95768		0.0090844
+Courtney_S	This study	unoriented chip from drilled 1.113 Ma 2-2 site	SP-SAW:LP-LT	CNF2-2	CNF2-2a	95769		0.0001131
+Courtney_S	This study	unoriented chip from drilled 1.113 Ma 2-2 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF2-2	CNF2-2b	95770		0.0034671
+Courtney_S	This study	unoriented chip from Undated-1 4-1 site	SP-SAW:LP-LT	CNF4-1	CNF4-1a	95787		9.26E-05
+Courtney_S	This study	unoriented chip from Undated-1 4-1 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF4-1	CNF4-1b	95788		0.0016868
+Courtney_S	This study	oriented core from Undated-1 4-1 site	SP-SS-C-PMAG:LP-TRM-AFD	CNF4-1	CNF4-1c	95789		0.0087221
+Courtney_S	This study	unoriented chip from drilled clinker from CNF5 0.089 Ma site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF5-1	CNF5-1b	95695		
+Courtney_S	This study	unoriented chip from drilled clinker from CNF5 0.089 Ma site	SP-SAW:LP-LT	CNF5-3	CNF5-3a	95677		9.92E-05
+Courtney_S	This study	unoriented chip from drilled clinker from CNF5 0.089 Ma site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF5-3	CNF5-3b	95697		0.0024425
+Courtney_S	This study	unoriented chip from drilled clinker from CNF5 0.089 Ma site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF5-4	CNF5-4b	95698		0.001948
+Courtney_S	This study	unoriented chip from drilled clinker from CNF5 0.089 Ma site	SP-SAW:LP-LT	CNF5-5	CNF5-5a	95679		4.70E-05
+Courtney_S	This study	unoriented chip from drilled clinker from CNF5 0.089 Ma site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF5-5	CNF5-5b	95699		0.003314
+Courtney_S	This study	unoriented chip from drilled clinker from CNF5 0.089 Ma site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF5-6	CNF5-6b	95700		0.0034588
+Courtney_S	This study	oriented core from drilled clinker from CNF5 0.089 Ma site	SP-SS-C-PMAG:LP-TRM-AFD	CNF5-6	CNF5-6c	95811		0.0093285
+Courtney_S	This study	unoriented chip from drilled 0.237 Ma 6-1 site	SP-SAW:LP-LT	CNF6-1	CNF6-1a	95763		7.87E-05
+Courtney_S	This study	unoriented chip from drilled 0.237 Ma 6-1 site	SP-SAW:LP-HYS	CNF6-1	CNF6-1b	95764		0.0036276
+Courtney_S	This study	oriented core from drilled 0.237 Ma 6-1 site	SP-SS-C-PMAG:LP-TRM-AFD	CNF6-1	CNF6-1c	95765		0.0158065
+Courtney_S	This study	unoriented chip from drilled 0.237 Ma 6-2 site	SP-SAW:LP-LT	CNF6-2	CNF6-2a	95806		0.0002431
+Courtney_S	This study	unoriented chip from drilled 0.237 Ma 6-2 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF6-2	CNF6-2b	95807		0.0080668
+Courtney_S	This study	unoriented chip from drilled 0.237 Ma 6-3 site	SP-SAW:LP-LT	CNF6-3	CNF6-3a	95790		0.0001143
+Courtney_S	This study	unoriented chip from drilled 0.237 Ma 6-3 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF6-3	CNF6-3b	95791		0.0037561
+Courtney_S	This study	unoriented chip from drilled undated clinker CNF7 site	SP-SAW:LP-LT	CNF7-1	CNF7-1a	95690		0.0001044
+Courtney_S	This study	unoriented chip from drilled undated clinker CNF7 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF7-1	CNF7-1b	95708		0.005414
+Courtney_S	This study	oriented core from drilled undated clinker CNF7 site	SP-SS-C-PMAG:LP-TRM-AFD	CNF7-1	CNF7-1c	95810		0.0153838
+Courtney_S	This study	unoriented chip from drilled undated clinker CNF7 site	SP-SAW:LP-LT	CNF7-2	CNF7-2a	95691		3.24E-05
+Courtney_S	This study	unoriented chip from drilled undated clinker CNF7 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF7-2	CNF7-2b	95709		0.0032833
+Courtney_S	This study	unoriented chip from drilled undated clinker CNF7 site	SP-SAW:LP-LT	CNF7-3	CNF7-3a	95692		5.92E-05
+Courtney_S	This study	unoriented chip from drilled undated clinker CNF7 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF7-3	CNF7-3b	95710		0.0016512
+Courtney_S	This study	unoriented chip from drilled undated clinker CNF7 site	SP-SAW:LP-LT	CNF7-4	CNF7-4a	95693		9.26E-05
+Courtney_S	This study	unoriented chip from drilled undated clinker CNF7 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF7-4	CNF7-4b	95711		0.0018606
+Courtney_S	This study	unoriented chip from drilled undated clinker CNF8 site (paralava)	SP-SAW:LP-LT	CNF8-1	CNF8-1a	95683		0.0001346
+Courtney_S	This study	unoriented chip from drilled undated clinker CNF8 site (paralava)	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF8-1	CNF8-1b	95684		0.0029427
+Courtney_S	This study	unoriented chip from drilled undated clinker CNF8 site (paralava)	SP-SAW:LP-LT	CNF8-2	CNF8-2a	95685		0.0001358
+Courtney_S	This study	unoriented chip from drilled undated clinker CNF8 site (paralava)	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF8-2	CNF8-2b	95703		0.0033936
+Courtney_S	This study	oriented core from drilled undated clinker CNF8 site (paralava)	SP-SS-C-PMAG:LP-TRM-AFD	CNF8-2	CNF8-2c	95809		0.0073792
+Courtney_S	This study	unoriented chip from drilled undated clinker CNF8 site (paralava)	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF8-3	CNF8-3b	95704		0.0023985
+Courtney_S	This study	unoriented chip from drilled undated clinker CNF8 site (paralava)	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF8-4	CNF8-4b	95705		0.0008536
+Courtney_S	This study	unoriented chip from drilled undated clinker CNF8 site (paralava)	SP-SAW:LP-LT	CNF8-5	CNF8-5a	95688		0.0001988
+Courtney_S	This study	unoriented chip from drilled undated clinker CNF8 site (paralava)	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF8-6	CNF8-6b	95707		0.0053239
+Courtney_S	This study	unoriented chip from drilled 0.217 Ma 9-1 site	SP-SAW:LP-LT	CNF9-1	CNF9-1a	95784		0.0002796
+Courtney_S	This study	unoriented chip from drilled 0.217 Ma 9-1 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF9-1	CNF9-1b	95785		0.0039601
+Courtney_S	This study	unoriented chip from drilled 0.217 Ma 9-2 site	SP-SAW:LP-LT	CNF9-2	CNF9-2a	95796		9.69E-05
+Courtney_S	This study	unoriented chip from drilled 0.217 Ma 9-2 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF9-2	CNF9-2b	95797		0.007346
+Courtney_S	This study	unoriented chip from drilled 0.217 Ma 9-3 site	SP-SAW:LP-LT	CNF9-3	CNF9-3a	95793		3.55E-05
+Courtney_S	This study	unoriented chip from drilled 0.217 Ma 9-3 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNF9-3	CNF9-3b	95794		0.0048992
+Courtney_S	This study	unoriented chip from drilled 1.113 Ma P2 site	SP-SAW:LP-LT	CNFP2-1	CNFP2-1a	95734		8.58E-05
+Courtney_S	This study	unoriented chip from drilled 1.113 Ma P2 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNFP2-1	CNFP2-1b	95735		0.0034912
+Courtney_S	This study	unoriented chip from drilled 1.113 Ma P2 site	SP-SAW:LP-LT	CNFP2-2	CNFP2-2a	95736		7.56E-05
+Courtney_S	This study	unoriented chip from drilled 1.113 Ma P2 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNFP2-2	CNFP2-2b	95737		0.0077618
+Courtney_S	This study	unoriented chip from drilled 1.113 Ma P2 site	SP-SAW:LP-LT	CNFP2-3	CNFP2-3a	95738		0.0001304
+Courtney_S	This study	unoriented chip from drilled 1.113 Ma P2 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNFP2-3	CNFP2-3b	95739		0.0055073
+Courtney_S	This study	unoriented chip from drilled 1.113 Ma P2 site	SP-SAW:LP-LT	CNFP2-4	CNFP2-4a	95740		6.45E-05
+Courtney_S	This study	unoriented chip from drilled 1.113 Ma P2 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNFP2-4	CNFP2-4b	95741		0.0060253
+Courtney_S	This study	unoriented chip from drilled 1.113 Ma P2 site	SP-SAW:LP-LT	CNFP2-5	CNFP2-5a	95742		0.0001626
+Courtney_S	This study	unoriented chip from drilled 1.113 Ma P2 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNFP2-5	CNFP2-5b	95743		0.0161588
+Courtney_S	This study	unoriented chip from drilled 1.113 Ma P2 site	SP-SAW:LP-LT	CNFP2-6	CNFP2-6a	95744		8.58E-05
+Courtney_S	This study	unoriented chip from drilled 1.113 Ma P2 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNFP2-6	CNFP2-6b	95745		0.0085349
+Courtney_S	This study	unoriented chip from drilled 0.89 Ma P5 site	SP-SAW:LP-LT	CNFP5-1	CNFP5-1a	95722		0.0001288
+Courtney_S	This study	unoriented chip from drilled 0.89 Ma P5 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNFP5-1	CNFP5-1b	95723		0.0068099
+Courtney_S	This study	unoriented chip from drilled 0.89 Ma P5 site	SP-SAW:LP-LT	CNFP5-2	CNFP5-2a	95718		8.95E-05
+Courtney_S	This study	unoriented chip from drilled 0.89 Ma P5 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNFP5-3	CNFP5-2b	95720		0.001296
+Courtney_S	This study	unoriented chip from drilled 0.89 Ma P5 site	SP-SAW:LP-LT	CNFP5-2	CNFP5-3a	95719		0.0002617
+Courtney_S	This study	unoriented chip from drilled 0.89 Ma P5 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNFP5-3	CNFP5-3b	95721		0.0033264
+Courtney_S	This study	unoriented chip from drilled 0.89 Ma P5 site	SP-SAW:LP-LT	CNFP5-4	CNFP5-4a	95724		0.0001265
+Courtney_S	This study	unoriented chip from drilled 0.89 Ma P5 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNFP5-4	CNFP5-4b	95725		0.0016825
+Courtney_S	This study	unoriented chip from drilled 0.89 Ma P5 site	SP-SAW:LP-LT	CNFP5-5	CNFP5-5a	95726		0.0002476
+Courtney_S	This study	unoriented chip from drilled 0.89 Ma P5 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNFP5-5	CNFP5-5b	95727		0.0015644
+Courtney_S	This study	unoriented chip from drilled 0.89 Ma P5 site	SP-SAW:LP-LT	CNFP5-6	CNFP5-6a	95728		0.0002407
+Courtney_S	This study	unoriented chip from drilled 0.89 Ma P5 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNFP5-6	CNFP5-6b	95729		0.0057307
+Courtney_S	This study	unoriented chip from drilled 0.89 Ma P5 site	SP-SAW:LP-LT	CNFP5-7	CNFP5-7a	95730		0.0003207
+Courtney_S	This study	unoriented chip from drilled 0.89 Ma P5 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNFP5-7	CNFP5-7b	95731		0.0041012
+Courtney_S	This study	unoriented chip from drilled 0.89 Ma P5 site	SP-SAW:LP-LT	CNFP5-8	CNFP5-8a	95732		0.000184
+Courtney_S	This study	unoriented chip from drilled 0.89 Ma P5 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNFP5-8	CNFP5-8b	95733		0.006647
+Courtney_S	This study	unoriented chip from drilled 0.217 Ma P2 site	SP-SAW:LP-LT	CNFP8-1	CNFP8-1a	95746		0.0002479
+Courtney_S	This study	unoriented chip from drilled 0.217 Ma P2 site	SP-SAW:LP-HYS:LP-IRM:LP-BCR-BF	CNFP8-1	CNFP8-1b	95747		0.0056677
+Riley	This study	unoriented chip from drilled 1.113 Ma 1-1 site	SP-SAW:LP-FORC	CNF1-1	CNF1.1_FORC	103127	1.00E-05	5.58E-05
+Riley	This study	unoriented chip from drilled 1.113 Ma 1-1 site	SP-SAW:LP-HYS-T	CNF1-1	CNF1.1_Hysteresis	103128	1.00E-05	4.85E-05
+Riley	This study	unoriented chip from drilled 1.113 Ma 1-1 site	SP-SAW:LP-X-T	CNF1-1	CNF1.1_Kappa_Air	105139	1.00E-05	0.0002854
+Riley	This study	unoriented chip from drilled 1.113 Ma 1-1 site	SP-SAW:LP-X-T	CNF1-1	CNF1.1_Kappa_Ar	105234	1.00E-05	0.0001844
+Riley	This study	unoriented chip from drilled 1.113 Ma 1-1 site	SP-SAW:LP-X-T	CNF10-3	CNF10.3.Kapp.b	97026	1.00E-06	0.00020142
+Riley	This study	unoriented chip from drilled 1.113 Ma 2-1 site	SP-SAW:LP-X-T	CNF10-3	CNF10.3.Kappa	97025	1.00E-06	0.00183147
+Riley	This study	unoriented chip from drilled 1.113 Ma 2-1 site	SP-SAW:LP-FORC	CNF2-1	CNF2.1_FORC	103230	1.00E-05	6.04E-05
+Riley	This study	unoriented chip from drilled 1.113 Ma 2-1 site	SP-SAW:LP-HYS-T	CNF2-1	CNF2.1_Hysteresis	103231	1.00E-05	5.51E-05
+Riley	This study	unoriented chip from drilled 1.113 Ma 2-1 site	SP-SAW:LP-X-T	CNF2-1	CNF2.1_Kappa_Air	105157	1.00E-05	0.0002535
+Riley	This study	unoriented chip from drilled 1.113 Ma 2-1 site	SP-SAW:LP-X-T	CNF2-1	CNF2.1_Kappa_Ar	105235	1.00E-05	0.0002886
+Riley	This study	unoriented chip from drilled 1.113 Ma 2-2 site	SP-SAW:LP-FORC	CNF2-2	CNF2.2_FORC	103125	1.00E-05	5.00E-05
+Riley	This study	unoriented chip from drilled 1.113 Ma 2-2 site	SP-SAW:LP-HYS-T	CNF2-2	CNF2.2_Hysteresis	103126	1.00E-05	2.72E-05
+Riley	This study	unoriented chip from drilled 1.113 Ma 2-2 site	SP-SAW:LP-X-T	CNF2-2	CNF2.2_Kappa_air	105137	1.00E-05	0.0003022
+Riley	This study	unoriented chip from drilled 1.113 Ma 2-2 site	SP-SAW:LP-X-T	CNF2-2	CNF2.2_Kappa_air_cyc	105158	1.00E-05	0.0002406
+Riley	This study	unoriented chip from drilled 1.113 Ma 2-2 site	SP-SAW:LP-X-T	CNF2-2	CNF2.2_Kappa_Ar	105138	1.00E-05	0.0002461
+Riley	This study	unoriented chip from drilled 0.237 Ma 6-1 site	SP-SAW:LP-X-T	CNF6-1	CNF6.1.Kapp.b	97024	1.00E-06	0.00017398
+Riley	This study	unoriented chip from drilled 0.237 Ma 6-1 site	SP-SAW:LP-X-T	CNF6-1	CNF6.1.Kappa	97023	1.00E-06	0.0016762
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-1	CNFP3-1-Kapp.air	96279	1.00E-05	0.00017576
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-1	CNFP3-1-Kappa	94912	1.00E-05	0.00023272
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-10	CNFP3-10-Kapp.air	96950	1.00E-05	0.0001351
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-10	CNFP3-10-Kapp.b	95714	1.00E-05	0.0001749
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-10	CNFP3-10-Kappa	94867	1.00E-05	
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-HYS-T	CNFP3-10	CNFP3-10.hotVSM	100975	1.00E-05	0.0001
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-10	CNFP3-10a	94863	1.00E-05	0.003101
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-10	CNFP3-10b	94864	1.00E-05	0.0031185
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-10	CNFP3-10c	94865	1.00E-05	0.0023371
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-10	CNFP3-10d	94866	1.00E-05	0.0021391
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-11	CNFP3-11-Kapp.Air	95815	1.00E-05	0.0002522
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-11	CNFP3-11-Kapp.Ar.cyc	95782	1.00E-05	0.000198
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-11	CNFP3-11-Kapp.b	95715	1.00E-05	0.0002065
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-11	CNFP3-11-Kappa	94872	1.00E-05	
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-11	CNFP3-11a	94868	1.00E-05	0.0036427
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-11	CNFP3-11b	94869	1.00E-05	0.0036628
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-11	CNFP3-11c	94870	1.00E-05	0.0036431
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-11	CNFP3-11d	94871	1.00E-05	0.0033124
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-12	CNFP3-12-Kapp.750	96316	1.00E-05	0.00028307
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-12	CNFP3-12-Kapp.b	95716	1.00E-05	0.0002496
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-12	CNFP3-12-Kappa	94877	1.00E-05	0.0018029
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-HYS-T	CNFP3-12	CNFP3-12.hotVSM	100976	1.00E-05	7.54E-05
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-12	CNFP3-12a	94873	1.00E-05	0.0027173
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-12	CNFP3-12b	94874	1.00E-05	0.0030326
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-12	CNFP3-12c	94875	1.00E-05	0.0028544
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-12	CNFP3-12d	94876	1.00E-05	0.003104
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-13	CNFP3-13-Kapp.b	95717	1.00E-05	0.0002466
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-13	CNFP3-13-Kappa	94882	1.00E-05	0.0018846
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-13	CNFP3-13a	94878	1.00E-05	0.0028472
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-13	CNFP3-13b	94879	1.00E-05	0.0024385
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-13	CNFP3-13c	94880	1.00E-05	0.0025457
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-13	CNFP3-13d	94881	1.00E-05	0.003462
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-14	CNFP3-14-Kapp.b	95757	1.00E-05	0.0002121
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-14	CNFP3-14-Kappa	94887	1.00E-05	0.0013598
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-HYS-T	CNFP3-14	CNFP3-14.hotVSM	101121	1.00E-05	0.0001
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-14	CNFP3-14a	94883	1.00E-05	0.0022732
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-14	CNFP3-14b	94884	1.00E-05	0.0024839
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-14	CNFP3-14c	94885	1.00E-05	0.0030125
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-14	CNFP3-14d	94886	1.00E-05	0.0026148
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-15	CNFP3-15-Kapp.Ar.cyc	95812	1.00E-05	0.0001862
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-15	CNFP3-15-Kapp.b	95758	1.00E-05	0.0002532
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-15	CNFP3-15-Kappa	94892	1.00E-05	0.0018349
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-15	CNFP3-15a	94888	1.00E-05	0.0028943
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-15	CNFP3-15b	94889	1.00E-05	0.0031014
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-15	CNFP3-15c	94890	1.00E-05	0.0028998
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-15	CNFP3-15d	94891	1.00E-05	0.0028197
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-16	CNFP3-16-Kapp.air	96951	1.00E-05	0.0002053
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-16	CNFP3-16-Kapp.Ar.cyc	95783	1.00E-05	0.0001935
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-16	CNFP3-16-Kapp.b	95759	1.00E-05	0.0001867
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-16	CNFP3-16-Kappa	94897	1.00E-05	0.0017316
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-16	CNFP3-16a	94893	1.00E-05	0.0026499
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-16	CNFP3-16b	94894	1.00E-05	0.002433
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-16	CNFP3-16c	94895	1.00E-05	0.0030871
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-16	CNFP3-16d	94896	1.00E-05	0.0027398
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-17	CNFP3-17-Kapp.Air	95814	1.00E-05	0.0002245
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-17	CNFP3-17-Kapp.b	95760	1.00E-05	0.0002281
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-17	CNFP3-17-Kapp.c	95761	1.00E-05	0.0002858
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-17	CNFP3-17-Kappa	94902	1.00E-05	0.001942
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-17	CNFP3-17a	94898	1.00E-05	0.0026334
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-17	CNFP3-17b	94899	1.00E-05	0.0034415
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-17	CNFP3-17c	94900	1.00E-05	0.0028387
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-17	CNFP3-17d	94901	1.00E-05	0.0034175
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-18	CNFP3-18-Kapp.b	95762	1.00E-05	0.000153
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-18	CNFP3-18-Kappa	94907	1.00E-05	0.001776
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-18	CNFP3-18-Kappa_Air	105159	1.00E-05	0.0003747
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-HYS-T	CNFP3-18	CNFP3-18.hotVSM	100977	1.00E-05	0.000153
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-18	CNFP3-18a	94903	1.00E-05	0.0027766
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-18	CNFP3-18b	94904	1.00E-05	0.0036999
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-18	CNFP3-18c	94905	1.00E-05	0.0037149
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-18	CNFP3-18d	94906	1.00E-05	0.0031361
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-1	CNFP3-1a	94908	1.00E-05	0.0015949
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-1	CNFP3-1b	94909	1.00E-05	0.0019369
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-1	CNFP3-1c	94910	1.00E-05	0.0019694
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-1	CNFP3-1d	94911	1.00E-05	0.0014765
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-2	CNFP3-2-Kapp.air	96283	1.00E-05	0.00026797
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-2	CNFP3-2-Kappa	94917	1.00E-05	0.00022018
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-2	CNFP3-2a	94913	1.00E-05	0.0036436
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-2	CNFP3-2b	94914	1.00E-05	0.0036863
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-2	CNFP3-2c	94915	1.00E-05	0.0032902
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-2	CNFP3-2d	94916	1.00E-05	0.0029615
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-HYS-T	CNFP3-2	CNFP3-2_hotVSM	100973	1.00E-05	0.0001
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-3	CNFP3-3-Kapp.air	96913	1.00E-05	0.00023263
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-3	CNFP3-3-Kappa	94922	1.00E-05	0.00028867
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-3	CNFP3-3a	94918	1.00E-05	0.0028803
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-3	CNFP3-3b	94919	1.00E-05	0.0034344
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-3	CNFP3-3c	94920	1.00E-05	0.0031859
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-3	CNFP3-3d	94921	1.00E-05	0.0032198
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-4	CNFP3-4-Kapb	95673	1.00E-05	0.00021323
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-4	CNFP3-4-Kapp.air	96914	1.00E-05	0.00021184
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-4	CNFP3-4-Kappa	94927	1.00E-05	0.0013131
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-4	CNFP3-4a	94923	1.00E-05	0.0032177
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-4	CNFP3-4b	94924	1.00E-05	0.0032086
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-4	CNFP3-4c	94925	1.00E-05	0.0036189
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-4	CNFP3-4d	94926	1.00E-05	0.0030288
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-5	CNFP3-5-Kapp.air	96928	1.00E-05	0.0001979
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-5	CNFP3-5-Kapp.air.cyc	95781	1.00E-05	0.0002451
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-5	CNFP3-5-Kappa	94932	1.00E-05	0.00025138
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-HYS-T	CNFP3-5	CNFP3-5.hotVSM	100974	1.00E-05	6.65E-05
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-5	CNFP3-5a	94928	1.00E-05	0.002762
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-5	CNFP3-5b	94929	1.00E-05	0.0030979
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-5	CNFP3-5c	94930	1.00E-05	0.0034641
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-5	CNFP3-5d	94931	1.00E-05	0.0029893
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-6	CNFP3-6-Kapp.air	96939	1.00E-05	0.00016464
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-6	CNFP3-6-Kapp.b	95674	1.00E-05	0.00015166
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-6	CNFP3-6-Kapp.c	95694	1.00E-05	0.0001985
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-6	CNFP3-6-Kappa	94937	1.00E-05	0.00027879
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-6	CNFP3-6a	94933	1.00E-05	0.0015248
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-6	CNFP3-6b	94934	1.00E-05	0.0022015
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-6	CNFP3-6c	94935	1.00E-05	0.0020868
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-6	CNFP3-6d	94936	1.00E-05	0.0016222
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-7	CNFP3-7-Kapp.b	95712	1.00E-05	0.0002457
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-7	CNFP3-7-Kappa	94942	1.00E-05	
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-7	CNFP3-7a	94938	1.00E-05	0.0024643
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-7	CNFP3-7b	94939	1.00E-05	0.0028731
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-7	CNFP3-7c	94940	1.00E-05	0.0024278
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-7	CNFP3-7d	94941	1.00E-05	0.0026151
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-8	CNFP3-8-Kapp.air	96940	1.00E-05	0.0001739
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-8	CNFP3-8-Kapp.b	95713	1.00E-05	0.0002123
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-8	CNFP3-8-Kappa	94947	1.00E-05	
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-8	CNFP3-8a	94943	1.00E-05	0.0035793
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-8	CNFP3-8b	94944	1.00E-05	0.0037409
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-8	CNFP3-8c	94945	1.00E-05	0.002866
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-8	CNFP3-8d	94946	1.00E-05	0.002761
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-9	CNFP3-9-Kapp.Air	95816	1.00E-05	0.0002026
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-9	CNFP3-9-Kappa	94952	1.00E-05	0.0004001
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-9	CNFP3-9-Kappa.Ar.cyc	95813	1.00E-05	0.0001267
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-T	CNFP3-9	CNFP3-9-Kappa_b	95431	1.00E-05	0.0003253
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-9	CNFP3-9a	94948	1.00E-05	0.0044677
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-9	CNFP3-9b	94949	1.00E-05	0.0031768
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-9	CNFP3-9c	94950	1.00E-05	0.0029755
+Riley	This study	unoriented chip from Undated-1 P3 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP3-9	CNFP3-9d	94951	1.00E-05	0.0027121
+Riley	This study	unoriented chip from drilled 0.89 Ma P4 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP4-1	CNFP4-1a	95432	1.00E-05	0.0035463
+Riley	This study	unoriented chip from drilled 0.89 Ma P4 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP4-1	CNFP4-1b	95433	1.00E-05	0.0032694
+Riley	This study	unoriented chip from drilled 0.89 Ma P4 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP4-1	CNFP4-1c	95434	1.00E-05	0.0039489
+Riley	This study	unoriented chip from drilled 0.89 Ma P4 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP4-1	CNFP4-1d	95435	1.00E-05	0.0038666
+Riley	This study	unoriented chip from drilled 0.89 Ma P4 site	SP-SAW:LP-X-T	CNFP4-1	CNFP4-1Kappa	95436	1.00E-05	
+Riley	This study	unoriented chip from drilled 0.89 Ma P4 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP4-2	CNFP4-2a	95437	1.00E-05	0.0051741
+Riley	This study	unoriented chip from drilled 0.89 Ma P4 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP4-2	CNFP4-2b	95438	1.00E-05	0.0037731
+Riley	This study	unoriented chip from drilled 0.89 Ma P4 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP4-2	CNFP4-2c	95439	1.00E-05	0.0029661
+Riley	This study	unoriented chip from drilled 0.89 Ma P4 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP4-2	CNFP4-2d	95440	1.00E-05	0.0042478
+Riley	This study	unoriented chip from drilled 0.89 Ma P4 site	SP-SAW:LP-X-T	CNFP4-2	CNFP4-2Kappa	95441	1.00E-05	0.00025746
+Riley	This study	unoriented chip from drilled 0.89 Ma P4 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP4-3	CNFP4-3a	95442	1.00E-05	0.0047339
+Riley	This study	unoriented chip from drilled 0.89 Ma P4 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP4-3	CNFP4-3b	95443	1.00E-05	0.0038241
+Riley	This study	unoriented chip from drilled 0.89 Ma P4 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP4-3	CNFP4-3c	95444	1.00E-05	0.0043118
+Riley	This study	unoriented chip from drilled 0.89 Ma P4 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP4-3	CNFP4-3d	95445	1.00E-05	0.0042828
+Riley	This study	unoriented chip from drilled 0.89 Ma P4 site	SP-SAW:LP-X-T	CNFP4-3	CNFP4-3Kappa	95446	1.00E-05	
+Riley	This study	unoriented chip from drilled 0.89 Ma P4 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP4-4	CNFP4-4a	95447	1.00E-05	0.0026942
+Riley	This study	unoriented chip from drilled 0.89 Ma P4 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP4-4	CNFP4-4b	95448	1.00E-05	0.0027953
+Riley	This study	unoriented chip from drilled 0.89 Ma P4 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP4-4	CNFP4-4c	95449	1.00E-05	0.0026964
+Riley	This study	unoriented chip from drilled 0.89 Ma P4 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP4-4	CNFP4-4d	95450	1.00E-05	0.0033559
+Riley	This study	unoriented chip from drilled 0.89 Ma P4 site	SP-SAW:LP-X-T	CNFP4-4	CNFP4-4Kappa	95451	1.00E-05	
+Riley	This study	unoriented chip from drilled 0.89 Ma P4 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP4-5	CNFP4-5a	95452	1.00E-05	
+Riley	This study	unoriented chip from drilled 0.89 Ma P4 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP4-5	CNFP4-5b	95453	1.00E-05	
+Riley	This study	unoriented chip from drilled 0.89 Ma P4 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP4-5	CNFP4-5c	95454	1.00E-05	
+Riley	This study	unoriented chip from drilled 0.89 Ma P4 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP4-5	CNFP4-5d	95455	1.00E-05	
+Riley	This study	unoriented chip from drilled 0.89 Ma P4 site	SP-SAW:LP-X-T	CNFP4-5	CNFP4-5Kappa	95456	1.00E-05	
+Riley	This study	unoriented chip from drilled 0.89 Ma P5 site	SP-SAW:LP-X-T	CNFP5-2	CNFP5-2.Kapp.b	97073	1.00E-05	0.00024578
+Riley	This study	unoriented chip from drilled 0.89 Ma P5 site	SP-SAW:LP-X-T	CNFP5-2	CNFP5-2.Kappa	97072	1.00E-05	0.001222
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-T	CNFP6-1	CNFP6-1-Kapp.b	97952	1.00E-05	0.0001771
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-T	CNFP6-1	CNFP6-1-Kappa	94997	1.00E-05	0.001365
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-T	CNFP6-10	CNFP6-10-Kappa	94957	1.00E-05	0.0016628
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-10	CNFP6-10a	94953	1.00E-05	0.0026546
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-10	CNFP6-10b	94954	1.00E-05	0.0026142
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-10	CNFP6-10c	94955	1.00E-05	0.0027534
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-10	CNFP6-10d	94956	1.00E-05	0.0026205
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-T	CNFP6-11	CNFP6-11-Kappa	94962	1.00E-05	0.0014523
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-11	CNFP6-11a	94958	1.00E-05	0.0023197
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-11	CNFP6-11b	94959	1.00E-05	0.002182
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-11	CNFP6-11c	94960	1.00E-05	0.0025091
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-11	CNFP6-11d	94961	1.00E-05	0.0020238
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-T	CNFP6-12	CNFP6-12-Kappa	94967	1.00E-05	0.0017956
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-12	CNFP6-12a	94963	1.00E-05	0.0028306
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-12	CNFP6-12b	94964	1.00E-05	0.0028278
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-12	CNFP6-12c	94965	1.00E-05	0.0032779
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-12	CNFP6-12d	94966	1.00E-05	0.0030801
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-T	CNFP6-13	CNFP6-13-Kappa	94972	1.00E-05	0.0018717
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-13	CNFP6-13a	94968	1.00E-05	0.0024615
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-13	CNFP6-13b	94969	1.00E-05	0.0025684
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-13	CNFP6-13c	94970	1.00E-05	0.0026902
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-13	CNFP6-13d	94971	1.00E-05	0.0026619
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-T	CNFP6-14	CNFP6-14-Kappa	94977	1.00E-05	0.0015103
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-T	CNFP6-14	CNFP6-14-Kappa_Air	105160	1.00E-05	0.0002662
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-14	CNFP6-14a	94973	1.00E-05	0.0018956
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-14	CNFP6-14b	94974	1.00E-05	0.0021201
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-14	CNFP6-14c	94975	1.00E-05	0.0020159
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-14	CNFP6-14d	94976	1.00E-05	0.0024983
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-T	CNFP6-15	CNFP6-15-Kappa	94982	1.00E-05	0.0014308
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-15	CNFP6-15a	94978	1.00E-05	0.002035
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-15	CNFP6-15b	94979	1.00E-05	0.0016054
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-15	CNFP6-15c	94980	1.00E-05	0.0020435
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-15	CNFP6-15d	94981	1.00E-05	0.00169
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-T	CNFP6-16	CNFP6-16-Kappa	94987	1.00E-05	0.0019361
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-16	CNFP6-16a	94983	1.00E-05	0.0020266
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-16	CNFP6-16b	94984	1.00E-05	0.0030153
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-16	CNFP6-16c	94985	1.00E-05	0.0025817
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-16	CNFP6-16d	94986	1.00E-05	0.0020983
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-17	CNFP6-17a	94988	1.00E-05	0.0017078
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-17	CNFP6-17b	94989	1.00E-05	0.001766
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-17	CNFP6-17c	94990	1.00E-05	0.0017734
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-17	CNFP6-17d	94991	1.00E-05	0.0017456
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-1	CNFP6-1a	94993	1.00E-05	0.0033896
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-1	CNFP6-1b	94994	1.00E-05	0.0030164
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-1	CNFP6-1c	94995	1.00E-05	0.0028461
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-1	CNFP6-1d	94996	1.00E-05	0.0035003
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-T	CNFP6-2	CNFP6-2-Kappa	95002	1.00E-05	0.0016662
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-2	CNFP6-2a	94998	1.00E-05	0.0022807
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-2	CNFP6-2b	94999	1.00E-05	0.0019024
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-2	CNFP6-2c	95000	1.00E-05	0.002589
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-2	CNFP6-2d	95001	1.00E-05	0.0025363
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-T	CNFP6-3	CNFP6-3-Kappa	95007	1.00E-05	0.0032021
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-3	CNFP6-3a	95003	1.00E-05	0.0032021
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-3	CNFP6-3b	95004	1.00E-05	0.0028738
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-3	CNFP6-3c	95005	1.00E-05	0.0026837
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-3	CNFP6-3d	95006	1.00E-05	0.002833
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-T	CNFP6-4	CNFP6-4-Kappa	95012	1.00E-05	0.0012505
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-4	CNFP6-4a	95008	1.00E-05	0.0022577
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-4	CNFP6-4b	95009	1.00E-05	0.0023102
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-4	CNFP6-4c	95010	1.00E-05	0.0021269
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-4	CNFP6-4d	95011	1.00E-05	0.0025729
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-T	CNFP6-5	CNFP6-5-Kappa	95017	1.00E-05	0.0016217
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-5	CNFP6-5a	95013	1.00E-05	0.0020956
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-5	CNFP6-5b	95014	1.00E-05	0.0024905
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-5	CNFP6-5c	95015	1.00E-05	0.0024924
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-5	CNFP6-5d	95016	1.00E-05	0.002547
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-T	CNFP6-6	CNFP6-6-Kappa	95022	1.00E-05	0.0016394
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-6	CNFP6-6a	95018	1.00E-05	0.0019612
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-6	CNFP6-6b	95019	1.00E-05	0.003015
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-6	CNFP6-6c	95020	1.00E-05	0.0024147
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-6	CNFP6-6d	95021	1.00E-05	0.0022684
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-T	CNFP6-7	CNFP6-7-Kappa	95027	1.00E-05	0.0015007
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-7	CNFP6-7a	95023	1.00E-05	0.0022006
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-7	CNFP6-7b	95024	1.00E-05	0.0022607
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-7	CNFP6-7c	95025	1.00E-05	0.0027333
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-7	CNFP6-7d	95026	1.00E-05	0.0026998
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-T	CNFP6-8	CNFP6-8-Kappa	95032	1.00E-05	0.0016212
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-T	CNFP6-8	CNFP6-8-Kappa_air	105161	1.00E-05	0.0002929
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-8	CNFP6-8a	95028	1.00E-05	0.0018463
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-8	CNFP6-8b	95029	1.00E-05	0.0027125
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-8	CNFP6-8c	95030	1.00E-05	0.002512
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-8	CNFP6-8d	95031	1.00E-05	0.0024062
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-T	CNFP6-9	CNFP6-9-Kappa	95037	1.00E-05	0.0016092
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-9	CNFP6-9a	95033	1.00E-05	0.0021866
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-9	CNFP6-9b	95034	1.00E-05	0.0021531
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-9	CNFP6-9c	95035	1.00E-05	0.0027407
+Riley	This study	unoriented chip from Undated-2 P6 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP6-9	CNFP6-9d	95036	1.00E-05	0.0026849
+Riley	This study	unoriented chip from Undated-3 P7 site	SP-SAW:LP-X-T	CNFP7-1	CNFP7-1-Kappa	95042	1.00E-05	0.00051941
+Riley	This study	unoriented chip from Undated-3 P7 site	SP-SAW:LP-HYS-T	CNFP7-1	CNFP7-1.hotVSM	100989	1.00E-05	0.0001086
+Riley	This study	unoriented chip from Undated-3 P7 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP7-1	CNFP7-1a	95038	1.00E-05	0.0029974
+Riley	This study	unoriented chip from Undated-3 P7 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP7-1	CNFP7-1b	95039	1.00E-05	0.0024064
+Riley	This study	unoriented chip from Undated-3 P7 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP7-1	CNFP7-1c	95040	1.00E-05	0.0033833
+Riley	This study	unoriented chip from Undated-3 P7 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP7-1	CNFP7-1d	95041	1.00E-05	0.0024576
+Riley	This study	unoriented chip from Undated-3 P7 site	SP-SAW:LP-X-T	CNFP7-2	CNFP7-2-Kappa	95047	1.00E-05	0.0002586
+Riley	This study	unoriented chip from Undated-3 P7 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP7-2	CNFP7-2a	95043	1.00E-05	0.0019298
+Riley	This study	unoriented chip from Undated-3 P7 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP7-2	CNFP7-2b	95044	1.00E-05	0.0022782
+Riley	This study	unoriented chip from Undated-3 P7 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP7-2	CNFP7-2c	95045	1.00E-05	0.002163
+Riley	This study	unoriented chip from Undated-3 P7 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP7-2	CNFP7-2d	95046	1.00E-05	0.0021221
+Riley	This study	unoriented chip from Undated-3 P7 site	SP-SAW:LP-X-T	CNFP7-3	CNFP7-3-Kapp.air	97020	1.00E-05	0.0001622
+Riley	This study	unoriented chip from Undated-3 P7 site	SP-SAW:LP-X-T	CNFP7-3	CNFP7-3-Kappa	95052	1.00E-05	0.00020698
+Riley	This study	unoriented chip from Undated-3 P7 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP7-3	CNFP7-3a	95048	1.00E-05	0.0021223
+Riley	This study	unoriented chip from Undated-3 P7 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP7-3	CNFP7-3b	95049	1.00E-05	0.0022126
+Riley	This study	unoriented chip from Undated-3 P7 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP7-3	CNFP7-3c	95050	1.00E-05	0.0027076
+Riley	This study	unoriented chip from Undated-3 P7 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP7-3	CNFP7-3d	95051	1.00E-05	0.0022345
+Riley	This study	unoriented chip from Undated-3 P7 site	SP-SAW:LP-X-T	CNFP7-4	CNFP7-4-Kappa	95057	1.00E-05	0.00028126
+Riley	This study	unoriented chip from Undated-3 P7 site	SP-SAW:LP-HYS-T	CNFP7-4	CNFP7-4.2.hotVSM	101120	1.00E-05	8.00E-05
+Riley	This study	unoriented chip from Undated-3 P7 site	SP-SAW:LP-HYS-T	CNFP7-4	CNFP7-4.hotVSM	100990	1.00E-05	7.54E-05
+Riley	This study	unoriented chip from Undated-3 P7 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP7-4	CNFP7-4a	95053	1.00E-05	0.002653
+Riley	This study	unoriented chip from Undated-3 P7 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP7-4	CNFP7-4b	95054	1.00E-05	0.002941
+Riley	This study	unoriented chip from Undated-3 P7 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP7-4	CNFP7-4c	95055	1.00E-05	0.0023366
+Riley	This study	unoriented chip from Undated-3 P7 site	SP-SAW:LP-X-F:LP-ARM-AFD	CNFP7-4	CNFP7-4d	95056	1.00E-05	0.0036659

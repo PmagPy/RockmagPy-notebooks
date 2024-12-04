@@ -1,0 +1,65 @@
+tab 	specimens
+aniso_f	aniso_l	aniso_p	aniso_s	aniso_s_n_measurements	aniso_t	aniso_type	azimuth	citations	contribution_id	critical_temp	critical_temp_high	critical_temp_low	critical_temp_mineral	critical_temp_type	description	dip	experiments	hyst_bc	hyst_bc_offset	hyst_bcr	hyst_loop	hyst_mr_mass	hyst_ms_mass	hyst_xhf	igsn	igsn_parent	instrument_codes	meas_orient_phi	meas_orient_theta	meas_temp	method_codes	mineral_type	rem_hirm_mass	rem_sratio	rem_sratio_back	rem_sratio_forward	result_quality	row_id	sample	specimen	synthetic_alternatives	volume	weight
+							181.3								Haliburton Highlands 8-1 VSM specimen	43																					g		HH8-3	HH8-1-r		1E-6	7.186E-5
+							181.3								Haliburton Highlands 8-1 X-T specimen	43																					g		HH8-3	HH8-1x		1E-6	0.00018076
+							0								Haliburton Highlands 8-2 VSM specimen	0																					g		HH8-3	HH8-2-r		1E-6	9.599E-5
+							181.3								Haliburton Highlands 8-3 core	43																					g		HH8-3	HH8-3b		0	0
+							211.7								MA1-1 core	56																					g		MA1-1	MA1-1b		0	0.0152024
+							222.7								MA1-2 VSM specimen	56																					g		MA1-2	MA1-2-r		1E-6	8.065E-5
+							222.7								MA1-2 core	56																					g		MA1-2	MA1-2b		0	0.0154706
+							222.7								MA1-2 X-T specimen	56																					g		MA1-2	MA1-2x		1E-6	0.00014573
+							215.7								MA1-3 core	49																					g		MA1-3	MA1-3b		0	0.015741
+															gel cap for MPMS																						g		MA1-5-r	MA1-5-r gelcap		0	9.045E-5
+							226.7								Marcy anorthosite 1-5 core	56																					g		MA1-5	MA1-5b		0	0
+							236.7								MA1-8 core	51																					g		MA1-8	MA1-8b		0	0.0155393
+							211.7								MA1-OX X-T cube specimen	56																					g		MA1-1	MA1-OX-cube		1E-6	0.0117671
+							211.7								MA1-OX VSM specimen	56																					g		MA1-1	MA1-OX-r		1E-6	0.00011277
+							211.7								MA1-OX X-T specimen	56																					g		MA1-1	MA1-OX-x		1E-6	0.00020548
+							0								Marcy anorthosite 5-3 VSM specimen	0																					g		MA5-4	MA5-3-r		1E-6	9.037E-5
+							289.3								Marcy anorthosite 5-4 VSM specimen	64																					g		MA5-4	MA5-4-r		1E-6	9.635E-5
+							289.3								Marcy anorthosite 5-4 core	64																					g		MA5-4	MA5-4b		0	0
+															Marcy anorthosite 5-6 VSM specimen																						g		MA5-4	MA5-6-r		1E-6	0
+							181.5								St Jean 1-1 core	48																					g		SJ1-1	SJ1-1b		0	0
+							181.5								St Jean 1-1 core	48																					g		SJ1-1	SJ1-1x		1E-6	0
+							189.5								SJ1-2 core	50																					g		SJ1-2	SJ1-2b		0	0.0161359
+							179.5								SJ1-3 VSM specimen	55																					g		SJ1-3	SJ1-3-r		1E-6	8.903E-5
+							179.5								SJ1-3 core	55																					g		SJ1-3	SJ1-3b		0	0.0162187
+							179.5								SJ1-3 X-T specimen	55																					g		SJ1-3	SJ1-3x		1E-6	8.572E-5
+															gel cap for MPMS																						g		SJ1-4-r	SJ1-4-r gelcap		0	6.908E-5
+							174.5								SJ1-5 core	36																					g		SJ1-5	SJ1-5b		0	0.0139736
+							174.5								SJ1-5 X-T specimen	36																					g		SJ1-5	SJ1-5x		1E-6	6.159E-5
+															gel cap for MPMS																						g		SJ5-5-r	SJ5-5-r gelcap		0	0.00014346
+							38.9								St Jean 5-4 core	47																					g		SJ5-5	SJ5-5b		0	0
+															St Jean 5-6 VSM specimen																						g		SJ5-5	SJ5-6-r		1E-6	9.785E-5
+							77.6								Thanet gabbro 1-1 core	17																					g		TH1-1	TH1-1b		0	0
+							0								Thanet gabbro 1-2 VSM core	0																					g		TH1-1	TH1-2-r		1E-6	8.721E-5
+							11.6								Whitestone anorthosite 3-1 VSM specimen	69																					g		WS3-1	WS3-1-r		1E-6	9.28E-5
+							11.6								Whitestone anorthosite 3-1 core	69																					g		WS3-1	WS3-1b		0	0
+							11.6								Whitestone anorthosite 3-1 X-T specimen	69																					g		WS3-1	WS3-1x		1E-6	8.321E-5
+							0								Whitestone anorthosite 3-5 VSM specimen	0																					g		WS3-1	WS3-5-r		1E-6	6.226E-5
+							308.7								Whitestone anorthosite 9-1 VSM core	48																					g		WS9-1	WS9-1-r		1E-6	0.00017643
+							308.7								Whitestone anorthosite 9-1 core	48																					g		WS9-1	WS9-1b		0	0
+							0								Whitestone anorthosite 9-4 VSM specimen	0																					g		WS9-1	WS9-4-r		1E-6	9.429E-5
+																	IRM-VSM3-LP-HYS-239366	3.857e-1	-1.135e-2			3.054e-5	-4.339e-4	1.546e-7			IRM-VSM3	.00	.00	300.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								HH8-3	HH8-1-r			7.186e-5
+																	IRM-VSM4-LP-HYS-239459	2.916e-2	-8.096e-4			2.353e-4	6.696e-4	8.341e-8			IRM-VSM4	.00	.00	294.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								HH8-3	HH8-2-r			9.599e-5
+																	IRM-VSM3-LP-HYS-239371	3.126e-3	2.087e-4			2.624e-3	1.188e-1	2.125e-8			IRM-VSM3	.00	.00	300.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								MA1-5-r	MA1-5-r gelcap			9.045e-5
+																	IRM-VSM3-LP-HYS-239373	9.699e-3	1.141e-4			1.172e-1	8.299e-1	1.039e-6			IRM-VSM3	.00	.00	300.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								MA1-1	MA1-OX-r			1.128e-4
+																	IRM-VSM4-LP-HYS-239360	9.273e-3	-1.335e-4			1.136e-1	9.071e-1	1.014e-6			IRM-VSM4	.00	.00	294.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								MA1-1	MA1-OX-r			1.128e-4
+																	IRM-VSM4-LP-HYS-239361	9.273e-3	-1.335e-4			1.136e-1	9.071e-1	1.014e-6			IRM-VSM4	.00	.00	294.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								MA1-1	MA1-OX-r			1.128e-4
+																	IRM-VSM4-LP-HYS-239377	8.366e-3	-1.466e-4			1.355e-1	9.062e-1	1.013e-6			IRM-VSM4	.00	.00	294.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								MA1-1	MA1-OX-r			1.128e-4
+																	IRM-VSM4-LP-HYS-239464	1.416e-3	-1.052e-5			2.284e-2	1.207e0	1.575e-7			IRM-VSM4	.00	.00	294.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								MA5-4	MA5-4-r			9.635e-5
+																	IRM-VSM4-LP-HYS-239467	1.926e-3	-1.096e-5			2.355e-3	1.597e-1	3.885e-11			IRM-VSM4	.00	.00	294.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								SJ1-3	SJ1-3-r			8.903e-5
+																	IRM-VSM4-LP-HYS-239362	5.387e-3	-5.115e-5			2.785e-3	6.854e-2	6.427e-9			IRM-VSM4	.00	.00	294.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								SJ1-4-r	SJ1-4-r gelcap			6.908e-5
+																	IRM-VSM3-LP-HYS-239368	3.830e-3	1.238e-4			7.920e-2	2.135e0	1.985e-7			IRM-VSM3	.00	.00	300.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								SJ5-5-r	SJ5-5-r gelcap			1.435e-4
+																	IRM-VSM4-LP-HYS-239468	8.701e-3	-2.801e-5			3.014e-3	5.072e-2	-3.094e-10			IRM-VSM4	.00	.00	294.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								SJ5-5	SJ5-6-r			9.785e-5
+																	IRM-VSM4-LP-HYS-239383	9.204e-3	1.397e-10			1.070e-2	8.665e-2	1.232e-7			IRM-VSM4	.00	.00	294.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								TH1-1	TH1-2-r			8.721e-5
+																	IRM-VSM3-LP-HYS-239367	1.666e-3	1.163e-4			8.158e-2	5.388e0	2.708e-7			IRM-VSM3	.00	.00	300.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								WS3-1	WS3-1-r			9.280e-5
+																	IRM-VSM4-LP-HYS-239465	4.427e-3	-1.293e-4			9.213e-3	1.627e-1	1.137e-7			IRM-VSM4	.00	.00	294.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								WS3-1	WS3-5-r			6.226e-5
+																	IRM-VSM4-LP-HYS-239466	1.847e-3	1.197e-5			2.241e-3	1.513e-1	-9.306e-10			IRM-VSM4	.00	.00	294.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								WS9-1	WS9-4-r			9.429e-5
+																	IRM-VSM3-LP-BCR-BF-239370			3.11E-2		2.470e-3					IRM-VSM3	.000	.000	300.00	LP-BCR-BF		0.000e-1	.000	0.100	1.000			MA1-5-r	MA1-5-r gelcap			9.045e-5
+																	IRM-VSM3-LP-BCR-BF-239372			5.37E-2		1.204e-1					IRM-VSM3	.000	.000	300.00	LP-BCR-BF		0.000e-1	.113	0.100	1.000			MA1-1	MA1-OX-r			1.128e-4
+																	IRM-VSM4-LP-BCR-BF-239379			6.00E-2		1.358e-1					IRM-VSM4	.000	.000	294.00	LP-BCR-BF		1.245e-2	.083	0.100	1.800			MA1-1	MA1-OX-r			1.128e-4
+																	IRM-VSM4-LP-BCR-BF-239364			1.96E-2		2.780e-3					IRM-VSM4	.000	.000	294.00	LP-BCR-BF		2.706e-5	.894	0.100	1.800			SJ1-4-r	SJ1-4-r gelcap			6.908e-5
+																	IRM-VSM3-LP-BCR-BF-239369			1.52E-2		7.925e-2					IRM-VSM3	.000	.000	300.00	LP-BCR-BF		0.000e-1	.000	0.100	1.000			SJ5-5-r	SJ5-5-r gelcap			1.435e-4
+																	IRM-VSM4-LP-BCR-BF-239469			6.28E-2		3.149e-3					IRM-VSM4	.000	.000	294.00	LP-BCR-BF		3.030e-5	.468	0.100	1.500			SJ5-5	SJ5-6-r			9.785e-5
+																	IRM-VSM3-LP-BCR-BF-239374			1.10E-2		8.081e-2					IRM-VSM3	.000	.000	300.00	LP-BCR-BF		0.000e-1	.940	0.100	1.000			WS3-1	WS3-1-r			9.280e-5

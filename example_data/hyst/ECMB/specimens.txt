@@ -1,0 +1,28 @@
+tab 	specimens
+aniso_f	aniso_l	aniso_p	aniso_s	aniso_s_n_measurements	aniso_t	aniso_type	azimuth	citations	contribution_id	critical_temp	critical_temp_high	critical_temp_low	critical_temp_mineral	critical_temp_type	description	dip	experiments	hyst_bc	hyst_bc_offset	hyst_bcr	hyst_loop	hyst_mr_mass	hyst_ms_mass	hyst_xhf	igsn	igsn_parent	instrument_codes	meas_orient_phi	meas_orient_theta	meas_temp	method_codes	mineral_type	rem_hirm_mass	rem_sratio	rem_sratio_back	rem_sratio_forward	result_quality	row_id	sample	specimen	synthetic_alternatives	volume	weight
+															pmag core chip																						g		NED1-5	NED1-5c		0	0.00015453
+															pmag core chip																						g		NED18-2	NED18-2c		0	0.00025375
+															pmag core chip																						g		NED2-8	NED2-8c		0	0.00018773
+															rock chips from pmag core																						g		NED23-8	NED23-8c		0	1.6E-7
+															rock chips from pmag core																						g		NED34-6	NED34-6c		0	0.00027479
+															pmag core chip																						g		NED36-8	NED36-8c		0	0.00022475
+															pmag core chip																						g		NED4-1	NED4-1c		0	0.00021058
+															pmag core chip																						g		NED6-6	NED6-6c		0	0.00013281
+																	IRM-VSM3-LP-HYS-218845	1.427e-2	9.969e-5			6.022e-3	3.578e-2	2.050e-7			IRM-VSM3	.00	.00	300.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								NED1-5	NED1-5c			1.545e-4
+																	IRM-VSM3-LP-HYS-218847	1.001e-2	3.769e-4			1.374e-2	1.229e-1	2.010e-7			IRM-VSM3	.00	.00	300.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								NED18-2	NED18-2c			2.538e-4
+																	IRM-VSM3-LP-HYS-218849	1.600e-2	5.430e-4			6.807e-3	4.418e-2	2.168e-7			IRM-VSM3	.00	.00	300.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								NED2-8	NED2-8c			1.877e-4
+																	IRM-VSM3-LP-HYS-218868	1.646e-2	9.733e-4			3.198e0	1.817e1	2.489e-4			IRM-VSM3	.00	.00	300.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								NED23-8	NED23-8c			1.600e-7
+																	IRM-VSM3-LP-HYS-218865	2.025e-2	3.570e-4			4.809e-3	2.143e-2	1.897e-7			IRM-VSM3	.00	.00	300.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								NED34-6	NED34-6c			2.748e-4
+																	IRM-VSM3-LP-HYS-218851	1.655e-2	9.755e-3			2.754e-4	2.334e-3	2.044e-7			IRM-VSM3	.00	.00	300.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								NED36-8	NED36-8c			2.248e-4
+																	IRM-VSM3-LP-HYS-218853	3.551e-2	4.018e-3			1.537e-3	5.557e-3	2.859e-7			IRM-VSM3	.00	.00	300.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								NED4-1	NED4-1c			2.106e-4
+																	IRM-VSM3-LP-HYS-218855	2.276e-2	6.181e-3			7.734e-4	4.660e-3	2.991e-7			IRM-VSM3	.00	.00	300.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M								NED6-6	NED6-6c			1.328e-4
+																	IRM-VSM3-LP-BCR-BF-218846			2.64E-2		6.201e-3					IRM-VSM3	.000	.000	300.00	LP-BCR-BF		-7.041e-6	.931	0.100	1.000			NED1-5	NED1-5c			1.545e-4
+																	IRM-VSM3-LP-BCR-BF-218848			2.10E-2		1.445e-2					IRM-VSM3	.000	.000	300.00	LP-BCR-BF		6.618e-5	.938	0.100	1.000			NED18-2	NED18-2c			2.538e-4
+																	IRM-VSM3-LP-BCR-BF-218850			3.44E-2		6.853e-3					IRM-VSM3	.000	.000	300.00	LP-BCR-BF		7.369e-5	.846	0.100	1.000			NED2-8	NED2-8c			1.877e-4
+																	IRM-VSM3-LP-BCR-BF-218869			4.84E-2		3.187e0					IRM-VSM3	.000	.000	300.00	LP-BCR-BF		1.287e-1	.540	0.100	1.000			NED23-8	NED23-8c			1.600e-7
+																	IRM-VSM3-LP-BCR-BF-218866			3.86E-2		4.851e-3					IRM-VSM3	.000	.000	300.00	LP-BCR-BF		1.227e-5	.866	0.100	1.000			NED34-6	NED34-6c			2.748e-4
+																	IRM-VSM3-LP-BCR-BF-218852			6.75E-2		2.398e-4					IRM-VSM3	.000	.000	300.00	LP-BCR-BF		7.184e-6	.235	0.100	1.000			NED36-8	NED36-8c			2.248e-4
+										105.90				Verwey transition													IRM-BigRed				SM-1DMAX:LP-FC								NED18-2	NED18-2c			
+										106.30				Verwey transition													IRM-BigRed				SM-1DMAX:LP-FC								NED18-2	NED18-2c			
+										123.90				Verwey transition													IRM-BigRed				SM-1DMAX:LP-FC								NED34-6	NED34-6c			
+										124.10				Verwey transition													IRM-BigRed				SM-1DMAX:LP-FC								NED34-6	NED34-6c			

@@ -1,0 +1,49 @@
+tab 	specimens
+aniso_f	aniso_l	aniso_p	aniso_s	aniso_s_n_measurements	aniso_t	aniso_type	azimuth	description	dip	experiments	hyst_bc	hyst_bc_offset	hyst_bcr	hyst_mr_mass	hyst_ms_mass	hyst_xhf	instrument_codes	meas_orient_phi	meas_orient_theta	meas_temp	method_codes	rem_hirm_mass	rem_sratio	rem_sratio_back	rem_sratio_forward	result_quality	sample	specimen	volume	weight
+																										g		blank_2022-06-03	0	1
+							0	1in core	0																	g	DA2-1	DA2-1d	0	0.0164046
+							0	1 inch core	0																	g	DA2-A	DA2-A	0	0.0332915
+							0	rock chip	0																	g	DA2-r	DA2-r	0	9.78E-5
+							299	half-inch core	40																	g	DA4-1	DA4-1C	0	0.0160972
+							0	1 inch core	0																	g	DA4-A	DA4-A	0	0.0336086
+							0	rock chip	0																	g	DA4-r	DA4-r	0	0.000188
+							115	1in core	-6																	g	DA6-1	DA6-1c	0	0.0155148
+							358	1in core	40																	g	DA7-2	DA7-2c	0	0.0157833
+							354	1in core	62																	g	DX1-1	DX1-1b	0	0.014247
+							0	rockchip	0																	g	DX1-1r	DX1-1r	0	0.00031706
+							0	1 inch core	0																	g	DX1-4A	DX1-4A	0	0.0325396
+							354	half-inch corte	62																	g	DX1-1	DX1-4b	0	0.0157881
+							353	1in core	52																	g	DX1-4	DX1-4c	0	0.0155627
+							0	rock chip	0																	g	DX1-4r	DX1-4r	0	7.77E-5
+							0	rock chip	0																	g	DX1-4r	DX1-4r2	1E-6	0.00049788
+							10	1in core	57																	g	DX1-5	DX1-5b	0	0.0159835
+							0	rock chip	0																	g	DX1-5	DX1-5r	0	7.986E-5
+							0	rock chip	0																	g	DX1-5	DX1-5r2	1E-6	0.00030065
+							0	1 inch core	0																	g	DX2-A	DX2-A	0	0.0288162
+							0	rock chip	0																	g	DX2-r	DX2-r	0	0.0001808
+										IRM-VSM4-LP-HYS-228055	8.543e-3	-4.704e-5		6.225e-3	6.608e-2	7.743e-9	IRM-VSM4	.00	.00	294.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M						DA2-r	DA2-r		9.780e-5
+										IRM-VSM4-LP-HYS-228060	6.047e-3	-5.327e-5		2.182e-5	5.087e-4	7.558e-11	IRM-VSM4	.00	.00	294.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M						DA4-A	DA4-A		3.361e-2
+										IRM-VSM4-LP-HYS-228042	6.047e-3	-5.325e-5		3.901e-3	9.094e-2	1.351e-8	IRM-VSM4	.00	.00	294.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M						DA4-r	DA4-r		1.880e-4
+										IRM-VSM3-LP-HYS-228041	4.194e-3	1.391e-4		3.304e-3	9.507e-2	9.238e-9	IRM-VSM3	.00	.00	300.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M						DA4-r	DA4-r		1.880e-4
+										IRM-VSM4-LP-HYS-228047	2.770e-2	-3.438e-3		1.860e-4	4.898e-4	1.715e-8	IRM-VSM4	.00	.00	294.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M						DX1-4r	DX1-4r		7.770e-5
+										IRM-VSM4-LP-HYS-228046	2.014e-2	-7.410e-4		2.898e-4	1.280e-3	1.253e-8	IRM-VSM4	.00	.00	294.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M						DX1-4r	DX1-4r		7.770e-5
+										IRM-VSM4-LP-HYS-228260	1.910e-2	-6.144e-4		2.845e-4	1.322e-3	1.244e-8	IRM-VSM4	.00	.00	294.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M						DX1-4r	DX1-4r		7.770e-5
+										IRM-VSM4-LP-HYS-228474	2.601e-2	-2.560e-4		2.178e-4	5.487e-4	1.385e-8	IRM-VSM4	.00	.00	294.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M						DX1-5	DX1-5r2		3.007e-4
+										IRM-VSM4-LP-HYS-228475	2.623e-2	-3.335e-4		2.211e-4	5.468e-4	1.386e-8	IRM-VSM4	.00	.00	294.00	LP-HYS:SM-REG-LIN:SM-SLOPE:LP-HYS-M						DX1-5	DX1-5r2		3.007e-4
+										IRM-VSM4-LP-BCR-BF-228056			2.56E-2	6.222e-3			IRM-VSM4	.000	.000	294.00	LP-BCR-BF	4.774e-5	.847	0.100	1.500		DA2-r	DA2-r		9.780e-5
+										IRM-VSM4-LP-BCR-BF-228061			3.72E-2	2.188e-5			IRM-VSM4	.000	.000	294.00	LP-BCR-BF	3.378e-7	.642	0.100	1.500		DA4-A	DA4-A		3.361e-2
+										IRM-VSM4-LP-BCR-BF-228043			3.72E-2	3.912e-3			IRM-VSM4	.000	.000	294.00	LP-BCR-BF	6.039e-5	.642	0.100	1.500		DA4-r	DA4-r		1.880e-4
+										IRM-VSM3-LP-BCR-BF-228040			2.46E-2	1.119e-3			IRM-VSM3	.000	.000	300.00	LP-BCR-BF	7.912e-6	.835	0.100	1.000		DA4-r	DA4-r		1.880e-4
+										IRM-VSM4-LP-BCR-BF-228048			6.56E-2	1.907e-4			IRM-VSM4	.000	.000	294.00	LP-BCR-BF	1.577e-5	.331	0.100	1.500		DX1-4r	DX1-4r		7.770e-5
+										IRM-VSM4-LP-BCR-BF-228045			5.23E-2	2.877e-4			IRM-VSM4	.000	.000	294.00	LP-BCR-BF	3.318e-6	.513	0.100	1.500		DX1-4r	DX1-4r		7.770e-5
+										IRM-VSM4-LP-BCR-BF-228261			5.68E-2	2.971e-4			IRM-VSM4	.000	.000	294.00	LP-BCR-BF	1.948e-5	.427	0.100	1.500		DX1-4r	DX1-4r		7.770e-5
+										IRM-VSM4-LP-BCR-BF-228476			5.51E-2	2.243e-4			IRM-VSM4	.000	.000	294.00	LP-BCR-BF	7.326e-6	.477	0.100	.500		DX1-5	DX1-5r2		3.007e-4
+										IRM-VSM4-LP-BCR-BF-228485			5.51E-2	2.244e-4			IRM-VSM4	.000	.000	294.00	LP-BCR-BF	7.225e-6	.476	0.100	.500		DX1-5	DX1-5r2		3.007e-4
+1.272	1.108	1.41	2810:3376:2688:-73.95:121.9:312.7	192	0.402	AMS															LP-AN-MS						DA4-1	DA4-1C		
+1.275	1.116	1.422	2795:3368:2645:-71.93:117.1:309.2	192	0.379	AMS															LP-AN-MS						DA4-1	DA4-1C		
+2.09158	1.50579	3.1495	1.00279E-5:9.40909E-6:9.91318E-6:4.98752E-6:6.94365E-7:2.85803E-7	9	0.286427	AARM															LP-AN-ARM						DA4-1	DA4-1C		
+1.40335	1.14704	1.60971	8.12126E-6:9.05012E-6:1.00044E-5:1.72604E-6:7.13808E-7:1.8638E-7	9	0.423643	AARM															LP-AN-ARM						DA4-1	DA4-1C		
+1.095	1.024	1.121	158.6:166.7:156.5:3.276:2.971:-6.456	192	0.587	AMS															LP-AN-MS						DX1-1	DX1-4b		
+1.089	1.018	1.108	159.5:167.2:158.1:2.683:2.505:-6.302	192	0.659	AMS															LP-AN-MS						DX1-1	DX1-4b		
+1.68773	1.15578	1.95065	3.74997E-7:6.25612E-7:5.84626E-7:8.0604E-8:4.80391E-8:-3.56335E-8	9	0.566644	AARM															LP-AN-ARM						DX1-1	DX1-4b		
+1.72115	1.39749	2.40529	4.88284E-7:6.30036E-7:5.51171E-7:2.06989E-7:6.15417E-8:-2.63919E-8	9	0.23735	AARM															LP-AN-ARM						DX1-1	DX1-4b		

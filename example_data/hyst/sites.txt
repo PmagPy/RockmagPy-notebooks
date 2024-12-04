@@ -1,0 +1,20 @@
+tab 	sites
+age	age_high	age_low	age_sigma	age_unit	citations	geologic_classes	geologic_types	lat	lithologies	location	lon	method_codes	site
+1.113			0.02	Ma	This study	Metamorphic	Baked Rock	45.30762	Clinker	1.113Ma	253.775283	GM-UTHHE	CNF1
+1.113			0.02	Ma	This study	Metamorphic	Baked Rock	45.30762	Clinker	1.113Ma	253.775283	GM-UTHHE	CNF2
+1.113			0.02	Ma	This study	Metamorphic	Baked Rock	45.30762	Clinker	1.113Ma	253.775283	GM-UTHHE	CNF3
+1.113			0.02	Ma	This study	Metamorphic	Baked Rock	45.30762	Clinker	1.113Ma	253.775283	GM-UTHHE	CNFP1
+1.113			0.02	Ma	This study	Metamorphic	Baked Rock	45.30762	Clinker	1.113Ma	253.775283	GM-UTHHE	CNFP2
+	4	0		Ma	This study	Metamorphic	Baked Rock	45.2091	Clinker	Undated-1	253.775867	GM-CC-STRAT	CNF4
+	4	0		Ma	This study	Metamorphic	Baked Rock	45.2091	Clinker	Undated-1	253.775867	GM-CC-STRAT	CNFP3
+0.089			0.0065	Ma	This study	Metamorphic	Baked Rock	45.55423	Clinker	0.089Ma	254.10515	GM-UTHHE	CNF5
+0.089			0.0065	Ma	This study	Metamorphic	Baked Rock	45.55423	Clinker	0.089Ma	254.10515	GM-UTHHE	CNFP4
+0.089			0.0065	Ma	This study	Metamorphic	Baked Rock	45.55423	Clinker	0.089Ma	254.10515	GM-UTHHE	CNFP5
+	4	0		Ma	This study	Metamorphic	Baked Rock	45.44373	Clinker	Undated-2	253.91285	GM-CC-STRAT	CNFP6
+0.237			0.0085	Ma	This study	Metamorphic	Baked Rock	45.44687	Clinker	0.237Ma	253.911133	GM-UTHHE	CNF6
+	4	0		Ma	This study	Metamorphic	Baked Rock	45.6907	Clinker	Undated-3	254.03285	GM-CC-STRAT	CNF7
+	4	0		Ma	This study	Metamorphic	Baked Rock	45.6907	Clinker	Undated-3	254.03285	GM-CC-STRAT	CNF8
+	4	0		Ma	This study	Metamorphic	Baked Rock	45.6907	Clinker	Undated-3	254.03285	GM-CC-STRAT	CNFP7
+0.217			0.0635	Ma	This study	Metamorphic	Baked Rock	45.71123	Clinker	0.217Ma	254.026867	GM-UTHHE	CNF9
+0.217			0.0635	Ma	This study	Metamorphic	Baked Rock	45.71123	Clinker	0.217Ma	254.026867	GM-UTHHE	CNFP8
+	4	0		Ma	This study	Metamorphic	Baked Rock	45.569161	Clinker	Undated-4	253.798825	GM-CC-STRAT	CNF10

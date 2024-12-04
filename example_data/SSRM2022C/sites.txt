@@ -1,0 +1,8 @@
+tab 	sites
+contribution_id	lat	location	lon	site
+This study		kappa-HT	0	blank_holder_1
+This study	47.8818	Lake_Three	-91.4443	DA2
+This study	47.8854	Lake_Three	-91.4451	DA4
+This study	46.7521	Skyline_Parkway	-92.1751	DX1
+This study	46.7521	Skyline_Parkway	-92.1751	DX1
+This study	46.7534	Skyline_Parkway	-92.1759	DX2

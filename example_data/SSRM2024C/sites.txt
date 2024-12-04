@@ -1,0 +1,18 @@
+tab 	sites
+contribution_id	lat	location	lon	site
+This study	44.8862		281.613	HH8
+This study	44.8862		281.613	HH8
+This study	44.0768		-74.0569	MA1
+This study	44.0768		-74.0569	MA1
+This study	43.9712		-74.0498	MA5
+This study	43.9712		-74.0498	MA5
+This study	48.4591		288.423	SJ1
+This study	48.4591		288.423	SJ1
+This study		Lac Saint Jean	0	SJ-5
+This study	48.4395		288.531	SJ5
+This study	44.862		282.255	TH1
+This study	44.862		282.255	TH1
+This study	45.4766		280.023	WS3
+This study	45.4766		280.023	WS3
+This study	45.647		280.083	WS9
+This study	45.647		280.083	WS9
