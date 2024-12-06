@@ -413,7 +413,7 @@
 <p>(2) Extract any susceptibility-temperature, <span style="font-family: 'Times New Roman';"><em><span class="math notranslate nohighlight">\(\chi\)</span>-T</em></span>, data contained within it.</p>
 <p>(3) Correct for the diamagnetic signal of the measurement instrument and holder (optional).</p>
 <p>(4) Smooth the data prior to further anaysis (optional).</p>
-<p>(5) Calculate Curie Temperatures, <span style="font-family: 'Times New Roman';"><em>T<sub>c</sub></em></span>, using first and second-order derivatives.</p>
+<p>(5) Calculate first and second-order derivatives of the curves for qualitatively estimating Curie temperatures.</p>
 <p>The notebook is to be run cell-by-cell to allow users to select corrections/filters as needed. The code below runs an example dataset from <a class="reference external" href="https://doi.org/10.1029/2021JB023789">Doctor and Feinberg (2022)</a>, Differential thermal analysis using high temperature susceptibility instruments, <em>Journal of Geophysical Research: Solid Earth</em>, which is MagiC contribution <a class="reference external" href="http://dx.doi.org/10.7288/V4/MAGIC/19369">19369</a>. Any MagIC contribution which contains <span style="font-family: 'Times New Roman';"><em><span class="math notranslate nohighlight">\(\chi\)</span>-T</em></span> data can be used in place of this example dataset.</p>
 <p><strong>Nota bene:</strong> We do not provide Curie Temperature estimation by the “two-tangent” method, as proposed for spontaneous magnetization  <span style="font-family: 'Times New Roman';"><em>M<sub>s</sub>(T)</em></span> curves by <a class="reference external" href="https://doi.org/10.1029/JB074i022p05277">Grommé et al. (1969)</a>. <a class="reference external" href="https://doi.org/10.1029/2012GC004440">Fabian et al. (2013)</a> explain this well:</p>
 <p><em>“The importance of the difference between determining <span style="font-family: 'Times New Roman';"><em>T<sub>c</sub></em></span> from <span style="font-family: 'Times New Roman';">M<sub>s</sub>(T)</span> and <span style="font-family: 'Times New Roman';"><em><span class="math notranslate nohighlight">\(\chi\)</span>-T</em></span> is pointed out by <a class="reference external" href="https://doi.org/10.1029/2006JB004507">Petrovský and Kapicka (2006)</a>, where methods to determine <span style="font-family: 'Times New Roman';">T<sub>c</sub></span> from measurements of the initial susceptibility are analyzed. They conclude that the two-tangent method is not suitable for <span style="font-family: 'Times New Roman';"><em><span class="math notranslate nohighlight">\(\chi\)</span>-T</em></span> and can considerably overestimate <span style="font-family: 'Times New Roman';">T<sub>c</sub></span>. The physical origin of  <span style="font-family: 'Times New Roman';"><em><span class="math notranslate nohighlight">\(\chi\)</span>-T</em></span> close to <span style="font-family: 'Times New Roman';">T<sub>c</sub></span> is more challenging than that of <span style="font-family: 'Times New Roman';">M<sub>s</sub>(T)</span>, because a number of low-field effects are important for <span style="font-family: 'Times New Roman';"><em><span class="math notranslate nohighlight">\(\chi\)</span>-T</em></span>, but become negligible in the higher fields used to infer <span style="font-family: 'Times New Roman';">M<sub>s</sub>(T)</span>. The variation of <span style="font-family: 'Times New Roman';">m</span> depends not only on the variation of <span style="font-family: 'Times New Roman';">M<sub>s</sub>(H,T)</span> with field  <span style="font-family: 'Times New Roman';">H</span>, it also contains a contribution from a rotation of the ordered moment with respect to an easy magnetization axis, and contributions from thermally activated switching of small independent – but already magnetically ordered – regions (e.g., SP particles). In large bulk material domain-wall movement contributes to <span style="font-family: 'Times New Roman';"><em><span class="math notranslate nohighlight">\(\chi\)</span>-T</em></span> even slightly below  <span style="font-family: 'Times New Roman';">Tc</span>. In nanoparticles the inhomogeneity of <span style="font-family: 'Times New Roman';">M<sub>s</sub></span>, due to the different exchangecoupling of inner and surface atoms, is of additional importance.”</em></p>
@@ -424,33 +424,14 @@
 temperatures determined using the two-tangent method and Curie-Weiss paramagnetic law is in the order of some few
 degrees. In the case of samples with wide susceptibility maximum and gradual decrease, reflecting e.g., wide distribution
 of grain sizes, or in the case of substituted hematite, application of the two-tangent method to susceptibility curves overestimates the transition temperature be several tens of degrees.”</em></p>
-<p><sup>1</sup>Néel Temperature</p>
-<p>Key components here include portions of notebooks, and functions developed for the EarthRef JupyterHub:
-<a class="reference external" href="https://www2.earthref.org/MagIC/jupyter-notebooks">https://www2.earthref.org/MagIC/jupyter-notebooks</a></p>
 <section id="install-and-import-packages">
 <h2>Install and import packages<a class="headerlink" href="#install-and-import-packages" title="Link to this heading">#</a></h2>
 <p>Click inside the cell below, hold shift and then press enter. This will automatically run the script below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rockmag</span> <span class="k">as</span> <span class="nn">rmag</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pmagpy.ipmag</span> <span class="k">as</span> <span class="nn">ipmag</span>
 <span class="kn">import</span> <span class="nn">pmagpy.contribution_builder</span> <span class="k">as</span> <span class="nn">cb</span>
-<span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="c1"># import plotly.express as px</span>
-<span class="c1"># import plotly.offline as pyo</span>
-<span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
-<span class="kn">from</span> <span class="nn">plotly.subplots</span> <span class="kn">import</span> <span class="n">make_subplots</span>
-<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
-
-
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">matplotlib.colors</span> <span class="k">as</span> <span class="nn">colors</span>
-
-<span class="kn">from</span> <span class="nn">IPython.core.interactiveshell</span> <span class="kn">import</span> <span class="n">InteractiveShell</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span><span class="p">,</span> <span class="n">clear_output</span><span class="p">,</span> <span class="n">Javascript</span> 
-<span class="kn">from</span> <span class="nn">notebook</span> <span class="kn">import</span> <span class="n">notebookapp</span>
 </pre></div>
 </div>
 </div>
@@ -774,7 +755,7 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "f74e9a159f4d41cd913bcca425e5420e", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "a557f8f07833436994127a2fe0c3afef", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "c1ac31b485a24e43b4474096271824ba", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "27126e51cf4549fabffb52667784cf44", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -788,14 +769,13 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
 <section id="plot-chi-t-data-the-derivatives-and-inverse-chi-t">
 <h2>Plot <span class="math notranslate nohighlight">\(\chi\)</span>-T data, the derivatives, and inverse <span class="math notranslate nohighlight">\(\chi\)</span>-T<a class="headerlink" href="#plot-chi-t-data-the-derivatives-and-inverse-chi-t" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>to help determine Curie temperatures or assessing reversibility for understanding alteration</p></li>
-<li><p>Your data might be noisy, which may hinder interpretation of Curie Temperatures or assessing reversibility for understanding alteration. The following code will perform a running average of data over a temperature interval that you can define. In the following cell, change the value associated with variable <code class="docutils literal notranslate"><span class="pre">temp_window</span></code> to set the desired temperature window for the running average.</p></li>
-<li><p>Holder removal: If you would like to remove the holder signal from the data, select values associated with <code class="docutils literal notranslate"><span class="pre">min_temp</span></code> and <code class="docutils literal notranslate"><span class="pre">max_temp</span></code> to set the temperature range for calculating the average value for the holder.</p></li>
+<li><p>Your data might be noisy, which may hinder assessing reversibility for understanding alteration. The following code will perform a running average of data over a temperature interval that you can define. In the following cell, change the value associated with variable <code class="docutils literal notranslate"><span class="pre">temp_window</span></code> to set the desired temperature window for the running average.</p></li>
+<li><p>Holder removal: Set <code class="docutils literal notranslate"><span class="pre">remove_holder</span></code> parameter to be <code class="docutils literal notranslate"><span class="pre">True</span></code>. We assume that the lowest susceptibility value during the whole measurement is the holder signal, and that this happens after the specimen is heated above the critical temperature such that it is paramagnetic and the holder signal is dominant.</p></li>
 </ul>
 <p>Three graphs will be created.</p>
 <p>(1) The top graph shows the raw data as points and the smoothed data as lines, for the temperature window size selected.</p>
 <p>(2) The second graph plots the derivatives based on the smoothed data in the top graph.</p>
-<p>(3) The third graph plots the inverse susceptibility data, which can be used to assess the Curie temperature.</p>
+<p>(3) The third graph plots the inverse susceptibility data, which can also be used to qualitatively assess the Curie temperature.</p>
 <section id="calculate-tc-using-inverse-susceptibility">
 <h3>Calculate <span style="font-family: 'Times New Roman';"><em>T<sub>c</sub></em></span> using inverse susceptibility<a class="headerlink" href="#calculate-tc-using-inverse-susceptibility" title="Link to this heading">#</a></h3>
 <p>Above <span style="font-family: 'Times New Roman';"><em>T<sub>c</sub></em></span> a mineral phase will be paramagnetic. This means that the inverse susceptibility should have a linear positive slope above <span style="font-family: 'Times New Roman';"><em>T<sub>c</sub></em></span>. Using the intercept temperature at 0 inverse susceptibility is a good guess for  <span style="font-family: 'Times New Roman';"><em>T<sub>c</sub></em></span>. This is essentially the break of slope between the ferromagnetic and paramagnetic signal.</p>
@@ -804,7 +784,6 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">fig_dXdT</span><span class="p">,</span> <span class="n">fig_inv</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">plot_X_T</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> 
                                        <span class="n">temp_unit</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> 
                                        <span class="n">remove_holder</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
-                                       <span class="n">min_temp</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">max_temp</span><span class="o">=</span><span class="mi">630</span><span class="p">,</span> 
                                        <span class="n">smooth_window</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
