@@ -407,13 +407,12 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="analysis-of-susceptibility-temperature-kappabridge-chi-t-data">
 <h1>Analysis of susceptibility-temperature, <span style="font-family: 'Times New Roman';"><em>(Kappabridge <span class="math notranslate nohighlight">\(\chi\)</span>-T)</em></span>, data<a class="headerlink" href="#analysis-of-susceptibility-temperature-kappabridge-chi-t-data" title="Link to this heading">#</a></h1>
-<hr class="docutils" />
 <p>This notebook allows the user to:</p>
 <p>(1) Download a contribution from the MagIC database.</p>
 <p>(2) Extract any susceptibility-temperature, <span style="font-family: 'Times New Roman';"><em><span class="math notranslate nohighlight">\(\chi\)</span>-T</em></span>, data contained within it.</p>
 <p>(3) Correct for the diamagnetic signal of the measurement instrument and holder (optional).</p>
 <p>(4) Smooth the data prior to further anaysis (optional).</p>
-<p>(5) Calculate first and second-order derivatives of the curves for qualitatively estimating Curie temperatures.</p>
+<p>(5) Calculate first derivative and the inverse susceptibility of the curves for qualitatively estimating Curie temperatures.</p>
 <p>The notebook is to be run cell-by-cell to allow users to select corrections/filters as needed. The code below runs an example dataset from <a class="reference external" href="https://doi.org/10.1029/2021JB023789">Doctor and Feinberg (2022)</a>, Differential thermal analysis using high temperature susceptibility instruments, <em>Journal of Geophysical Research: Solid Earth</em>, which is MagiC contribution <a class="reference external" href="http://dx.doi.org/10.7288/V4/MAGIC/19369">19369</a>. Any MagIC contribution which contains <span style="font-family: 'Times New Roman';"><em><span class="math notranslate nohighlight">\(\chi\)</span>-T</em></span> data can be used in place of this example dataset.</p>
 <p><strong>Nota bene:</strong> We do not provide Curie Temperature estimation by the “two-tangent” method, as proposed for spontaneous magnetization  <span style="font-family: 'Times New Roman';"><em>M<sub>s</sub>(T)</em></span> curves by <a class="reference external" href="https://doi.org/10.1029/JB074i022p05277">Grommé et al. (1969)</a>. <a class="reference external" href="https://doi.org/10.1029/2012GC004440">Fabian et al. (2013)</a> explain this well:</p>
 <p><em>“The importance of the difference between determining <span style="font-family: 'Times New Roman';"><em>T<sub>c</sub></em></span> from <span style="font-family: 'Times New Roman';">M<sub>s</sub>(T)</span> and <span style="font-family: 'Times New Roman';"><em><span class="math notranslate nohighlight">\(\chi\)</span>-T</em></span> is pointed out by <a class="reference external" href="https://doi.org/10.1029/2006JB004507">Petrovský and Kapicka (2006)</a>, where methods to determine <span style="font-family: 'Times New Roman';">T<sub>c</sub></span> from measurements of the initial susceptibility are analyzed. They conclude that the two-tangent method is not suitable for <span style="font-family: 'Times New Roman';"><em><span class="math notranslate nohighlight">\(\chi\)</span>-T</em></span> and can considerably overestimate <span style="font-family: 'Times New Roman';">T<sub>c</sub></span>. The physical origin of  <span style="font-family: 'Times New Roman';"><em><span class="math notranslate nohighlight">\(\chi\)</span>-T</em></span> close to <span style="font-family: 'Times New Roman';">T<sub>c</sub></span> is more challenging than that of <span style="font-family: 'Times New Roman';">M<sub>s</sub>(T)</span>, because a number of low-field effects are important for <span style="font-family: 'Times New Roman';"><em><span class="math notranslate nohighlight">\(\chi\)</span>-T</em></span>, but become negligible in the higher fields used to infer <span style="font-family: 'Times New Roman';">M<sub>s</sub>(T)</span>. The variation of <span style="font-family: 'Times New Roman';">m</span> depends not only on the variation of <span style="font-family: 'Times New Roman';">M<sub>s</sub>(H,T)</span> with field  <span style="font-family: 'Times New Roman';">H</span>, it also contains a contribution from a rotation of the ordered moment with respect to an easy magnetization axis, and contributions from thermally activated switching of small independent – but already magnetically ordered – regions (e.g., SP particles). In large bulk material domain-wall movement contributes to <span style="font-family: 'Times New Roman';"><em><span class="math notranslate nohighlight">\(\chi\)</span>-T</em></span> even slightly below  <span style="font-family: 'Times New Roman';">Tc</span>. In nanoparticles the inhomogeneity of <span style="font-family: 'Times New Roman';">M<sub>s</sub></span>, due to the different exchangecoupling of inner and surface atoms, is of additional importance.”</em></p>
@@ -430,6 +429,7 @@ of grain sizes, or in the case of substituted hematite, application of the two-t
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rockmag</span> <span class="k">as</span> <span class="nn">rmag</span>
+<span class="kn">from</span> <span class="nn">rockmag</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">pmagpy.ipmag</span> <span class="k">as</span> <span class="nn">ipmag</span>
 <span class="kn">import</span> <span class="nn">pmagpy.contribution_builder</span> <span class="k">as</span> <span class="nn">cb</span>
 </pre></div>
@@ -755,7 +755,7 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "c1ac31b485a24e43b4474096271824ba", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "27126e51cf4549fabffb52667784cf44", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "c55f6ebaa5a740c1adb75bd7adc7923d", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "25c42e9a4da94c6bbc2b22bab264229f", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -829,15 +829,18 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">min_temp_window</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">max_temp_window</span> <span class="o">=</span> <span class="mi">50</span>
-<span class="n">steps</span> <span class="o">=</span> <span class="mi">50</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">optimize_X_T_running_average_window</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">min_temp_window</span><span class="p">,</span> <span class="n">max_temp_window</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">)</span>
+<span class="n">steps</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">optimize_X_T_running_average_window</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">min_temp_window</span><span class="p">,</span> <span class="n">max_temp_window</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/20be8cb8df2957bdb7cf30f2057c9843ff9af321296a5e55e7376552d034bfed.png" src="_images/20be8cb8df2957bdb7cf30f2057c9843ff9af321296a5e55e7376552d034bfed.png" />
+<img alt="_images/079a54a4df7661715a4a4e09105e546046d21fa6ffce8df1956fd7a83c53a44a.png" src="_images/079a54a4df7661715a4a4e09105e546046d21fa6ffce8df1956fd7a83c53a44a.png" />
 </div>
 </div>
+<ul class="simple">
+<li><p>upon inspecting the plot, a smoothing window size of about 10 K seems to be a good choice for this dataset.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># save the figure</span>
