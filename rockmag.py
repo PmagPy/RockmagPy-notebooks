@@ -1072,6 +1072,496 @@ def plot_hysteresis_loop(ax, field, magnetization, **kwargs):
     ax.grid(True)
     return ax
 
+def split_hysteresis_loop(field, magnetization):
+    '''
+    function to split a hysteresis loop into upper and lower branches
+        by the change of sign in the applied field gradient
+
+    Parameters
+    ----------
+    field : numpy array or list
+        hysteresis loop field values
+    magnetization : numpy array or list
+        hysteresis loop magnetization values
+
+    Returns
+    -------
+    upper_branch : tuple
+        tuple of field and magnetization values for the upper branch
+    lower_branch : tuple
+        tuple of field and magnetization values for the lower branch
+    '''
+    assert len(field) == len(magnetization), 'Field and magnetization arrays must be the same length'
+
+    # identify loop turning point by change in sign of the field difference
+    # split the data into upper and lower branches
+    field_gradient = np.gradient(field)
+    # There should just be one turning point in the field gradient
+    turning_points = np.where(np.diff(np.sign(field_gradient)))[0]
+    if len(turning_points) > 1:
+        raise ValueError('More than one turning point found in the gradient of the applied field')
+    turning_point = turning_points[0]
+    upper_branch = [field[:turning_point+1], magnetization[:turning_point+1]]
+    # sort the upper branch in reverse order
+    upper_branch = [field[:turning_point+1][::-1], magnetization[:turning_point+1][::-1]]
+    lower_branch = [field[turning_point+1:], magnetization[turning_point+1:]]
+    
+    return upper_branch, lower_branch
+
+def grid_hysteresis_loop(field, magnetization):
+    '''
+    function to grid a hysteresis loop into a regular grid
+        with grid intervals equal to the average field step size calculated from the data
+
+    Parameters
+    ----------
+    field : numpy array or list
+        hysteresis loop field values
+    magnetization : numpy array or list
+        hysteresis loop magnetization values
+
+    Returns
+    -------
+    grid_field : numpy array
+        gridded field values
+    grid_magnetization : numpy array
+        gridded magnetization values
+    '''
+    assert len(field) == len(magnetization), 'Field and magnetization arrays must be the same length'
+
+    # calculate the average field step size
+    field_step = np.mean(np.abs(np.diff(field)))
+
+    # grid the hysteresis loop
+    upper_field = np.arange(np.max(field), 0, -field_step)
+    upper_field = np.concatenate([upper_field, -upper_field[::-1]])
+    lower_field = upper_field[::-1]
+    grid_field = np.concatenate([upper_field, lower_field])
+    upper_branch, lower_branch = split_hysteresis_loop(field, magnetization)
+    upper_branch_itp = np.interp(upper_field, upper_branch[0], upper_branch[1])
+    lower_branch_itp = np.interp(lower_field, lower_branch[0], lower_branch[1])
+    grid_magnetization = np.concatenate([upper_branch_itp, lower_branch_itp])
+
+    return grid_field, grid_magnetization
+
+def ANOVA(xs, ys):
+    '''
+    ANOVA statistics for linear regression
+    
+    Parameters
+    ----------
+    xs : numpy array
+        x values
+    ys : numpy array
+        y values
+
+    Returns
+    -------
+    results : dict
+        dictionary of the results of the ANOVA calculation
+        and intermediate statistics for the ANOVA calculation
+
+    '''
+
+    xs = np.array(xs)
+    ys = np.array(ys)
+
+    ys_mean = np.mean(ys)
+
+    # fit the gridded data by a straight line
+    slope, intercept = np.polyfit(xs, ys, 1)
+
+    # AVOVA calculation
+    # total sum of squares for the dependent variable (magnetization)
+    SST = np.sum((ys - ys_mean) ** 2)
+
+    # sum of squares due to regression
+    SSR = np.sum((slope * xs + intercept - ys_mean) ** 2)
+    
+    # the remaining unexplained variation (noise and lack of fit)
+    SSD = SST-SSR
+
+    R_squared = SSR/SST
+
+    results = {'slope':slope,
+                'intercept':intercept,
+                'SST':SST,
+                'SSR':SSR,
+                'SSD':SSD,
+                'R_squared': R_squared}
+    
+    return results
+
+def hyst_linearity_test(grid_field, grid_magnetization):
+    '''
+    function for testing the linearity of a hysteresis loop
+
+    Parameters
+    ----------
+    grid_field : numpy array
+        gridded field values
+    grid_magnetization : numpy array
+        gridded magnetization values
+
+    Returns
+    -------
+    results : dict
+        dictionary of the results of the linearity test
+        and intermediate statistics for the ANOVA calculation
+
+    '''
+
+    grid_field = np.array(grid_field)
+    grid_magnetization = np.array(grid_magnetization)
+
+    upper_branch, lower_branch = split_hysteresis_loop(grid_field, grid_magnetization)
+
+    anova_results = ANOVA(grid_field, grid_magnetization)
+
+    # fit the gridded data by a straight line
+    slope, intercept = anova_results['slope'], anova_results['intercept']
+
+    # AVOVA calculation
+    # total sum of squares for the dependent variable (magnetization)
+    SST = anova_results['SST']
+
+    # sum of squares due to regression
+    SSR = anova_results['SSR']
+    
+    # the remaining unexplained variation (noise and lack of fit)
+    SSD = anova_results['SSD']
+
+    R_squared = anova_results['R_squared']
+
+    # invert the lower branch to match the upper branch
+    # and calculate the differences between the upper and the inverted lower branch
+    # for any loop shifts and drift that are due to noise alone
+    SSPE = np.sum((upper_branch[1] - (-lower_branch[1][::-1])) ** 2)  / 2
+
+    # calculate the lack of fit statistic
+    SSLF = SSD - SSPE
+
+    # mean square pure error
+    MSPE = 2 * SSPE / len(grid_field)
+
+    # mean square error due to lack of fit
+    MSLF = SSLF / (len(grid_field)/2 - 2)
+
+    # mean squares due to regression
+    MSR = SSR / (len(grid_field) - 2)
+
+    # mean squares due to noise
+    MSD = SSD / (len(grid_field) - 2)
+
+    # square mean pure error
+    MSPE = SSPE / (len(grid_field) / 2)
+
+    # square mean lack of fit
+    MSLF = SSLF / (len(grid_field) / 2 - 2)
+
+    # F-ratio for the linear component
+    FL = MSR / MSD
+
+    # F-ratio for the non-linear component
+    FNL = MSLF / MSPE
+
+    results = {'SST':SST, 
+            'SSR':SSR,
+            'SSD':SSD,
+            'R_squared': R_squared, 
+            'SSPE':SSPE,
+            'SSLF':SSLF, 
+            'MSPE':MSPE,
+            'MSLF':MSLF,
+            'MSR':MSR, 
+            'MSD':MSD, 
+            'MSPE':MSPE, 
+            'MSLF':MSLF, 
+            'FL':FL, 'FNL':FNL, 
+            'slope':slope, 'intercept':intercept, 
+            'loop is linear':FNL < 1.25}
+
+    return results
+
+def hyst_loop_centering(grid_field, grid_magnetization):
+    '''
+    function for finding the optimum applied field offset value for the lower branch of a hysteresis loop
+        that results in the best linear fit between the upper branch and the inverted and offsetted lower branch
+
+    Parameters
+    ----------
+    grid_field : numpy array
+        gridded field values
+    grid_magnetization : numpy array
+        gridded magnetization values
+
+    Returns
+    -------
+    opt_H_offset : float
+        optimized applied field offset value for the loop
+    opt_M_offset : float
+        calculated magnetization offset value for the loop based on the optimized applied field offset
+        (intercept of the fitted line using the upper branch and the inverted and optimally offsetted lower branch)
+    R_squared : float
+        R-squared value of the linear fit between the upper branch and the inverted and offsetted lower branch
+
+    '''
+    grid_field = np.array(grid_field)
+    grid_magnetization = np.array(grid_magnetization)
+
+    # split the hysteresis loop into upper and lower branches
+    upper_branch, lower_branch = split_hysteresis_loop(grid_field, grid_magnetization)
+    lower_branch_inverted = [-lower_branch[0][::-1], -lower_branch[1][::-1]]
+    global opt_M_offset
+    # find the optimized H_offset that minimizes the correlation between M(H) and -M_inv (-H, H_offset)
+    def calc_H_offset(H_offset):
+        global opt_M_offset
+        # shift the lower branch by the H_offset
+        lower_branch_inverted_shifted = [lower_branch_inverted[0] - H_offset, lower_branch_inverted[1]]
+
+        # find the max of the min of the two branches and the min of the max of the two branches
+        # to find the overlapping region
+        upper_bound = np.min([np.max(upper_branch[0]), np.max(lower_branch_inverted_shifted[0])])
+        lower_bound = np.max([np.min(upper_branch[0]), np.min(lower_branch_inverted_shifted[0])])
+
+        # find the overlapping region
+        upper_overlapping_idx = np.where((upper_branch[0] >= lower_bound) & (upper_branch[0] <= upper_bound))
+        upper_branch_overlapping = [upper_branch[0][upper_overlapping_idx], upper_branch[1][upper_overlapping_idx]]
+        lower_overlapping_idx = np.where((lower_branch_inverted_shifted[0] >= lower_bound) & (lower_branch_inverted_shifted[0] <= upper_bound))
+        lower_branch_overlapping = [lower_branch_inverted_shifted[0][lower_overlapping_idx], lower_branch_inverted_shifted[1][lower_overlapping_idx]]
+
+        
+        H_offset_anova = ANOVA(upper_branch_overlapping[1], lower_branch_overlapping[1])
+        opt_M_offset = H_offset_anova['intercept']/2
+        # correlation_coefficient = np.corrcoef(upper_branch[1], lower_branch_itp)
+        # R_squared = correlation_coefficient[0,1] ** 2
+        return 1-H_offset_anova['R_squared']
+
+    opt_H_offset, inv_R_squared, _, _ = brent(calc_H_offset, brack=(-np.max(grid_field)/2, 0, np.max(grid_field)/2), tol=1e-6, full_output=True)
+    R_squared = 1-inv_R_squared
+    # signal to noise ratio
+    M_sn = 1/(np.sqrt(1-R_squared))
+    Q = np.log10(M_sn)
+    results = {'opt_H_offset':opt_H_offset/2, 'opt_M_offset':opt_M_offset, 'R_squared':R_squared, 'M_sn':M_sn, 'Q':Q}
+    return results
+
+def linear_HF_fit(field, magnetization, HF_cutoff=0.8):
+    '''
+    function to fit a linear function to the high field portion of a hysteresis loop
+
+    Parameters
+    ----------
+    field : numpy array or list
+        raw hysteresis loop field values
+    magnetization : numpy array or list
+        raw hysteresis loop magnetization values
+
+    Returns
+    -------
+    slope : float
+        slope of the linear fit
+        can be interpreted to be the paramagnetic/diamagnetic susceptibility
+    intercept : float
+        y-intercept of the linear fit
+        can be interpreted to be the saturation magnetization of the ferromagnetic component
+    '''
+    assert len(field) == len(magnetization), 'Field and magnetization arrays must be the same length'
+    assert HF_cutoff > 0 and HF_cutoff < 1, 'Portion must be between 0 and 1'
+
+    # adopting IRM's max field cutoff at 97% of the max field
+    max_field_cutoff = 0.97
+    
+    field = np.array(field)
+    magnetization = np.array(magnetization)
+
+    # filter for the high field portion of each branch
+
+    high_field_index = np.where((np.abs(field) >= HF_cutoff*np.max(np.abs(field))) & (np.abs(field) <= max_field_cutoff*np.max(np.abs(field))))[0]
+
+    # invert points in the third quadrant to the first
+    high_field = np.abs(field[high_field_index])
+    high_field_magnetization = np.abs(magnetization[high_field_index])
+
+    # the slope would be the paramagnetic/diamagnetic susceptibility
+    # the y-intercept would be the Ms value (saturation magnetization of the ferromagnetic component)
+    slope, intercept = np.polyfit(high_field, high_field_magnetization, 1)
+    
+    return slope, intercept
+
+def hyst_slope_correction(grid_field, grid_magnetization, slope):
+    '''
+    function for subtracting the paramagnetic/diamagnetic slope from a hysteresis loop
+         the input should be gridded field and magnetization values
+
+    Parameters
+    ----------
+    grid_field : numpy array
+        gridded field values
+    grid_magnetization : numpy array
+        gridded magnetization values
+    slope : float
+        slope of the linear fit
+
+    Returns
+    -------
+    grid_magnetization_ferro: numpy array
+        corrected ferromagnetic component of the magnetization
+    '''
+    assert len(grid_field) == len(grid_magnetization), 'Field and magnetization arrays must be the same length'
+    
+    grid_field = np.array(grid_field)
+    grid_magnetization = np.array(grid_magnetization)
+
+    grid_magnetization_ferro = grid_magnetization - slope*grid_field
+
+    return grid_magnetization_ferro
+
+def calc_Mrh_Mih(grid_field, grid_magnetization):
+    '''
+    function to calculate the Mrh and Mih values from a hysteresis loop
+
+    Parameters
+    ----------
+    grid_field : numpy array
+        gridded field values
+    grid_magnetization : numpy array
+        gridded magnetization values
+
+    Returns
+    -------
+    H : numpy array
+        field values of the upper branch (the two branches should have the same field values)
+    Mrh : float
+        remanent magnetization value
+    Mih : float
+        induced magnetization value
+    Me : numpy array
+        error on M(H), calculated as the subtraction of the inverted lower branch from the upper branch
+
+    '''
+    # calculate Mrh bu subtracting the upper and lower branches of a hysterisis loop
+    grid_field = np.array(grid_field)
+    grid_magnetization = np.array(grid_magnetization)
+
+    grid_field = grid_field
+    grid_magnetization = grid_magnetization
+
+    upper_branch, lower_branch = split_hysteresis_loop(grid_field, grid_magnetization)
+    # make sure the x values for the branches are exactly the same
+    assert np.all(upper_branch[0] == lower_branch[0]), 'Field values for the upper and lower branches are not the same'
+
+    Mrh = (upper_branch[1] - lower_branch[1])/2
+    Mih = (upper_branch[1] + lower_branch[1])/2
+    Me = upper_branch[1] + lower_branch[1][::-1]
+
+    H = upper_branch[0]
+    return H, Mrh, Mih, Me
+
+def loop_saturation_stats(field, magnetization, HF_cutoff=0.8, max_field_cutoff=0.97):
+    '''
+    ANOVA statistics for the high field portion of a hysteresis loop
+    
+    Parameters
+    ----------
+    field : numpy array
+        field values
+    magnetization : numpy array
+        magnetization values
+    HF_cutoff : float
+        high field cutoff value
+        default is 0.8
+
+    Returns
+    -------
+    results : dict
+        dictionary of the results of the ANOVA calculation
+        and intermediate statistics for the ANOVA calculation
+
+    '''
+    field = np.array(field)
+    magnetization = np.array(magnetization)
+
+    # filter for the high field portion of each branch
+    pos_high_field_index = np.where((field >= HF_cutoff*np.max(np.abs(field))) & (field <= max_field_cutoff*np.max(np.abs(field))))[0]
+    neg_high_field_index = np.where((field <= -HF_cutoff*np.max(np.abs(field))) & (field >= -max_field_cutoff*np.max(np.abs(field))))[0]
+    
+    # invert points in the third quadrant to the first
+    pos_high_field = field[pos_high_field_index]
+    pos_high_field_magnetization = magnetization[pos_high_field_index]
+    # sort the high field values by field
+    pos_high_field, pos_high_field_magnetization = zip(*sorted(zip(pos_high_field, pos_high_field_magnetization)))
+    pos_high_field = np.abs(np.array(pos_high_field))
+    pos_high_field_magnetization = np.abs(np.array(pos_high_field_magnetization))
+
+    neg_high_field = field[neg_high_field_index]
+    neg_high_field_magnetization = magnetization[neg_high_field_index]
+    # sort the high field values by field
+    neg_high_field, neg_high_field_magnetization = zip(*sorted(zip(neg_high_field, neg_high_field_magnetization)))
+    neg_high_field = np.abs(np.array(neg_high_field))[::-1]
+    neg_high_field_magnetization = np.abs(np.array(neg_high_field_magnetization))[::-1]
+    
+    high_field = np.concatenate([pos_high_field, neg_high_field])
+    high_field_magnetization = np.concatenate([pos_high_field_magnetization, neg_high_field_magnetization])
+
+    anova_results = ANOVA(high_field, high_field_magnetization)
+    SST = anova_results['SST']
+    SSR = anova_results['SSR']
+    SSD = anova_results['SSD']
+    R_squared = anova_results['R_squared']
+
+    SSPE = np.sum((pos_high_field_magnetization - neg_high_field_magnetization)**2 / 2)
+    SSLF = SSD - SSPE
+    MSR = SSR / (len(high_field) - 2)
+    MSD = SSD / (len(high_field) - 2)
+    MSPE = SSPE / (len(high_field) / 2)
+
+    FL = MSR / MSD
+    FNL = SSLF / MSPE
+
+    results = {'SST':SST,
+                'SSR':SSR,
+                'SSD':SSD,
+                'R_squared': R_squared,
+                'SSPE':SSPE,
+                'SSLF':SSLF,
+                'MSPE':MSPE,
+                'MSR':MSR,
+                'MSD':MSD,
+                'FL':FL,
+                'FNL':FNL}
+    return results
+    
+
+def hyst_loop_saturation_test(grid_field, grid_magnetization, max_field_cutoff=0.97):
+    '''
+    function for testing the saturation of a hysteresis loop
+        which is based on the testing of linearity of the loop in field ranges of 60%, 70%, and 80% of the maximum field (<97%)
+    '''
+    
+    FNL60 = loop_saturation_stats(grid_field, grid_magnetization, HF_cutoff=0.6, max_field_cutoff = max_field_cutoff)['FNL']
+    FNL70 = loop_saturation_stats(grid_field, grid_magnetization, HF_cutoff=0.7, max_field_cutoff = max_field_cutoff)['FNL']
+    FNL80 = loop_saturation_stats(grid_field, grid_magnetization, HF_cutoff=0.8, max_field_cutoff = max_field_cutoff)['FNL']
+
+    saturation_cutoff = 0
+    if (FNL80 > 2.5) & (FNL70 > 2.5) & (FNL60 > 2.5):
+        saturation_cutoff = 0.92 # IRM default
+    else:
+        if FNL80 < 2.5:  #saturated at 80%
+            saturation_cutoff = 0.8
+        if FNL70 < 2.5:  #saturated at 70%
+            saturation_cutoff = 0.7
+        if FNL60 < 2.5:  #saturated at 60%
+            saturation_cutoff = 0.6
+    results = {'FNL60':FNL60, 'FNL70':FNL70, 'FNL80':FNL80, 'saturation_cutoff':saturation_cutoff}
+
+    return results
+
+
+
+
+# X-T functions
+# ------------------------------------------------------------------------------------------------------------------
+
 # define function for splitting the curves into warm and cool cycles
 def split_warm_cool(experiment):
     '''
@@ -1442,10 +1932,10 @@ def X_T_running_average(temp_list, chi_list, temp_window):
     
     return avg_temps, avg_chis, temp_vars, chi_vars
 
-def optimize_X_T_running_average_window(experiment, min_temp_window=0, max_temp_window=50, steps=50):
+def optimize_X_T_running_average_window(experiment, min_temp_window=0, max_temp_window=50, steps=50, colormapwarm='tab20b', colormapcool='tab20c'):
     warm_T, warm_X, cool_T, cool_X = split_warm_cool(experiment)
     windows = np.linspace(min_temp_window, max_temp_window, steps)
-    fig, ax = plt.subplots(figsize=(10, 6))
+    fig, axs = plt.subplots(ncols=2, nrows=1, figsize=(12, 6))
 
     # Normalize the colormap
     norm = colors.Normalize(vmin=min_temp_window, vmax=max_temp_window)
@@ -1456,21 +1946,22 @@ def optimize_X_T_running_average_window(experiment, min_temp_window=0, max_temp_
         _, cool_avg_chis, _, cool_chi_vars = X_T_running_average(cool_T, cool_X, window)  
         cool_avg_rms, cool_avg_variance = calculate_avg_variance_and_rms(cool_X, cool_avg_chis, cool_chi_vars)
 
-        ax.scatter(warm_avg_variance, warm_avg_rms, c=window, cmap='Reds', norm=norm)
-        ax.scatter(cool_avg_variance, cool_avg_rms, c=window, cmap='Blues', norm=norm)
+        axs[0].scatter(warm_avg_variance, warm_avg_rms, c=window, cmap=colormapwarm, norm=norm)
+        axs[1].scatter(cool_avg_variance, cool_avg_rms, c=window, cmap=colormapcool, norm=norm)
         # ax.text(warm_avg_variance, warm_avg_rms, f'{window:.2f}°C', fontsize=12, ha='right')
         # ax.text(cool_avg_variance, cool_avg_rms, f'{window:.2f}°C', fontsize=12, ha='right')
-    ax.set_xlabel('Average Variance', fontsize=14)
-    ax.set_ylabel('Average RMS', fontsize=14)
-    ax.set_title('Average RMS vs Average Variance plot\nfor optimizing the running average window size')
-    ax.invert_yaxis()
+    for ax in axs:
+        ax.set_xlabel('Average Variance', fontsize=14)
+        ax.set_ylabel('Average RMS', fontsize=14)
+        
+        ax.invert_yaxis()
     # show the colormaps and make sure the range is correct
-    warm_cbar = plt.colorbar(plt.cm.ScalarMappable(cmap='Reds', norm=norm))
+    warm_cbar = plt.colorbar(plt.cm.ScalarMappable(cmap=colormapwarm, norm=norm), orientation='horizontal', ax=axs[0])
     warm_cbar.set_label('Warm cycle window size (°C)')
-    cool_cbar = plt.colorbar(plt.cm.ScalarMappable(cmap='Blues', norm=norm))
+    cool_cbar = plt.colorbar(plt.cm.ScalarMappable(cmap=colormapcool, norm=norm), orientation='horizontal', ax=axs[1])
     cool_cbar.set_label('Cool cycle window size (°C)')
-
-    return fig, ax   
+    plt.suptitle('Optimization of running average window size', fontsize=16)
+    return fig, axs
 
 
 def calculate_avg_variance_and_rms(chi_list, avg_chis, chi_vars):
