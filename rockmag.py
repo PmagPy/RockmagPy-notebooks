@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+from scipy.optimize import minimize, brent
+
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import matplotlib.patches as patches
@@ -1556,8 +1558,402 @@ def hyst_loop_saturation_test(grid_field, grid_magnetization, max_field_cutoff=0
 
     return results
 
+def loop_open_test(H, Mrh, HF_cutoff=0.8):
+    '''
+    function for testing if the loop is open
+    
+    Parameters
+    ----------
+    H: array-like
+        field values
+    Mrh: array-like
+        remanence componentt
+    HF_cutoff: float
+        high field cutoff value taken as percentage of the max field value
+
+    Returns
+    -------
+    SNR: float
+        high field signal to noise ratio
+    HAR: float
+        high field area ratio
+    '''
+    assert len(H) == len(Mrh), 'H, Mrh must have the same length'
+    # force all Mrh values to be positive, we replace negative Mrh values with 0
+    Mrh = np.where(Mrh < 0, 0, Mrh)
+    # calculate the RMS of the average of the positive and negative Mrh values
+    total_Mrh_RMS = np.sqrt(np.sum((Mrh)**2)/len(Mrh))
+    # calculate the RMS of the high field component
+    HF_index = np.where(np.abs(H) > HF_cutoff*np.max(H))
+    HF_Mrh = Mrh[HF_index]
+    HF_Mrh_RMS = np.sqrt(np.sum((HF_Mrh)**2)/len(HF_Mrh))
+
+    SNR = 20*np.log10(total_Mrh_RMS/HF_Mrh_RMS)
+    print('SNR = {} dB'.format(np.round(SNR,2)))
+
+    pos_HF_index = np.where(H >= HF_cutoff*np.max(H))
+    neg_HF_index = np.where(H < -HF_cutoff*np.max(H))
+    pos_HF = H[pos_HF_index]
+    neg_HF = H[neg_HF_index]
+    pos_HF_Mrh = Mrh[pos_HF_index]
+    neg_HF_Mrh = Mrh[neg_HF_index]
+
+    pos_H_index = np.where(H >= 0)
+    neg_H_index = np.where(H < 0)
+    pos_H = H[pos_H_index]
+    neg_H = H[neg_H_index]
+    pos_Mrh = Mrh[pos_H_index]
+    neg_Mrh = Mrh[neg_H_index]
+
+    total_Mrh_area = np.trapz(pos_Mrh, pos_H) + np.trapz(neg_Mrh[::-1], -neg_H[::-1])
+    total_HF_Mrh_area = np.trapz(pos_HF_Mrh, pos_HF) + np.trapz(neg_HF_Mrh[::-1], -neg_HF[::-1])
+
+    HAR = 20*np.log10(total_HF_Mrh_area/total_Mrh_area)
+    print('HAR = {} dB'.format(np.round(HAR, 2)))
+    return SNR, HAR
 
 
+def process_hyst_loop(field,magnetization):
+    # first grid the data into symmetric field values
+    grid_fields, grid_magnetizations = grid_hysteresis_loop(field, magnetization)
+
+    # check loop drift
+    pos_max_mags = grid_magnetizations[np.where(grid_fields == np.max(grid_fields))]
+    neg_max_mags = grid_magnetizations[np.where(grid_fields == np.min(grid_fields))]
+
+    if (np.abs(np.diff(pos_max_mags)/2/np.mean(pos_max_mags))>0.001) or np.abs((np.diff(neg_max_mags)/2/np.mean(neg_max_mags))>0.001):
+        print('check loop drift!')
+
+    # then perform linearity test on the whole loop (to determine wether the specimen is dominated by paramagnetic or diamagnetic signal)
+    linearity_test_results = hyst_linearity_test(grid_fields, grid_magnetizations)
+    if linearity_test_results['loop is linear']:
+        print('raw data is linear')
+    else:
+        print('raw data is not linear')
+    print('FNL: ', round(linearity_test_results['FNL'],2))
+
+    if linearity_test_results['loop is linear']:
+        return grid_fields, grid_magnetizations, linearity_test_results
+    
+    # if the loop is not linear, we need to first center the loop
+    loop_centering_results = hyst_loop_centering(grid_fields, grid_magnetizations)
+
+    print('loop centering results: field offset = {} T'.format(round(loop_centering_results['opt_H_offset'],4)), 'magnetization offset = {} Am^2/kg'.format(round(loop_centering_results['opt_M_offset'], 4)))
+    print('centered loop Q value:', round(loop_centering_results['Q'], 2))
+
+    grid_fields_centered = grid_fields - loop_centering_results['opt_H_offset']
+    grid_magnetizations_centered = grid_magnetizations - loop_centering_results['opt_M_offset']
+
+    # then apply default high field correction
+    slope, intercept = linear_HF_fit(grid_fields_centered, grid_magnetizations_centered)
+    print('apply default high field linear correction:', 'slope (X_para/dia) = {}'.format(round(slope, 4)), 'intercept (Ms) = {} Am^2/kg'.format(round(intercept, 4)))
+
+    grid_magnetizations_centered_HF_corrected = hyst_slope_correction(grid_fields_centered, grid_magnetizations_centered, slope)
+
+    # calculate the Mrh (remanence component), Mih (induced component), Me (error) arrays
+    H, Mrh, Mih, Me = calc_Mrh_Mih(grid_fields_centered, grid_magnetizations_centered_HF_corrected)
+    # check if the loop is closed
+    # check_loop_closure = calc_Mrh_Mih(grid_fields, grid_magnetizations)
+    loop_closure_SNR, loop_closure_HAR = loop_open_test(H, Mrh)
+    if (loop_closure_SNR >=8) or (loop_closure_HAR >= -48):
+        print('loop is open!')
+
+    # test loop saturation on the not slope-corrected data
+    loop_saturation_stats = hyst_loop_saturation_test(grid_fields_centered, grid_magnetizations_centered)
+    if loop_saturation_stats['FNL60'] < 2.5:
+        print('loop is saturated beyond {} mT'.format(round(600*np.max(grid_fields_centered), 4)))
+    elif loop_saturation_stats['FNL70'] < 2.5:
+        print('loop is saturated beyond {} mT'.format(round(700*np.max(grid_fields_centered), 4)))
+    elif loop_saturation_stats['FNL80'] < 2.5:
+        print('loop is saturated beyond {} mT'.format(round(800*np.max(grid_fields_centered), 4)))
+    else:
+        print('loop is not saturated! check non-linear high field correction!')
+
+    fig, ax =  plt.subplots(figsize=(10,10))
+    ax = plot_hysteresis_loop(ax, grid_fields_centered, grid_magnetizations_centered, color='r', linewidth=1, label='centered raw data')
+    ax.plot(grid_fields_centered, grid_magnetizations_centered_HF_corrected, color='b', linewidth=1, label='HF slope corrected data')
+    ax.plot(H, Mrh, color='g', linewidth=1, label='Mrh')
+    ax.plot(H, Mih, color='y', linewidth=1, label='Mih')
+    ax.plot(H, Me, color='brown', linewidth=1, label='Me')
+    plt.legend()
+
+    results = {'grid_fields': grid_fields, 
+               'grid_magnetizations': grid_magnetizations, 
+               'loop_centering_results': loop_centering_results,
+               'grid_fields_centered': grid_fields_centered, 
+               'grid_magnetizations_centered': grid_magnetizations_centered, 
+               'grid_magnetizations_centered_HF_corrected': grid_magnetizations_centered_HF_corrected, 
+               'H': H, 'Mrh': Mrh, 'Mih': Mih, 'Me': Me, 
+               'loop_saturation_stats': loop_saturation_stats}
+
+    return results, ax
+
+def prorated_drift_correction(field, magnetization):
+    '''
+    function to correct for the linear drift of a hysteresis loop
+        take the difference between the magnetization measured at the maximum field on the upper and lower branches
+        apply linearly prorated correction of M(H)
+        this can be applied either to the raw data or the gridded raw data
+
+    Parameters
+    ----------
+    field : numpy array
+        field values
+    magnetization : numpy array
+        magnetization values
+
+    Returns
+    -------
+    corrected_magnetization : numpy array
+        corrected magnetization values
+    '''
+
+    field = np.array(field)
+    magnetization = np.array(magnetization)
+    upper_branch, lower_branch = split_hysteresis_loop(field, magnetization)
+
+    # find the maximum field values for the upper and lower branches
+    upper_branch_max_idx = np.argmax(upper_branch[0])
+    lower_branch_max_idx = np.argmax(lower_branch[0])
+
+    # find the difference between the magnetization values at the maximum field values
+    M_ce = upper_branch[1][upper_branch_max_idx] - lower_branch[1][lower_branch_max_idx]
+
+    # apply linearly prorated correction of M(H)
+    corrected_magnetization = [M_ce * ((i-1)/(len(field)-1) - 1/2) + magnetization[i] for i in range(len(field))]
+
+    return np.array(corrected_magnetization)
+
+def upper_brach_drift_correction(field, magnetization, poly_degree=1):
+    '''
+    function to correct for the linear drift of the upper branch of a hysteresis loop
+        apply linearly prorated correction of M(H)
+        this can be applied either to the raw data or the gridded raw data
+
+    Parameters
+    ----------
+    field : numpy array
+        field values
+    magnetization : numpy array
+        magnetization values
+
+    Returns
+    -------
+    corrected_magnetization : numpy array
+        corrected magnetization values
+    '''
+
+    field = np.array(field)
+    magnetization = np.array(magnetization)
+    upper_branch, lower_branch = split_hysteresis_loop(field, magnetization)
+
+    # calculate the noise curve
+    noise_curve = (upper_branch[1] + lower_branch[1][::-1])
+
+    # apply a moving average filter to the noise curve
+    smoothed_noise_curve = np.polyval(np.polyfit(upper_branch[0], noise_curve, poly_degree), upper_branch[0])
+
+    # subtract the smoothed noise curve from the upper branch
+    corrected_magnetization = upper_branch[1] - smoothed_noise_curve
+
+    # append back in the lower branch
+    corrected_magnetization = np.concatenate([corrected_magnetization[::-1], lower_branch[1]])
+    
+    return corrected_magnetization
+
+def symmetric_averaging_drift_corr(field, magnetization):
+    
+    field = np.array(field)
+    magnetization = np.array(magnetization)
+
+    upper_branch, lower_branch = split_hysteresis_loop(field, magnetization)
+
+    # average the upper and inverted lower branches
+    averaged_upper_branch = (upper_branch[1] - lower_branch[1][::-1]) / 2
+
+    # calculate tip-to-tip separation from both the upper and lower branches
+    tip_to_tip_separation = (upper_branch[1][0] - lower_branch[1][0] + upper_branch[1][-1] - lower_branch[1][-1]) / 4
+    # apply the tip-to-tip separation to the upper branch
+    corrected_magnetization = averaged_upper_branch - tip_to_tip_separation
+
+    # append back in the lower branch which should just be the inverted corrected upper branch
+    corrected_magnetization = np.concatenate([corrected_magnetization[::-1], -corrected_magnetization[::-1]])
+
+    return corrected_magnetization
+
+def IRM_nonlinear_fit(H, chi_HF, Ms, a_1, a_2):
+    '''
+    function for calculating the IRM non-linear fit
+
+    Parameters
+    ----------
+    H : numpy array
+        field values
+    chi_HF : float
+        high field susceptibility
+    Ms : float
+        saturation magnetization
+    a_1 : float
+        coefficient for H^(-1), needs to be negative
+    a_2 : float
+        coefficient for H^(-2), needs to be negative
+
+    '''
+    return chi_HF * H + Ms + a_1 * H**(-1) + a_2 * H**(-2)
+
+def IRM_nonlinear_fit_cost_function(params, H, M_obs):
+    '''
+    cost function for the IRM non-linear least squares fit optimization
+
+    Parameters
+    ----------
+    params : numpy array
+        array of parameters to optimize
+    H : numpy array
+        field values
+    M_obs : numpy array
+        observed magnetization values
+
+    Returns
+    -------
+    residual : numpy array
+        residual between the observed and predicted magnetization values
+    '''
+
+    chi_HF, Ms, a_1, a_2 = params
+    prediction = IRM_nonlinear_fit(H, chi_HF, Ms, a_1, a_2)
+    return M_obs - prediction
+
+def Fabian_nonlinear_fit(H, chi_HF, Ms, alpha, beta):
+    '''
+    function for calculating the Fabian non-linear fit
+
+    Parameters
+    ----------
+    H : numpy array
+        field values
+    chi_HF : float
+        high field susceptibility
+    Ms : float
+        saturation magnetization
+    alpha : float
+        coefficient for H^(beta), needs to be negative
+    beta : float
+        coefficient for H^(beta), needs to be negative
+
+    '''
+    return chi_HF * H + Ms + alpha * H**beta
+
+def Fabian_nonlinear_fit_cost_function(params, H, M_obs):
+    '''
+    cost function for the Fabian non-linear least squares fit optimization
+
+    Parameters
+    ----------
+    params : numpy array
+        array of parameters to optimize
+    H : numpy array
+        field values
+    M_obs : numpy array
+        observed magnetization values
+
+    Returns
+    -------
+    residual : numpy array
+        residual between the observed and predicted magnetization values
+    '''
+
+    chi_HF, Ms, alpha, beta = params
+    prediction = Fabian_nonlinear_fit(H, chi_HF, Ms, alpha, beta)
+    return M_obs - prediction
+
+def Fabian_nonlinear_fit_fix_beta_cost_function(params, H, M_obs, beta=-2):
+    '''
+    cost function for the Fabian non-linear least squares fit optimization
+        with beta fixed at -2
+
+    Parameters
+    ----------
+    params : numpy array
+        array of parameters to optimize
+    H : numpy array
+        field values
+    M_obs : numpy array
+        observed magnetization values
+
+    Returns
+    -------
+    residual : numpy array
+        residual between the observed and predicted magnetization values
+    '''
+
+    chi_HF, Ms, alpha = params
+    prediction = Fabian_nonlinear_fit(H, chi_HF, Ms, alpha, beta)
+    return M_obs - prediction
+
+
+def hyst_HF_nonlinear_optimization(fit_type, initial_guess, bounds, HF_field, HF_magnetization):
+    '''
+    function for optimizing the high field non-linear fit
+
+    Parameters
+    ----------
+    fit_type : type of nonlinear fit
+        can be 'IRM' or 'Fabian' or 'Fabian_fixed_beta'
+    initial_guess : numpy array
+        initial guess for the optimization
+    bounds : tuple
+        bounds for the optimization
+    HF_field : numpy array
+        high field field values
+    HF_magnetization : numpy array
+        high field magnetization values
+
+    Returns
+    -------
+    results : scipy.optimize.OptimizeResult
+        results of the optimization
+    '''
+    if fit_type == 'IRM':
+        cost_function = IRM_nonlinear_fit_cost_function
+    elif fit_type == 'Fabian':
+        cost_function = Fabian_nonlinear_fit_cost_function
+    elif fit_type == 'Fabian_fixed_beta':
+        cost_function = Fabian_nonlinear_fit_fix_beta_cost_function
+    else:
+        raise ValueError('Fit type must be either IRM or Fabian')
+    
+    results = least_squares(cost_function, initial_guess, bounds=bounds, args=(HF_field, HF_magnetization))
+
+    if fit_type == 'IRM':
+        chi_HF, Ms, a_1, a_2 = results.x
+        nonlinear_fit = IRM_nonlinear_fit(HF_field, chi_HF, Ms, a_1, a_2)
+    elif fit_type == 'Fabian':
+        chi_HF, Ms, alpha, beta = results.x
+        nonlinear_fit = Fabian_nonlinear_fit(HF_field, chi_HF, Ms, alpha, beta)
+    elif fit_type == 'Fabian_fixed_beta':
+        chi_HF, Ms, alpha = results.x
+        beta = -2
+        nonlinear_fit = Fabian_nonlinear_fit(HF_field, chi_HF, Ms, alpha, beta)
+
+    # let's also report the Fnl_lin which is a measure of whether the nonlinear fit is better than a linear fit
+    # let's first make a linear fit
+    linear_fit_ANOVA = ANOVA(HF_field, HF_magnetization)
+    lin_SSD = linear_fit_ANOVA['SSD']
+
+    # now calculate the nonlinear fit SSD
+    nl_SST = np.sum((HF_magnetization - np.mean(HF_magnetization)) ** 2)
+
+    # sum of squares due to regression
+    nl_SSR = np.sum((nonlinear_fit - np.mean(HF_magnetization)) ** 2)
+    
+    # the remaining unexplained variation (noise and lack of fit)
+    nl_SSD = nl_SST-nl_SSR
+
+    # calculate the Fnl_lin stat
+    Fnl_lin = ((lin_SSD - nl_SSD) / (4-2))/(nl_SSD / (len(HF_field) - 4))
+
+    return results, Fnl_lin
 
 # X-T functions
 # ------------------------------------------------------------------------------------------------------------------
