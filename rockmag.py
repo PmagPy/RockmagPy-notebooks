@@ -1613,14 +1613,17 @@ def loop_open_test(H, Mrh, HF_cutoff=0.8):
     return SNR, HAR
 
 
-def process_hyst_loop(field,magnetization):
+def process_hyst_loop(field,magnetization, drift_correction=False):
     # first grid the data into symmetric field values
     grid_fields, grid_magnetizations = grid_hysteresis_loop(field, magnetization)
 
-    # check loop drift
+    if drift_correction:
+        # if drift correction, by default we apply a prorated drift correction algorithm
+        corrected_magnetizations = prorated_drift_correction(grid_fields, grid_magnetizations)
+        grid_magnetizations = corrected_magnetizations
+
     pos_max_mags = grid_magnetizations[np.where(grid_fields == np.max(grid_fields))]
     neg_max_mags = grid_magnetizations[np.where(grid_fields == np.min(grid_fields))]
-
     if (np.abs(np.diff(pos_max_mags)/2/np.mean(pos_max_mags))>0.001) or np.abs((np.diff(neg_max_mags)/2/np.mean(neg_max_mags))>0.001):
         print('check loop drift!')
 
@@ -1639,7 +1642,7 @@ def process_hyst_loop(field,magnetization):
     loop_centering_results = hyst_loop_centering(grid_fields, grid_magnetizations)
 
     print('loop centering results: field offset = {} T'.format(round(loop_centering_results['opt_H_offset'],4)), 'magnetization offset = {} Am^2/kg'.format(round(loop_centering_results['opt_M_offset'], 4)))
-    print('centered loop Q value:', round(loop_centering_results['Q'], 2))
+    print('centered raw loop Q value:', round(loop_centering_results['Q'], 2))
 
     grid_fields_centered = grid_fields - loop_centering_results['opt_H_offset']
     grid_magnetizations_centered = grid_magnetizations - loop_centering_results['opt_M_offset']
@@ -1647,16 +1650,42 @@ def process_hyst_loop(field,magnetization):
     # then apply default high field correction
     slope, intercept = linear_HF_fit(grid_fields_centered, grid_magnetizations_centered)
     print('apply default high field linear correction:', 'slope (X_para/dia) = {}'.format(round(slope, 4)), 'intercept (Ms) = {} Am^2/kg'.format(round(intercept, 4)))
+    Ms = intercept
 
     grid_magnetizations_centered_HF_corrected = hyst_slope_correction(grid_fields_centered, grid_magnetizations_centered, slope)
 
+    ferro_loop_centering_results = hyst_loop_centering(grid_fields_centered, grid_magnetizations_centered_HF_corrected)
+    Qf = ferro_loop_centering_results['Q']
+    print('centered ferromagnetic loop Qf value:', round(Qf, 2))
+
+    # calculate Bc and Bcr
+    corrected_upper_branch, corrected_lower_branch = split_hysteresis_loop(grid_fields_centered, grid_magnetizations_centered_HF_corrected)
+    upper_Bc = np.interp(0, corrected_upper_branch[1], corrected_upper_branch[0])
+    lower_Bc = np.interp(0, corrected_lower_branch[1], corrected_lower_branch[0])
+    Bc = (np.abs(upper_Bc) + np.abs(lower_Bc))/2
+
     # calculate the Mrh (remanence component), Mih (induced component), Me (error) arrays
     H, Mrh, Mih, Me = calc_Mrh_Mih(grid_fields_centered, grid_magnetizations_centered_HF_corrected)
+    Mr = np.interp(0, H, Mrh)
+    # Bcr is the median field of Mrh
+    pos_H = H[np.where(H >= 0)]
+    pos_Mrh = Mrh[np.where(H >= 0)]
+    neg_H = H[np.where(H < 0)]
+    neg_Mrh = Mrh[np.where(H < 0)]
+    Bcr_pos = np.interp(Mr/2, pos_Mrh[::-1], pos_H[::-1])
+    Bcr_neg = np.interp(Mr/2, neg_Mrh, neg_H)
+    Bcr = (np.abs(Bcr_pos) + np.abs(Bcr_neg))/2
+
     # check if the loop is closed
     # check_loop_closure = calc_Mrh_Mih(grid_fields, grid_magnetizations)
     loop_closure_SNR, loop_closure_HAR = loop_open_test(H, Mrh)
     if (loop_closure_SNR >=8) or (loop_closure_HAR >= -48):
-        print('loop is open!')
+        print('loop is still open!')
+
+    print('Ms = {} Am^2/kg'.format(round(Ms, 4)))
+    print('Mr = {} Am^2/kg'.format(round(Mr, 4)))
+    print('Bc = {} mT'.format(round(Bc*1000, 2))) 
+    print('Bcr = {} mT'.format(round(Bcr*1000,2)))
 
     # test loop saturation on the not slope-corrected data
     loop_saturation_stats = hyst_loop_saturation_test(grid_fields_centered, grid_magnetizations_centered)
@@ -1679,14 +1708,45 @@ def process_hyst_loop(field,magnetization):
 
     results = {'grid_fields': grid_fields, 
                'grid_magnetizations': grid_magnetizations, 
+               'linearity_test_results': linearity_test_results,
                'loop_centering_results': loop_centering_results,
+               'ferro_loop_centering_results': ferro_loop_centering_results,
                'grid_fields_centered': grid_fields_centered, 
                'grid_magnetizations_centered': grid_magnetizations_centered, 
                'grid_magnetizations_centered_HF_corrected': grid_magnetizations_centered_HF_corrected, 
-               'H': H, 'Mrh': Mrh, 'Mih': Mih, 'Me': Me, 
+               'H': H, 'Mrh': Mrh, 'Mih': Mih, 'Me': Me, 'Ms': Ms, 'Mr': Mr, 'Bc': Bc, 'Bcr': Bcr,
                'loop_saturation_stats': loop_saturation_stats}
 
     return results, ax
+
+def export_hyst_specimne_table(specimen_name, results):
+    '''
+    function to export the hysteresis data to a MagIC specimen data table
+    
+    Parameters
+    ----------
+    specimen_name : str
+        name of the specimen
+    results : dict
+        dictionary with the hysteresis processing results
+    
+    Returns
+    -------
+    pd.DataFrame
+        dataframe with the hysteresis data
+    '''
+    results_df = pd.DataFrame(columns=['specimen', 'Q', 'Qf', 'Ms', 'Mr', 'Bc', 'Bcr', 'FNL', 'method_codes'])
+    results_df.loc[0] = [specimen_name, 
+                         results['loop_centering_results']['Q'], 
+                         results['ferro_loop_centering_results']['Q'], 
+                         results['Ms'], 
+                         results['Mr'], 
+                         results['Bc'], 
+                         results['Bcr'], 
+                         results['linearity_test_results']['FNL'], 
+                         'LP-HYS']
+    
+    return results_df
 
 def prorated_drift_correction(field, magnetization):
     '''
