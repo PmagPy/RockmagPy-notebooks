@@ -23,6 +23,9 @@ parts:
   - caption: Anisotropy notebooks
     chapters:
     - file: Anisotropy_plot_AMS
+  - caption: Hysteresis loop notebooks
+    chapters:
+    - file: hysteresis_processing
   - caption: More resources
     chapters:
     - file: book/resources.md
