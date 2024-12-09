@@ -1719,7 +1719,7 @@ def process_hyst_loop(field,magnetization, drift_correction=False):
 
     return results, ax
 
-def export_hyst_specimne_table(specimen_name, results):
+def export_hyst_specimen_table(specimen_name, results):
     '''
     function to export the hysteresis data to a MagIC specimen data table
     
