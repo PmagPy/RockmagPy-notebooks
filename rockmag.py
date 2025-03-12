@@ -5,10 +5,20 @@ from scipy.optimize import minimize, brent
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import matplotlib.patches as patches
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
-import ipywidgets as widgets
-from IPython.display import display
+
+try:
+    import ipywidgets as widgets
+    from IPython.display import display
+except ImportError:
+    widgets = None
+    display = None
+
+try:
+    import plotly.graph_objects as go
+    from plotly.subplots import make_subplots
+except ImportError:
+    go = None
+    make_subplots = None
 
 try:
     from lmfit import Parameters, Model  # for fitting
@@ -30,18 +40,21 @@ except ImportError:
 
 def interactive_specimen_selection(measurements):
     """
-    Creates and displays a dropdown widget for selecting a specimen from a given DataFrame
-    of measurements. 
+    Creates and displays a dropdown widget for selecting a specimen from a given
+    DataFrame of measurements.
 
-    Parameters:
-        measurements (pd.DataFrame): The DataFrame containing measurement data with a column
-                                     'specimen'. It is expected to have at least this column
-                                     where 'specimen' identifies the specimen name.
+    Parameters
+    ----------
+    measurements : pd.DataFrame
+        The DataFrame containing measurement data with a column 'specimen'. It is
+        expected to have at least this column where 'specimen' identifies the
+        specimen name.
 
-    Returns:
-        ipywidgets.Dropdown: A dropdown widget allowing for the selection of a specimen.
-                             The initial selection in the dropdown is set to the first
-                             specimen option.
+    Returns
+    -------
+    ipywidgets.Dropdown
+        A dropdown widget allowing for the selection of a specimen. The initial
+        selection in the dropdown is set to the first specimen option.
     """
     # Extract unique specimen names from the measurements DataFrame
     specimen_options = measurements['specimen'].unique().tolist()
