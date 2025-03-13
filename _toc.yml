@@ -30,7 +30,7 @@ parts:
     chapters:
       - file: book/background/low_temperature_transitions.md
       - caption: Low-temperature transitions
-        chapters:
+        sections:
           - file: book/background/morin.md
   - caption: More resources
     chapters:
