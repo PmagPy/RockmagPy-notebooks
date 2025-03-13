@@ -6,31 +6,32 @@ root: book/intro.md
 parts:
   - caption: Nuts & Bolts
     chapters:
-    - file: rockmag_set_up
-    - file: rockmag_data_unpack
+      - file: rockmag_set_up
+      - file: rockmag_data_unpack
   - caption: MPMS notebooks
     chapters:
-    - file: MPMS_plot_dc
-    - file: MPMS_plot_ac
-    - file: MPMS_verwey_fit
-    - file: MPMS_goethite_fit
+      - file: MPMS_plot_dc
+      - file: MPMS_plot_ac
+      - file: MPMS_verwey_fit
+      - file: MPMS_goethite_fit
   - caption: VSM notebooks
     chapters:
-    - file: VSM_backfield_unmixing
+      - file: VSM_backfield_unmixing
   - caption: Thermomagnetic notebooks
     chapters:
-    - file: high_T_susceptibility
+      - file: high_T_susceptibility
   - caption: Anisotropy notebooks
     chapters:
-    - file: Anisotropy_plot_AMS
+      - file: Anisotropy_plot_AMS
   - caption: Hysteresis loop notebooks
     chapters:
-    - file: hysteresis_processing
+      - file: hysteresis_processing
   - caption: Background
-    chapters: book/background/low_temperature_transitions.md
-    - caption: Low-temperature transitions
-      chapters:
-      - file: book/background/morin.md
+    chapters:
+      - file: book/background/low_temperature_transitions.md
+      - caption: Low-temperature transitions
+        chapters:
+          - file: book/background/morin.md
   - caption: More resources
     chapters:
-    - file: book/resources.md
+      - file: book/resources.md
