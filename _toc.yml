@@ -26,6 +26,9 @@ parts:
   - caption: Hysteresis loop notebooks
     chapters:
     - file: hysteresis_processing
+  - caption: Background
+    chapters:
+    - file: book/background/morin.md
   - caption: More resources
     chapters:
     - file: book/resources.md
