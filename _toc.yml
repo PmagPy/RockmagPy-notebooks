@@ -31,7 +31,7 @@ parts:
       - file: book/background/low_temperature_transitions.md
         sections:
           - file: book/background/morin.md
-            title: Low-temperature transitions
+            title: Morin transition
   - caption: More resources
     chapters:
       - file: book/resources.md
