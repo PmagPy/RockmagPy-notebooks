@@ -2,13 +2,14 @@
 title: "Interpretation of Low-Temperature Data: The Hematite Morin Transition"
 author: "Julie Bowles, Mike Jackson, and Subir K. Banerjee, IRM"
 ---
+# The Morin Transition
 
 :::{note} Text source
 This text on the Morin transition is from the Spring 2010 issue of the IRM Quarterly
 Bowles, Julie; Jackson, Mike; Banerjee, Subir. (2010). IRM Quarterly, Volume 20, Number 1 (Spring 2010). Cover article: Interpretation of Low-Temperature Data Part II: The Hematite Morin Transition. Retrieved from the University Digital Conservancy, https://hdl.handle.net/11299/171318.
 :::
 
-Hematite (αFe₂O₃; [](#hematite_figure)) is a common mineral in many natural samples, and its presence is often easy to recognize via its high coercivity and high unblocking temperatures (just below 675 °C). However, in some cases a non‐destructive method may be preferred, in which case identification of the Morin transition [Morin, 1950] at ~262 K (–11°C) is diagnostic of hematite. Natural samples at high elevations or latitudes may cycle many times through the Morin transition, so an understanding of what happens to magnetic properties at this temperature is important for paleomagnetic interpretations.  
+Hematite (αFe₂O₃; Fig. 1) is a common mineral in many natural samples, and its presence is often easy to recognize via its high coercivity and high unblocking temperatures (just below 675 °C). However, in some cases a non‐destructive method may be preferred, in which case identification of the Morin transition [Morin, 1950] at ~262 K (–11°C) is diagnostic of hematite. Natural samples at high elevations or latitudes may cycle many times through the Morin transition, so an understanding of what happens to magnetic properties at this temperature is important for paleomagnetic interpretations.  
 
 ```{figure} https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hematite_in_Scanning_Electron_Microscope%2C_magnification_100x.GIF/960px-Hematite_in_Scanning_Electron_Microscope%2C_magnification_100x.GIF
 :label: hematite_figure
@@ -18,9 +19,7 @@ Hematite (αFe₂O₃; [](#hematite_figure)) is a common mineral in many natural
 Scanning electron microscope image of hematite. Image is ~800 μm across. Source: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Hematite_in_Scanning_Electron_Microscope,_magnification_100x.GIF).
 ```
 
-## The Morin Transition
-
-The basic magnetic structure of hematite is antiferromagnetic; its two magnetic sublattices have equal moment. However, at temperatures above the Morin transition temperature (T<sub>M</sub>), the spins are not perfectly anti‐parallel, and a slight canting leads to a weak, “parasitic” ferromagnetism in the basal plane, perpendicular to the hexagonal *c*-axis. At T = T<sub>M</sub>, magnetocrystalline anisotropy changes sign, the easy axis of magnetization shifts, and the spins rotate from the basal plane into alignment with the *c*-axis at T < T<sub>M</sub> ([](#hematite_structure)). The sublattice spins are then perfectly anti‐parallel, and the parasitic moment disappears. The only remaining remanence arises from defects in the crystal structure (a “defect ferromagnetism”).  
+The basic magnetic structure of hematite is antiferromagnetic; its two magnetic sublattices have equal moment. However, at temperatures above the Morin transition temperature (T<sub>M</sub>), the spins are not perfectly anti‐parallel, and a slight canting leads to a weak, “parasitic” ferromagnetism in the basal plane, perpendicular to the hexagonal *c*-axis. At T = T<sub>M</sub>, magnetocrystalline anisotropy changes sign, the easy axis of magnetization shifts, and the spins rotate from the basal plane into alignment with the *c*-axis at T < T<sub>M</sub> (Fig. 2). The sublattice spins are then perfectly anti‐parallel, and the parasitic moment disappears. The only remaining remanence arises from defects in the crystal structure (a “defect ferromagnetism”).  
 
 ```{figure} https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/hematite_structure.png
 :label: hematite_structure
@@ -40,9 +39,9 @@ Finally, we note only in passing that annealing of samples frequently results in
 
 ## Remanence Data
 
-On cooling through the Morin transition, the parasitic ferromagnetic remanence will rapidly decrease ([](#hematite_morin), leaving only the (typically) much smaller defect moment. On warming back through T<sub>M</sub>, remanence is partially recovered. Özdemir and Dunlop [2005; 2006] proposed that this remanence “memory” arises from small zones of canted spins (pinned via crystal defects) that do not fully rotate into the alignment with the *c*-axis below T<sub>M</sub>. These zones serve as nuclei for the re‐establishment of remanence on warming back through T<sub>M</sub> even in a zero‐field environment. The percent recovery on warming is not strongly correlated with grain size, but instead scales with the magnitude of the defect moment at T < T<sub>M</sub> [Özdemir and Dunlop, 2006]. However, Kletetschka and Wasilewski [2002] find a minimum in remanence recovery associated with a grain size near the SD–MD transition (~100 µm).
+On cooling through the Morin transition, the parasitic ferromagnetic remanence will rapidly decrease (Fig. 3), leaving only the (typically) much smaller defect moment. On warming back through T<sub>M</sub>, remanence is partially recovered. Özdemir and Dunlop [2005; 2006] proposed that this remanence “memory” arises from small zones of canted spins (pinned via crystal defects) that do not fully rotate into the alignment with the *c*-axis below T<sub>M</sub>. These zones serve as nuclei for the re‐establishment of remanence on warming back through T<sub>M</sub> even in a zero‐field environment. The percent recovery on warming is not strongly correlated with grain size, but instead scales with the magnitude of the defect moment at T < T<sub>M</sub> [Özdemir and Dunlop, 2006]. However, Kletetschka and Wasilewski [2002] find a minimum in remanence recovery associated with a grain size near the SD–MD transition (~100 µm).
 
-Thermal hysteresis in the Morin transition is frequently observed in the low‐temperature cycling of an IRM; the transition occurs at lower temperatures on cooling than on warming. This is not due to temperature lag in the sample, but is expected in a first‐order phase transition such as the Morin transition. While hysteresis is seen in almost all samples, Özdemir et al. [2008] note that a larger temperature difference between cooling and warming (ΔT<sub>M</sub>) is typically seen in samples with a smaller grain size and/or higher defect density. The effect is not strong in the relatively coarse‐grained natural hematite shown in Figure [](#hematite_morin). By contrast, a decreased T<sub>M</sub> and increased ΔT<sub>M</sub> are clear in a relatively fine‐grained (~1 µm) synthetic hematite powder sample (Fig. 3b).
+Thermal hysteresis in the Morin transition is frequently observed in the low‐temperature cycling of an IRM; the transition occurs at lower temperatures on cooling than on warming. This is not due to temperature lag in the sample, but is expected in a first‐order phase transition such as the Morin transition. While hysteresis is seen in almost all samples, Özdemir et al. [2008] note that a larger temperature difference between cooling and warming (ΔT<sub>M</sub>) is typically seen in samples with a smaller grain size and/or higher defect density. The effect is not strong in the relatively coarse‐grained natural hematite shown in Figure 3. By contrast, a decreased T<sub>M</sub> and increased ΔT<sub>M</sub> are clear in a relatively fine‐grained (~1 µm) synthetic hematite powder sample (Fig. 3b).
 
 ## Low-Field Susceptibility Data
 
@@ -64,32 +63,43 @@ It is also possible for hematite to masquerade as magnetite. In nano-hematite or
 
 ## References
 
-Allen, J. W. (1973). *Stress dependence and the latent heat of the Morin transition in Fe₂O₃*. Phys. Rev. B, 8, 3224–3228.
+Allen, J.W., *Stress dependence and the latent heat of the Morin transition in Fe₂O₃*, Phys. Rev. B., 8, 3224–3228, 1973.
 
-Besser, P. J., & Morrish, A. H. (1964). *Spin flopping in synthetic hematite crystals*. Phys. Lett., 13, 289–290.
+Besser, P.J., and A.H. Morrish, *Spin flopping in synthetic hematite crystals*, Phys. Lett., 13, 289–290, 1964.
 
-Bruzzone, C. L., & Ingalls, R. (1983). *Mössbauer-effect study of the Morin transition and atomic positions in hematite under pressure*. Phys. Rev., 28, 2430–2440.
+Bruzzone, C.L., and R. Ingalls, *Mössbauer-effect study of the Morin transition and atomic positions in hematite under pressure*, Phys. Rev., 28, 2430–2440, 1983.
 
-Curry, N. A., Johnston, G. B., Besser, P. J., & Morrish, A. H. (1965). *Neutron diffraction measurements on pure and doped synthetic hematite crystals*. Phil. Mag., 2, 22–228.
+Ericsson, T., A. Krisnhamurthy, and B.K. Srivastava, *Morin-transition in Ti-substituted hematite: A Mossbauer study*, Physica Scripta, 33, 88–90, 1986.
 
-de Boer, C. B., Mullender, T. A. T., & Dekkers, M. J. (2001). *Low-temperature behavior of haematite: Susceptibility and magnetization increase on cycling through the Morin transition*. Geophys. J. Int., 146, 201–216.
+Curry, N.A., G.B. Johnston, P.J. Besser, and A.H. Morrish, *Neutron diffraction measurements on pure and doped synthetic hematite crystals*, Phil. Mag., 12, 221–228, 1965.
 
-Dekkers, M. J., & Linssen, J. H. (1989). *Rock magnetic properties of fine-grained natural low-temperature haematite with reference to remanence acquisition mechanisms in red beds*. Geophys. J. Int., 99, …  
-<!-- More details available in  [oai_citation:5‡irmq20-1.pdf](file-service://file-QkZsXjQ8SW3oSnJY5aNzjR) -->
+de Boer, C.B., T.A.T. Mullender, and M.J. Dekkers, *Low-temperature behavior of haematite: Susceptibility and magnetization increase on cycling through the Morin transition*, Geophys. J. Int., 146, 201–216, 2001.
 
-Hrouda, F. (1982). *Magnetic anisotropy of rocks and its application in geology and geophysics*. Geophys. Surv., 5, 37–82.
+Dekkers, M.J., and J.H. Linssen, *Rock magnetic properties of fine-grained natural low-temperature haematite with reference to remanence acquisition mechanisms in red beds*, Geophys. J. Int., 99, 1–18, 1989.
 
-Kletetschka, G., & Wasilewski, P. J. (2002). *Grain size limit for SD hematite*. Phys. Earth Planet. Int., … 
+Kletetschka, G., and P.J. Wasilewski, *Grain size limit for SD hematite*, Phys. Earth Planet. Int., 129, 173–179, 2002.
 
-Kündig, W., Bömmel, H., Constabaris, G., & Lindquist, R. H. (1966). *Some properties of supported small α-Fe₂O₃ particles determined with the Mössbauer effect*. Phys. Rev., 142, 327–333.
+Kündig, W., H. Bömmel, G. Constabaris, and R.H. Lindquist, *Some properties of supported small α-Fe₂O₃ particles determined with the Mössbauer effect*, Phys. Rev., 142, 327–333, 1966.
 
-Morin, F. J. (1950). *Magnetic susceptibility of α-Fe₂O₃ and α-Fe₂O₃ with added titanium*. Phys. Rev., 78, 89–820.
+Morin, F.J., *Magnetic susceptibility of α-Fe₂O₃ and α-Fe₂O₃ with added titanium*, Phys. Rev., 78, 819–820, 1950.
 
-Morrish, A. H. (1994). *Canted Antiferromagnetism: Hematite*. River Edge, NJ: World Scientific.
+Morrish, A.H., *Canted Antiferromagnetism: Hematite*, World Scientific, River Edge, NJ, 192 pp., 1994.
 
-Moskowitz, B. M. (1991). *Hitchhiker's Guide to Magnetism*. Available at: <http://www.irm.umn.edu>
+Moskowitz, B.M., *Hitchhikers Guide to Magnetism*, prepared for Environmental Magnetism Workshop, Minneapolis, 1991.  
+(available at: [http://www.irm.umn.edu](http://www.irm.umn.edu))
 
-Özdemir, Ö., Dunlop, D. J., & Berquó, T. S. (2008). *Morin transition in hematite: Size dependence and thermal hysteresis*. Geochem. Geophys. Geosys., 9, Q10Z01. doi:10.1029/2008GC002110.
+Özdemir, Ö., and D.J. Dunlop, *Thermoremanent magnetization of multidomain hematite*, J. Geophys. Res., 110, B09104, doi:10.1029/2005JB0003820, 2005.
 
-Stacey, F. D., & Banerjee, S. K. (1974). *The Physical Principles of Rock Magnetism*. New York: Elsevier.
-<!-- References from  [oai_citation:6‡irmq20-1.pdf](file-service://file-QkZsXjQ8SW3oSnJY5aNzjR) -->
+Özdemir, Ö., and D.J. Dunlop, *Magnetic memory and coupling between spin-canted and defect magnetism in hematite*, J. Geophys. Res., 111, B12S03, doi:10.1029/2006JB004555, 2006.
+
+Özdemir, Ö., D.J. Dunlop, and T.S. Berquó, *Morin transition in hematite: Size dependence and thermal hysteresis*, Geochem. Geophys. Geosys., 9, Q10Z01, doi:10.1029/2008GC002110, 2008.
+
+Schroeer, D., and R.C. Nininger, *Morin transition in α-Fe₂O₃ microcrystals*, Phys. Rev. Lett., 19, 623–634, 1967.
+
+Stacey, F.D., and S.K. Banerjee, *The Physical Principles of Rock Magnetism*, Elsevier, New York, 195 pp., 1974.
+
+Umebayashi, H., B.C. Frazer, and G. Shirane, *Pressure dependence of the low-temperature magnetic transition in α-Fe₂O₃*, Phys. Lett., 22A, 407–408, 1966.
+
+Worlton, T.G., R.B. Bennion, and R.M. Brugger, *Pressure dependence of the Morin transition in α-Fe₂O₃ to 26 kbar*, Phys. Lett., 24A, 653–655, 1967.
+
+Williamson, D.L., E.L. Venturini, R.A. Graham, and B. Morosin, *Morin transition of shock-modified hematite*, Phys. Rev. B., 34, 1899–1907, 1986.
