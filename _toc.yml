@@ -27,8 +27,10 @@ parts:
     chapters:
     - file: hysteresis_processing
   - caption: Background
-    chapters:
-    - file: book/background/morin.md
+    chapters: book/background/low_temperature_transitions.md
+    - caption: Low-temperature transitions
+      chapters:
+      - file: book/background/morin.md
   - caption: More resources
     chapters:
     - file: book/resources.md
