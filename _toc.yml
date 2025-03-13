@@ -28,10 +28,12 @@ parts:
       - file: hysteresis_processing
   - caption: Background
     chapters:
-      - file: book/background/low_temperature_transitions.md
+      - file: book/background/low_temperature_behavior.md
         sections:
           - file: book/background/morin.md
             title: Morin transition
+          - file: book/background/paramagnetism.md
+            title: Paramagnetism
   - caption: More resources
     chapters:
       - file: book/resources.md
