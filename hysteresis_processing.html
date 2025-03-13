@@ -62,7 +62,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'hysteresis_processing';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Resources for learning more about rock magnetism" href="book/resources.html" />
+    <link rel="next" title="Low temperature behavior" href="book/background/low_temperature_behavior.html" />
     <link rel="prev" title="Plot and analyze anisotropy data (AMS)" href="Anisotropy_plot_AMS.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -208,6 +208,14 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Hysteresis loop notebooks</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Hysteresis Processing</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Background</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="book/background/low_temperature_behavior.html">Low temperature behavior</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="book/background/morin.html">Morin transition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="book/background/paramagnetism.html">Paramagnetism</a></li>
+</ul>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">More resources</span></p>
 <ul class="nav bd-sidenav">
@@ -438,20 +446,20 @@ document.write(`
 <li><p>grid the original data by averaging field step size, and interpolate both the upper and lower branches of the hysteresis loop to the same field steps.</p></li>
 <li><p>perform a linear fit on the original loop data for the high field slope (typically &gt; 80% max field values and &lt; 97% max field value) and subtract the linear fit from all the gridded data points.
 perform paramagnetic/diamagnetic slope correction on the gridded data. Here we use both the upper and lower branches of the hysteresis loops and invert data points in the third quadrant to the first quadrant for line fitting (ordinary least squares) to estimate the paramagnetic/diamagnetic slope.</p></li>
-<li><p>perform linearity test on the girdded original data (high field slope correction not applied)</p></li>
-<li><p>at the same time, centering the high-field slope corrected data, and estiamte the optimal values for field and moment offsets.
+<li><p>perform linearity test on the gridded original data (high field slope correction not applied)</p></li>
+<li><p>at the same time, centering the high-field slope corrected data, and estimate the optimal values for field and moment offsets.
 Note that when iterating through different H_offset values on the inverted lower branch, the upper and lower branches will have a H field range mismatch. To account for this, in this code we just use the overlapping region for interpolation and ANOVA statistic.</p></li>
 </ol>
 <p>Testing with synthetic data shows that the exact offset results from this code is slightly different from that of the IRM database. But the results from this function <code class="docutils literal notranslate"><span class="pre">hyst_loop_centering</span></code> are self-consistent (add synthetic offset + or - results in the same corrected R^2 while the IRM function does not). Given that both functions finds the correct offset values, I use the new function</p>
 <ol class="arabic simple" start="5">
-<li><p>calcualte the Q value to represent the signal/noise ratio (data quality) of the whole loop (ferromagnetic component + paramagnetic (also + diamagnetic component)) after centering.</p></li>
+<li><p>calculate the Q value to represent the signal/noise ratio (data quality) of the whole loop (ferromagnetic component + paramagnetic (also + diamagnetic component)) after centering.</p></li>
 <li><p>re-grid the original data with applying the estimated optimal values for field and moment offsets.</p></li>
-<li><p>calcualte H and M errors for each data point.</p></li>
+<li><p>calculate H and M errors for each data point.</p></li>
 <li><p>calculate mrh, E_hys, Brh, Bih</p></li>
 <li><p>use the sum of M errors to estimate signal drift correction</p></li>
 <li><p>test saturation of the loop by calculating the FN60, 70, 80 statistics and determine where the loop start to saturate.</p></li>
 <li><p>re-apply high field slope correction to the drift-corrected data</p></li>
-<li><p>calculate the Qf value using the drift-corrected, high-field slope corrected data for the ferromagnetic component quanlity estiamtion.</p></li>
+<li><p>calculate the Qf value using the drift-corrected, high-field slope corrected data for the ferromagnetic component quality estimate.</p></li>
 <li><p>calculate Hcminus, Hcplus, Mrplus, Mrminus, XMr, XHc</p></li>
 </ol>
 </section>
@@ -489,10 +497,6 @@ Note that when iterating through different H_offset values on the inverted lower
 </ul>
 <figure>
   <img src="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/MagIC_private_contribution_1.png" alt="Description of the image" width="800">
-</figure>
-<p>Copy the share key highlighted in grey in the following image to the <code class="docutils literal notranslate"><span class="pre">share_key</span></code> parameter in the cell below.</p>
-<figure>
-  <img src="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/MagIC_private_contribution_2.png" alt="Description of the image" width="800">
 </figure></section>
 <section id="load-local-data">
 <h2>Load local data<a class="headerlink" href="#load-local-data" title="Link to this heading">#</a></h2>
@@ -519,23 +523,23 @@ Note that when iterating through different H_offset values on the inverted lower
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>working on:  &#39;contribution\r&#39;
-1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/contribution.txt
-  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/contribution.txt
+1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/contribution.txt
+  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/contribution.txt
 working on:  &#39;specimens\r&#39;
-15  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/specimens.txt
-  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/specimens.txt
+15  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/specimens.txt
+  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/specimens.txt
 working on:  &#39;samples\r&#39;
-5  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/samples.txt
-  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/samples.txt
+5  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/samples.txt
+  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/samples.txt
 working on:  &#39;sites\r&#39;
-5  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/sites.txt
-  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/sites.txt
+5  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/sites.txt
+  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/sites.txt
 working on:  &#39;locations\r&#39;
-10  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/locations.txt
-  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/locations.txt
+10  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/locations.txt
+  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/locations.txt
 working on:  &#39;measurements\r&#39;
-5018  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/measurements.txt
-  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/measurements.txt
+5018  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/measurements.txt
+  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/measurements.txt
 -I- Using online data model
 -I- Getting method codes from earthref.org
 -I- Importing controlled vocabularies from https://earthref.org
@@ -557,13 +561,12 @@ working on:  &#39;measurements\r&#39;
 <h2>Inspect the original data<a class="headerlink" href="#inspect-the-original-data" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot the hysteresis loop (only looking for &#39;LP-HYS&#39;)</span>
-<span class="n">specimen</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">make_hyst_plots</span><span class="p">(</span><span class="n">measurements</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">specimen</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">make_hyst_plots</span><span class="p">(</span><span class="n">measurements</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "e81e6c60f5b54791b97576ba42a9d5cd", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "d7f16f9e7c634c07beebb58f344aed97", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "d6d99a495af541448e1c7c1a22fc71f5", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a601593a160745bd9900ac033ca5638d", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "9710b6c7669c45ae9ae53e4194b85bd8", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "f33b2301ae454af5805fd06c88dee1eb", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="loop-processing">
@@ -623,7 +626,7 @@ loop is still open!
 Ms = 0.0339 Am^2/kg
 Mr = 0.006 Am^2/kg
 Bc = 14.19 mT
-Bcr = 40.78 mT
+Brh = 40.78 mT
 loop is saturated beyond 600.6 mT
 </pre></div>
 </div>
@@ -637,7 +640,7 @@ loop is saturated beyond 600.6 mT
 <h2>export this specimen hyseresis data to a specimen data table that can be merged with other specimen level MagIC tables<a class="headerlink" href="#export-this-specimen-hyseresis-data-to-a-specimen-data-table-that-can-be-merged-with-other-specimen-level-magic-tables" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rmag</span><span class="o">.</span><span class="n">export_hyst_specimne_table</span><span class="p">(</span><span class="s1">&#39;NED1-5c&#39;</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rmag</span><span class="o">.</span><span class="n">export_hyst_specimen_table</span><span class="p">(</span><span class="s1">&#39;NED1-5c&#39;</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -731,11 +734,11 @@ loop is saturated beyond 600.6 mT
       </div>
     </a>
     <a class="right-next"
-       href="book/resources.html"
+       href="book/background/low_temperature_behavior.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Resources for learning more about rock magnetism</p>
+        <p class="prev-next-title">Low temperature behavior</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
