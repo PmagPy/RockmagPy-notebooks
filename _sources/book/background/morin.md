@@ -4,9 +4,9 @@ author: "Julie Bowles, Mike Jackson, and Subir K. Banerjee, IRM"
 ---
 # The Morin Transition
 
-:::{note} Text source
+:::{note}
 This text on the Morin transition is from the Spring 2010 issue of the IRM Quarterly
-Bowles, Julie; Jackson, Mike; Banerjee, Subir. (2010). IRM Quarterly, Volume 20, Number 1 (Spring 2010). Cover article: Interpretation of Low-Temperature Data Part II: The Hematite Morin Transition. Retrieved from the University Digital Conservancy, https://hdl.handle.net/11299/171318.
+*Bowles, Julie; Jackson, Mike; Banerjee, Subir. (2010). IRM Quarterly, Volume 20, Number 1 (Spring 2010). Cover article: Interpretation of Low-Temperature Data Part II: The Hematite Morin Transition. Retrieved from the University Digital Conservancy, https://hdl.handle.net/11299/171318.*
 :::
 
 Hematite (αFe₂O₃; Fig. 1) is a common mineral in many natural samples, and its presence is often easy to recognize via its high coercivity and high unblocking temperatures (just below 675 °C). However, in some cases a non‐destructive method may be preferred, in which case identification of the Morin transition [Morin, 1950] at ~262 K (–11°C) is diagnostic of hematite. Natural samples at high elevations or latitudes may cycle many times through the Morin transition, so an understanding of what happens to magnetic properties at this temperature is important for paleomagnetic interpretations.  
