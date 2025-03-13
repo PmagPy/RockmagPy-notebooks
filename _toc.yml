@@ -29,9 +29,9 @@ parts:
   - caption: Background
     chapters:
       - file: book/background/low_temperature_transitions.md
-      - caption: Low-temperature transitions
         sections:
           - file: book/background/morin.md
+            title: Low-temperature transitions
   - caption: More resources
     chapters:
       - file: book/resources.md
