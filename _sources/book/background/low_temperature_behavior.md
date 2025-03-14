@@ -10,7 +10,7 @@ One typical low-temperature remanence experiment used in rock magnetic investiga
 
 Another common type of experiment is one in which a sample is cooled in zero field to low temperature (e.g., 10 K) and then given a saturation isothermal remanent magnetization (ZFC-LTSIRM). Alternatively, a field can be maintained throughout the cooling (field-cooled; FC-LTSIRM). After either a ZFC-LTSIRM or an FC-LTSIRM is imparted, the specimen is then warmed in the absence of an applied field from the low-temperature state up to room temperature (typically 10 K → 300 K). In the MagIC data model, a remanence-upon-warming experiment following an FC-LTSIRM is denoted with the method code `LP-FC`, and that following a ZFC-LTSIRM with `LP-ZFC`.
 
-The interpretation of low-temperature remanence experiments typically begins with visual inspection of plots of magnetization versus temperature and the associated first derivative. In tools like *rockmagpy*, data associated with such experiments are extracted from MagIC-format measurement files and then visualized using static plots (e.g., via matplotlib) or interactive plots (e.g., via plotly). Such data are visualized within the [MPMS_plot_dc.ipynb](MPMS_plot_dc.ipynb) notebook.
+The interpretation of low-temperature remanence experiments typically begins with visual inspection of plots of magnetization versus temperature and the associated first derivative. In *rockmagpy*, data associated with such experiments are extracted from MagIC-format measurement files and then visualized using static plots (via matplotlib) or interactive plots (via plotly). An example of this type of data visualization can be found within the [MPMS_plot_dc.ipynb](../../MPMS_plot_dc.ipynb) notebook.
 
 ---
 

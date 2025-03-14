@@ -12,7 +12,7 @@ Any sample that has a paramagnetic phase in addition to ferromagnetic phases may
 ```{figure} https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/paramag_suscep_low_T.png
 :name: paramag_X
 :align: center
-:width: 40%
+:width: 50%
 
 AC susceptibility measured as a function of frequency and temperature on a synthetic basaltic sample. Data show evidence for a broad superparamagnetic grain-size distribution. Additionally, the rapid decrease in susceptibility from 10 K to 50 K results from a significant paramagnetic fraction.
 ```
@@ -22,7 +22,7 @@ In theory, there can be no paramagnetic contribution to remanence data because H
 ```{figure} https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/paramag_low_T.png
 :name: paramag_low_T
 :align: center
-:width: 40%
+:width: 50%
 
 Example of the effects of non-zero field in MPMS during remanence measurements. Panels show data from two different synthetic basaltic glass samples. A room-temperature SIRM was measured on cooling (red squares), and a 10 K SIRM was measured on warming (blue circles). At temperatures below ~50-100 K, the induced paramagnetic signal dominates, resulting from a small, residual field in the MPMS can be either negative (top), or positive (bottom).
 ```
