@@ -9,10 +9,10 @@ This text on the Morin transition is from the Spring 2010 issue of the IRM Quart
 *Bowles, Julie; Jackson, Mike; Banerjee, Subir. (2010). IRM Quarterly, Volume 20, Number 1 (Spring 2010). Cover article: Interpretation of Low-Temperature Data Part II: The Hematite Morin Transition. Retrieved from the University Digital Conservancy, https://hdl.handle.net/11299/171318.* with minor edits by Nick Swanson-Hysell
 :::
 
-Hematite (αFe₂O₃; Fig. 1) is a common mineral in many natural samples, and its presence is often easy to recognize via its high coercivity and high unblocking temperatures (just below 675 °C). However, in some cases a non‐destructive method may be preferred, in which case identification of the Morin transition [Morin, 1950] at ~262 K (–11°C) is diagnostic of hematite. Natural samples at high elevations or latitudes may cycle many times through the Morin transition, so an understanding of what happens to magnetic properties at this temperature is important for paleomagnetic interpretations.  
+Hematite (αFe₂O₃; {numref}`hematite_figure`) is a common mineral in many natural samples, and its presence is often easy to recognize via its high coercivity and high unblocking temperatures (just below 675 °C). However, in some cases a non‐destructive method may be preferred, in which case identification of the Morin transition [Morin, 1950] at ~262 K (–11°C) is diagnostic of hematite. Natural samples at high elevations or latitudes may cycle many times through the Morin transition, so an understanding of what happens to magnetic properties at this temperature is important for paleomagnetic interpretations.  
 
 ```{figure} https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hematite_in_Scanning_Electron_Microscope%2C_magnification_100x.GIF/960px-Hematite_in_Scanning_Electron_Microscope%2C_magnification_100x.GIF
-:label: hematite_figure
+:name: hematite_figure
 :align: center
 :width: 60%
 
@@ -55,9 +55,9 @@ Thermal hysteresis in the Morin transition is frequently observed in the low‐t
 
 Above T<sub>M</sub>, low-field susceptibility is strongly dependent on crystallographic orientation; there is a weak, 3-fold anisotropy in the basal plane, and susceptibility is much lower parallel to the *c*-axis (e.g., Hrouda, 1982). Below T<sub>M</sub>, the antiferromagnetic susceptibility in the basal plane is about two orders of magnitude lower than above T<sub>M</sub> and decreases with decreasing temperature. In contrast, susceptibility parallel to the *c*-axis remains nearly constant from T = 0 K to the Néel temperature of 948 K, with a small increase at T<sub>M</sub> [Stacey and Banerjee, 1974]. In samples with randomly oriented hematite grains, the susceptibility decreases on cooling to a small fraction of its room-temperature value at T < T<sub>M</sub> (this neglects any contribution from the defect moment, which can be considerable). In practice, samples display a wide range of susceptibility decreases across T<sub>M</sub> – dropping to ~5% of the room-temperature susceptibility for coarse-grained samples with only a minor decrease for synthetic powders with ~1 µm-sized particles.  
 
-```{figure} https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/hematite_morin_X.png
+```{figure} https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/hematite_morin_X.jpg
 :label: hematite_morin
-:width: 60%
+:width: 40%
 :align: center
 
 In phase (Χ′) and out-of-phase (Χ″) susceptibility. (a)
