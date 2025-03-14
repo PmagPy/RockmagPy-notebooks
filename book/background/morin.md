@@ -55,9 +55,9 @@ Thermal hysteresis in the Morin transition is frequently observed in the low‐t
 
 Above T<sub>M</sub>, low-field susceptibility is strongly dependent on crystallographic orientation; there is a weak, 3-fold anisotropy in the basal plane, and susceptibility is much lower parallel to the *c*-axis (e.g., Hrouda, 1982). Below T<sub>M</sub>, the antiferromagnetic susceptibility in the basal plane is about two orders of magnitude lower than above T<sub>M</sub> and decreases with decreasing temperature. In contrast, susceptibility parallel to the *c*-axis remains nearly constant from T = 0 K to the Néel temperature of 948 K, with a small increase at T<sub>M</sub> [Stacey and Banerjee, 1974]. In samples with randomly oriented hematite grains, the susceptibility decreases on cooling to a small fraction of its room-temperature value at T < T<sub>M</sub> (this neglects any contribution from the defect moment, which can be considerable). In practice, samples display a wide range of susceptibility decreases across T<sub>M</sub> – dropping to ~5% of the room-temperature susceptibility for coarse-grained samples with only a minor decrease for synthetic powders with ~1 µm-sized particles.  
 
-```{figure} https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/hematite_morin_X.png
+```{figure} https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/hematite_morin_X.jpg
 :label: hematite_morin
-:width: 60%
+:width: 40%
 :align: center
 
 In phase (Χ′) and out-of-phase (Χ″) susceptibility. (a)
