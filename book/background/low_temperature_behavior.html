@@ -390,7 +390,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -406,6 +408,15 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#low-temperature-remanence-experiments">Low-temperature remanence experiments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -417,6 +428,28 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="low-temperature-behavior">
 <h1>Low temperature behavior<a class="headerlink" href="#low-temperature-behavior" title="Link to this heading">#</a></h1>
+<p>Low-temperature experiments involving both magnetic remanence and susceptibility can give significant insight into the magnetic mineralogy of natural samples. Characteristic low-temperature phase transitions in magnetic minerals including magnetite (<a class="reference internal" href="verwey.html"><span class="std std-doc">Verwey transition</span></a>; Verwey 1939; Jackson &amp; Moskowitz 2020), hematite (<a class="reference internal" href="morin.html"><span class="std std-doc">Morin transition</span></a>; Morin 1950; Özdemir et al. 2008), and pyrrhotite (<a class="reference internal" href="#besnus.md"><span class="xref myst">Besnus transition</span></a>; Besnus &amp; Meyer 1964; Rochetteet al. 1990)) alter magnetic remanence enabling identification of these minerals. Low-temperature behavior also provides insight into fundamental characteristics of magnetic mineral assemblages, including grain size and domain state. Such changes include the fact that nanoparticles that are superparamagnetic at room temperature (300 K) can become stable single-domain grains at low temperatures, which can enable the quantification of grain size (Worm &amp; Jackson 1999). In addition to stepwise changes in anisotropy associated with phase transitions, more progressive changes in anisotropy will manifest in magnetic properties, particularly for multidomain grains (Moskowitz, et al. 1998).</p>
+<p>An instrument that is widely used in rock magnetism, condensed matter physics, and materials science for such experiments is a Magnetic Properties Measurement System (MPMS). This high-sensitivity Superconducting Quantum Interference Device (SQUID) magnetometer is designed to measure the magnetic properties of materials across a wide range of temperatures and magnetic fields.</p>
+<section id="low-temperature-remanence-experiments">
+<h2>Low-temperature remanence experiments<a class="headerlink" href="#low-temperature-remanence-experiments" title="Link to this heading">#</a></h2>
+<p>One typical low-temperature remanence experiment used in rock magnetic investigations involves imparting a saturating isothermal remanent magnetization at room temperature (300 K; RTSIRM) to a specimen, then cycling it from room temperature to low temperature and back again (typically 300 K → 10 K → 300 K). In the MagIC data model, the cooling of a RTSIRM to low temperature is denoted as the method code <code class="docutils literal notranslate"><span class="pre">LP-CW-SIRM:LP-MC</span></code>, with subsequent warming denoted as <code class="docutils literal notranslate"><span class="pre">LP-CW-SIRM:LP-MW</span></code>.</p>
+<p>Another common type of experiment is one in which a sample is cooled in zero field to low temperature (e.g., 10 K) and then given a saturation isothermal remanent magnetization (ZFC-LTSIRM). Alternatively, a field can be maintained throughout the cooling (field-cooled; FC-LTSIRM). After either a ZFC-LTSIRM or an FC-LTSIRM is imparted, the specimen is then warmed in the absence of an applied field from the low-temperature state up to room temperature (typically 10 K → 300 K). In the MagIC data model, a remanence-upon-warming experiment following an FC-LTSIRM is denoted with the method code <code class="docutils literal notranslate"><span class="pre">LP-FC</span></code>, and that following a ZFC-LTSIRM with <code class="docutils literal notranslate"><span class="pre">LP-ZFC</span></code>.</p>
+<p>The interpretation of low-temperature remanence experiments typically begins with visual inspection of plots of magnetization versus temperature and the associated first derivative. In tools like <em>rockmagpy</em>, data associated with such experiments are extracted from MagIC-format measurement files and then visualized using static plots (e.g., via matplotlib) or interactive plots (e.g., via plotly). Such data are visualized within the <a class="reference internal" href="#MPMS_plot_dc.ipynb"><span class="xref myst">MPMS_plot_dc.ipynb</span></a> notebook.</p>
+</section>
+<hr class="docutils" />
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Besnus, M. J., &amp; Meyer, A. J.</strong> (1964). <em>Magnétisme de la pyrrhotine naturelle. Nouvelles données expérimentales</em>. In <em>Proc. Int. Conf. Mag.</em> (Vol. 20, pp. 507–511).</p></li>
+<li><p><strong>Jackson, M. J., &amp; Moskowitz, B.</strong> (2020, October). <em>On the distribution of Verwey transition temperatures in natural magnetites</em>. <em>Geophysical Journal International</em>, 224(2), 1314–1325. Retrieved from <a class="reference external" href="http://dx.doi.org/10.1093/gji/ggaa516">http://dx.doi.org/10.1093/gji/ggaa516</a>. doi: 10.1093/gji/ggaa516</p></li>
+<li><p><strong>Liu, Q., Banerjee, S. K., Jackson, M. J., Chen, F., Pan, Y., &amp; Zhu, R.</strong> (2004). <em>Determining the climatic boundary between the Chinese loess and palaeosol: Evidence from aeolian coarse-grained magnetite</em>. <em>Geophysical Journal International</em>, 156(2), 267–274.</p></li>
+<li><p><strong>Morin, F. J.</strong> (1950). <em>Magnetic suceptibility of α-Fe₂O₃ and α-Fe₂O₃ with added titanium</em>. <em>Physical Review</em>, 78, 819–820.</p></li>
+<li><p><strong>Moskowitz, B., Jackson, M., &amp; Kissel, C.</strong> (1998). <em>Low-temperature magnetic behavior of titanomagnetites</em>. <em>Earth and Planetary Science Letters</em>, 157, 141–149.</p></li>
+<li><p><strong>Özdemir, O., Dunlop, D. J., &amp; Berquo, T. S.</strong> (2008). <em>Morin transition in hematite: Size dependence and thermal hysteresis</em>. <em>Geochemistry, Geophysics, Geosystems</em>, 9(10), Q10Z01.</p></li>
+<li><p><strong>Rochette, P., Fillion, G., Mattéi, J.-L., &amp; Dekkers, M. J.</strong> (1990, June). <em>Magnetic transition at 30–34 Kelvin in pyrrhotite: Insight into a widespread occurrence of this mineral in rocks</em>. <em>Earth and Planetary Science Letters</em>, 98(3–4), 319–328.</p></li>
+<li><p><strong>Worm, H.-U., &amp; Jackson, M.</strong> (1999). <em>The superparamagnetism of Yucca Mountain Tuff</em>. <em>Journal of Geophysical Research</em>, 104(B11), 25415–25425. doi: 10.1029/1999JB900285</p></li>
+</ul>
+</section>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -475,6 +508,22 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#low-temperature-remanence-experiments">Low-temperature remanence experiments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
