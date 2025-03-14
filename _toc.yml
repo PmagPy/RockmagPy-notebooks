@@ -32,6 +32,8 @@ parts:
         sections:
           - file: book/background/morin.md
             title: Morin transition
+          - file: book/background/Verwey.md
+            title: Verwey transition
           - file: book/background/paramagnetism.md
             title: Paramagnetism
   - caption: More resources
