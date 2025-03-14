@@ -46,7 +46,7 @@ On cooling through the Morin transition, the parasitic ferromagnetic remanence w
 :width: 60%
 :align: center
 
-Low-temperature cycling of a room-temperature IRM. On cooling through T<sub>M</sub>, magnetization decreases to near zero as the spins become perfectly antiferromagnetic. Small regions of canted spins likely remain at low temperature, explaining the recovery of remanence on warming in zero field [Özdemir and Dunlop, 2006]. (a) A natural, coarse-grained hematite with T<sub>M</sub> ≈ 260 K and very little thermal hysteresis. (b) A synthetic, relatively fine-grained hematite powder with a suppressed T<sub>M</sub> and significant thermal hysteresis. Note that the temperature scales in (a) and (b) are different.
+Low-temperature cycling of a room-temperature IRM. On cooling through T<sub>M</sub>, magnetization decreases to near zero as the spins become perfectly antiferromagnetic. Small regions of canted spins likely remain at low temperature, explaining the recovery of remanence on warming in zero field [Özdemir and Dunlop, 2006]. (a) A natural, coarse-grained hematite with T<sub>M</sub> ≈ 260 K and very little thermal hysteresis. (b) A synthetic, relatively fine-grained hematite powder with a suppressed T<sub>M</sub> (occurs at lower temperatures) and significant thermal hysteresis (with recovery of magnetization at a higher temperature upon warming than its loss upon cooling). Note that the temperature scales in (a) and (b) are different.
 ```
 
 Thermal hysteresis in the Morin transition is frequently observed in the low‐temperature cycling of an IRM; the transition occurs at lower temperatures on cooling than on warming. This thermal hysteresis is not due to temperature lag in the sample, but is expected in a first‐order phase transition such as the Morin transition. While hysteresis is seen in almost all samples, Özdemir et al. [2008] note that a larger temperature difference between cooling and warming (ΔT<sub>M</sub>) is typically seen in samples with a smaller grain size and/or higher defect density. The effect is not strong in the relatively coarse‐grained natural hematite shown in Figure 3. By contrast, a decreased T<sub>M</sub> and increased ΔT<sub>M</sub> are clear in a relatively fine‐grained (~1 µm) synthetic hematite powder sample (Fig. 3b).
@@ -71,7 +71,7 @@ also changes very little across T<sub>M</sub> in contrast to remanence data (Fig
 
 ## Morin Transition Imposters
 
-We briefly note a common Morin transition imposter. When measuring wet sediments, grain reorientation can occur as the water freezes (at ≤ 273 K), resulting in a drop in remanence that is occasionally misinterpreted as the Morin transition.
+We briefly note a common Morin transition imposter. When measuring wet sediments, grain reorientation can occur as water freezes (at ≤ 273 K), resulting in a drop in remanence that is occasionally misinterpreted as the Morin transition.
 
 It is also possible for hematite to masquerade as magnetite. In nano-hematite or cation-substituted hematite, the Morin transition temperature can be significantly suppressed such that a transition around ~20 K in a room-temperature remanence may be mistaken for the magnetite Verwey transition. The two can be distinguished by the fact that magnetite should acquire a significant magnetization at low temperatures, whereas hematite will not.  
 
