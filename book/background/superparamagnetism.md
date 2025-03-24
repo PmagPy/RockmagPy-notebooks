@@ -50,6 +50,15 @@ When \(\tau\) is short compared to the observation time (the superparamagnetic s
 
 The typical remanence experiments performed by visitors to the IRM include low-temperature cycling (300K → 20K → 300K) of a room-temperature (300K) saturation isothermal remanence (SIRM). A second common experiment cools the sample in zero field (ZFC) to low (e.g. 20K) temperature, where an SIRM is acquired. This low-temperature remanence is then measured as the sample warms back to room temperature. A room-temperature SIRM is not typically useful for studying SP particles, because they will not block at room temperature. However, many grains that are SP at room temperature will be SSD (blocked) at 20K. A sample with a **low-temperature SIRM that warms in zero field** (\(M_{eq} = 0\)) will demagnetize via the unblocking of these particles as they pass through their blocking temperature. If the sample contains a relatively narrow grain-size distribution of SP particles, the low-T remanence will unblock over a relatively narrow temperature interval (e.g. Fig. 2, circles). If, however, the sample has a more distributed grain-size distribution, the unblocking will be more gradual (e.g. Fig. 2, squares and diamonds). See Worm and Jackson (1999) for a discussion of volume distribution calculations based on the unblocking of a low-temperature remanence.
 
+```{figure}
+https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/SP_ZFC.png
+:name: SP_ZFC
+:align: center
+:width: 60%
+
+Saturation IRM acquired at 10K (ZFC) and measured on warming from 10K to 300K. The decrease in magnetization results from thermal unblocking of an SP population. Blue circles are from a Tiva Canyon Tuff sample with a relatively narrow grain-size distribution. Data from the same sample are shown in Fig. 3 and Fig. 4b. Red squares and green triangles are from synthetic, glassy basalts with more distributed grain-size distributions.
+```
+
 Not every such gradual decrease of low-temperature temperature remanence on warming is related to superparamagnetism, however. Moskowitz et al. (1998) demonstrate that multi-domain, high-Ti titanomagnetite exhibits similar behavior resulting from domain reorganization as magnetocrystalline anisotropy decreases on warming. (This phenomenon will be discussed at greater length in a future *IRM Quarterly* article.) It has also been demonstrated that partially oxidized magnetite (for example) may exhibit similar behavior. (See, e.g., Visiting Fellow report by Amy Chen, pg. 4, Fig. 2, insets.)
 
 ## Induced Magnetization Data
