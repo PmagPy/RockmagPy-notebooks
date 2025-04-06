@@ -415,7 +415,9 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-scientific-python-libraries">Import scientific python libraries</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-and-import-data">Download and import data</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-and-unpack-data-from-magic">Download and unpack data from MagIC</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-and-unpack-data-from-a-local-magic-file">Download and unpack data from a local MagIC file</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-and-unpack-data-directly-from-a-public-magic-contribution">Download and unpack data directly from a public MagIC contribution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-and-unpack-data-directly-from-a-private-magic-contribution">Download and unpack data directly from a private MagIC contribution</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-the-measurements-table">Inspect the measurements table</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-list-of-specimens-and-experiments">Get list of specimens and experiments</a></li>
 </ul>
@@ -433,7 +435,17 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="rock-magnetic-experiments-data-import">
 <h1>Rock magnetic experiments data import<a class="headerlink" href="#rock-magnetic-experiments-data-import" title="Link to this heading">#</a></h1>
-<p>This notebook takes data that has been exported to MagIC format and unpacks it into its distinct tables. It also summarizes the specimens and the experiments that have been run on them.</p>
+<p>This notebook illustrates the two approaches that can be taken to import data from MagIC into a Jupyter notebook.</p>
+<ul class="simple">
+<li><p><strong>From a locally hosted (i.e. downloaded) MagIC contribution</strong></p></li>
+<li><p><strong>Directly from the MagIC database (using the API)</strong></p>
+<ul>
+<li><p>either from a public contribution or</p></li>
+<li><p>from a private contribution</p></li>
+</ul>
+</li>
+</ul>
+<p>The MagIC file is then unpacked into its constituent files and loaded as a contribution object. The notebook then summarizes the specimens and the experiments that have been run on them within the data. Finally, it is illustrated how data from a single specimen and single experiment on that specimen can be isolated.</p>
 <section id="import-scientific-python-libraries">
 <h2>Import scientific python libraries<a class="headerlink" href="#import-scientific-python-libraries" title="Link to this heading">#</a></h2>
 <p>Run the cell below to import the functions needed for the notebook.</p>
@@ -451,9 +463,9 @@ document.write(`
 </section>
 <section id="download-and-import-data">
 <h2>Download and import data<a class="headerlink" href="#download-and-import-data" title="Link to this heading">#</a></h2>
-<section id="download-and-unpack-data-from-magic">
-<h3>Download and unpack data from MagIC<a class="headerlink" href="#download-and-unpack-data-from-magic" title="Link to this heading">#</a></h3>
-<p>Within the folder <code class="docutils literal notranslate"><span class="pre">./example_data/ECMB</span></code>, there is a MagIC contribution called <code class="docutils literal notranslate"><span class="pre">'ECMB</span> <span class="pre">2018.TXT'</span></code>. Running the code cell below unpacks that MagIC contribution so that we can visualize and analyze the measurement data. We can then create a contribution object that has all of the MagIC tables.</p>
+<section id="download-and-unpack-data-from-a-local-magic-file">
+<h3>Download and unpack data from a local MagIC file<a class="headerlink" href="#download-and-unpack-data-from-a-local-magic-file" title="Link to this heading">#</a></h3>
+<p>Within the folder <code class="docutils literal notranslate"><span class="pre">./example_data/ECMB</span></code>, there is a MagIC contribution called <code class="docutils literal notranslate"><span class="pre">'ECMB</span> <span class="pre">2018.TXT'</span></code>. Running the code cell below unpacks that MagIC contribution so that we can visualize and analyze the measurement data. We can then create a contribution object that has all of the MagIC tables. This approach can be applied to MagIC contributions that are downloaded from the database.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set the directory path (dir_path) to the data</span>
@@ -464,32 +476,127 @@ document.write(`
                      <span class="n">dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">,</span>
                      <span class="n">input_dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">)</span>
 
-<span class="n">contribution</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">Contribution</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
+<span class="n">ECMB_contribution</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">Contribution</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>working on:  &#39;contribution\r&#39;
-1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/contribution.txt
-  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/contribution.txt
+1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/contribution.txt
+  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/contribution.txt
 working on:  &#39;specimens\r&#39;
-15  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/specimens.txt
-  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/specimens.txt
+15  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/specimens.txt
+  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/specimens.txt
 working on:  &#39;samples\r&#39;
-5  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/samples.txt
-  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/samples.txt
+5  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/samples.txt
+  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/samples.txt
 working on:  &#39;sites\r&#39;
-5  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/sites.txt
-  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/sites.txt
+5  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/sites.txt
+  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/sites.txt
 working on:  &#39;locations\r&#39;
-10  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/locations.txt
-  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/locations.txt
+10  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/locations.txt
+  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/locations.txt
 working on:  &#39;measurements\r&#39;
-5018  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/measurements.txt
-  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/measurements.txt
+5018  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/measurements.txt
+  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/measurements.txt
 -I- Using online data model
 -I- Getting method codes from earthref.org
 -I- Importing controlled vocabularies from https://earthref.org
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="download-and-unpack-data-directly-from-a-public-magic-contribution">
+<h3>Download and unpack data directly from a public MagIC contribution<a class="headerlink" href="#download-and-unpack-data-directly-from-a-public-magic-contribution" title="Link to this heading">#</a></h3>
+<p>We can also download and unpack a MagIC contribution from a public MagIC contribution by providing the MagIC ID. Let’s do that and pull in data from the paper:</p>
+<p><em>Jackson, M. and Swanson-Hysell, N.L. (2012), Rock Magnetism of Remagnetized Carbonate Rocks: Another Look, In: Elmore, R. D., Muxworthy, A. R., Aldana, M. M. and Mena, M., eds., Remagnetization and Chemical Alteration of Sedimentary Rocks, Geological Society of London Special Publication, 371, doi:10.1144/SP371.3.</em></p>
+<p>The MagIC contribution is here: <a class="reference external" href="https://earthref.org/MagIC/16460">https://earthref.org/MagIC/16460</a> with 16460 being the MagIC ID.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set the MagIC ID for the data set here</span>
+<span class="n">magic_id</span> <span class="o">=</span> <span class="s1">&#39;16460&#39;</span>
+
+<span class="c1"># set where you want the downloaded data to go</span>
+<span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;example_data/Jackson2012&#39;</span>
+
+<span class="n">result</span><span class="p">,</span> <span class="n">magic_file</span> <span class="o">=</span> <span class="n">ipmag</span><span class="o">.</span><span class="n">download_magic_from_id</span><span class="p">(</span><span class="n">magic_id</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">dir_path</span><span class="p">)</span>
+<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="n">magic_file</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">)</span>
+<span class="n">J12_contribution</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">Contribution</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Download successful. File saved to: example_data/Jackson2012/magic_contribution_16460.txt
+working on:  &#39;contribution\r&#39;
+1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/contribution.txt
+  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/contribution.txt
+working on:  &#39;locations\r&#39;
+5  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/locations.txt
+  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/locations.txt
+working on:  &#39;sites\r&#39;
+8  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/sites.txt
+  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/sites.txt
+working on:  &#39;samples\r&#39;
+51  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/samples.txt
+  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/samples.txt
+working on:  &#39;specimens\r&#39;
+186  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/specimens.txt
+  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/specimens.txt
+working on:  &#39;measurements\r&#39;
+4758  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/measurements.txt
+  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/measurements.txt
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="download-and-unpack-data-directly-from-a-private-magic-contribution">
+<h3>Download and unpack data directly from a private MagIC contribution<a class="headerlink" href="#download-and-unpack-data-directly-from-a-private-magic-contribution" title="Link to this heading">#</a></h3>
+<p>To bring in a data from a contribution that has been uploaded to MagIC, but that is not yet publically published, you need to both set the <code class="docutils literal notranslate"><span class="pre">magic_id</span></code> (20100 for the private contribution in this example) and provide the share key for your MagIC contribution which you can find by clicking on the “Share” button in the MagIC database. Here we will do that with data developed by participants in one of the groups from the IRM Summer School.</p>
+<figure>
+  <img src="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/MagIC_private_contribution_1.png" alt="Description of the image" width="800">
+</figure>
+<p>Copy the share key highlighted in grey in the following image to the <code class="docutils literal notranslate"><span class="pre">share_key</span></code> parameter in the cell below.</p>
+<figure>
+  <img src="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/MagIC_private_contribution_2.png" alt="Description of the image" width="800">
+</figure><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set the MagIC ID for the data set here</span>
+<span class="n">magic_id</span> <span class="o">=</span> <span class="s1">&#39;20100&#39;</span>
+
+<span class="c1"># provide the share key for the data set</span>
+<span class="n">share_key</span> <span class="o">=</span> <span class="s1">&#39;1068543b-13d5-4b7b-9069-cc35de784e38&#39;</span>
+
+<span class="c1"># set where you want the downloaded data to go</span>
+<span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;example_data/SSRM2022C&#39;</span>
+
+<span class="n">result</span><span class="p">,</span> <span class="n">magic_file</span> <span class="o">=</span> <span class="n">ipmag</span><span class="o">.</span><span class="n">download_magic_from_id</span><span class="p">(</span><span class="n">magic_id</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">dir_path</span><span class="p">,</span> <span class="n">share_key</span><span class="o">=</span><span class="n">share_key</span><span class="p">)</span>
+<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="n">magic_file</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">)</span>
+<span class="n">SSRM2022C_contribution</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">Contribution</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Download successful. File saved to: example_data/SSRM2022C/magic_contribution_20100.txt
+working on:  &#39;contribution&#39;
+1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/contribution.txt
+contribution  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/contribution.txt
+working on:  &#39;locations&#39;
+6  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/locations.txt
+locations  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/locations.txt
+working on:  &#39;sites&#39;
+6  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/sites.txt
+sites  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/sites.txt
+working on:  &#39;samples&#39;
+28  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/samples.txt
+samples  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/samples.txt
+working on:  &#39;specimens&#39;
+47  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/specimens.txt
+specimens  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/specimens.txt
+working on:  &#39;measurements&#39;
+140501  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/measurements.txt
+measurements  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/measurements.txt
 </pre></div>
 </div>
 </div>
@@ -500,8 +607,8 @@ working on:  &#39;measurements\r&#39;
 <p>Within the MagIC contribution object, there is a measurements table that we can inspect.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">measurements</span> <span class="o">=</span> <span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;measurements&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
-<span class="n">measurements</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> <span class="c1"># see the first 5 measurements without empty columns</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SSRM2022C_measurements</span> <span class="o">=</span> <span class="n">SSRM2022C_contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;measurements&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
+<span class="n">SSRM2022C_measurements</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> <span class="c1"># see the first 5 measurements without empty columns</span>
 </pre></div>
 </div>
 </div>
@@ -524,22 +631,54 @@ working on:  &#39;measurements\r&#39;
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>dir_dec</th>
+      <th>dir_inc</th>
       <th>experiment</th>
       <th>instrument_codes</th>
       <th>magn_mass</th>
+      <th>magn_moment</th>
       <th>magn_r2_det</th>
+      <th>magn_x</th>
+      <th>magn_y</th>
+      <th>magn_z</th>
+      <th>meas_field_ac</th>
       <th>meas_field_dc</th>
+      <th>meas_freq</th>
+      <th>meas_pos_z</th>
       <th>meas_temp</th>
       <th>measurement</th>
       <th>method_codes</th>
       <th>quality</th>
+      <th>sequence</th>
       <th>specimen</th>
       <th>standard</th>
+      <th>susc_chi_mass</th>
+      <th>susc_chi_qdr_mass</th>
       <th>timestamp</th>
+      <th>treat_ac_field</th>
       <th>treat_dc_field</th>
+      <th>treat_dc_field_phi</th>
+      <th>treat_dc_field_theta</th>
+      <th>treat_step_num</th>
     </tr>
     <tr>
       <th>measurement name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -557,83 +696,163 @@ working on:  &#39;measurements\r&#39;
   </thead>
   <tbody>
     <tr>
-      <th>IRM-VSM3-LP-HYS-218845-1</th>
-      <td>IRM-VSM3-LP-HYS-218845</td>
-      <td>IRM-VSM3</td>
-      <td>0.1988</td>
+      <th>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-1</th>
       <td>NaN</td>
-      <td>1.0010</td>
-      <td>300.0</td>
-      <td>IRM-VSM3-LP-HYS-218845-1</td>
-      <td>LP-HYS</td>
+      <td>NaN</td>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667</td>
+      <td>IRM-MPMS3</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0003</td>
+      <td>NaN</td>
+      <td>1.00</td>
+      <td>NaN</td>
+      <td>10.0</td>
+      <td>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-1</td>
+      <td>LP-X:LP-X-T:LP-X-F</td>
       <td>g</td>
-      <td>NED1-5c</td>
+      <td>1.0</td>
+      <td>DA4-r</td>
       <td>u</td>
-      <td>2020:01:06:10:14:00.00</td>
+      <td>6.321000e-07</td>
+      <td>1.348000e-09</td>
+      <td>2024:05:29:09:35:19.00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
       <td>NaN</td>
     </tr>
     <tr>
-      <th>IRM-VSM3-LP-HYS-218845-2</th>
-      <td>IRM-VSM3-LP-HYS-218845</td>
-      <td>IRM-VSM3</td>
-      <td>0.1986</td>
+      <th>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-2</th>
       <td>NaN</td>
-      <td>0.9995</td>
-      <td>300.0</td>
-      <td>IRM-VSM3-LP-HYS-218845-2</td>
-      <td>LP-HYS</td>
+      <td>NaN</td>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667</td>
+      <td>IRM-MPMS3</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0003</td>
+      <td>NaN</td>
+      <td>5.32</td>
+      <td>NaN</td>
+      <td>10.0</td>
+      <td>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-2</td>
+      <td>LP-X:LP-X-T:LP-X-F</td>
       <td>g</td>
-      <td>NED1-5c</td>
+      <td>2.0</td>
+      <td>DA4-r</td>
       <td>u</td>
-      <td>2020:01:06:10:14:00.00</td>
+      <td>6.296000e-07</td>
+      <td>1.504000e-09</td>
+      <td>2024:05:29:09:35:19.00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
       <td>NaN</td>
     </tr>
     <tr>
-      <th>IRM-VSM3-LP-HYS-218845-3</th>
-      <td>IRM-VSM3-LP-HYS-218845</td>
-      <td>IRM-VSM3</td>
-      <td>0.1981</td>
+      <th>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-3</th>
       <td>NaN</td>
-      <td>0.9966</td>
-      <td>300.0</td>
-      <td>IRM-VSM3-LP-HYS-218845-3</td>
-      <td>LP-HYS</td>
+      <td>NaN</td>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667</td>
+      <td>IRM-MPMS3</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0003</td>
+      <td>NaN</td>
+      <td>28.26</td>
+      <td>NaN</td>
+      <td>10.0</td>
+      <td>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-3</td>
+      <td>LP-X:LP-X-T:LP-X-F</td>
       <td>g</td>
-      <td>NED1-5c</td>
+      <td>3.0</td>
+      <td>DA4-r</td>
       <td>u</td>
-      <td>2020:01:06:10:14:00.00</td>
+      <td>6.317000e-07</td>
+      <td>9.637000e-10</td>
+      <td>2024:05:29:09:35:19.00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
       <td>NaN</td>
     </tr>
     <tr>
-      <th>IRM-VSM3-LP-HYS-218845-4</th>
-      <td>IRM-VSM3-LP-HYS-218845</td>
-      <td>IRM-VSM3</td>
-      <td>0.1974</td>
+      <th>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-4</th>
       <td>NaN</td>
-      <td>0.9926</td>
-      <td>300.0</td>
-      <td>IRM-VSM3-LP-HYS-218845-4</td>
-      <td>LP-HYS</td>
+      <td>NaN</td>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667</td>
+      <td>IRM-MPMS3</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0003</td>
+      <td>NaN</td>
+      <td>150.47</td>
+      <td>NaN</td>
+      <td>10.0</td>
+      <td>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-4</td>
+      <td>LP-X:LP-X-T:LP-X-F</td>
       <td>g</td>
-      <td>NED1-5c</td>
+      <td>4.0</td>
+      <td>DA4-r</td>
       <td>u</td>
-      <td>2020:01:06:10:14:00.00</td>
+      <td>6.297000e-07</td>
+      <td>1.548000e-09</td>
+      <td>2024:05:29:09:35:19.00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
       <td>NaN</td>
     </tr>
     <tr>
-      <th>IRM-VSM3-LP-HYS-218845-5</th>
-      <td>IRM-VSM3-LP-HYS-218845</td>
-      <td>IRM-VSM3</td>
-      <td>0.1967</td>
+      <th>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-5</th>
       <td>NaN</td>
-      <td>0.9880</td>
-      <td>300.0</td>
-      <td>IRM-VSM3-LP-HYS-218845-5</td>
-      <td>LP-HYS</td>
+      <td>NaN</td>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667</td>
+      <td>IRM-MPMS3</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0003</td>
+      <td>NaN</td>
+      <td>800.46</td>
+      <td>NaN</td>
+      <td>10.0</td>
+      <td>DA4-r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667-5</td>
+      <td>LP-X:LP-X-T:LP-X-F</td>
       <td>g</td>
-      <td>NED1-5c</td>
+      <td>5.0</td>
+      <td>DA4-r</td>
       <td>u</td>
-      <td>2020:01:06:10:14:00.00</td>
+      <td>6.397000e-07</td>
+      <td>-5.734000e-09</td>
+      <td>2024:05:29:09:35:19.00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
       <td>NaN</td>
     </tr>
   </tbody>
@@ -674,8 +893,8 @@ working on:  &#39;measurements\r&#39;
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">experiments</span> <span class="o">=</span> <span class="n">measurements</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;specimen&#39;</span><span class="p">,</span> <span class="s1">&#39;method_codes&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span>
-<span class="n">experiments</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SSRM2022C_experiments</span> <span class="o">=</span> <span class="n">SSRM2022C_measurements</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;specimen&#39;</span><span class="p">,</span> <span class="s1">&#39;method_codes&#39;</span><span class="p">,</span> <span class="s1">&#39;experiment&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">SSRM2022C_experiments</span>
 </pre></div>
 </div>
 </div>
@@ -700,113 +919,880 @@ working on:  &#39;measurements\r&#39;
       <th></th>
       <th>specimen</th>
       <th>method_codes</th>
+      <th>experiment</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>NED1-5c</td>
-      <td>LP-BCR-BF</td>
+      <td>DA2-1d</td>
+      <td>LP-DIR-AF</td>
+      <td>DA2-1d-NRM_demag(T,Hac)-LP-DIR-AF-0</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>NED1-5c</td>
-      <td>LP-HYS</td>
+      <td>DA2-r</td>
+      <td>LP-BCR-BF</td>
+      <td>IRM-VSM4-LP-BCR-BF-228056</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>NED18-2c</td>
-      <td>LP-BCR-BF</td>
+      <td>DA2-r</td>
+      <td>LP-FORC</td>
+      <td>IRM_VSM_Lake_Shore-LP-FORC-228057</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>NED18-2c</td>
-      <td>LP-CW-SIRM:LP-MC</td>
+      <td>DA2-r</td>
+      <td>LP-HYS</td>
+      <td>IRM-VSM4-LP-HYS-228055</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>NED18-2c</td>
-      <td>LP-CW-SIRM:LP-MW</td>
+      <td>DA4-1C</td>
+      <td>LP-AN-ARM</td>
+      <td>DA4-1C-ARM_aniso-LP-AN-ARM-0</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>NED18-2c</td>
-      <td>LP-FC</td>
+      <td>DA4-1C</td>
+      <td>LP-ARM-AFD</td>
+      <td>DA4-1C-ARMdemag(T,Hac)-LP-ARM-AFD-0</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>NED18-2c</td>
-      <td>LP-HYS</td>
+      <td>DA4-1C</td>
+      <td>LP-DIR-AF</td>
+      <td>DA4-1C-NRM_demag(T,Hac)-LP-DIR-AF-0</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>NED18-2c</td>
-      <td>LP-ZFC</td>
+      <td>DA4-A</td>
+      <td>LP-BCR-BF</td>
+      <td>IRM-VSM4-LP-BCR-BF-228061</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>NED2-8c</td>
-      <td>LP-BCR-BF</td>
+      <td>DA4-A</td>
+      <td>LP-FORC</td>
+      <td>IRM_VSM_Lake_Shore-LP-FORC-228062</td>
     </tr>
     <tr>
       <th>9</th>
-      <td>NED2-8c</td>
-      <td>LP-CW-SIRM:LP-MC</td>
+      <td>DA4-A</td>
+      <td>LP-HYS</td>
+      <td>IRM-VSM4-LP-HYS-228060</td>
     </tr>
     <tr>
       <th>10</th>
-      <td>NED2-8c</td>
-      <td>LP-CW-SIRM:LP-MW</td>
+      <td>DA4-r</td>
+      <td>LP-BCR-BF</td>
+      <td>IRM-VSM3-LP-BCR-BF-228040</td>
     </tr>
     <tr>
       <th>11</th>
-      <td>NED2-8c</td>
-      <td>LP-FC</td>
+      <td>DA4-r</td>
+      <td>LP-BCR-BF</td>
+      <td>IRM-VSM4-LP-BCR-BF-228043</td>
     </tr>
     <tr>
       <th>12</th>
-      <td>NED2-8c</td>
-      <td>LP-HYS</td>
+      <td>DA4-r</td>
+      <td>LP-CW-SIRM:LP-MC</td>
+      <td>DA4-r-LP-CW-SIRM:LP-MC-DC-14667</td>
     </tr>
     <tr>
       <th>13</th>
-      <td>NED2-8c</td>
-      <td>LP-ZFC</td>
+      <td>DA4-r</td>
+      <td>LP-CW-SIRM:LP-MW</td>
+      <td>DA4-r-LP-CW-SIRM:LP-MW-DC-14667</td>
     </tr>
     <tr>
       <th>14</th>
-      <td>NED4-1c</td>
-      <td>LP-CW-SIRM:LP-MC</td>
+      <td>DA4-r</td>
+      <td>LP-FC</td>
+      <td>DA4-r-LP-FC-DC-14667</td>
     </tr>
     <tr>
       <th>15</th>
-      <td>NED4-1c</td>
-      <td>LP-CW-SIRM:LP-MW</td>
+      <td>DA4-r</td>
+      <td>LP-FORC</td>
+      <td>IRM_VSM_Lake_Shore-LP-FORC-228044</td>
     </tr>
     <tr>
       <th>16</th>
-      <td>NED4-1c</td>
-      <td>LP-FC</td>
+      <td>DA4-r</td>
+      <td>LP-HYS</td>
+      <td>IRM-VSM3-LP-HYS-228041</td>
     </tr>
     <tr>
       <th>17</th>
-      <td>NED4-1c</td>
+      <td>DA4-r</td>
       <td>LP-HYS</td>
+      <td>IRM-VSM4-LP-HYS-228042</td>
     </tr>
     <tr>
       <th>18</th>
-      <td>NED4-1c</td>
-      <td>LP-ZFC</td>
+      <td>DA4-r</td>
+      <td>LP-X-T</td>
+      <td>IRM-KappaF-LP-X-T-6829</td>
     </tr>
     <tr>
       <th>19</th>
-      <td>NED6-6c</td>
+      <td>DA4-r</td>
+      <td>LP-X:LP-X-T:LP-X-F</td>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14667</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>DA4-r</td>
+      <td>LP-ZFC</td>
+      <td>DA4-r-LP-ZFC-DC-14667</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>DA6-1c</td>
+      <td>LP-DIR-AF</td>
+      <td>DA6-1c-NRM_demag(T,Hac)-LP-DIR-AF-0</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>DA7-2c</td>
+      <td>LP-DIR-AF</td>
+      <td>DA7-2c-NRM_demag(T,Hac)-LP-DIR-AF-0</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>DX1-1b</td>
+      <td>LP-DIR-AF</td>
+      <td>DX1-1b-NRM_demag(T,Hac)-LP-DIR-AF-0</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>DX1-1r</td>
+      <td>LP-CW-SIRM:LP-MC</td>
+      <td>DX1-1r-LP-CW-SIRM:LP-MC-DC-14658</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>DX1-1r</td>
+      <td>LP-CW-SIRM:LP-MW</td>
+      <td>DX1-1r-LP-CW-SIRM:LP-MW-DC-14658</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>DX1-1r</td>
+      <td>LP-FC</td>
+      <td>DX1-1r-LP-FC-DC-14658</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>DX1-1r</td>
+      <td>LP-ZFC</td>
+      <td>DX1-1r-LP-ZFC-DC-14658</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>DX1-4b</td>
+      <td>LP-AN-ARM</td>
+      <td>DX1-4b-ARM_aniso-LP-AN-ARM-0</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>DX1-4b</td>
+      <td>LP-ARM-AFD</td>
+      <td>DX1-4b-ARMdemag(T,Hac)-LP-ARM-AFD-0</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>DX1-4b</td>
+      <td>LP-DIR-AF</td>
+      <td>DX1-4b-NRM_demag(T,Hac)-LP-DIR-AF-0</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>DX1-4c</td>
+      <td>LP-DIR-AF</td>
+      <td>DX1-4c-NRM_demag(T,Hac)-LP-DIR-AF-0</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>DX1-4r</td>
+      <td>LP-BCR-BF</td>
+      <td>IRM-VSM4-LP-BCR-BF-228045</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>DX1-4r</td>
+      <td>LP-BCR-BF</td>
+      <td>IRM-VSM4-LP-BCR-BF-228048</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>DX1-4r</td>
+      <td>LP-BCR-BF</td>
+      <td>IRM-VSM4-LP-BCR-BF-228261</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>DX1-4r</td>
+      <td>LP-CW-SIRM:LP-MC</td>
+      <td>DX1-4r-LP-CW-SIRM:LP-MC-DC-14656</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>DX1-4r</td>
+      <td>LP-CW-SIRM:LP-MW</td>
+      <td>DX1-4r-LP-CW-SIRM:LP-MW-DC-14656</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>DX1-4r</td>
+      <td>LP-FC</td>
+      <td>DX1-4r-LP-FC-DC-14656</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>DX1-4r</td>
+      <td>LP-FORC</td>
+      <td>IRM_VSM_Lake_Shore-LP-FORC-228049</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>DX1-4r</td>
       <td>LP-HYS</td>
+      <td>IRM-VSM4-LP-HYS-228046</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>DX1-4r</td>
+      <td>LP-HYS</td>
+      <td>IRM-VSM4-LP-HYS-228047</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>DX1-4r</td>
+      <td>LP-HYS</td>
+      <td>IRM-VSM4-LP-HYS-228260</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>DX1-4r</td>
+      <td>LP-X-T</td>
+      <td>IRM-KappaF-LP-X-T-6830</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>DX1-4r</td>
+      <td>LP-X:LP-X-T:LP-X-F:LP-X-H</td>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F:LP-X-H-14656</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>DX1-4r</td>
+      <td>LP-ZFC</td>
+      <td>DX1-4r-LP-ZFC-DC-14656</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>DX1-4r2</td>
+      <td>LP-X-T</td>
+      <td>IRM-KappaF-LP-X-T-6831</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>DX1-5b</td>
+      <td>LP-DIR-AF</td>
+      <td>DX1-5b-NRM_demag(T,Hac)-LP-DIR-AF-0</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>DX1-5r</td>
+      <td>LP-CW-SIRM:LP-MC</td>
+      <td>DX1-5r-LP-CW-SIRM:LP-MC-DC-14657</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>DX1-5r</td>
+      <td>LP-CW-SIRM:LP-MW</td>
+      <td>DX1-5r-LP-CW-SIRM:LP-MW-DC-14657</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>DX1-5r</td>
+      <td>LP-FC</td>
+      <td>DX1-5r-LP-FC-DC-14657</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>DX1-5r</td>
+      <td>LP-X:LP-X-T:LP-X-F</td>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14657</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>DX1-5r</td>
+      <td>LP-ZFC</td>
+      <td>DX1-5r-LP-ZFC-DC-14657</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>DX1-5r2</td>
+      <td>LP-BCR-BF</td>
+      <td>IRM-VSM4-LP-BCR-BF-228476</td>
+    </tr>
+    <tr>
+      <th>53</th>
+      <td>DX1-5r2</td>
+      <td>LP-BCR-BF</td>
+      <td>IRM-VSM4-LP-BCR-BF-228485</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>DX1-5r2</td>
+      <td>LP-HYS</td>
+      <td>IRM-VSM4-LP-HYS-228474</td>
+    </tr>
+    <tr>
+      <th>55</th>
+      <td>DX1-5r2</td>
+      <td>LP-HYS</td>
+      <td>IRM-VSM4-LP-HYS-228475</td>
+    </tr>
+    <tr>
+      <th>56</th>
+      <td>blank_2022-06-03</td>
+      <td>LP-X-T</td>
+      <td>IRM-KappaF-LP-X-T-6819</td>
+    </tr>
+    <tr>
+      <th>57</th>
+      <td>blank_2022-06-03</td>
+      <td>LP-X-T</td>
+      <td>IRM-KappaF-LP-X-T-6820</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
+<p>Get the data for one specimen and look at the first 5 rows.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">specimen_name</span> <span class="o">=</span> <span class="s1">&#39;DX1-5r&#39;</span>
+<span class="n">specimen_data</span> <span class="o">=</span> <span class="n">SSRM2022C_measurements</span><span class="p">[</span><span class="n">SSRM2022C_measurements</span><span class="p">[</span><span class="s2">&quot;specimen&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">specimen_name</span><span class="p">]</span>
+<span class="n">specimen_data</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">specimen_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>experiment</th>
+      <th>instrument_codes</th>
+      <th>magn_mass</th>
+      <th>magn_r2_det</th>
+      <th>meas_field_ac</th>
+      <th>meas_field_dc</th>
+      <th>meas_freq</th>
+      <th>meas_temp</th>
+      <th>measurement</th>
+      <th>method_codes</th>
+      <th>quality</th>
+      <th>sequence</th>
+      <th>specimen</th>
+      <th>standard</th>
+      <th>susc_chi_mass</th>
+      <th>susc_chi_qdr_mass</th>
+      <th>timestamp</th>
+    </tr>
+    <tr>
+      <th>measurement name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>DX1-5r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14657-1</th>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14657</td>
+      <td>IRM-MPMS3</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0003</td>
+      <td>NaN</td>
+      <td>1.00</td>
+      <td>10.0</td>
+      <td>DX1-5r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14657-1</td>
+      <td>LP-X:LP-X-T:LP-X-F</td>
+      <td>g</td>
+      <td>1.0</td>
+      <td>DX1-5r</td>
+      <td>u</td>
+      <td>3.740000e-07</td>
+      <td>1.738000e-09</td>
+      <td>2024:05:23:16:38:35.00</td>
+    </tr>
+    <tr>
+      <th>DX1-5r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14657-2</th>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14657</td>
+      <td>IRM-MPMS3</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0003</td>
+      <td>NaN</td>
+      <td>10.01</td>
+      <td>10.0</td>
+      <td>DX1-5r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14657-2</td>
+      <td>LP-X:LP-X-T:LP-X-F</td>
+      <td>g</td>
+      <td>2.0</td>
+      <td>DX1-5r</td>
+      <td>u</td>
+      <td>3.742000e-07</td>
+      <td>-2.938000e-10</td>
+      <td>2024:05:23:16:38:35.00</td>
+    </tr>
+    <tr>
+      <th>DX1-5r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14657-3</th>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14657</td>
+      <td>IRM-MPMS3</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0003</td>
+      <td>NaN</td>
+      <td>100.06</td>
+      <td>10.0</td>
+      <td>DX1-5r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14657-3</td>
+      <td>LP-X:LP-X-T:LP-X-F</td>
+      <td>g</td>
+      <td>3.0</td>
+      <td>DX1-5r</td>
+      <td>u</td>
+      <td>3.751000e-07</td>
+      <td>8.104000e-10</td>
+      <td>2024:05:23:16:38:35.00</td>
+    </tr>
+    <tr>
+      <th>DX1-5r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14657-4</th>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14657</td>
+      <td>IRM-MPMS3</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0003</td>
+      <td>NaN</td>
+      <td>1.00</td>
+      <td>20.0</td>
+      <td>DX1-5r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14657-4</td>
+      <td>LP-X:LP-X-T:LP-X-F</td>
+      <td>g</td>
+      <td>4.0</td>
+      <td>DX1-5r</td>
+      <td>u</td>
+      <td>2.009000e-07</td>
+      <td>4.598000e-11</td>
+      <td>2024:05:23:16:38:35.00</td>
+    </tr>
+    <tr>
+      <th>DX1-5r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14657-5</th>
+      <td>IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14657</td>
+      <td>IRM-MPMS3</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0003</td>
+      <td>NaN</td>
+      <td>10.01</td>
+      <td>20.0</td>
+      <td>DX1-5r-IRM-MPMS3-LP-X:LP-X-T:LP-X-F-14657-5</td>
+      <td>LP-X:LP-X-T:LP-X-F</td>
+      <td>g</td>
+      <td>5.0</td>
+      <td>DX1-5r</td>
+      <td>u</td>
+      <td>2.015000e-07</td>
+      <td>-6.257000e-10</td>
+      <td>2024:05:23:16:38:35.00</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Get the data for an experiment on this specimen. This filtering can either be done using the associated <code class="docutils literal notranslate"><span class="pre">method_code</span></code> (as in the example below) or the associated experiment.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">experiment_method_code</span> <span class="o">=</span> <span class="s1">&#39;LP-FC&#39;</span>
+<span class="n">fc_data</span> <span class="o">=</span> <span class="n">specimen_data</span><span class="p">[</span><span class="n">specimen_data</span><span class="p">[</span><span class="s1">&#39;method_codes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">experiment_method_code</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
+<span class="n">fc_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>experiment</th>
+      <th>instrument_codes</th>
+      <th>magn_mass</th>
+      <th>magn_r2_det</th>
+      <th>meas_field_ac</th>
+      <th>meas_field_dc</th>
+      <th>meas_freq</th>
+      <th>meas_temp</th>
+      <th>measurement</th>
+      <th>method_codes</th>
+      <th>quality</th>
+      <th>sequence</th>
+      <th>specimen</th>
+      <th>standard</th>
+      <th>susc_chi_mass</th>
+      <th>susc_chi_qdr_mass</th>
+      <th>timestamp</th>
+    </tr>
+    <tr>
+      <th>measurement name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>DX1-5r-LP-FC-DC-14657-0-0</th>
+      <td>DX1-5r-LP-FC-DC-14657</td>
+      <td>IRM-MPMS3</td>
+      <td>0.000449</td>
+      <td>4.711870e-08</td>
+      <td>NaN</td>
+      <td>0.002543</td>
+      <td>NaN</td>
+      <td>9.999990</td>
+      <td>DX1-5r-LP-FC-DC-14657-0-0</td>
+      <td>LP-FC</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>DX1-5r</td>
+      <td>u</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2092:06:11:12:25:11.553</td>
+    </tr>
+    <tr>
+      <th>DX1-5r-LP-FC-DC-14657-0-1</th>
+      <td>DX1-5r-LP-FC-DC-14657</td>
+      <td>IRM-MPMS3</td>
+      <td>0.000449</td>
+      <td>3.454449e-08</td>
+      <td>NaN</td>
+      <td>0.002543</td>
+      <td>NaN</td>
+      <td>10.290553</td>
+      <td>DX1-5r-LP-FC-DC-14657-0-1</td>
+      <td>LP-FC</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>DX1-5r</td>
+      <td>u</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2092:06:11:12:25:16.461</td>
+    </tr>
+    <tr>
+      <th>DX1-5r-LP-FC-DC-14657-0-2</th>
+      <td>DX1-5r-LP-FC-DC-14657</td>
+      <td>IRM-MPMS3</td>
+      <td>0.000423</td>
+      <td>3.013871e-08</td>
+      <td>NaN</td>
+      <td>0.002543</td>
+      <td>NaN</td>
+      <td>15.018018</td>
+      <td>DX1-5r-LP-FC-DC-14657-0-2</td>
+      <td>LP-FC</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>DX1-5r</td>
+      <td>u</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2092:06:11:12:25:48.189</td>
+    </tr>
+    <tr>
+      <th>DX1-5r-LP-FC-DC-14657-0-3</th>
+      <td>DX1-5r-LP-FC-DC-14657</td>
+      <td>IRM-MPMS3</td>
+      <td>0.000367</td>
+      <td>5.462415e-08</td>
+      <td>NaN</td>
+      <td>0.002543</td>
+      <td>NaN</td>
+      <td>21.600843</td>
+      <td>DX1-5r-LP-FC-DC-14657-0-3</td>
+      <td>LP-FC</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>DX1-5r</td>
+      <td>u</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2092:06:11:12:26:29.729</td>
+    </tr>
+    <tr>
+      <th>DX1-5r-LP-FC-DC-14657-0-4</th>
+      <td>DX1-5r-LP-FC-DC-14657</td>
+      <td>IRM-MPMS3</td>
+      <td>0.000347</td>
+      <td>5.979291e-08</td>
+      <td>NaN</td>
+      <td>0.002543</td>
+      <td>NaN</td>
+      <td>25.032631</td>
+      <td>DX1-5r-LP-FC-DC-14657-0-4</td>
+      <td>LP-FC</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>DX1-5r</td>
+      <td>u</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2092:06:11:12:26:52.212</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Here the data for a single experiment is isolated using the <code class="docutils literal notranslate"><span class="pre">experiment_name</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">experiment_name</span> <span class="o">=</span> <span class="s1">&#39;DX1-5r-LP-ZFC-DC-14657&#39;</span>
+<span class="n">zfc_data</span> <span class="o">=</span> <span class="n">specimen_data</span><span class="p">[</span><span class="n">specimen_data</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">experiment_name</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
+<span class="n">zfc_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>experiment</th>
+      <th>instrument_codes</th>
+      <th>magn_mass</th>
+      <th>magn_r2_det</th>
+      <th>meas_field_ac</th>
+      <th>meas_field_dc</th>
+      <th>meas_freq</th>
+      <th>meas_temp</th>
+      <th>measurement</th>
+      <th>method_codes</th>
+      <th>quality</th>
+      <th>sequence</th>
+      <th>specimen</th>
+      <th>standard</th>
+      <th>susc_chi_mass</th>
+      <th>susc_chi_qdr_mass</th>
+      <th>timestamp</th>
+    </tr>
+    <tr>
+      <th>measurement name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>DX1-5r-LP-ZFC-DC-14657-1-0</th>
+      <td>DX1-5r-LP-ZFC-DC-14657</td>
+      <td>IRM-MPMS3</td>
+      <td>0.000202</td>
+      <td>9.263549e-09</td>
+      <td>NaN</td>
+      <td>0.002543</td>
+      <td>NaN</td>
+      <td>10.000146</td>
+      <td>DX1-5r-LP-ZFC-DC-14657-1-0</td>
+      <td>LP-ZFC</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>DX1-5r</td>
+      <td>u</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2092:06:11:13:24:23.667</td>
+    </tr>
+    <tr>
+      <th>DX1-5r-LP-ZFC-DC-14657-1-1</th>
+      <td>DX1-5r-LP-ZFC-DC-14657</td>
+      <td>IRM-MPMS3</td>
+      <td>0.000221</td>
+      <td>3.116004e-08</td>
+      <td>NaN</td>
+      <td>0.002543</td>
+      <td>NaN</td>
+      <td>10.143874</td>
+      <td>DX1-5r-LP-ZFC-DC-14657-1-1</td>
+      <td>LP-ZFC</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>DX1-5r</td>
+      <td>u</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2092:06:11:13:24:27.274</td>
+    </tr>
+    <tr>
+      <th>DX1-5r-LP-ZFC-DC-14657-1-2</th>
+      <td>DX1-5r-LP-ZFC-DC-14657</td>
+      <td>IRM-MPMS3</td>
+      <td>0.000209</td>
+      <td>1.119533e-08</td>
+      <td>NaN</td>
+      <td>0.002543</td>
+      <td>NaN</td>
+      <td>15.002557</td>
+      <td>DX1-5r-LP-ZFC-DC-14657-1-2</td>
+      <td>LP-ZFC</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>DX1-5r</td>
+      <td>u</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2092:06:11:13:24:59.821</td>
+    </tr>
+    <tr>
+      <th>DX1-5r-LP-ZFC-DC-14657-1-3</th>
+      <td>DX1-5r-LP-ZFC-DC-14657</td>
+      <td>IRM-MPMS3</td>
+      <td>0.000198</td>
+      <td>9.603557e-09</td>
+      <td>NaN</td>
+      <td>0.002543</td>
+      <td>NaN</td>
+      <td>20.056095</td>
+      <td>DX1-5r-LP-ZFC-DC-14657-1-3</td>
+      <td>LP-ZFC</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>DX1-5r</td>
+      <td>u</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2092:06:11:13:25:32.207</td>
+    </tr>
+    <tr>
+      <th>DX1-5r-LP-ZFC-DC-14657-1-4</th>
+      <td>DX1-5r-LP-ZFC-DC-14657</td>
+      <td>IRM-MPMS3</td>
+      <td>0.000193</td>
+      <td>1.147419e-08</td>
+      <td>NaN</td>
+      <td>0.002543</td>
+      <td>NaN</td>
+      <td>25.022688</td>
+      <td>DX1-5r-LP-ZFC-DC-14657-1-4</td>
+      <td>LP-ZFC</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>DX1-5r</td>
+      <td>u</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2092:06:11:13:26:04.140</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>In the other example rockmagpy notebooks, these import methods to bring in contribution data. The filtering methods to access data from specific specimens and experiments are used either in the notebooks or within the <a class="reference external" href="http://rockmag.py">rockmag.py</a> functions.</p>
 </section>
 </section>
 </section>
@@ -877,7 +1863,9 @@ working on:  &#39;measurements\r&#39;
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-scientific-python-libraries">Import scientific python libraries</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-and-import-data">Download and import data</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-and-unpack-data-from-magic">Download and unpack data from MagIC</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-and-unpack-data-from-a-local-magic-file">Download and unpack data from a local MagIC file</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-and-unpack-data-directly-from-a-public-magic-contribution">Download and unpack data directly from a public MagIC contribution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-and-unpack-data-directly-from-a-private-magic-contribution">Download and unpack data directly from a private MagIC contribution</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-the-measurements-table">Inspect the measurements table</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-list-of-specimens-and-experiments">Get list of specimens and experiments</a></li>
 </ul>
