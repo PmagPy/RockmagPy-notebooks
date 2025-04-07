@@ -443,19 +443,16 @@ document.write(`
 <p>Run the cell below to import the functions needed for the notebook.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">rockmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rmag</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.rockmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rmag</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.contribution_builder</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cb</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.ipmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ipmag</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
 </pre></div>
 </div>
@@ -483,23 +480,23 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>working on:  &#39;contribution\r&#39;
-1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/contribution.txt
-  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/contribution.txt
+1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/contribution.txt
+  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/contribution.txt
 working on:  &#39;specimens\r&#39;
-15  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/specimens.txt
-  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/specimens.txt
+15  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/specimens.txt
+  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/specimens.txt
 working on:  &#39;samples\r&#39;
-5  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/samples.txt
-  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/samples.txt
+5  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/samples.txt
+  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/samples.txt
 working on:  &#39;sites\r&#39;
-5  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/sites.txt
-  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/sites.txt
+5  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/sites.txt
+  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/sites.txt
 working on:  &#39;locations\r&#39;
-10  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/locations.txt
-  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/locations.txt
+10  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/locations.txt
+  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/locations.txt
 working on:  &#39;measurements\r&#39;
-5018  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/measurements.txt
-  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/measurements.txt
+5018  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/measurements.txt
+  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/measurements.txt
 -I- Using online data model
 -I- Getting method codes from earthref.org
 -I- Importing controlled vocabularies from https://earthref.org
