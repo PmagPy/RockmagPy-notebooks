@@ -467,15 +467,12 @@ Note that when iterating through different H_offset values on the inverted lower
 <h2>Install and import packages<a class="headerlink" href="#install-and-import-packages" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">rockmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rmag</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.rockmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rmag</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.ipmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ipmag</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.contribution_builder</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cb</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">minimize</span><span class="p">,</span> <span class="n">brent</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">least_squares</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">numpy.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">svd</span><span class="p">,</span> <span class="n">lstsq</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
@@ -523,23 +520,23 @@ Note that when iterating through different H_offset values on the inverted lower
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>working on:  &#39;contribution\r&#39;
-1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/contribution.txt
-  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/contribution.txt
+1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/contribution.txt
+  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/contribution.txt
 working on:  &#39;specimens\r&#39;
-15  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/specimens.txt
-  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/specimens.txt
+15  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/specimens.txt
+  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/specimens.txt
 working on:  &#39;samples\r&#39;
-5  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/samples.txt
-  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/samples.txt
+5  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/samples.txt
+  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/samples.txt
 working on:  &#39;sites\r&#39;
-5  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/sites.txt
-  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/sites.txt
+5  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/sites.txt
+  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/sites.txt
 working on:  &#39;locations\r&#39;
-10  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/locations.txt
-  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/locations.txt
+10  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/locations.txt
+  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/locations.txt
 working on:  &#39;measurements\r&#39;
-5018  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/measurements.txt
-  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/measurements.txt
+5018  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/measurements.txt
+  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/measurements.txt
 -I- Using online data model
 -I- Getting method codes from earthref.org
 -I- Importing controlled vocabularies from https://earthref.org
@@ -566,7 +563,7 @@ working on:  &#39;measurements\r&#39;
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a601593a160745bd9900ac033ca5638d", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "9710b6c7669c45ae9ae53e4194b85bd8", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "f33b2301ae454af5805fd06c88dee1eb", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "dd418c6f76db41c0861b01bb695b076b", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "1292d1a33f0f42c19671cb80cbb95bac", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "8ee224d9b5c7439cbad644aec4c9057c", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="loop-processing">
@@ -584,7 +581,8 @@ working on:  &#39;measurements\r&#39;
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># extract the specimen specific data, for this demonstration, we use specimen NED18-2c</span>
-<span class="n">hyst_data</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">extract_hysteresis_data</span><span class="p">(</span><span class="n">measurements</span><span class="p">,</span> <span class="s1">&#39;NED1-5c&#39;</span><span class="p">)</span>
+<span class="n">specimen</span> <span class="o">=</span> <span class="s1">&#39;NED2-8c&#39;</span>
+<span class="n">hyst_data</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">extract_hysteresis_data</span><span class="p">(</span><span class="n">measurements</span><span class="p">,</span> <span class="n">specimen</span><span class="p">)</span>
 
 <span class="n">loop_fields</span> <span class="o">=</span> <span class="n">hyst_data</span><span class="p">[</span><span class="s1">&#39;meas_field_dc&#39;</span><span class="p">]</span>
 <span class="n">loop_magnetizations</span> <span class="o">=</span> <span class="n">hyst_data</span><span class="p">[</span><span class="s1">&#39;magn_mass&#39;</span><span class="p">]</span>
@@ -602,7 +600,7 @@ working on:  &#39;measurements\r&#39;
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([  0, 801])
 </pre></div>
 </div>
 </div>
@@ -610,41 +608,28 @@ working on:  &#39;measurements\r&#39;
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">process_hyst_loop</span><span class="p">(</span><span class="n">loop_fields</span><span class="p">,</span> <span class="n">loop_magnetizations</span><span class="p">)</span>
+<span class="n">rmag</span><span class="o">.</span><span class="n">export_hyst_specimen_table</span><span class="p">(</span><span class="n">specimen</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>raw data is not linear
-FNL:  10478.66
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>check loop drift!
+raw data is not linear
+FNL:  7774.59
 loop centering results: field offset = 0.0 T magnetization offset = 0.0006 Am^2/kg
-centered raw loop Q value: 3.19
-apply default high field linear correction: slope (X_para/dia) = 0.1647 intercept (Ms) = 0.0339 Am^2/kg
-centered ferromagnetic loop Qf value: 2.6
-SNR = 27.03 dB
-HAR = -33.71 dB
+centered raw loop Q value: 2.91
+apply default high field linear correction: slope (X_para/dia) = 0.174 intercept (Ms) = 0.0426 Am^2/kg
+centered ferromagnetic loop Qf value: 2.29
+SNR = 12.33 dB
+HAR = -21.26 dB
 loop is still open!
-Ms = 0.0339 Am^2/kg
-Mr = 0.006 Am^2/kg
-Bc = 14.19 mT
-Brh = 40.78 mT
-loop is saturated beyond 600.6 mT
+Ms = 0.0426 Am^2/kg
+Mr = 0.0068 Am^2/kg
+Bc = 15.86 mT
+Brh = 50.07 mT
+loop is not saturated! check non-linear high field correction!
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="_images/edaa974d9e100b5ec13320cd99ed7e22decc5090bad4c6d3723a70fb283cd72d.png"><img alt="_images/edaa974d9e100b5ec13320cd99ed7e22decc5090bad4c6d3723a70fb283cd72d.png" src="_images/edaa974d9e100b5ec13320cd99ed7e22decc5090bad4c6d3723a70fb283cd72d.png" style="width: 873px; height: 857px;" />
-</a>
-</div>
-</div>
-</section>
-</section>
-<section id="export-this-specimen-hyseresis-data-to-a-specimen-data-table-that-can-be-merged-with-other-specimen-level-magic-tables">
-<h2>export this specimen hyseresis data to a specimen data table that can be merged with other specimen level MagIC tables<a class="headerlink" href="#export-this-specimen-hyseresis-data-to-a-specimen-data-table-that-can-be-merged-with-other-specimen-level-magic-tables" title="Link to this heading">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rmag</span><span class="o">.</span><span class="n">export_hyst_specimen_table</span><span class="p">(</span><span class="s1">&#39;NED1-5c&#39;</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
 <div class="output text_html"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -669,7 +654,7 @@ loop is saturated beyond 600.6 mT
       <th>Ms</th>
       <th>Mr</th>
       <th>Bc</th>
-      <th>Bcr</th>
+      <th>Brh</th>
       <th>FNL</th>
       <th>method_codes</th>
     </tr>
@@ -677,20 +662,26 @@ loop is saturated beyond 600.6 mT
   <tbody>
     <tr>
       <th>0</th>
-      <td>NED1-5c</td>
-      <td>3.188326</td>
-      <td>2.59592</td>
-      <td>0.033942</td>
-      <td>0.006029</td>
-      <td>0.014194</td>
-      <td>0.04078</td>
-      <td>10478.662624</td>
+      <td>NED2-8c</td>
+      <td>2.914021</td>
+      <td>2.294866</td>
+      <td>0.042641</td>
+      <td>0.006791</td>
+      <td>0.015862</td>
+      <td>0.050073</td>
+      <td>7774.591351</td>
       <td>LP-HYS</td>
     </tr>
   </tbody>
 </table>
-</div></div></div>
+</div></div><a class="reference internal image-reference" href="_images/5a8a9f4a5ffb76c4b28ee69ca2824a097a54c6c7707122243a7f72793b761a3e.png"><img alt="_images/5a8a9f4a5ffb76c4b28ee69ca2824a097a54c6c7707122243a7f72793b761a3e.png" src="_images/5a8a9f4a5ffb76c4b28ee69ca2824a097a54c6c7707122243a7f72793b761a3e.png" style="width: 623px; height: 606px;" />
+</a>
 </div>
+</div>
+</section>
+</section>
+<section id="export-this-specimen-hyseresis-data-to-a-specimen-data-table-that-can-be-merged-with-other-specimen-level-magic-tables">
+<h2>export this specimen hyseresis data to a specimen data table that can be merged with other specimen level MagIC tables<a class="headerlink" href="#export-this-specimen-hyseresis-data-to-a-specimen-data-table-that-can-be-merged-with-other-specimen-level-magic-tables" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
