@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Rock magnetic experiments data import &#8212; RockmagPy Documentation</title>
+    <title>Rock magnetic data import &#8212; RockmagPy Documentation</title>
   
   
   
@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'rockmag_data_unpack';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Plot MPMS data (DC)" href="MPMS_plot_dc.html" />
+    <link rel="next" title="MPMS data analysis" href="book/MPMS_intro.html" />
     <link rel="prev" title="Getting going with rockmag.py on JupyterHub" href="rockmag_set_up.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -182,14 +182,17 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Nuts &amp; Bolts</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="rockmag_set_up.html">Getting going with rockmag.py on JupyterHub</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Rock magnetic experiments data import</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Rock magnetic data import</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">MPMS notebooks</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data Processing Notebooks</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="MPMS_plot_dc.html">Plot MPMS data (DC)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="MPMS_plot_ac.html">Plot MPMS data (AC susceptibility)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="MPMS_verwey_fit.html">Estimate the Verwey transition temperature</a></li>
-<li class="toctree-l1"><a class="reference internal" href="MPMS_goethite_fit.html">Fit and remove the goethite component</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="book/MPMS_intro.html">MPMS notebooks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="MPMS_plot_dc.html">Plot MPMS data (DC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MPMS_plot_ac.html">Plot MPMS data (AC susceptibility)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MPMS_verwey_fit.html">Estimate the Verwey transition temperature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MPMS_goethite_fit.html">Fit and remove the goethite component</a></li>
+</ul>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">VSM notebooks</span></p>
 <ul class="nav bd-sidenav">
@@ -207,7 +210,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="hysteresis_processing.html">Hysteresis Processing</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">RMB notebooks</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Rock Magnetic Bestiary notebooks</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="RMB_siderite.html">Siderite data within the Rock Magnetic Bestiary</a></li>
 </ul>
@@ -408,7 +411,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Rock magnetic experiments data import</h1>
+    <h1>Rock magnetic data import</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -438,9 +441,9 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="rock-magnetic-experiments-data-import">
-<h1>Rock magnetic experiments data import<a class="headerlink" href="#rock-magnetic-experiments-data-import" title="Link to this heading">#</a></h1>
-<p>This notebook illustrates the two approaches that can be taken to import data from MagIC into a Jupyter notebook.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="rock-magnetic-data-import">
+<h1>Rock magnetic data import<a class="headerlink" href="#rock-magnetic-data-import" title="Link to this heading">#</a></h1>
+<p>This notebook illustrates the two approaches that can be taken to import data from MagIC into a Jupyter notebook:</p>
 <ul class="simple">
 <li><p><strong>From a locally hosted (i.e. downloaded) MagIC contribution</strong></p></li>
 <li><p><strong>Directly from the MagIC database (using the API)</strong></p>
@@ -1842,11 +1845,11 @@ measurements  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/examp
       </div>
     </a>
     <a class="right-next"
-       href="MPMS_plot_dc.html"
+       href="book/MPMS_intro.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Plot MPMS data (DC)</p>
+        <p class="prev-next-title">MPMS data analysis</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
