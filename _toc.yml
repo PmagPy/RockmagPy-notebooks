@@ -26,6 +26,9 @@ parts:
   - caption: Hysteresis loop notebooks
     chapters:
       - file: hysteresis_processing
+  - caption: RMB notebooks
+    chapters:
+      - file: RMB_siderite
   - caption: Background
     chapters:
       - file: book/background/low_temperature_behavior.md
