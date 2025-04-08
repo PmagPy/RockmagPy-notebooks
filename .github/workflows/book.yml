@@ -23,7 +23,9 @@ jobs:
         pip install future matplotlib pandas requests seaborn jupyter-book scikit-learn ipywidgets
         pip install cartopy==0.22
         pip install pmagpy==4.2.106
-        
+    - name: Clean previous build
+      run: |
+        jupyter-book clean .  
     # Build the book
     - name: Build the book
       run: |
