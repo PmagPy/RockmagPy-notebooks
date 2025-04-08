@@ -8,12 +8,15 @@ parts:
     chapters:
       - file: rockmag_set_up
       - file: rockmag_data_unpack
-  - caption: MPMS notebooks
+  - caption: Data Processing Notebooks
     chapters:
-      - file: MPMS_plot_dc
-      - file: MPMS_plot_ac
-      - file: MPMS_verwey_fit
-      - file: MPMS_goethite_fit
+      - file: book/MPMS_intro  # <- You can create this intro file
+        title: MPMS notebooks
+        sections:
+          - file: MPMS_plot_dc
+          - file: MPMS_plot_ac
+          - file: MPMS_verwey_fit
+          - file: MPMS_goethite_fit
   - caption: VSM notebooks
     chapters:
       - file: VSM_backfield_unmixing
@@ -26,7 +29,7 @@ parts:
   - caption: Hysteresis loop notebooks
     chapters:
       - file: hysteresis_processing
-  - caption: RMB notebooks
+  - caption: Rock Magnetic Bestiary notebooks
     chapters:
       - file: RMB_siderite
   - caption: Background
