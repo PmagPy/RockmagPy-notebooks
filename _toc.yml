@@ -10,25 +10,26 @@ parts:
       - file: rockmag_data_unpack
   - caption: Data Processing Notebooks
     chapters:
-      - file: book/MPMS_intro  # <- You can create this intro file
+      - file: MPMS_notebooks/MPMS_intro
         title: MPMS notebooks
         sections:
-          - file: MPMS_plot_dc
-          - file: MPMS_plot_ac
-          - file: MPMS_verwey_fit
-          - file: MPMS_goethite_fit
-  - caption: VSM notebooks
-    chapters:
-      - file: VSM_backfield_unmixing
-  - caption: Thermomagnetic notebooks
-    chapters:
-      - file: high_T_susceptibility
-  - caption: Anisotropy notebooks
-    chapters:
-      - file: Anisotropy_plot_AMS
-  - caption: Hysteresis loop notebooks
-    chapters:
-      - file: hysteresis_processing
+          - file: MPMS_notebooks/MPMS_plot_dc
+          - file: MPMS_notebooks/MPMS_plot_ac
+          - file: MPMS_notebooks/MPMS_verwey_fit
+          - file: MPMS_notebooks/MPMS_goethite_fit
+      - file: hysteresis_backfield_notebooks/VSM_intro
+        title: Hysteresis/backfield notebooks
+        sections:
+          - file: hysteresis_backfield_notebooks/hysteresis_processing
+          - file: hysteresis_backfield_notebooks/VSM_backfield_unmixing
+      - file: thermomagnetic_notebooks/thermomag_intro
+        title: Thermomagnetic notebooks
+        sections:
+          - file: thermomagnetic_notebooks/high_T_susceptibility
+      - file: anisotropy_notebooks/anisotropy_intro
+        title: Thermomagnetic notebooks
+        sections:
+          - file: thermomagnetic_notebooks/anisotropy_plot_AMS
   - caption: Rock Magnetic Bestiary notebooks
     chapters:
       - file: RMB_siderite

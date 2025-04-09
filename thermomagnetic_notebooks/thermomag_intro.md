@@ -1,0 +1,1 @@
+- [**Thermomagnetic Curves**](../high_T_susceptibility.ipynb) This notebook plots and analyzes data from high-temperature susceptibility experiments.

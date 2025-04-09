@@ -1,0 +1,1 @@
+- [**Anisotropy of Magnetic Susceptibility (AMS)**](../Anisotropy_plot_AMS.ipynb) Within this notebook, AMS data are plotted and different methods for estimating the confidence of the associated axes are implemented.
