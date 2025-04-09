@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>MPMS data analysis &#8212; RockmagPy Documentation</title>
+    <title>&lt;no title&gt; &#8212; RockmagPy Documentation</title>
   
   
   
@@ -57,11 +57,13 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'book/MPMS_intro';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'thermomagnetic_notebooks/thermomag_intro';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Plot MPMS data (DC)" href="../MPMS_plot_dc.html" />
-    <link rel="prev" title="Rock magnetic data import" href="../rockmag_data_unpack.html" />
+    <link rel="next" title="Analysis of susceptibility-temperature, (Kappabridge \(\chi\)-T), data" href="high_T_susceptibility.html" />
+    <link rel="prev" title="Unmixing coercivity spectra from backfield curves" href="../hysteresis_backfield_notebooks/VSM_backfield_unmixing.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -142,7 +144,7 @@
     
   
 
-<a class="navbar-brand logo" href="intro.html">
+<a class="navbar-brand logo" href="../book/intro.html">
   
   
   
@@ -174,7 +176,7 @@
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="intro.html">
+                <a class="reference internal" href="../book/intro.html">
                     RockmagPy: tools for rock magnetic data analysis
                 </a>
             </li>
@@ -185,47 +187,34 @@
 <li class="toctree-l1"><a class="reference internal" href="../rockmag_data_unpack.html">Rock magnetic data import</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Data Processing Notebooks</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">MPMS notebooks</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../MPMS_plot_dc.html">Plot MPMS data (DC)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MPMS_plot_ac.html">Plot MPMS data (AC susceptibility)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MPMS_verwey_fit.html">Estimate the Verwey transition temperature</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MPMS_goethite_fit.html">Fit and remove the goethite component</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../MPMS_notebooks/MPMS_intro.html">MPMS notebooks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../MPMS_notebooks/MPMS_plot_dc.html">Plot MPMS data (DC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MPMS_notebooks/MPMS_plot_ac.html">Plot MPMS data (AC susceptibility)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MPMS_notebooks/MPMS_verwey_fit.html">Estimate the Verwey transition temperature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MPMS_notebooks/MPMS_goethite_fit.html">Fit and remove the goethite component</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../hysteresis_backfield_notebooks/VSM_intro.html">Hysteresis/backfield notebooks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../hysteresis_backfield_notebooks/hysteresis_processing.html">Hysteresis Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hysteresis_backfield_notebooks/VSM_backfield_unmixing.html">Unmixing coercivity spectra from backfield curves</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">VSM notebooks</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../VSM_backfield_unmixing.html">Unmixing coercivity spectra from backfield curves</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Thermomagnetic notebooks</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../high_T_susceptibility.html">Analysis of susceptibility-temperature, <span style="font-family: 'Times New Roman';"><em>(Kappabridge <span class="math notranslate nohighlight">\(\chi\)</span>-T)</em></span>, data</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Anisotropy notebooks</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../Anisotropy_plot_AMS.html">Plot and analyze anisotropy data (AMS)</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hysteresis loop notebooks</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../hysteresis_processing.html">Hysteresis Processing</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Rock Magnetic Bestiary notebooks</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../RMB_siderite.html">Siderite data within the Rock Magnetic Bestiary</a></li>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="high_T_susceptibility.html">Analysis of susceptibility-temperature, <span style="font-family: 'Times New Roman';"><em>(Kappabridge <span class="math notranslate nohighlight">\(\chi\)</span>-T)</em></span>, data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../anisotropy_notebooks/anisotropy_plot_AMS.html">Plot and analyze anisotropy data (AMS)</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Background</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="background/low_temperature_behavior.html">Low temperature behavior</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="background/morin.html">Morin transition</a></li>
-<li class="toctree-l2"><a class="reference internal" href="minerals/siderite.html">Siderite</a></li>
-<li class="toctree-l2"><a class="reference internal" href="background/paramagnetism.html">Paramagnetism</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../book/background/low_temperature_behavior.html">Low temperature behavior</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../book/background/morin.html">Morin transition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../book/minerals/siderite.html">Siderite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../book/background/paramagnetism.html">Paramagnetism</a></li>
 </ul>
 </details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">More resources</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="resources.html">Resources for learning more about rock magnetism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../book/resources.html">Resources for learning more about rock magnetism</a></li>
 </ul>
 
     </div>
@@ -297,7 +286,7 @@
       
       
       
-      <li><a href="https://github.com/pmagpy/rockmagpy-notebooks/issues/new?title=Issue%20on%20page%20%2Fbook/MPMS_intro.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/pmagpy/rockmagpy-notebooks/issues/new?title=Issue%20on%20page%20%2Fthermomagnetic_notebooks/thermomag_intro.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -327,7 +316,7 @@
       
       
       
-      <li><a href="../_sources/book/MPMS_intro.md" target="_blank"
+      <li><a href="../_sources/thermomagnetic_notebooks/thermomag_intro.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -398,7 +387,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -409,7 +400,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>MPMS data analysis</h1>
+    <h1><no title></h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -423,18 +414,11 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="mpms-data-analysis">
-<h1>MPMS data analysis<a class="headerlink" href="#mpms-data-analysis" title="Link to this heading">#</a></h1>
-<p>These notebooks support the analysis of low-temperature experimental data conducted on a Magnetic Property Measurement System (MPMS).</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="../MPMS_plot_dc.html"><span class="std std-doc"><strong>MPMS Data Plotting (DC)</strong></span></a> Within this notebook, MPMS experiments where remanence was measured upon warming and cooling are plotted. This plotting includes the calculation and visualization of derivative curves.</p></li>
-<li><p><a class="reference internal" href="../MPMS_plot_ac.html"><span class="std std-doc"><strong>MPMS Data Plotting (AC)</strong></span></a> Within this notebook, low-temperature AC susceptibility data are visualized including in-phase and out-of-phase susceptibility.</p></li>
-<li><p><a class="reference internal" href="../MPMS_verwey_fit.html"><span class="std std-doc"><strong>Verwey Transition Fitting</strong></span></a> Within this notebook, Verwey temperature estimates can be made from remanence upon warming experiments conducted on an MPMS.</p></li>
-<li><p><a class="reference internal" href="#../MPMS_geothite_fit.ipynb"><span class="xref myst"><strong>Goethite Component Fitting</strong></span></a> Within this notebook, the reversible component of room-temperature to low-temperature cycling experiments (that can be attributed to minerals such as goethite) can be numerically fit and removed.</p></li>
+  <ul class="simple">
+<li><p><a class="reference internal" href="#../high_T_susceptibility.ipynb"><span class="xref myst"><strong>Thermomagnetic Curves</strong></span></a> This notebook plots and analyzes data from high-temperature susceptibility experiments.</p></li>
 </ul>
 <div class="toctree-wrapper compound">
 </div>
-</section>
 
     <script type="text/x-thebe-config">
     {
@@ -449,7 +433,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./book"
+            path: "./thermomagnetic_notebooks"
         },
         predefinedOutput: true
     }
@@ -467,20 +451,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../rockmag_data_unpack.html"
+       href="../hysteresis_backfield_notebooks/VSM_backfield_unmixing.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Rock magnetic data import</p>
+        <p class="prev-next-title">Unmixing coercivity spectra from backfield curves</p>
       </div>
     </a>
     <a class="right-next"
-       href="../MPMS_plot_dc.html"
+       href="high_T_susceptibility.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Plot MPMS data (DC)</p>
+        <p class="prev-next-title">Analysis of susceptibility-temperature, <span style="font-family: 'Times New Roman';"><em>(Kappabridge <span class="math notranslate nohighlight">\(\chi\)</span>-T)</em></span>, data</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

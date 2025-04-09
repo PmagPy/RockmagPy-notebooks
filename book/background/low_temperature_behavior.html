@@ -63,7 +63,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="The Hematite Morin Transition" href="morin.html" />
-    <link rel="prev" title="Siderite data within the Rock Magnetic Bestiary" href="../../RMB_siderite.html" />
+    <link rel="prev" title="Plot and analyze anisotropy data (AMS)" href="../../anisotropy_notebooks/anisotropy_plot_AMS.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -188,33 +188,20 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Data Processing Notebooks</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../MPMS_intro.html">MPMS notebooks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../MPMS_plot_dc.html">Plot MPMS data (DC)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../MPMS_plot_ac.html">Plot MPMS data (AC susceptibility)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../MPMS_verwey_fit.html">Estimate the Verwey transition temperature</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../MPMS_goethite_fit.html">Fit and remove the goethite component</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../MPMS_notebooks/MPMS_intro.html">MPMS notebooks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../MPMS_notebooks/MPMS_plot_dc.html">Plot MPMS data (DC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MPMS_notebooks/MPMS_plot_ac.html">Plot MPMS data (AC susceptibility)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MPMS_notebooks/MPMS_verwey_fit.html">Estimate the Verwey transition temperature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../MPMS_notebooks/MPMS_goethite_fit.html">Fit and remove the goethite component</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../hysteresis_backfield_notebooks/VSM_intro.html">Hysteresis/backfield notebooks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../hysteresis_backfield_notebooks/hysteresis_processing.html">Hysteresis Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hysteresis_backfield_notebooks/VSM_backfield_unmixing.html">Unmixing coercivity spectra from backfield curves</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">VSM notebooks</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../VSM_backfield_unmixing.html">Unmixing coercivity spectra from backfield curves</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Thermomagnetic notebooks</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../high_T_susceptibility.html">Analysis of susceptibility-temperature, <span style="font-family: 'Times New Roman';"><em>(Kappabridge <span class="math notranslate nohighlight">\(\chi\)</span>-T)</em></span>, data</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Anisotropy notebooks</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../Anisotropy_plot_AMS.html">Plot and analyze anisotropy data (AMS)</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hysteresis loop notebooks</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../hysteresis_processing.html">Hysteresis Processing</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Rock Magnetic Bestiary notebooks</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../RMB_siderite.html">Siderite data within the Rock Magnetic Bestiary</a></li>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../thermomagnetic_notebooks/high_T_susceptibility.html">Analysis of susceptibility-temperature, <span style="font-family: 'Times New Roman';"><em>(Kappabridge <span class="math notranslate nohighlight">\(\chi\)</span>-T)</em></span>, data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../anisotropy_notebooks/anisotropy_plot_AMS.html">Plot and analyze anisotropy data (AMS)</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Background</span></p>
 <ul class="current nav bd-sidenav">
@@ -444,7 +431,7 @@ document.write(`
 <h2>Low-temperature remanence experiments<a class="headerlink" href="#low-temperature-remanence-experiments" title="Link to this heading">#</a></h2>
 <p>One typical low-temperature remanence experiment used in rock magnetic investigations involves imparting a saturating isothermal remanent magnetization at room temperature (300 K; RTSIRM) to a specimen, then cycling it from room temperature to low temperature and back again (typically 300 K → 10 K → 300 K). In the MagIC data model, the cooling of a RTSIRM to low temperature is denoted as the method code <code class="docutils literal notranslate"><span class="pre">LP-CW-SIRM:LP-MC</span></code>, with subsequent warming denoted as <code class="docutils literal notranslate"><span class="pre">LP-CW-SIRM:LP-MW</span></code>.</p>
 <p>Another common type of experiment is one in which a sample is cooled in zero field to low temperature (e.g., 10 K) and then given a saturation isothermal remanent magnetization (ZFC-LTSIRM). Alternatively, a field can be maintained throughout the cooling (field-cooled; FC-LTSIRM). After either a ZFC-LTSIRM or an FC-LTSIRM is imparted, the specimen is then warmed in the absence of an applied field from the low-temperature state up to room temperature (typically 10 K → 300 K). In the MagIC data model, a remanence-upon-warming experiment following an FC-LTSIRM is denoted with the method code <code class="docutils literal notranslate"><span class="pre">LP-FC</span></code>, and that following a ZFC-LTSIRM with <code class="docutils literal notranslate"><span class="pre">LP-ZFC</span></code>.</p>
-<p>The interpretation of low-temperature remanence experiments typically begins with visual inspection of plots of magnetization versus temperature and the associated first derivative. In <em>rockmagpy</em>, data associated with such experiments are extracted from MagIC-format measurement files and then visualized using static plots (via matplotlib) or interactive plots (via plotly). An example of this type of data visualization can be found within the <a class="reference internal" href="../../MPMS_plot_dc.html"><span class="std std-doc">MPMS_plot_dc.ipynb</span></a> notebook.</p>
+<p>The interpretation of low-temperature remanence experiments typically begins with visual inspection of plots of magnetization versus temperature and the associated first derivative. In <em>rockmagpy</em>, data associated with such experiments are extracted from MagIC-format measurement files and then visualized using static plots (via matplotlib) or interactive plots (via plotly). An example of this type of data visualization can be found within the <a class="reference internal" href="#../../MPMS_plot_dc.ipynb"><span class="xref myst">MPMS_plot_dc.ipynb</span></a> notebook.</p>
 </section>
 <hr class="docutils" />
 <section id="references">
@@ -495,12 +482,12 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../../RMB_siderite.html"
+       href="../../anisotropy_notebooks/anisotropy_plot_AMS.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Siderite data within the Rock Magnetic Bestiary</p>
+        <p class="prev-next-title">Plot and analyze anisotropy data (AMS)</p>
       </div>
     </a>
     <a class="right-next"
