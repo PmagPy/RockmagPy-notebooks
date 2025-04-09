@@ -27,9 +27,9 @@ parts:
         sections:
           - file: thermomagnetic_notebooks/high_T_susceptibility
       - file: anisotropy_notebooks/anisotropy_intro
-        title: Thermomagnetic notebooks
+        title: Anisotropy notebooks
         sections:
-          - file: thermomagnetic_notebooks/anisotropy_plot_AMS
+          - file: anisotropy_notebooks/anisotropy_plot_AMS
   - caption: Rock Magnetic Bestiary notebooks
     chapters:
       - file: RMB_siderite
