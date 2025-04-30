@@ -414,11 +414,11 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-data">Import data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-project-export-contains-data-from-all-the-experiments">The project export contains data from all the experiments</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#select-a-chi-t-experiment">Select a <span style="font-family: 'Times New Roman';"><em><span class="math notranslate nohighlight">\(\chi\)</span>-T</em></span> Experiment</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-chi-t-data-the-derivatives-and-inverse-chi-t">Plot <span class="math notranslate nohighlight">\(\chi\)</span>-T data, the derivatives, and inverse <span class="math notranslate nohighlight">\(\chi\)</span>-T</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-chi-t-data">Plot <span class="math notranslate nohighlight">\(\chi\)</span>-T data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-chi-t-data-with-smoothed-curve-and-derivative">Plot <span class="math notranslate nohighlight">\(\chi\)</span>-T data with smoothed curve and derivative</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-tc-using-inverse-susceptibility">Calculate <span style="font-family: 'Times New Roman';"><em>T<sub>c</sub></em></span> using inverse susceptibility</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-the-figures">Save the figures</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#determining-the-best-temperature-window-for-smoothing">Determining the best temperature window for smoothing</a></li>
 </ul>
             </nav>
@@ -433,321 +433,332 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="analysis-of-susceptibility-temperature-kappabridge-chi-t-data">
 <h1>Analysis of susceptibility-temperature, <span style="font-family: 'Times New Roman';"><em>(Kappabridge <span class="math notranslate nohighlight">\(\chi\)</span>-T)</em></span>, data<a class="headerlink" href="#analysis-of-susceptibility-temperature-kappabridge-chi-t-data" title="Link to this heading">#</a></h1>
-<p>This notebook allows the user to:</p>
-<p>(1) Download a contribution from the MagIC database.</p>
-<p>(2) Extract any susceptibility-temperature, <span style="font-family: 'Times New Roman';"><em><span class="math notranslate nohighlight">\(\chi\)</span>-T</em></span>, data contained within it.</p>
-<p>(3) Correct for the diamagnetic signal of the measurement instrument and holder (optional).</p>
-<p>(4) Smooth the data prior to further anaysis (optional).</p>
-<p>(5) Calculate first derivative and the inverse susceptibility of the curves for qualitatively estimating Curie temperatures.</p>
-<p>The notebook is to be run cell-by-cell to allow users to select corrections/filters as needed. The code below runs an example dataset from <a class="reference external" href="https://doi.org/10.1029/2021JB023789">Doctor and Feinberg (2022)</a>, Differential thermal analysis using high temperature susceptibility instruments, <em>Journal of Geophysical Research: Solid Earth</em>, which is MagiC contribution <a class="reference external" href="http://dx.doi.org/10.7288/V4/MAGIC/19369">19369</a>. Any MagIC contribution which contains <span style="font-family: 'Times New Roman';"><em><span class="math notranslate nohighlight">\(\chi\)</span>-T</em></span> data can be used in place of this example dataset.</p>
-<p><strong>Nota bene:</strong> We do not provide Curie Temperature estimation by the “two-tangent” method, as proposed for spontaneous magnetization  <span style="font-family: 'Times New Roman';"><em>M<sub>s</sub>(T)</em></span> curves by <a class="reference external" href="https://doi.org/10.1029/JB074i022p05277">Grommé et al. (1969)</a>. <a class="reference external" href="https://doi.org/10.1029/2012GC004440">Fabian et al. (2013)</a> explain this well:</p>
-<p><em>“The importance of the difference between determining <span style="font-family: 'Times New Roman';"><em>T<sub>c</sub></em></span> from <span style="font-family: 'Times New Roman';">M<sub>s</sub>(T)</span> and <span style="font-family: 'Times New Roman';"><em><span class="math notranslate nohighlight">\(\chi\)</span>-T</em></span> is pointed out by <a class="reference external" href="https://doi.org/10.1029/2006JB004507">Petrovský and Kapicka (2006)</a>, where methods to determine <span style="font-family: 'Times New Roman';">T<sub>c</sub></span> from measurements of the initial susceptibility are analyzed. They conclude that the two-tangent method is not suitable for <span style="font-family: 'Times New Roman';"><em><span class="math notranslate nohighlight">\(\chi\)</span>-T</em></span> and can considerably overestimate <span style="font-family: 'Times New Roman';">T<sub>c</sub></span>. The physical origin of  <span style="font-family: 'Times New Roman';"><em><span class="math notranslate nohighlight">\(\chi\)</span>-T</em></span> close to <span style="font-family: 'Times New Roman';">T<sub>c</sub></span> is more challenging than that of <span style="font-family: 'Times New Roman';">M<sub>s</sub>(T)</span>, because a number of low-field effects are important for <span style="font-family: 'Times New Roman';"><em><span class="math notranslate nohighlight">\(\chi\)</span>-T</em></span>, but become negligible in the higher fields used to infer <span style="font-family: 'Times New Roman';">M<sub>s</sub>(T)</span>. The variation of <span style="font-family: 'Times New Roman';">m</span> depends not only on the variation of <span style="font-family: 'Times New Roman';">M<sub>s</sub>(H,T)</span> with field  <span style="font-family: 'Times New Roman';">H</span>, it also contains a contribution from a rotation of the ordered moment with respect to an easy magnetization axis, and contributions from thermally activated switching of small independent – but already magnetically ordered – regions (e.g., SP particles). In large bulk material domain-wall movement contributes to <span style="font-family: 'Times New Roman';"><em><span class="math notranslate nohighlight">\(\chi\)</span>-T</em></span> even slightly below  <span style="font-family: 'Times New Roman';">Tc</span>. In nanoparticles the inhomogeneity of <span style="font-family: 'Times New Roman';">M<sub>s</sub></span>, due to the different exchangecoupling of inner and surface atoms, is of additional importance.”</em></p>
-<p>And from <a class="reference external" href="https://doi.org/10.1029/2006JB004507">Petrovský and Kapicka (2006)</a>:</p>
-<p><em>“…susceptibility for T [to] <span style="font-family: 'Times New Roman';"><em>T<sub>c</sub></em></span> and T &lt; <span style="font-family: 'Times New Roman';"><em>T<sub>c</sub></em></span> increases to infinity, and we have to use analytical formulas developed for susceptibility behavior above the Curie point. Here, due to the geometry of the susceptibility curve, the two-tangent method will always yield temperature above the inflection point, which is higher than the temperature at which the substance starts to obey the paramagnetic Curie-Weiss law. The resulting error in <span style="font-family: 'Times New Roman';"><em>T<sub>c</sub></em></span> (or <span style="font-family: 'Times New Roman';">T<sub>N</sub><sup>1</sup></span>) can be on the order of several degrees to several tens of degrees. Therefore, in the case of temperature dependence of magnetic susceptibility, application of the two-tangent method is not justified.”</em></p>
-<p>Furthermore:</p>
-<p><em>“In the case of synthetic magnetite and hematite, with sharp Hopkinson peak, the difference between transition
-temperatures determined using the two-tangent method and Curie-Weiss paramagnetic law is in the order of some few
-degrees. In the case of samples with wide susceptibility maximum and gradual decrease, reflecting e.g., wide distribution
-of grain sizes, or in the case of substituted hematite, application of the two-tangent method to susceptibility curves overestimates the transition temperature be several tens of degrees.”</em></p>
+<p>In this notebook a contribution is downloaded from the MagIC database. Susceptibility-temperature, <span style="font-family: 'Times New Roman';"><em><span class="math notranslate nohighlight">\(\chi\)</span>-T</em></span>, data contained within it are extracted. The user has the option to correct for the diamagnetic signal of the measurement instrument and holder (optional) and to smooth the data prior to further analysis (optional).</p>
+<p>The notebook is to be run cell-by-cell to allow users to select corrections/filters as needed. The code below brings in example magnetite data from the rock magnetic bestiary. Any MagIC contribution which contains <span style="font-family: 'Times New Roman';"><em><span class="math notranslate nohighlight">\(\chi\)</span>-T</em></span> data can be used in place of this example dataset.</p>
 <section id="install-and-import-packages">
 <h2>Install and import packages<a class="headerlink" href="#install-and-import-packages" title="Link to this heading">#</a></h2>
 <p>Click inside the cell below, hold shift and then press enter. This will automatically run the script below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">rockmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rmag</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">rockmag</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.rockmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rmag</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.ipmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ipmag</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.contribution_builder</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cb</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="import-data">
-<h2>Import data<a class="headerlink" href="#import-data" title="Link to this heading">#</a></h2>
-<p>We can take the same approach as in the <code class="docutils literal notranslate"><span class="pre">rockmag_data_unpack.ipynb</span></code> notebook to bring the MagIC data into the notebook as a Contribution.</p>
-<p>To bring in a different contribution than the one shown in this example:</p>
-<ul class="simple">
-<li><p>set the directory path (currently <code class="docutils literal notranslate"><span class="pre">'./example_data/X-T'</span></code>)</p></li>
-<li><p>set the <code class="docutils literal notranslate"><span class="pre">magic_id</span></code> (19369 for  <em>Doctor and Feinberg (2022)</em>)</p></li>
-<li><p>if the contribution is private, set the share key for your MagIC contribution which you can find by clicking on the “Share” button in the MagIC database.</p></li>
-</ul>
-<figure>
-  <img src="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/MagIC_private_contribution_1.png" alt="Description of the image" width="800">
-</figure>
-<p>Copy the share key highlighted in grey in the following image to the <code class="docutils literal notranslate"><span class="pre">share_key</span></code> parameter in the cell below.</p>
-<figure>
-  <img src="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/MagIC_private_contribution_2.png" alt="Description of the image" width="800">
-</figure><div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#define these three parameters to match your data</span>
-<span class="n">magic_id</span> <span class="o">=</span> <span class="s1">&#39;19369&#39;</span>
-<span class="n">share_key</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-<span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;example_data/X-T&#39;</span>
 
-<span class="n">result</span><span class="p">,</span> <span class="n">magic_file</span> <span class="o">=</span> <span class="n">ipmag</span><span class="o">.</span><span class="n">download_magic_from_id</span><span class="p">(</span><span class="n">magic_id</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">dir_path</span><span class="p">,</span> <span class="n">share_key</span><span class="o">=</span><span class="n">share_key</span><span class="p">)</span>
-<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="n">magic_file</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">)</span>
-<span class="n">contribution</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">Contribution</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
-<span class="n">measurements</span> <span class="o">=</span> <span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;measurements&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
-<span class="n">measurements</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">bokeh.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">output_notebook</span>
+<span class="n">output_notebook</span><span class="p">(</span><span class="n">hide_banner</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Download successful. File saved to: example_data/X-T/magic_contribution_19369.txt
-working on:  &#39;contribution&#39;
-1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/X-T/contribution.txt
-contribution  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/X-T/contribution.txt
-working on:  &#39;locations&#39;
-2  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/X-T/locations.txt
-locations  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/X-T/locations.txt
-working on:  &#39;sites&#39;
-6  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/X-T/sites.txt
-sites  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/X-T/sites.txt
-working on:  &#39;samples&#39;
-12  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/X-T/samples.txt
-samples  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/X-T/samples.txt
-working on:  &#39;specimens&#39;
-52  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/X-T/specimens.txt
-specimens  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/X-T/specimens.txt
-working on:  &#39;measurements&#39;
-20923  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/X-T/measurements.txt
-measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/X-T/measurements.txt
+<script type="application/javascript">(function(root) {
+  function now() {
+    return new Date();
+  }
+
+  const force = true;
+
+  if (typeof root._bokeh_onload_callbacks === "undefined" || force === true) {
+    root._bokeh_onload_callbacks = [];
+    root._bokeh_is_loading = undefined;
+  }
+
+const JS_MIME_TYPE = 'application/javascript';
+  const HTML_MIME_TYPE = 'text/html';
+  const EXEC_MIME_TYPE = 'application/vnd.bokehjs_exec.v0+json';
+  const CLASS_NAME = 'output_bokeh rendered_html';
+
+  /**
+   * Render data to the DOM node
+   */
+  function render(props, node) {
+    const script = document.createElement("script");
+    node.appendChild(script);
+  }
+
+  /**
+   * Handle when an output is cleared or removed
+   */
+  function handleClearOutput(event, handle) {
+    const cell = handle.cell;
+
+    const id = cell.output_area._bokeh_element_id;
+    const server_id = cell.output_area._bokeh_server_id;
+    // Clean up Bokeh references
+    if (id != null && id in Bokeh.index) {
+      Bokeh.index[id].model.document.clear();
+      delete Bokeh.index[id];
+    }
+
+    if (server_id !== undefined) {
+      // Clean up Bokeh references
+      const cmd_clean = "from bokeh.io.state import curstate; print(curstate().uuid_to_server['" + server_id + "'].get_sessions()[0].document.roots[0]._id)";
+      cell.notebook.kernel.execute(cmd_clean, {
+        iopub: {
+          output: function(msg) {
+            const id = msg.content.text.trim();
+            if (id in Bokeh.index) {
+              Bokeh.index[id].model.document.clear();
+              delete Bokeh.index[id];
+            }
+          }
+        }
+      });
+      // Destroy server and session
+      const cmd_destroy = "import bokeh.io.notebook as ion; ion.destroy_server('" + server_id + "')";
+      cell.notebook.kernel.execute(cmd_destroy);
+    }
+  }
+
+  /**
+   * Handle when a new output is added
+   */
+  function handleAddOutput(event, handle) {
+    const output_area = handle.output_area;
+    const output = handle.output;
+
+    // limit handleAddOutput to display_data with EXEC_MIME_TYPE content only
+    if ((output.output_type != "display_data") || (!Object.prototype.hasOwnProperty.call(output.data, EXEC_MIME_TYPE))) {
+      return
+    }
+
+    const toinsert = output_area.element.find("." + CLASS_NAME.split(' ')[0]);
+
+    if (output.metadata[EXEC_MIME_TYPE]["id"] !== undefined) {
+      toinsert[toinsert.length - 1].firstChild.textContent = output.data[JS_MIME_TYPE];
+      // store reference to embed id on output_area
+      output_area._bokeh_element_id = output.metadata[EXEC_MIME_TYPE]["id"];
+    }
+    if (output.metadata[EXEC_MIME_TYPE]["server_id"] !== undefined) {
+      const bk_div = document.createElement("div");
+      bk_div.innerHTML = output.data[HTML_MIME_TYPE];
+      const script_attrs = bk_div.children[0].attributes;
+      for (let i = 0; i < script_attrs.length; i++) {
+        toinsert[toinsert.length - 1].firstChild.setAttribute(script_attrs[i].name, script_attrs[i].value);
+        toinsert[toinsert.length - 1].firstChild.textContent = bk_div.children[0].textContent
+      }
+      // store reference to server id on output_area
+      output_area._bokeh_server_id = output.metadata[EXEC_MIME_TYPE]["server_id"];
+    }
+  }
+
+  function register_renderer(events, OutputArea) {
+
+    function append_mime(data, metadata, element) {
+      // create a DOM node to render to
+      const toinsert = this.create_output_subarea(
+        metadata,
+        CLASS_NAME,
+        EXEC_MIME_TYPE
+      );
+      this.keyboard_manager.register_events(toinsert);
+      // Render to node
+      const props = {data: data, metadata: metadata[EXEC_MIME_TYPE]};
+      render(props, toinsert[toinsert.length - 1]);
+      element.append(toinsert);
+      return toinsert
+    }
+
+    /* Handle when an output is cleared or removed */
+    events.on('clear_output.CodeCell', handleClearOutput);
+    events.on('delete.Cell', handleClearOutput);
+
+    /* Handle when a new output is added */
+    events.on('output_added.OutputArea', handleAddOutput);
+
+    /**
+     * Register the mime type and append_mime function with output_area
+     */
+    OutputArea.prototype.register_mime_type(EXEC_MIME_TYPE, append_mime, {
+      /* Is output safe? */
+      safe: true,
+      /* Index of renderer in `output_area.display_order` */
+      index: 0
+    });
+  }
+
+  // register the mime type if in Jupyter Notebook environment and previously unregistered
+  if (root.Jupyter !== undefined) {
+    const events = require('base/js/events');
+    const OutputArea = require('notebook/js/outputarea').OutputArea;
+
+    if (OutputArea.prototype.mime_types().indexOf(EXEC_MIME_TYPE) == -1) {
+      register_renderer(events, OutputArea);
+    }
+  }
+  if (typeof (root._bokeh_timeout) === "undefined" || force === true) {
+    root._bokeh_timeout = Date.now() + 5000;
+    root._bokeh_failed_load = false;
+  }
+
+  const NB_LOAD_WARNING = {'data': {'text/html':
+     "<div style='background-color: #fdd'>\n"+
+     "<p>\n"+
+     "BokehJS does not appear to have successfully loaded. If loading BokehJS from CDN, this \n"+
+     "may be due to a slow or bad network connection. Possible fixes:\n"+
+     "</p>\n"+
+     "<ul>\n"+
+     "<li>re-rerun `output_notebook()` to attempt to load from CDN again, or</li>\n"+
+     "<li>use INLINE resources instead, as so:</li>\n"+
+     "</ul>\n"+
+     "<code>\n"+
+     "from bokeh.resources import INLINE\n"+
+     "output_notebook(resources=INLINE)\n"+
+     "</code>\n"+
+     "</div>"}};
+
+  function display_loaded() {
+    const el = document.getElementById(null);
+    if (el != null) {
+      el.textContent = "BokehJS is loading...";
+    }
+    if (root.Bokeh !== undefined) {
+      if (el != null) {
+        el.textContent = "BokehJS " + root.Bokeh.version + " successfully loaded.";
+      }
+    } else if (Date.now() < root._bokeh_timeout) {
+      setTimeout(display_loaded, 100)
+    }
+  }
+
+  function run_callbacks() {
+    try {
+      root._bokeh_onload_callbacks.forEach(function(callback) {
+        if (callback != null)
+          callback();
+      });
+    } finally {
+      delete root._bokeh_onload_callbacks
+    }
+    console.debug("Bokeh: all callbacks have finished");
+  }
+
+  function load_libs(css_urls, js_urls, callback) {
+    if (css_urls == null) css_urls = [];
+    if (js_urls == null) js_urls = [];
+
+    root._bokeh_onload_callbacks.push(callback);
+    if (root._bokeh_is_loading > 0) {
+      console.debug("Bokeh: BokehJS is being loaded, scheduling callback at", now());
+      return null;
+    }
+    if (js_urls == null || js_urls.length === 0) {
+      run_callbacks();
+      return null;
+    }
+    console.debug("Bokeh: BokehJS not loaded, scheduling load and callback at", now());
+    root._bokeh_is_loading = css_urls.length + js_urls.length;
+
+    function on_load() {
+      root._bokeh_is_loading--;
+      if (root._bokeh_is_loading === 0) {
+        console.debug("Bokeh: all BokehJS libraries/stylesheets loaded");
+        run_callbacks()
+      }
+    }
+
+    function on_error(url) {
+      console.error("failed to load " + url);
+    }
+
+    for (let i = 0; i < css_urls.length; i++) {
+      const url = css_urls[i];
+      const element = document.createElement("link");
+      element.onload = on_load;
+      element.onerror = on_error.bind(null, url);
+      element.rel = "stylesheet";
+      element.type = "text/css";
+      element.href = url;
+      console.debug("Bokeh: injecting link tag for BokehJS stylesheet: ", url);
+      document.body.appendChild(element);
+    }
+
+    for (let i = 0; i < js_urls.length; i++) {
+      const url = js_urls[i];
+      const element = document.createElement('script');
+      element.onload = on_load;
+      element.onerror = on_error.bind(null, url);
+      element.async = false;
+      element.src = url;
+      console.debug("Bokeh: injecting script tag for BokehJS library: ", url);
+      document.head.appendChild(element);
+    }
+  };
+
+  function inject_raw_css(css) {
+    const element = document.createElement("style");
+    element.appendChild(document.createTextNode(css));
+    document.body.appendChild(element);
+  }
+
+  const js_urls = ["https://cdn.bokeh.org/bokeh/release/bokeh-2.4.3.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-gl-2.4.3.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.3.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.3.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-mathjax-2.4.3.min.js"];
+  const css_urls = [];
+
+  const inline_js = [    function(Bokeh) {
+      Bokeh.set_log_level("info");
+    },
+function(Bokeh) {
+    }
+  ];
+
+  function run_inline_js() {
+    if (root.Bokeh !== undefined || force === true) {
+          for (let i = 0; i < inline_js.length; i++) {
+      inline_js[i].call(root, root.Bokeh);
+    }
+} else if (Date.now() < root._bokeh_timeout) {
+      setTimeout(run_inline_js, 100);
+    } else if (!root._bokeh_failed_load) {
+      console.log("Bokeh: BokehJS failed to load within specified timeout.");
+      root._bokeh_failed_load = true;
+    } else if (force !== true) {
+      const cell = $(document.getElementById(null)).parents('.cell').data().cell;
+      cell.output_area.append_execute_result(NB_LOAD_WARNING)
+    }
+  }
+
+  if (root._bokeh_is_loading === 0) {
+    console.debug("Bokeh: BokehJS loaded, going straight to plotting");
+    run_inline_js();
+  } else {
+    load_libs(css_urls, js_urls, function() {
+      console.debug("Bokeh: BokehJS plotting callback run at", now());
+      run_inline_js();
+    });
+  }
+}(window));</script></div>
+</div>
+</section>
+<section id="import-data">
+<h2>Import data<a class="headerlink" href="#import-data" title="Link to this heading">#</a></h2>
+<p>We follow one of the approaches as in the <code class="docutils literal notranslate"><span class="pre">rockmag_data_unpack.ipynb</span></code> notebook to bring the MagIC data into the notebook as a Contribution.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#define these three parameters to match your data</span>
+<span class="n">magic_id</span> <span class="o">=</span> <span class="s1">&#39;20354&#39;</span>
+<span class="n">share_key</span> <span class="o">=</span> <span class="s1">&#39;2f33e164-df55-4548-8d28-5b715683ae43&#39;</span>
+<span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;example_data/X-T&#39;</span>
+
+<span class="n">result</span><span class="p">,</span> <span class="n">magic_file</span> <span class="o">=</span> <span class="n">ipmag</span><span class="o">.</span><span class="n">download_magic_from_id</span><span class="p">(</span><span class="n">magic_id</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">dir_path</span><span class="p">,</span> <span class="n">share_key</span><span class="o">=</span><span class="n">share_key</span><span class="p">)</span>
+<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="n">magic_file</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">,</span> <span class="n">print_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">contribution</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">Contribution</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
+<span class="n">measurements</span> <span class="o">=</span> <span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;measurements&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Download successful. File saved to: example_data/X-T/magic_contribution_20354.txt
+1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/thermomagnetic_notebooks/example_data/X-T/contribution.txt
+2  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/thermomagnetic_notebooks/example_data/X-T/locations.txt
+2  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/thermomagnetic_notebooks/example_data/X-T/sites.txt
+43  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/thermomagnetic_notebooks/example_data/X-T/samples.txt
+201  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/thermomagnetic_notebooks/example_data/X-T/specimens.txt
+92035  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/thermomagnetic_notebooks/example_data/X-T/measurements.txt
 -I- Using online data model
 -I- Getting method codes from earthref.org
 -I- Importing controlled vocabularies from https://earthref.org
 </pre></div>
 </div>
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>citations</th>
-      <th>experiment</th>
-      <th>instrument_codes</th>
-      <th>meas_field_ac</th>
-      <th>meas_freq</th>
-      <th>meas_temp</th>
-      <th>measurement</th>
-      <th>method_codes</th>
-      <th>quality</th>
-      <th>specimen</th>
-      <th>standard</th>
-      <th>susc_chi_mass</th>
-      <th>sequence</th>
-    </tr>
-    <tr>
-      <th>measurement name</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>IRM-KappaF-5928-1</th>
-      <td>This study</td>
-      <td>IRM-KappaF-5928</td>
-      <td>IRM-KappaF</td>
-      <td>0.000377</td>
-      <td>920</td>
-      <td>298.9</td>
-      <td>IRM-KappaF-5928-1</td>
-      <td>LP-X:LP-X-T</td>
-      <td>g</td>
-      <td>BHRS13-2B5L1A_01</td>
-      <td>u</td>
-      <td>0.000001</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>IRM-KappaF-5928-2</th>
-      <td>This study</td>
-      <td>IRM-KappaF-5928</td>
-      <td>IRM-KappaF</td>
-      <td>0.000377</td>
-      <td>920</td>
-      <td>302.3</td>
-      <td>IRM-KappaF-5928-2</td>
-      <td>LP-X:LP-X-T</td>
-      <td>g</td>
-      <td>BHRS13-2B5L1A_01</td>
-      <td>u</td>
-      <td>0.000001</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>IRM-KappaF-5928-3</th>
-      <td>This study</td>
-      <td>IRM-KappaF-5928</td>
-      <td>IRM-KappaF</td>
-      <td>0.000377</td>
-      <td>920</td>
-      <td>307.4</td>
-      <td>IRM-KappaF-5928-3</td>
-      <td>LP-X:LP-X-T</td>
-      <td>g</td>
-      <td>BHRS13-2B5L1A_01</td>
-      <td>u</td>
-      <td>0.000001</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>IRM-KappaF-5928-4</th>
-      <td>This study</td>
-      <td>IRM-KappaF-5928</td>
-      <td>IRM-KappaF</td>
-      <td>0.000377</td>
-      <td>920</td>
-      <td>312.3</td>
-      <td>IRM-KappaF-5928-4</td>
-      <td>LP-X:LP-X-T</td>
-      <td>g</td>
-      <td>BHRS13-2B5L1A_01</td>
-      <td>u</td>
-      <td>0.000001</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>IRM-KappaF-5928-5</th>
-      <td>This study</td>
-      <td>IRM-KappaF-5928</td>
-      <td>IRM-KappaF</td>
-      <td>0.000377</td>
-      <td>920</td>
-      <td>316.9</td>
-      <td>IRM-KappaF-5928-5</td>
-      <td>LP-X:LP-X-T</td>
-      <td>g</td>
-      <td>BHRS13-2B5L1A_01</td>
-      <td>u</td>
-      <td>0.000001</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>IRM-KappaF-5913-426</th>
-      <td>This study</td>
-      <td>IRM-KappaF-5913</td>
-      <td>IRM-KappaF</td>
-      <td>0.000377</td>
-      <td>920</td>
-      <td>328.4</td>
-      <td>IRM-KappaF-5913-426</td>
-      <td>LP-X:LP-X-T</td>
-      <td>g</td>
-      <td>vivian_A03</td>
-      <td>u</td>
-      <td>0.000001</td>
-      <td>20919</td>
-    </tr>
-    <tr>
-      <th>IRM-KappaF-5913-427</th>
-      <td>This study</td>
-      <td>IRM-KappaF-5913</td>
-      <td>IRM-KappaF</td>
-      <td>0.000377</td>
-      <td>920</td>
-      <td>326.6</td>
-      <td>IRM-KappaF-5913-427</td>
-      <td>LP-X:LP-X-T</td>
-      <td>g</td>
-      <td>vivian_A03</td>
-      <td>u</td>
-      <td>0.000001</td>
-      <td>20920</td>
-    </tr>
-    <tr>
-      <th>IRM-KappaF-5913-428</th>
-      <td>This study</td>
-      <td>IRM-KappaF-5913</td>
-      <td>IRM-KappaF</td>
-      <td>0.000377</td>
-      <td>920</td>
-      <td>325.0</td>
-      <td>IRM-KappaF-5913-428</td>
-      <td>LP-X:LP-X-T</td>
-      <td>g</td>
-      <td>vivian_A03</td>
-      <td>u</td>
-      <td>0.000001</td>
-      <td>20921</td>
-    </tr>
-    <tr>
-      <th>IRM-KappaF-5913-429</th>
-      <td>This study</td>
-      <td>IRM-KappaF-5913</td>
-      <td>IRM-KappaF</td>
-      <td>0.000377</td>
-      <td>920</td>
-      <td>323.6</td>
-      <td>IRM-KappaF-5913-429</td>
-      <td>LP-X:LP-X-T</td>
-      <td>g</td>
-      <td>vivian_A03</td>
-      <td>u</td>
-      <td>0.000001</td>
-      <td>20922</td>
-    </tr>
-    <tr>
-      <th>IRM-KappaF-5913-430</th>
-      <td>This study</td>
-      <td>IRM-KappaF-5913</td>
-      <td>IRM-KappaF</td>
-      <td>0.000377</td>
-      <td>920</td>
-      <td>321.9</td>
-      <td>IRM-KappaF-5913-430</td>
-      <td>LP-X:LP-X-T</td>
-      <td>g</td>
-      <td>vivian_A03</td>
-      <td>u</td>
-      <td>0.000001</td>
-      <td>20923</td>
-    </tr>
-  </tbody>
-</table>
-<p>20923 rows × 13 columns</p>
-</div></div></div>
+</div>
 </div>
 </section>
 <section id="the-project-export-contains-data-from-all-the-experiments">
@@ -760,12 +771,7 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">measurements</span><span class="o">.</span><span class="n">method_codes</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;LP-X:LP-X-T&#39;, &#39;LP-X-T&#39;], dtype=object)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">measurements</span> <span class="o">=</span> <span class="n">measurements</span><span class="p">[</span><span class="n">measurements</span><span class="p">[</span><span class="s1">&#39;method_codes&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;LP-X-T&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -781,87 +787,200 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "c55f6ebaa5a740c1adb75bd7adc7923d", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "25c42e9a4da94c6bbc2b22bab264229f", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "37a65ceaba9a41fb95601426fe7042af", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "f126ad2b81584a6f8a83ecfda812b7e5", "version_major": 2, "version_minor": 0}</script></div>
 </div>
+</section>
+<section id="plot-chi-t-data">
+<h2>Plot <span class="math notranslate nohighlight">\(\chi\)</span>-T data<a class="headerlink" href="#plot-chi-t-data" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected_experiment</span> <span class="o">=</span> <span class="n">measurements</span><span class="p">[(</span><span class="n">measurements</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">specimen</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">&amp;</span> 
                                       <span class="p">(</span><span class="n">measurements</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">experiment</span><span class="o">.</span><span class="n">value</span><span class="p">)]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">rmag</span><span class="o">.</span><span class="n">plot_X_T</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> 
+              <span class="n">temp_unit</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> 
+              <span class="n">remove_holder</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+              <span class="n">plot_smoothed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+              <span class="n">plot_derivative</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+              <span class="n">plot_inverse</span><span class="o">=</span><span class="kc">False</span><span class="p">,)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div class="bk-root" id="c21ce647-5de5-4fac-837f-e4b02d6232c5" data-root-id="1542"></div>
+</div><script type="application/javascript">(function(root) {
+  function embed_document(root) {
+  const docs_json = {"b6edc408-c3ac-4bbc-ae8b-ab98840412f1":{"defs":[],"roots":{"references":[{"attributes":{"background_fill_color":"white","below":[{"id":"1553"}],"center":[{"id":"1556"},{"id":"1560"},{"id":"1589"}],"height":556,"left":[{"id":"1557"}],"outline_line_color":"black","renderers":[{"id":"1577"},{"id":"1595"}],"title":{"id":"1543"},"toolbar":{"id":"1567"},"width":900,"x_range":{"id":"1545"},"x_scale":{"id":"1549"},"y_range":{"id":"1547"},"y_scale":{"id":"1551"}},"id":"1542","subtype":"Figure","type":"Plot"},{"attributes":{},"id":"1549","type":"LinearScale"},{"attributes":{},"id":"1564","type":"ResetTool"},{"attributes":{},"id":"1565","type":"SaveTool"},{"attributes":{},"id":"1607","type":"Selection"},{"attributes":{},"id":"1562","type":"WheelZoomTool"},{"attributes":{"coordinates":null,"group":null,"text":"magnetite_Wright 112982-k(T)-02"},"id":"1543","type":"Title"},{"attributes":{"data":{"x":[698.0500000000001,697.5500000000001,695.5500000000001,694.15,692.35,690.25,688.95,686.65,684.35,681.95,680.85,679.0500000000001,676.5500000000001,674.45,672.35,669.5500000000001,666.75,664.0500000000001,661.65,659.75,657.0500000000001,654.95,652.35,650.0500000000001,647.95,645.35,642.15,639.0500000000001,636.45,633.65,631.0500000000001,628.25,625.65,623.0500000000001,620.45,617.95,615.0500000000001,612.45,609.85,606.75,604.15,601.0500000000001,598.65,595.5500000000001,592.45,589.85,586.75,584.15,580.95,578.35,575.75,573.0500000000001,570.35,567.25,563.85,560.75,557.5500000000001,554.25,550.5500000000001,547.95,544.75,541.5500000000001,538.35,535.45,531.75,528.15,524.45,521.25,517.75,513.85,510.35,507.35,503.45000000000005,499.95000000000005,496.75,493.25,490.05000000000007,485.75,482.75,479.05000000000007,474.95000000000005,471.45000000000005,466.75,462.85,459.35,455.35,451.75,447.25,444.15,440.05000000000007,436.25,433.15,429.55000000000007,426.45000000000005,422.85,419.55000000000007,416.15,412.05000000000007,409.45000000000005,405.55000000000007,402.15,398.55000000000007,395.15,391.75,388.35,385.15,381.25,377.65,373.95000000000005,370.65,366.45000000000005,363.55000000000007,360.35,357.15,353.45000000000005,349.95000000000005,346.45000000000005,342.15,339.15,334.85,331.35,327.45000000000005,323.45000000000005,319.95000000000005,316.25,312.75,309.15,305.85,303.05000000000007,300.05000000000007,296.45000000000005,292.65,288.65,285.05000000000007,280.75,276.85,272.95000000000005,269.45000000000005,265.45000000000005,261.95000000000005,258.25,254.85000000000002,251.95000000000005,247.85000000000002,244.35000000000002,240.25,237.35000000000002,234.75,230.85000000000002,227.35000000000002,223.75,220.15000000000003,216.55,212.65000000000003,208.05,204.25,200.95000000000005,197.35000000000002,193.95000000000005,190.85000000000002,187.75,184.95000000000005,181.45000000000005,179.25,174.95000000000005,171.45000000000005,168.55,164.75,161.55,158.25,155.75,152.75,149.15000000000003,145.85000000000002,142.55,139.85000000000002,136.85000000000002,133.45000000000005,130.45000000000005,127.35000000000002,124.35000000000002,121.55000000000001,118.85000000000002,115.65000000000003,112.85000000000002,109.65000000000003,107.15000000000003,104.35000000000002,100.75,98.25,96.05000000000001,92.75,90.95000000000005,88.25,85.35000000000002,82.75,80.45000000000005,77.75,74.65000000000003,71.95000000000005,69.65000000000003,66.95000000000005,65.35000000000002,62.55000000000001,60.55000000000001,57.35000000000002,56.150000000000034,54.05000000000001,51.950000000000045,50.05000000000001,47.55000000000001],"y":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,9.030000000000001e-07,0.0,0.0,0.0,0.0,0.0,0.0,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,1.805e-06,1.805e-06,1.805e-06,1.805e-06,1.805e-06,2.7079999999999997e-06,2.7079999999999997e-06,3.6099999999999997e-06,3.6099999999999997e-06,5.415e-06,1.1735e-05,2.1665e-05,3.8805e-05,7.2205e-05,0.000128195,0.000246395,0.000486495,0.0007968949999999999,0.001001195,0.001048195,0.001053195,0.001051195,0.001048195,0.0010461950000000002,0.001043195,0.001040195,0.001038195,0.0010361950000000002,0.001033195,0.0010311950000000002,0.0010291950000000001,0.001027195,0.001025195,0.001022195,0.0010211950000000001,0.001019195,0.001017195,0.0010161950000000001,0.001014195,0.001012195,0.001012195,0.0010101950000000002,0.001009195,0.001007195,0.0010051950000000002,0.001004195,0.0010031950000000001,0.001001195,0.0010001950000000002,0.0009981950000000001,0.000997295,0.000995495,0.000994595,0.000992795,0.000991895,0.000990095,0.000989195,0.0009882950000000001,0.000987395,0.000986495,0.000984695,0.0009837950000000002,0.0009828950000000001,0.0009810950000000002,0.000980095,0.0009791950000000002,0.0009782950000000001,0.000977395,0.000975595,0.000974695,0.000973795,0.000972895,0.0009710949999999999,0.000970195,0.000969295,0.000967495,0.000966595,0.000965695,0.000964795,0.000963895,0.0009620949999999999,0.000961195,0.000959395,0.000958495,0.000957595,0.000955795,0.000954895,0.0009530949999999999,0.000952195,0.000950395,0.000949495,0.000948595,0.000946795,0.000945895,0.000943995,0.000943095,0.000941295,0.0009394949999999999,0.000938595,0.000936795,0.000934995,0.000934095,0.000932295,0.0009304949999999999,0.000928695,0.000927795,0.000925995,0.0009241949999999999,0.000923295,0.000921495,0.000919695,0.000917895,0.000916095,0.0009151949999999999,0.000913395,0.000911595,0.000909795,0.000907895,0.000906095,0.000904295,0.000902495,0.000900695,0.000898895,0.000897095,0.0008952949999999999,0.000893495,0.000891695,0.000889895,0.000888095,0.0008862949999999999,0.000884495,0.000883595,0.000881795,0.000879995,0.000879095,0.0008772949999999999,0.000876395,0.000874595,0.000873695,0.0008726949999999999,0.000871795,0.000869995,0.000869095,0.000868195,0.000868195,0.000867295,0.000866395,0.000865495,0.000864595,0.000864595,0.0008636949999999999,0.0008636949999999999,0.000862795,0.000862795,0.000861895,0.000861895,0.000860995,0.000860995,0.000860995,0.000860095,0.000860095,0.000860095,0.000860095,0.000859195,0.000859195,0.000859195,0.000858295,0.000858295,0.000858295,0.000858295,0.000858295,0.000858295,0.0008573949999999999,0.0008573949999999999,0.0008573949999999999,0.0008573949999999999]},"selected":{"id":"1607"},"selection_policy":{"id":"1606"}},"id":"1591","type":"ColumnDataSource"},{"attributes":{"axis":{"id":"1553"},"coordinates":null,"grid_line_color":"lightgray","group":null,"ticker":null},"id":"1556","type":"Grid"},{"attributes":{},"id":"1606","type":"UnionRenderers"},{"attributes":{},"id":"1558","type":"BasicTicker"},{"attributes":{"axis":{"id":"1557"},"coordinates":null,"dimension":1,"grid_line_color":"lightgray","group":null,"ticker":null},"id":"1560","type":"Grid"},{"attributes":{"fill_alpha":{"value":0.2},"fill_color":{"value":"blue"},"hatch_alpha":{"value":0.2},"hatch_color":{"value":"blue"},"line_alpha":{"value":0.2},"line_color":{"value":"blue"},"size":{"value":6},"x":{"field":"x"},"y":{"field":"y"}},"id":"1594","type":"Circle"},{"attributes":{},"id":"1581","type":"BasicTickFormatter"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"blue"},"hatch_alpha":{"value":0.1},"hatch_color":{"value":"blue"},"line_alpha":{"value":0.1},"line_color":{"value":"blue"},"size":{"value":6},"x":{"field":"x"},"y":{"field":"y"}},"id":"1593","type":"Circle"},{"attributes":{"fill_alpha":{"value":0.5},"fill_color":{"value":"blue"},"hatch_alpha":{"value":0.5},"hatch_color":{"value":"blue"},"line_alpha":{"value":0.5},"line_color":{"value":"blue"},"size":{"value":6},"x":{"field":"x"},"y":{"field":"y"}},"id":"1592","type":"Circle"},{"attributes":{"coordinates":null,"group":null,"items":[{"id":"1590"},{"id":"1609"}],"location":"top_left"},"id":"1589","type":"Legend"},{"attributes":{},"id":"1582","type":"AllLabels"},{"attributes":{"bottom_units":"screen","coordinates":null,"fill_alpha":0.5,"fill_color":"lightgrey","group":null,"left_units":"screen","level":"overlay","line_alpha":1.0,"line_color":"black","line_dash":[4,4],"line_width":2,"right_units":"screen","syncable":false,"top_units":"screen"},"id":"1566","type":"BoxAnnotation"},{"attributes":{},"id":"1561","type":"PanTool"},{"attributes":{},"id":"1545","type":"DataRange1d"},{"attributes":{},"id":"1584","type":"BasicTickFormatter"},{"attributes":{"source":{"id":"1573"}},"id":"1578","type":"CDSView"},{"attributes":{},"id":"1551","type":"LinearScale"},{"attributes":{"fill_alpha":{"value":0.5},"fill_color":{"value":"red"},"hatch_alpha":{"value":0.5},"hatch_color":{"value":"red"},"line_alpha":{"value":0.5},"line_color":{"value":"red"},"size":{"value":6},"x":{"field":"x"},"y":{"field":"y"}},"id":"1574","type":"Circle"},{"attributes":{"overlay":{"id":"1566"}},"id":"1563","type":"BoxZoomTool"},{"attributes":{},"id":"1585","type":"AllLabels"},{"attributes":{"data":{"x":[20.25,25.25,31.950000000000045,38.55000000000001,43.25,48.75,53.650000000000034,57.75,60.950000000000045,63.75,67.35000000000002,70.45000000000005,73.15000000000003,76.55000000000001,79.35000000000002,82.35000000000002,84.95000000000005,87.55000000000001,89.85000000000002,91.65000000000003,94.15000000000003,96.85000000000002,99.65000000000003,102.25,104.35000000000002,107.15000000000003,110.05000000000001,112.85000000000002,115.65000000000003,118.45000000000005,121.55000000000001,124.65000000000003,126.75,130.05,132.75,135.85000000000002,138.85000000000002,141.55,144.85000000000002,146.55,150.05,152.45000000000005,156.05,158.55,161.85000000000002,165.05,167.95000000000005,170.75,173.65000000000003,176.85000000000002,179.55,182.75,185.95000000000005,189.25,192.65000000000003,196.05,199.45000000000005,202.45000000000005,206.45000000000005,209.95000000000005,214.15000000000003,217.45000000000005,219.85000000000002,223.15000000000003,225.85000000000002,229.05,232.35000000000002,235.85000000000002,239.14999999999998,242.05000000000007,244.95000000000005,248.14999999999998,251.95000000000005,254.85000000000002,258.05000000000007,261.45000000000005,264.85,268.65,272.05000000000007,276.05000000000007,279.65,282.75,285.85,289.25,293.75,296.75,300.35,302.95000000000005,305.05000000000007,309.15,312.55000000000007,316.05000000000007,319.35,322.85,326.65,330.25,333.75,337.55000000000007,340.85,344.05000000000007,347.25,350.75,353.95000000000005,356.65,360.35,363.55000000000007,367.25,370.45000000000005,373.65,377.35,380.25,383.15,386.45000000000005,389.65,392.85,396.45000000000005,399.35,402.45000000000005,406.05000000000007,408.95000000000005,412.55000000000007,415.65,418.75,422.05000000000007,425.65,428.55000000000007,431.85,434.95000000000005,438.85,442.05000000000007,445.65,448.95000000000005,452.55000000000007,456.85,460.15,463.65,466.95000000000005,470.75,474.25,477.55000000000007,481.05000000000007,483.55000000000007,486.25,489.75,493.25,496.75,499.95000000000005,503.25,506.35,509.55000000000007,513.35,516.85,520.45,522.95,526.35,529.5500000000001,532.5500000000001,535.95,538.85,541.75,544.45,547.65,550.25,553.25,556.15,559.0500000000001,562.65,565.85,569.15,572.5500000000001,575.25,577.85,580.95,584.15,586.75,589.5500000000001,592.45,594.65,597.25,600.15,602.45,605.5500000000001,607.95,611.0500000000001,613.85,616.45,619.35,622.65,624.45,627.5500000000001,630.5500000000001,632.95,636.25,638.5500000000001,642.15,644.45,647.95,650.5500000000001,653.25,656.15,658.25,661.15,664.65,666.75,669.85,672.75,675.35,678.35,680.65,684.5500000000001,686.65,689.15,692.35,696.15,697.35,697.75,698.95,699.65],"y":[0.000795095,0.000795995,0.0007968949999999999,0.000797795,0.000799595,0.000800495,0.000802395,0.000803295,0.000804195,0.000805995,0.000806895,0.0008077949999999999,0.000808695,0.000809595,0.0008104949999999999,0.000811395,0.000812295,0.000814095,0.000814995,0.000815895,0.000815895,0.0008167949999999999,0.000818595,0.000818595,0.000820395,0.000821295,0.000822195,0.000823095,0.000823995,0.000824895,0.000826695,0.000827595,0.000828495,0.000829395,0.000830295,0.000832095,0.000832995,0.000833895,0.000835695,0.000836595,0.000837595,0.000838495,0.0008393949999999999,0.000840295,0.000842095,0.000842995,0.000843895,0.000844795,0.0008456949999999999,0.000846595,0.000847495,0.0008483949999999999,0.000849295,0.000851095,0.000851995,0.000852895,0.000853795,0.0008546949999999999,0.000855595,0.000856495,0.0008573949999999999,0.000858295,0.000859195,0.000860995,0.000861895,0.000862795,0.0008636949999999999,0.000865495,0.000866395,0.000867295,0.000868195,0.000869995,0.000870895,0.0008726949999999999,0.000873695,0.000874595,0.000876395,0.0008772949999999999,0.000879095,0.000880895,0.000881795,0.000883595,0.000884495,0.0008862949999999999,0.000887195,0.000888995,0.000890795,0.000891695,0.000893495,0.000894395,0.000896195,0.000897095,0.000898895,0.000899795,0.000900695,0.000902495,0.000903395,0.000905195,0.000906095,0.000907895,0.000908795,0.000909795,0.000910695,0.000912495,0.000913395,0.000914295,0.0009151949999999999,0.000916995,0.000917895,0.000918795,0.000919695,0.000920595,0.000921495,0.000922395,0.0009241949999999999,0.000925095,0.000925995,0.000926895,0.000927795,0.000929595,0.0009304949999999999,0.000931395,0.000932295,0.0009331949999999999,0.000934995,0.000935895,0.000936795,0.000938595,0.0009394949999999999,0.000941295,0.000943095,0.000944995,0.000946795,0.000948595,0.000950395,0.000952195,0.000953995,0.000955795,0.000957595,0.000959395,0.000961195,0.000962995,0.000964795,0.000967495,0.000969295,0.0009710949999999999,0.000972895,0.000975595,0.000977395,0.000980095,0.000981995,0.000984695,0.000987395,0.000990095,0.000991895,0.000994595,0.000997295,0.0010001950000000002,0.0010031950000000001,0.001006195,0.0010101950000000002,0.001012195,0.0010161950000000001,0.001020195,0.0010231950000000002,0.001027195,0.001030195,0.0010291950000000001,0.001006195,0.000927795,0.000729195,0.000408795,0.00019129500000000002,9.7475e-05,4.7835e-05,2.2564999999999998e-05,9.924999999999999e-06,6.3179999999999995e-06,4.513000000000001e-06,3.6099999999999997e-06,2.7079999999999997e-06,2.7079999999999997e-06,1.805e-06,1.805e-06,1.805e-06,1.805e-06,1.805e-06,1.805e-06,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,0.0,0.0,9.030000000000001e-07,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"selected":{"id":"1587"},"selection_policy":{"id":"1586"}},"id":"1573","type":"ColumnDataSource"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"red"},"hatch_alpha":{"value":0.1},"hatch_color":{"value":"red"},"line_alpha":{"value":0.1},"line_color":{"value":"red"},"size":{"value":6},"x":{"field":"x"},"y":{"field":"y"}},"id":"1575","type":"Circle"},{"attributes":{},"id":"1547","type":"DataRange1d"},{"attributes":{"fill_alpha":{"value":0.2},"fill_color":{"value":"red"},"hatch_alpha":{"value":0.2},"hatch_color":{"value":"red"},"line_alpha":{"value":0.2},"line_color":{"value":"red"},"size":{"value":6},"x":{"field":"x"},"y":{"field":"y"}},"id":"1576","type":"Circle"},{"attributes":{},"id":"1554","type":"BasicTicker"},{"attributes":{"tools":[{"id":"1561"},{"id":"1562"},{"id":"1563"},{"id":"1564"},{"id":"1565"},{"id":"1610"},{"id":"1612"}]},"id":"1567","type":"Toolbar"},{"attributes":{"axis_label":"Temperature (\u00b0C)","coordinates":null,"formatter":{"id":"1584"},"group":null,"major_label_policy":{"id":"1585"},"ticker":{"id":"1554"}},"id":"1553","type":"LinearAxis"},{"attributes":{"axis_label":"k (m\u00b3 kg\u207b\u00b9)","coordinates":null,"formatter":{"id":"1581"},"group":null,"major_label_policy":{"id":"1582"},"ticker":{"id":"1558"}},"id":"1557","type":"LinearAxis"},{"attributes":{"label":{"value":"Cooling"},"renderers":[{"id":"1595"}]},"id":"1609","type":"LegendItem"},{"attributes":{},"id":"1586","type":"UnionRenderers"},{"attributes":{"coordinates":null,"data_source":{"id":"1573"},"glyph":{"id":"1574"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"1576"},"nonselection_glyph":{"id":"1575"},"view":{"id":"1578"}},"id":"1577","type":"GlyphRenderer"},{"attributes":{"label":{"value":"Heating"},"renderers":[{"id":"1577"}]},"id":"1590","type":"LegendItem"},{"attributes":{},"id":"1587","type":"Selection"},{"attributes":{"source":{"id":"1591"}},"id":"1596","type":"CDSView"},{"attributes":{"coordinates":null,"data_source":{"id":"1591"},"glyph":{"id":"1592"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"1594"},"nonselection_glyph":{"id":"1593"},"view":{"id":"1596"}},"id":"1595","type":"GlyphRenderer"},{"attributes":{"callback":null,"renderers":[{"id":"1595"}],"tooltips":[["T","@x"],["Cooling X","@y"]]},"id":"1612","type":"HoverTool"},{"attributes":{"callback":null,"renderers":[{"id":"1577"}],"tooltips":[["T","@x"],["Heating X","@y"]]},"id":"1610","type":"HoverTool"}],"root_ids":["1542"]},"title":"Bokeh Application","version":"2.4.3"}};
+  const render_items = [{"docid":"b6edc408-c3ac-4bbc-ae8b-ab98840412f1","root_ids":["1542"],"roots":{"1542":"c21ce647-5de5-4fac-837f-e4b02d6232c5"}}];
+  root.Bokeh.embed.embed_items_notebook(docs_json, render_items);
+  }
+  if (root.Bokeh !== undefined) {
+    embed_document(root);
+  } else {
+    let attempts = 0;
+    const timer = setInterval(function(root) {
+      if (root.Bokeh !== undefined) {
+        clearInterval(timer);
+        embed_document(root);
+      } else {
+        attempts++;
+        if (attempts > 100) {
+          clearInterval(timer);
+          console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+        }
+      }
+    }, 10, root)
+  }
+})(window);</script></div>
+</div>
+</section>
+<section id="plot-chi-t-data-with-smoothed-curve-and-derivative">
+<h2>Plot <span class="math notranslate nohighlight">\(\chi\)</span>-T data with smoothed curve and derivative<a class="headerlink" href="#plot-chi-t-data-with-smoothed-curve-and-derivative" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected_experiment</span> <span class="o">=</span> <span class="n">measurements</span><span class="p">[</span><span class="n">measurements</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;IRM-KappaF-LP-X-T-3410&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">rmag</span><span class="o">.</span><span class="n">plot_X_T</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> 
+              <span class="n">temp_unit</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> 
+              <span class="n">remove_holder</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+              <span class="n">plot_smoothed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">plot_derivative</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+              <span class="n">plot_inverse</span><span class="o">=</span><span class="kc">False</span><span class="p">,)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div class="bk-root" id="f7d7a3e9-1a81-460b-9770-542386e016b8" data-root-id="1990"></div>
+</div><script type="application/javascript">(function(root) {
+  function embed_document(root) {
+  const docs_json = {"729583f8-69b5-4ca7-a089-ac1fcab7718a":{"defs":[],"roots":{"references":[{"attributes":{"background_fill_color":"white","below":[{"id":"2001"}],"center":[{"id":"2004"},{"id":"2008"},{"id":"2037"}],"height":556,"left":[{"id":"2005"}],"outline_line_color":"black","renderers":[{"id":"2025"},{"id":"2043"},{"id":"2062"},{"id":"2083"}],"title":{"id":"1991"},"toolbar":{"id":"2015"},"width":900,"x_range":{"id":"1993"},"x_scale":{"id":"1997"},"y_range":{"id":"1995"},"y_scale":{"id":"1999"}},"id":"1990","subtype":"Figure","type":"Plot"},{"attributes":{"fill_alpha":{"value":0.2},"fill_color":{"value":"red"},"hatch_alpha":{"value":0.2},"hatch_color":{"value":"red"},"line_alpha":{"value":0.2},"line_color":{"value":"red"},"size":{"value":6},"x":{"field":"x"},"y":{"field":"y"}},"id":"2024","type":"Circle"},{"attributes":{"coordinates":null,"data_source":{"id":"2021"},"glyph":{"id":"2022"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"2024"},"nonselection_glyph":{"id":"2023"},"view":{"id":"2026"}},"id":"2025","type":"GlyphRenderer"},{"attributes":{},"id":"2009","type":"PanTool"},{"attributes":{"coordinates":null,"group":null,"items":[{"id":"2038"},{"id":"2057"},{"id":"2078"},{"id":"2101"}],"location":"top_left"},"id":"2037","type":"Legend"},{"attributes":{},"id":"2006","type":"BasicTicker"},{"attributes":{},"id":"2034","type":"UnionRenderers"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"red"},"hatch_alpha":{"value":0.1},"hatch_color":{"value":"red"},"line_alpha":{"value":0.1},"line_color":{"value":"red"},"size":{"value":6},"x":{"field":"x"},"y":{"field":"y"}},"id":"2023","type":"Circle"},{"attributes":{},"id":"2002","type":"BasicTicker"},{"attributes":{"coordinates":null,"group":null,"text":"magnetite_Wright 112982-k(T)-02"},"id":"1991","type":"Title"},{"attributes":{},"id":"2035","type":"Selection"},{"attributes":{"coordinates":null,"data_source":{"id":"2079"},"glyph":{"id":"2080"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"2082"},"nonselection_glyph":{"id":"2081"},"view":{"id":"2084"}},"id":"2083","type":"GlyphRenderer"},{"attributes":{"coordinates":null,"data_source":{"id":"2058"},"glyph":{"id":"2059"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"2061"},"nonselection_glyph":{"id":"2060"},"view":{"id":"2063"}},"id":"2062","type":"GlyphRenderer"},{"attributes":{"callback":null,"renderers":[{"id":"2025"},{"id":"2062"}],"tooltips":[["T","@x"],["Heating X","@y"]]},"id":"2102","type":"HoverTool"},{"attributes":{"axis_label":"k (m\u00b3 kg\u207b\u00b9)","coordinates":null,"formatter":{"id":"2029"},"group":null,"major_label_policy":{"id":"2030"},"ticker":{"id":"2006"}},"id":"2005","type":"LinearAxis"},{"attributes":{"fill_alpha":{"value":0.5},"fill_color":{"value":"blue"},"hatch_alpha":{"value":0.5},"hatch_color":{"value":"blue"},"line_alpha":{"value":0.5},"line_color":{"value":"blue"},"size":{"value":6},"x":{"field":"x"},"y":{"field":"y"}},"id":"2040","type":"Circle"},{"attributes":{"callback":null,"renderers":[{"id":"2043"},{"id":"2083"}],"tooltips":[["T","@x"],["Cooling X","@y"]]},"id":"2104","type":"HoverTool"},{"attributes":{"line_color":"red","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"2059","type":"Line"},{"attributes":{"fill_alpha":{"value":0.2},"fill_color":{"value":"blue"},"hatch_alpha":{"value":0.2},"hatch_color":{"value":"blue"},"line_alpha":{"value":0.2},"line_color":{"value":"blue"},"size":{"value":6},"x":{"field":"x"},"y":{"field":"y"}},"id":"2042","type":"Circle"},{"attributes":{"data":{"x":[698.0500000000001,697.5500000000001,695.5500000000001,694.15,692.35,690.25,688.95,686.65,684.35,681.95,680.85,679.0500000000001,676.5500000000001,674.45,672.35,669.5500000000001,666.75,664.0500000000001,661.65,659.75,657.0500000000001,654.95,652.35,650.0500000000001,647.95,645.35,642.15,639.0500000000001,636.45,633.65,631.0500000000001,628.25,625.65,623.0500000000001,620.45,617.95,615.0500000000001,612.45,609.85,606.75,604.15,601.0500000000001,598.65,595.5500000000001,592.45,589.85,586.75,584.15,580.95,578.35,575.75,573.0500000000001,570.35,567.25,563.85,560.75,557.5500000000001,554.25,550.5500000000001,547.95,544.75,541.5500000000001,538.35,535.45,531.75,528.15,524.45,521.25,517.75,513.85,510.35,507.35,503.45000000000005,499.95000000000005,496.75,493.25,490.05000000000007,485.75,482.75,479.05000000000007,474.95000000000005,471.45000000000005,466.75,462.85,459.35,455.35,451.75,447.25,444.15,440.05000000000007,436.25,433.15,429.55000000000007,426.45000000000005,422.85,419.55000000000007,416.15,412.05000000000007,409.45000000000005,405.55000000000007,402.15,398.55000000000007,395.15,391.75,388.35,385.15,381.25,377.65,373.95000000000005,370.65,366.45000000000005,363.55000000000007,360.35,357.15,353.45000000000005,349.95000000000005,346.45000000000005,342.15,339.15,334.85,331.35,327.45000000000005,323.45000000000005,319.95000000000005,316.25,312.75,309.15,305.85,303.05000000000007,300.05000000000007,296.45000000000005,292.65,288.65,285.05000000000007,280.75,276.85,272.95000000000005,269.45000000000005,265.45000000000005,261.95000000000005,258.25,254.85000000000002,251.95000000000005,247.85000000000002,244.35000000000002,240.25,237.35000000000002,234.75,230.85000000000002,227.35000000000002,223.75,220.15000000000003,216.55,212.65000000000003,208.05,204.25,200.95000000000005,197.35000000000002,193.95000000000005,190.85000000000002,187.75,184.95000000000005,181.45000000000005,179.25,174.95000000000005,171.45000000000005,168.55,164.75,161.55,158.25,155.75,152.75,149.15000000000003,145.85000000000002,142.55,139.85000000000002,136.85000000000002,133.45000000000005,130.45000000000005,127.35000000000002,124.35000000000002,121.55000000000001,118.85000000000002,115.65000000000003,112.85000000000002,109.65000000000003,107.15000000000003,104.35000000000002,100.75,98.25,96.05000000000001,92.75,90.95000000000005,88.25,85.35000000000002,82.75,80.45000000000005,77.75,74.65000000000003,71.95000000000005,69.65000000000003,66.95000000000005,65.35000000000002,62.55000000000001,60.55000000000001,57.35000000000002,56.150000000000034,54.05000000000001,51.950000000000045,50.05000000000001,47.55000000000001],"y":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,9.030000000000001e-07,0.0,0.0,0.0,0.0,0.0,0.0,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,1.805e-06,1.805e-06,1.805e-06,1.805e-06,1.805e-06,2.7079999999999997e-06,2.7079999999999997e-06,3.6099999999999997e-06,3.6099999999999997e-06,5.415e-06,1.1735e-05,2.1665e-05,3.8805e-05,7.2205e-05,0.000128195,0.000246395,0.000486495,0.0007968949999999999,0.001001195,0.001048195,0.001053195,0.001051195,0.001048195,0.0010461950000000002,0.001043195,0.001040195,0.001038195,0.0010361950000000002,0.001033195,0.0010311950000000002,0.0010291950000000001,0.001027195,0.001025195,0.001022195,0.0010211950000000001,0.001019195,0.001017195,0.0010161950000000001,0.001014195,0.001012195,0.001012195,0.0010101950000000002,0.001009195,0.001007195,0.0010051950000000002,0.001004195,0.0010031950000000001,0.001001195,0.0010001950000000002,0.0009981950000000001,0.000997295,0.000995495,0.000994595,0.000992795,0.000991895,0.000990095,0.000989195,0.0009882950000000001,0.000987395,0.000986495,0.000984695,0.0009837950000000002,0.0009828950000000001,0.0009810950000000002,0.000980095,0.0009791950000000002,0.0009782950000000001,0.000977395,0.000975595,0.000974695,0.000973795,0.000972895,0.0009710949999999999,0.000970195,0.000969295,0.000967495,0.000966595,0.000965695,0.000964795,0.000963895,0.0009620949999999999,0.000961195,0.000959395,0.000958495,0.000957595,0.000955795,0.000954895,0.0009530949999999999,0.000952195,0.000950395,0.000949495,0.000948595,0.000946795,0.000945895,0.000943995,0.000943095,0.000941295,0.0009394949999999999,0.000938595,0.000936795,0.000934995,0.000934095,0.000932295,0.0009304949999999999,0.000928695,0.000927795,0.000925995,0.0009241949999999999,0.000923295,0.000921495,0.000919695,0.000917895,0.000916095,0.0009151949999999999,0.000913395,0.000911595,0.000909795,0.000907895,0.000906095,0.000904295,0.000902495,0.000900695,0.000898895,0.000897095,0.0008952949999999999,0.000893495,0.000891695,0.000889895,0.000888095,0.0008862949999999999,0.000884495,0.000883595,0.000881795,0.000879995,0.000879095,0.0008772949999999999,0.000876395,0.000874595,0.000873695,0.0008726949999999999,0.000871795,0.000869995,0.000869095,0.000868195,0.000868195,0.000867295,0.000866395,0.000865495,0.000864595,0.000864595,0.0008636949999999999,0.0008636949999999999,0.000862795,0.000862795,0.000861895,0.000861895,0.000860995,0.000860995,0.000860995,0.000860095,0.000860095,0.000860095,0.000860095,0.000859195,0.000859195,0.000859195,0.000858295,0.000858295,0.000858295,0.000858295,0.000858295,0.000858295,0.0008573949999999999,0.0008573949999999999,0.0008573949999999999,0.0008573949999999999]},"selected":{"id":"2055"},"selection_policy":{"id":"2054"}},"id":"2039","type":"ColumnDataSource"},{"attributes":{"data":{"x":[698.0500000000001,697.5500000000001,695.5500000000001,694.15,692.35,690.25,688.95,686.65,684.35,681.95,680.85,679.0500000000001,676.5500000000001,674.45,672.35,669.5500000000001,666.75,664.0500000000001,661.65,659.75,657.0500000000001,654.95,652.35,650.0500000000001,647.95,645.35,642.15,639.0500000000001,636.45,633.65,631.0500000000001,628.25,625.65,623.0500000000001,620.45,617.95,615.0500000000001,612.45,609.85,606.75,604.15,601.0500000000001,598.65,595.5500000000001,592.45,589.85,586.75,584.15,580.95,578.35,575.75,573.0500000000001,570.35,567.25,563.85,560.75,557.5500000000001,554.25,550.5500000000001,547.95,544.75,541.5500000000001,538.35,535.45,531.75,528.15,524.45,521.25,517.75,513.85,510.35,507.35,503.45000000000005,499.95000000000005,496.75,493.25,490.05000000000007,485.75,482.75,479.05000000000007,474.95000000000005,471.45000000000005,466.75,462.85,459.35,455.35,451.75,447.25,444.15,440.05000000000007,436.25,433.15,429.55000000000007,426.45000000000005,422.85,419.55000000000007,416.15,412.05000000000007,409.45000000000005,405.55000000000007,402.15,398.55000000000007,395.15,391.75,388.35,385.15,381.25,377.65,373.95000000000005,370.65,366.45000000000005,363.55000000000007,360.35,357.15,353.45000000000005,349.95000000000005,346.45000000000005,342.15,339.15,334.85,331.35,327.45000000000005,323.45000000000005,319.95000000000005,316.25,312.75,309.15,305.85,303.05000000000007,300.05000000000007,296.45000000000005,292.65,288.65,285.05000000000007,280.75,276.85,272.95000000000005,269.45000000000005,265.45000000000005,261.95000000000005,258.25,254.85000000000002,251.95000000000005,247.85000000000002,244.35000000000002,240.25,237.35000000000002,234.75,230.85000000000002,227.35000000000002,223.75,220.15000000000003,216.55,212.65000000000003,208.05,204.25,200.95000000000005,197.35000000000002,193.95000000000005,190.85000000000002,187.75,184.95000000000005,181.45000000000005,179.25,174.95000000000005,171.45000000000005,168.55,164.75,161.55,158.25,155.75,152.75,149.15000000000003,145.85000000000002,142.55,139.85000000000002,136.85000000000002,133.45000000000005,130.45000000000005,127.35000000000002,124.35000000000002,121.55000000000001,118.85000000000002,115.65000000000003,112.85000000000002,109.65000000000003,107.15000000000003,104.35000000000002,100.75,98.25,96.05000000000001,92.75,90.95000000000005,88.25,85.35000000000002,82.75,80.45000000000005,77.75,74.65000000000003,71.95000000000005,69.65000000000003,66.95000000000005,65.35000000000002,62.55000000000001,60.55000000000001,57.35000000000002,56.150000000000034,54.05000000000001,51.950000000000045,50.05000000000001,47.55000000000001],"y":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,9.030000000000001e-07,0.0,0.0,0.0,0.0,0.0,0.0,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,1.805e-06,1.805e-06,1.805e-06,1.805e-06,1.805e-06,2.7079999999999997e-06,2.7079999999999997e-06,3.6099999999999997e-06,3.6099999999999997e-06,5.415e-06,1.1735e-05,2.1665e-05,3.8805e-05,7.2205e-05,0.000128195,0.000246395,0.000486495,0.0007968949999999999,0.001001195,0.001048195,0.001053195,0.001051195,0.001048195,0.0010461950000000002,0.001043195,0.001040195,0.001038195,0.0010361950000000002,0.001033195,0.0010311950000000002,0.0010291950000000001,0.001027195,0.001025195,0.001022195,0.0010211950000000001,0.001019195,0.001017195,0.0010161950000000001,0.001014195,0.001012195,0.001012195,0.0010101950000000002,0.001009195,0.001007195,0.0010051950000000002,0.001004195,0.0010031950000000001,0.001001195,0.0010001950000000002,0.0009981950000000001,0.000997295,0.000995495,0.000994595,0.000992795,0.000991895,0.000990095,0.000989195,0.0009882950000000001,0.000987395,0.000986495,0.000984695,0.0009837950000000002,0.0009828950000000001,0.0009810950000000002,0.000980095,0.0009791950000000002,0.0009782950000000001,0.000977395,0.000975595,0.000974695,0.000973795,0.000972895,0.0009710949999999999,0.000970195,0.000969295,0.000967495,0.000966595,0.000965695,0.000964795,0.000963895,0.0009620949999999999,0.000961195,0.000959395,0.000958495,0.000957595,0.000955795,0.000954895,0.0009530949999999999,0.000952195,0.000950395,0.000949495,0.000948595,0.000946795,0.000945895,0.000943995,0.000943095,0.000941295,0.0009394949999999999,0.000938595,0.000936795,0.000934995,0.000934095,0.000932295,0.0009304949999999999,0.000928695,0.000927795,0.000925995,0.0009241949999999999,0.000923295,0.000921495,0.000919695,0.000917895,0.000916095,0.0009151949999999999,0.000913395,0.000911595,0.000909795,0.000907895,0.000906095,0.000904295,0.000902495,0.000900695,0.000898895,0.000897095,0.0008952949999999999,0.000893495,0.000891695,0.000889895,0.000888095,0.0008862949999999999,0.000884495,0.000883595,0.000881795,0.000879995,0.000879095,0.0008772949999999999,0.000876395,0.000874595,0.000873695,0.0008726949999999999,0.000871795,0.000869995,0.000869095,0.000868195,0.000868195,0.000867295,0.000866395,0.000865495,0.000864595,0.000864595,0.0008636949999999999,0.0008636949999999999,0.000862795,0.000862795,0.000861895,0.000861895,0.000860995,0.000860995,0.000860995,0.000860095,0.000860095,0.000860095,0.000860095,0.000859195,0.000859195,0.000859195,0.000858295,0.000858295,0.000858295,0.000858295,0.000858295,0.000858295,0.0008573949999999999,0.0008573949999999999,0.0008573949999999999,0.0008573949999999999]},"selected":{"id":"2099"},"selection_policy":{"id":"2098"}},"id":"2079","type":"ColumnDataSource"},{"attributes":{"source":{"id":"2079"}},"id":"2084","type":"CDSView"},{"attributes":{"data":{"x":[20.25,25.25,31.950000000000045,38.55000000000001,43.25,48.75,53.650000000000034,57.75,60.950000000000045,63.75,67.35000000000002,70.45000000000005,73.15000000000003,76.55000000000001,79.35000000000002,82.35000000000002,84.95000000000005,87.55000000000001,89.85000000000002,91.65000000000003,94.15000000000003,96.85000000000002,99.65000000000003,102.25,104.35000000000002,107.15000000000003,110.05000000000001,112.85000000000002,115.65000000000003,118.45000000000005,121.55000000000001,124.65000000000003,126.75,130.05,132.75,135.85000000000002,138.85000000000002,141.55,144.85000000000002,146.55,150.05,152.45000000000005,156.05,158.55,161.85000000000002,165.05,167.95000000000005,170.75,173.65000000000003,176.85000000000002,179.55,182.75,185.95000000000005,189.25,192.65000000000003,196.05,199.45000000000005,202.45000000000005,206.45000000000005,209.95000000000005,214.15000000000003,217.45000000000005,219.85000000000002,223.15000000000003,225.85000000000002,229.05,232.35000000000002,235.85000000000002,239.14999999999998,242.05000000000007,244.95000000000005,248.14999999999998,251.95000000000005,254.85000000000002,258.05000000000007,261.45000000000005,264.85,268.65,272.05000000000007,276.05000000000007,279.65,282.75,285.85,289.25,293.75,296.75,300.35,302.95000000000005,305.05000000000007,309.15,312.55000000000007,316.05000000000007,319.35,322.85,326.65,330.25,333.75,337.55000000000007,340.85,344.05000000000007,347.25,350.75,353.95000000000005,356.65,360.35,363.55000000000007,367.25,370.45000000000005,373.65,377.35,380.25,383.15,386.45000000000005,389.65,392.85,396.45000000000005,399.35,402.45000000000005,406.05000000000007,408.95000000000005,412.55000000000007,415.65,418.75,422.05000000000007,425.65,428.55000000000007,431.85,434.95000000000005,438.85,442.05000000000007,445.65,448.95000000000005,452.55000000000007,456.85,460.15,463.65,466.95000000000005,470.75,474.25,477.55000000000007,481.05000000000007,483.55000000000007,486.25,489.75,493.25,496.75,499.95000000000005,503.25,506.35,509.55000000000007,513.35,516.85,520.45,522.95,526.35,529.5500000000001,532.5500000000001,535.95,538.85,541.75,544.45,547.65,550.25,553.25,556.15,559.0500000000001,562.65,565.85,569.15,572.5500000000001,575.25,577.85,580.95,584.15,586.75,589.5500000000001,592.45,594.65,597.25,600.15,602.45,605.5500000000001,607.95,611.0500000000001,613.85,616.45,619.35,622.65,624.45,627.5500000000001,630.5500000000001,632.95,636.25,638.5500000000001,642.15,644.45,647.95,650.5500000000001,653.25,656.15,658.25,661.15,664.65,666.75,669.85,672.75,675.35,678.35,680.65,684.5500000000001,686.65,689.15,692.35,696.15,697.35,697.75,698.95,699.65],"y":[0.000795095,0.000795995,0.0007968949999999999,0.000797795,0.000799595,0.000800495,0.000802395,0.000803295,0.000804195,0.000805995,0.000806895,0.0008077949999999999,0.000808695,0.000809595,0.0008104949999999999,0.000811395,0.000812295,0.000814095,0.000814995,0.000815895,0.000815895,0.0008167949999999999,0.000818595,0.000818595,0.000820395,0.000821295,0.000822195,0.000823095,0.000823995,0.000824895,0.000826695,0.000827595,0.000828495,0.000829395,0.000830295,0.000832095,0.000832995,0.000833895,0.000835695,0.000836595,0.000837595,0.000838495,0.0008393949999999999,0.000840295,0.000842095,0.000842995,0.000843895,0.000844795,0.0008456949999999999,0.000846595,0.000847495,0.0008483949999999999,0.000849295,0.000851095,0.000851995,0.000852895,0.000853795,0.0008546949999999999,0.000855595,0.000856495,0.0008573949999999999,0.000858295,0.000859195,0.000860995,0.000861895,0.000862795,0.0008636949999999999,0.000865495,0.000866395,0.000867295,0.000868195,0.000869995,0.000870895,0.0008726949999999999,0.000873695,0.000874595,0.000876395,0.0008772949999999999,0.000879095,0.000880895,0.000881795,0.000883595,0.000884495,0.0008862949999999999,0.000887195,0.000888995,0.000890795,0.000891695,0.000893495,0.000894395,0.000896195,0.000897095,0.000898895,0.000899795,0.000900695,0.000902495,0.000903395,0.000905195,0.000906095,0.000907895,0.000908795,0.000909795,0.000910695,0.000912495,0.000913395,0.000914295,0.0009151949999999999,0.000916995,0.000917895,0.000918795,0.000919695,0.000920595,0.000921495,0.000922395,0.0009241949999999999,0.000925095,0.000925995,0.000926895,0.000927795,0.000929595,0.0009304949999999999,0.000931395,0.000932295,0.0009331949999999999,0.000934995,0.000935895,0.000936795,0.000938595,0.0009394949999999999,0.000941295,0.000943095,0.000944995,0.000946795,0.000948595,0.000950395,0.000952195,0.000953995,0.000955795,0.000957595,0.000959395,0.000961195,0.000962995,0.000964795,0.000967495,0.000969295,0.0009710949999999999,0.000972895,0.000975595,0.000977395,0.000980095,0.000981995,0.000984695,0.000987395,0.000990095,0.000991895,0.000994595,0.000997295,0.0010001950000000002,0.0010031950000000001,0.001006195,0.0010101950000000002,0.001012195,0.0010161950000000001,0.001020195,0.0010231950000000002,0.001027195,0.001030195,0.0010291950000000001,0.001006195,0.000927795,0.000729195,0.000408795,0.00019129500000000002,9.7475e-05,4.7835e-05,2.2564999999999998e-05,9.924999999999999e-06,6.3179999999999995e-06,4.513000000000001e-06,3.6099999999999997e-06,2.7079999999999997e-06,2.7079999999999997e-06,1.805e-06,1.805e-06,1.805e-06,1.805e-06,1.805e-06,1.805e-06,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,0.0,0.0,9.030000000000001e-07,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"selected":{"id":"2076"},"selection_policy":{"id":"2075"}},"id":"2058","type":"ColumnDataSource"},{"attributes":{"label":{"value":"Heating"},"renderers":[{"id":"2025"}]},"id":"2038","type":"LegendItem"},{"attributes":{"label":{"value":"Cooling"},"renderers":[{"id":"2043"}]},"id":"2057","type":"LegendItem"},{"attributes":{"fill_alpha":{"value":0.5},"fill_color":{"value":"red"},"hatch_alpha":{"value":0.5},"hatch_color":{"value":"red"},"line_alpha":{"value":0.5},"line_color":{"value":"red"},"size":{"value":6},"x":{"field":"x"},"y":{"field":"y"}},"id":"2022","type":"Circle"},{"attributes":{"source":{"id":"2058"}},"id":"2063","type":"CDSView"},{"attributes":{"line_alpha":0.2,"line_color":"blue","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"2082","type":"Line"},{"attributes":{"data":{"x":[20.25,25.25,31.950000000000045,38.55000000000001,43.25,48.75,53.650000000000034,57.75,60.950000000000045,63.75,67.35000000000002,70.45000000000005,73.15000000000003,76.55000000000001,79.35000000000002,82.35000000000002,84.95000000000005,87.55000000000001,89.85000000000002,91.65000000000003,94.15000000000003,96.85000000000002,99.65000000000003,102.25,104.35000000000002,107.15000000000003,110.05000000000001,112.85000000000002,115.65000000000003,118.45000000000005,121.55000000000001,124.65000000000003,126.75,130.05,132.75,135.85000000000002,138.85000000000002,141.55,144.85000000000002,146.55,150.05,152.45000000000005,156.05,158.55,161.85000000000002,165.05,167.95000000000005,170.75,173.65000000000003,176.85000000000002,179.55,182.75,185.95000000000005,189.25,192.65000000000003,196.05,199.45000000000005,202.45000000000005,206.45000000000005,209.95000000000005,214.15000000000003,217.45000000000005,219.85000000000002,223.15000000000003,225.85000000000002,229.05,232.35000000000002,235.85000000000002,239.14999999999998,242.05000000000007,244.95000000000005,248.14999999999998,251.95000000000005,254.85000000000002,258.05000000000007,261.45000000000005,264.85,268.65,272.05000000000007,276.05000000000007,279.65,282.75,285.85,289.25,293.75,296.75,300.35,302.95000000000005,305.05000000000007,309.15,312.55000000000007,316.05000000000007,319.35,322.85,326.65,330.25,333.75,337.55000000000007,340.85,344.05000000000007,347.25,350.75,353.95000000000005,356.65,360.35,363.55000000000007,367.25,370.45000000000005,373.65,377.35,380.25,383.15,386.45000000000005,389.65,392.85,396.45000000000005,399.35,402.45000000000005,406.05000000000007,408.95000000000005,412.55000000000007,415.65,418.75,422.05000000000007,425.65,428.55000000000007,431.85,434.95000000000005,438.85,442.05000000000007,445.65,448.95000000000005,452.55000000000007,456.85,460.15,463.65,466.95000000000005,470.75,474.25,477.55000000000007,481.05000000000007,483.55000000000007,486.25,489.75,493.25,496.75,499.95000000000005,503.25,506.35,509.55000000000007,513.35,516.85,520.45,522.95,526.35,529.5500000000001,532.5500000000001,535.95,538.85,541.75,544.45,547.65,550.25,553.25,556.15,559.0500000000001,562.65,565.85,569.15,572.5500000000001,575.25,577.85,580.95,584.15,586.75,589.5500000000001,592.45,594.65,597.25,600.15,602.45,605.5500000000001,607.95,611.0500000000001,613.85,616.45,619.35,622.65,624.45,627.5500000000001,630.5500000000001,632.95,636.25,638.5500000000001,642.15,644.45,647.95,650.5500000000001,653.25,656.15,658.25,661.15,664.65,666.75,669.85,672.75,675.35,678.35,680.65,684.5500000000001,686.65,689.15,692.35,696.15,697.35,697.75,698.95,699.65],"y":[0.000795095,0.000795995,0.0007968949999999999,0.000797795,0.000799595,0.000800495,0.000802395,0.000803295,0.000804195,0.000805995,0.000806895,0.0008077949999999999,0.000808695,0.000809595,0.0008104949999999999,0.000811395,0.000812295,0.000814095,0.000814995,0.000815895,0.000815895,0.0008167949999999999,0.000818595,0.000818595,0.000820395,0.000821295,0.000822195,0.000823095,0.000823995,0.000824895,0.000826695,0.000827595,0.000828495,0.000829395,0.000830295,0.000832095,0.000832995,0.000833895,0.000835695,0.000836595,0.000837595,0.000838495,0.0008393949999999999,0.000840295,0.000842095,0.000842995,0.000843895,0.000844795,0.0008456949999999999,0.000846595,0.000847495,0.0008483949999999999,0.000849295,0.000851095,0.000851995,0.000852895,0.000853795,0.0008546949999999999,0.000855595,0.000856495,0.0008573949999999999,0.000858295,0.000859195,0.000860995,0.000861895,0.000862795,0.0008636949999999999,0.000865495,0.000866395,0.000867295,0.000868195,0.000869995,0.000870895,0.0008726949999999999,0.000873695,0.000874595,0.000876395,0.0008772949999999999,0.000879095,0.000880895,0.000881795,0.000883595,0.000884495,0.0008862949999999999,0.000887195,0.000888995,0.000890795,0.000891695,0.000893495,0.000894395,0.000896195,0.000897095,0.000898895,0.000899795,0.000900695,0.000902495,0.000903395,0.000905195,0.000906095,0.000907895,0.000908795,0.000909795,0.000910695,0.000912495,0.000913395,0.000914295,0.0009151949999999999,0.000916995,0.000917895,0.000918795,0.000919695,0.000920595,0.000921495,0.000922395,0.0009241949999999999,0.000925095,0.000925995,0.000926895,0.000927795,0.000929595,0.0009304949999999999,0.000931395,0.000932295,0.0009331949999999999,0.000934995,0.000935895,0.000936795,0.000938595,0.0009394949999999999,0.000941295,0.000943095,0.000944995,0.000946795,0.000948595,0.000950395,0.000952195,0.000953995,0.000955795,0.000957595,0.000959395,0.000961195,0.000962995,0.000964795,0.000967495,0.000969295,0.0009710949999999999,0.000972895,0.000975595,0.000977395,0.000980095,0.000981995,0.000984695,0.000987395,0.000990095,0.000991895,0.000994595,0.000997295,0.0010001950000000002,0.0010031950000000001,0.001006195,0.0010101950000000002,0.001012195,0.0010161950000000001,0.001020195,0.0010231950000000002,0.001027195,0.001030195,0.0010291950000000001,0.001006195,0.000927795,0.000729195,0.000408795,0.00019129500000000002,9.7475e-05,4.7835e-05,2.2564999999999998e-05,9.924999999999999e-06,6.3179999999999995e-06,4.513000000000001e-06,3.6099999999999997e-06,2.7079999999999997e-06,2.7079999999999997e-06,1.805e-06,1.805e-06,1.805e-06,1.805e-06,1.805e-06,1.805e-06,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,9.030000000000001e-07,0.0,0.0,9.030000000000001e-07,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"selected":{"id":"2035"},"selection_policy":{"id":"2034"}},"id":"2021","type":"ColumnDataSource"},{"attributes":{"label":{"value":"Heating \u2013 smoothed"},"renderers":[{"id":"2062"}]},"id":"2078","type":"LegendItem"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"blue"},"hatch_alpha":{"value":0.1},"hatch_color":{"value":"blue"},"line_alpha":{"value":0.1},"line_color":{"value":"blue"},"size":{"value":6},"x":{"field":"x"},"y":{"field":"y"}},"id":"2041","type":"Circle"},{"attributes":{"line_alpha":0.2,"line_color":"red","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"2061","type":"Line"},{"attributes":{"line_alpha":0.1,"line_color":"blue","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"2081","type":"Line"},{"attributes":{"label":{"value":"Cooling \u2013 smoothed"},"renderers":[{"id":"2083"}]},"id":"2101","type":"LegendItem"},{"attributes":{"line_alpha":0.1,"line_color":"red","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"2060","type":"Line"},{"attributes":{"overlay":{"id":"2014"}},"id":"2011","type":"BoxZoomTool"},{"attributes":{"line_color":"blue","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"2080","type":"Line"},{"attributes":{},"id":"2012","type":"ResetTool"},{"attributes":{},"id":"2055","type":"Selection"},{"attributes":{},"id":"2013","type":"SaveTool"},{"attributes":{},"id":"2098","type":"UnionRenderers"},{"attributes":{},"id":"2075","type":"UnionRenderers"},{"attributes":{"axis":{"id":"2001"},"coordinates":null,"grid_line_color":"lightgray","group":null,"ticker":null},"id":"2004","type":"Grid"},{"attributes":{},"id":"1997","type":"LinearScale"},{"attributes":{"tools":[{"id":"2009"},{"id":"2010"},{"id":"2011"},{"id":"2012"},{"id":"2013"},{"id":"2102"},{"id":"2104"}]},"id":"2015","type":"Toolbar"},{"attributes":{},"id":"2054","type":"UnionRenderers"},{"attributes":{},"id":"1993","type":"DataRange1d"},{"attributes":{},"id":"2076","type":"Selection"},{"attributes":{},"id":"2029","type":"BasicTickFormatter"},{"attributes":{},"id":"2099","type":"Selection"},{"attributes":{},"id":"1995","type":"DataRange1d"},{"attributes":{"coordinates":null,"data_source":{"id":"2039"},"glyph":{"id":"2040"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"2042"},"nonselection_glyph":{"id":"2041"},"view":{"id":"2044"}},"id":"2043","type":"GlyphRenderer"},{"attributes":{},"id":"1999","type":"LinearScale"},{"attributes":{},"id":"2030","type":"AllLabels"},{"attributes":{"source":{"id":"2021"}},"id":"2026","type":"CDSView"},{"attributes":{},"id":"2010","type":"WheelZoomTool"},{"attributes":{},"id":"2032","type":"BasicTickFormatter"},{"attributes":{"bottom_units":"screen","coordinates":null,"fill_alpha":0.5,"fill_color":"lightgrey","group":null,"left_units":"screen","level":"overlay","line_alpha":1.0,"line_color":"black","line_dash":[4,4],"line_width":2,"right_units":"screen","syncable":false,"top_units":"screen"},"id":"2014","type":"BoxAnnotation"},{"attributes":{"axis":{"id":"2005"},"coordinates":null,"dimension":1,"grid_line_color":"lightgray","group":null,"ticker":null},"id":"2008","type":"Grid"},{"attributes":{"axis_label":"Temperature (\u00b0C)","coordinates":null,"formatter":{"id":"2032"},"group":null,"major_label_policy":{"id":"2033"},"ticker":{"id":"2002"}},"id":"2001","type":"LinearAxis"},{"attributes":{},"id":"2033","type":"AllLabels"},{"attributes":{"source":{"id":"2039"}},"id":"2044","type":"CDSView"}],"root_ids":["1990"]},"title":"Bokeh Application","version":"2.4.3"}};
+  const render_items = [{"docid":"729583f8-69b5-4ca7-a089-ac1fcab7718a","root_ids":["1990"],"roots":{"1990":"f7d7a3e9-1a81-460b-9770-542386e016b8"}}];
+  root.Bokeh.embed.embed_items_notebook(docs_json, render_items);
+  }
+  if (root.Bokeh !== undefined) {
+    embed_document(root);
+  } else {
+    let attempts = 0;
+    const timer = setInterval(function(root) {
+      if (root.Bokeh !== undefined) {
+        clearInterval(timer);
+        embed_document(root);
+      } else {
+        attempts++;
+        if (attempts > 100) {
+          clearInterval(timer);
+          console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+        }
+      }
+    }, 10, root)
+  }
+})(window);</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">,</span> <span class="n">the</span> <span class="n">derivatives</span><span class="p">,</span> <span class="ow">and</span> <span class="n">inverse</span> <span class="err">$</span>\<span class="n">chi</span><span class="err">$</span><span class="o">-</span><span class="n">T</span>
+
+<span class="o">-</span> <span class="n">Your</span> <span class="n">data</span> <span class="n">might</span> <span class="n">be</span> <span class="n">noisy</span><span class="p">,</span> <span class="n">which</span> <span class="n">may</span> <span class="n">hinder</span> <span class="n">assessing</span> <span class="n">reversibility</span> <span class="k">for</span> <span class="n">understanding</span> <span class="n">alteration</span><span class="o">.</span> <span class="n">The</span> <span class="n">following</span> <span class="n">code</span> <span class="n">will</span> <span class="n">perform</span> <span class="n">a</span> <span class="n">running</span> <span class="n">average</span> <span class="n">of</span> <span class="n">data</span> <span class="n">over</span> <span class="n">a</span> <span class="n">temperature</span> <span class="n">interval</span> <span class="n">that</span> <span class="n">you</span> <span class="n">can</span> <span class="n">define</span><span class="o">.</span> <span class="n">In</span> <span class="n">the</span> <span class="n">following</span> <span class="n">cell</span><span class="p">,</span> <span class="n">change</span> <span class="n">the</span> <span class="n">value</span> <span class="n">associated</span> <span class="k">with</span> <span class="n">variable</span> <span class="err">`</span><span class="n">temp_window</span><span class="err">`</span> <span class="n">to</span> <span class="nb">set</span> <span class="n">the</span> <span class="n">desired</span> <span class="n">temperature</span> <span class="n">window</span> <span class="k">for</span> <span class="n">the</span> <span class="n">running</span> <span class="n">average</span><span class="o">.</span>
+
+<span class="o">-</span> <span class="n">Holder</span> <span class="n">removal</span><span class="p">:</span> <span class="n">Set</span> <span class="err">`</span><span class="n">remove_holder</span><span class="err">`</span> <span class="n">parameter</span> <span class="n">to</span> <span class="n">be</span> <span class="err">`</span><span class="kc">True</span><span class="err">`</span><span class="o">.</span> <span class="n">We</span> <span class="n">assume</span> <span class="n">that</span> <span class="n">the</span> <span class="n">lowest</span> <span class="n">susceptibility</span> <span class="n">value</span> <span class="n">during</span> <span class="n">the</span> <span class="n">whole</span> <span class="n">measurement</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">holder</span> <span class="n">signal</span><span class="p">,</span> <span class="ow">and</span> <span class="n">that</span> <span class="n">this</span> <span class="n">happens</span> <span class="n">after</span> <span class="n">the</span> <span class="n">specimen</span> <span class="ow">is</span> <span class="n">heated</span> <span class="n">above</span> <span class="n">the</span> <span class="n">critical</span> <span class="n">temperature</span> <span class="n">such</span> <span class="n">that</span> <span class="n">it</span> <span class="ow">is</span> <span class="n">paramagnetic</span> <span class="ow">and</span> <span class="n">the</span> <span class="n">holder</span> <span class="n">signal</span> <span class="ow">is</span> <span class="n">dominant</span><span class="o">.</span>
+
+<span class="n">Three</span> <span class="n">graphs</span> <span class="n">will</span> <span class="n">be</span> <span class="n">created</span><span class="o">.</span> 
+
+<span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="n">The</span> <span class="n">top</span> <span class="n">graph</span> <span class="n">shows</span> <span class="n">the</span> <span class="n">raw</span> <span class="n">data</span> <span class="k">as</span> <span class="n">points</span> <span class="ow">and</span> <span class="n">the</span> <span class="n">smoothed</span> <span class="n">data</span> <span class="k">as</span> <span class="n">lines</span><span class="p">,</span> <span class="k">for</span> <span class="n">the</span> <span class="n">temperature</span> <span class="n">window</span> <span class="n">size</span> <span class="n">selected</span><span class="o">.</span> 
+
+<span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="n">The</span> <span class="n">second</span> <span class="n">graph</span> <span class="n">plots</span> <span class="n">the</span> <span class="n">derivatives</span> <span class="n">based</span> <span class="n">on</span> <span class="n">the</span> <span class="n">smoothed</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">top</span> <span class="n">graph</span><span class="o">.</span>
+
+<span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="n">The</span> <span class="n">third</span> <span class="n">graph</span> <span class="n">plots</span> <span class="n">the</span> <span class="n">inverse</span> <span class="n">susceptibility</span> <span class="n">data</span><span class="p">,</span> <span class="n">which</span> <span class="n">can</span> <span class="n">also</span> <span class="n">be</span> <span class="n">used</span> <span class="n">to</span> <span class="n">qualitatively</span> <span class="n">assess</span> <span class="n">the</span> <span class="n">Curie</span> <span class="n">temperature</span><span class="o">.</span>
 </pre></div>
 </div>
 </div>
 </div>
-</section>
-<section id="plot-chi-t-data-the-derivatives-and-inverse-chi-t">
-<h2>Plot <span class="math notranslate nohighlight">\(\chi\)</span>-T data, the derivatives, and inverse <span class="math notranslate nohighlight">\(\chi\)</span>-T<a class="headerlink" href="#plot-chi-t-data-the-derivatives-and-inverse-chi-t" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Your data might be noisy, which may hinder assessing reversibility for understanding alteration. The following code will perform a running average of data over a temperature interval that you can define. In the following cell, change the value associated with variable <code class="docutils literal notranslate"><span class="pre">temp_window</span></code> to set the desired temperature window for the running average.</p></li>
-<li><p>Holder removal: Set <code class="docutils literal notranslate"><span class="pre">remove_holder</span></code> parameter to be <code class="docutils literal notranslate"><span class="pre">True</span></code>. We assume that the lowest susceptibility value during the whole measurement is the holder signal, and that this happens after the specimen is heated above the critical temperature such that it is paramagnetic and the holder signal is dominant.</p></li>
-</ul>
-<p>Three graphs will be created.</p>
-<p>(1) The top graph shows the raw data as points and the smoothed data as lines, for the temperature window size selected.</p>
-<p>(2) The second graph plots the derivatives based on the smoothed data in the top graph.</p>
-<p>(3) The third graph plots the inverse susceptibility data, which can also be used to qualitatively assess the Curie temperature.</p>
 <section id="calculate-tc-using-inverse-susceptibility">
 <h3>Calculate <span style="font-family: 'Times New Roman';"><em>T<sub>c</sub></em></span> using inverse susceptibility<a class="headerlink" href="#calculate-tc-using-inverse-susceptibility" title="Link to this heading">#</a></h3>
 <p>Above <span style="font-family: 'Times New Roman';"><em>T<sub>c</sub></em></span> a mineral phase will be paramagnetic. This means that the inverse susceptibility should have a linear positive slope above <span style="font-family: 'Times New Roman';"><em>T<sub>c</sub></em></span>. Using the intercept temperature at 0 inverse susceptibility is a good guess for  <span style="font-family: 'Times New Roman';"><em>T<sub>c</sub></em></span>. This is essentially the break of slope between the ferromagnetic and paramagnetic signal.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">fig_dXdT</span><span class="p">,</span> <span class="n">fig_inv</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">plot_X_T</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> 
-                                       <span class="n">temp_unit</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> 
-                                       <span class="n">remove_holder</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
-                                       <span class="n">smooth_window</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rmag</span><span class="o">.</span><span class="n">plot_X_T</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> 
+              <span class="n">temp_unit</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> 
+              <span class="n">remove_holder</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+              <span class="n">smooth_window</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+              <span class="n">plot_derivative</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">plot_inverse</span><span class="o">=</span><span class="kc">False</span><span class="p">,)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-</div>
+<div class="output text_html">
+  <div class="bk-root" id="4270c07c-5fab-43e1-a8a6-f06a3b3961e3" data-root-id="4366"></div>
+</div><script type="application/javascript">(function(root) {
+  function embed_document(root) {
+  const docs_json = {"20b6e5b5-5655-4627-9615-289afac4bcfb":{"defs":[],"roots":{"references":[{"attributes":{"background_fill_color":"white","below":[{"id":"4377"}],"center":[{"id":"4380"},{"id":"4384"},{"id":"4413"}],"height":556,"left":[{"id":"4381"}],"outline_line_color":"black","renderers":[{"id":"4401"},{"id":"4419"},{"id":"4438"},{"id":"4459"}],"title":{"id":"4367"},"toolbar":{"id":"4391"},"width":900,"x_range":{"id":"4369"},"x_scale":{"id":"4373"},"y_range":{"id":"4371"},"y_scale":{"id":"4375"}},"id":"4366","subtype":"Figure","type":"Plot"},{"attributes":{"coordinates":null,"group":null,"items":[{"id":"4414"},{"id":"4433"},{"id":"4454"},{"id":"4477"}],"location":"top_left"},"id":"4413","type":"Legend"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"blue"},"hatch_alpha":{"value":0.1},"hatch_color":{"value":"blue"},"line_alpha":{"value":0.1},"line_color":{"value":"blue"},"size":{"value":6},"x":{"field":"x"},"y":{"field":"y"}},"id":"4436","type":"Circle"},{"attributes":{},"id":"4410","type":"UnionRenderers"},{"attributes":{},"id":"4382","type":"BasicTicker"},{"attributes":{},"id":"4411","type":"Selection"},{"attributes":{"fill_alpha":{"value":0.2},"fill_color":{"value":"blue"},"hatch_alpha":{"value":0.2},"hatch_color":{"value":"blue"},"line_alpha":{"value":0.2},"line_color":{"value":"blue"},"size":{"value":6},"x":{"field":"x"},"y":{"field":"y"}},"id":"4437","type":"Circle"},{"attributes":{"label":{"value":"Cooling \u2013 zero corrected"},"renderers":[{"id":"4438"}]},"id":"4454","type":"LegendItem"},{"attributes":{"data":{"x":[22.950000000000045,24.25,29.950000000000045,37.450000000000045,45.75,53.75,61.35000000000002,68.65000000000003,75.45000000000005,81.75,87.75,93.55000000000001,99.35000000000002,104.85000000000002,110.15000000000003,115.15000000000003,120.75,125.75,131.15000000000003,136.15000000000003,141.55,146.85000000000002,151.65000000000003,157.35000000000002,162.45000000000005,168.05,173.75,179.15000000000003,184.85000000000002,190.55,196.25,201.65000000000003,207.35000000000002,212.85000000000002,218.05,223.45000000000005,229.25,234.45000000000005,239.95000000000005,246.05000000000007,251.35000000000002,256.25,261.85,266.85,272.35,277.65,283.55000000000007,289.15,294.75,300.35,305.95000000000005,311.65,317.25,323.25,328.35,333.45000000000005,338.85,343.65,349.05000000000007,354.25,359.95000000000005,365.15,370.55000000000007,375.45000000000005,380.35,385.25,390.15,395.35,400.95000000000005,406.15,411.35,416.35,421.35,426.85,431.85,437.45000000000005,442.45000000000005,447.15,451.85,456.65,461.65,466.45000000000005,471.45000000000005,476.25,481.25,486.35,491.45000000000005,495.95000000000005,500.45000000000005,504.95000000000005,509.75,514.95,519.75,524.65,529.75,534.95,539.85,544.95,549.85,554.75,559.35,563.35,568.25,573.25,577.85,583.15,588.0500000000001,592.45,596.75,601.15,605.75,610.45,615.15,620.15,624.85,628.65,633.75,638.45,643.45,647.65,651.0500000000001,651.75],"y":[0.000343714,0.00034421399999999997,0.000346214,0.00034871399999999997,0.00035111399999999997,0.000353514,0.000355714,0.00035781399999999997,0.00035991399999999997,0.00036201399999999997,0.00036431399999999997,0.00036671399999999997,0.000369414,0.000372414,0.00037561399999999997,0.000379214,0.000383214,0.000387414,0.000392014,0.000396714,0.000401014,0.000404714,0.000407714,0.000410414,0.000412814,0.000415114,0.000417314,0.000419514,0.000421714,0.000424014,0.000426514,0.00042911399999999997,0.000431814,0.000434614,0.000437414,0.00044031399999999997,0.000443414,0.000446414,0.000449414,0.000452414,0.000455314,0.00045801399999999997,0.000460714,0.000463214,0.000465814,0.000468314,0.000470814,0.000473214,0.000475514,0.000477814,0.000480014,0.000482014,0.000483914,0.000485714,0.000487314,0.000488514,0.0004894140000000001,0.0004900140000000001,0.000490514,0.0004907140000000001,0.000490614,0.000490114,0.000489314,0.000488214,0.00048691399999999997,0.000485414,0.000483814,0.000482214,0.000480614,0.000479114,0.000477614,0.000476314,0.000475214,0.000474314,0.00047351399999999997,0.000473014,0.000472514,0.000471914,0.000471614,0.00047151399999999997,0.00047151399999999997,0.000471614,0.000471914,0.000472414,0.000473014,0.00047371399999999997,0.000474414,0.000475114,0.00047591399999999997,0.000477114,0.000478514,0.000480114,0.000482014,0.000484114,0.000486614,0.0004894140000000001,0.000492514,0.000496014,0.0004999140000000001,0.0005039140000000001,0.000507714,0.0005108140000000001,0.000508614,0.00048481399999999997,0.000422514,0.000303914,0.000143614,5.7064e-05,1.6334000000000003e-05,5.252e-06,2.542e-06,1.589e-06,1.1029999999999999e-06,8.039999999999999e-07,5.79e-07,4.299e-07,3.1770000000000005e-07,1.8690000000000007e-07,1.1210000000000006e-07,3.740000000000006e-08,0.0,0.0]},"selected":{"id":"4411"},"selection_policy":{"id":"4410"}},"id":"4397","type":"ColumnDataSource"},{"attributes":{"callback":null,"renderers":[{"id":"4401"},{"id":"4419"}],"tooltips":[["T","@x"],["Heating X","@y"]]},"id":"4478","type":"HoverTool"},{"attributes":{"axis_label":"k (m\u00b3 kg\u207b\u00b9)","coordinates":null,"formatter":{"id":"4405"},"group":null,"major_label_policy":{"id":"4406"},"ticker":{"id":"4382"}},"id":"4381","type":"LinearAxis"},{"attributes":{},"id":"4452","type":"Selection"},{"attributes":{"bottom_units":"screen","coordinates":null,"fill_alpha":0.5,"fill_color":"lightgrey","group":null,"left_units":"screen","level":"overlay","line_alpha":1.0,"line_color":"black","line_dash":[4,4],"line_width":2,"right_units":"screen","syncable":false,"top_units":"screen"},"id":"4390","type":"BoxAnnotation"},{"attributes":{"line_color":"red","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"4416","type":"Line"},{"attributes":{"fill_alpha":{"value":0.5},"fill_color":{"value":"blue"},"hatch_alpha":{"value":0.5},"hatch_color":{"value":"blue"},"line_alpha":{"value":0.5},"line_color":{"value":"blue"},"size":{"value":6},"x":{"field":"x"},"y":{"field":"y"}},"id":"4435","type":"Circle"},{"attributes":{"callback":null,"renderers":[{"id":"4438"},{"id":"4459"}],"tooltips":[["T","@x"],["Cooling X","@y"]]},"id":"4480","type":"HoverTool"},{"attributes":{"source":{"id":"4455"}},"id":"4460","type":"CDSView"},{"attributes":{"fill_alpha":{"value":0.2},"fill_color":{"value":"red"},"hatch_alpha":{"value":0.2},"hatch_color":{"value":"red"},"line_alpha":{"value":0.2},"line_color":{"value":"red"},"size":{"value":6},"x":{"field":"x"},"y":{"field":"y"}},"id":"4400","type":"Circle"},{"attributes":{"source":{"id":"4415"}},"id":"4420","type":"CDSView"},{"attributes":{"tools":[{"id":"4385"},{"id":"4386"},{"id":"4387"},{"id":"4388"},{"id":"4389"},{"id":"4478"},{"id":"4480"}]},"id":"4391","type":"Toolbar"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"red"},"hatch_alpha":{"value":0.1},"hatch_color":{"value":"red"},"line_alpha":{"value":0.1},"line_color":{"value":"red"},"size":{"value":6},"x":{"field":"x"},"y":{"field":"y"}},"id":"4399","type":"Circle"},{"attributes":{"data":{"x":[25.716666666666697,25.716666666666697,28.650000000000034,37.7166666666667,45.65000000000001,53.616666666666674,61.25000000000002,68.48333333333336,75.28333333333336,81.65000000000002,87.68333333333334,93.55000000000001,99.25000000000001,104.78333333333336,110.05000000000003,115.35000000000002,120.55000000000001,125.88333333333334,131.01666666666668,136.28333333333336,141.51666666666668,146.68333333333337,151.95000000000002,157.15000000000003,162.6166666666667,168.08333333333334,173.65,179.25,184.85000000000002,190.55000000000004,196.15,201.75,207.2833333333334,212.75,218.1166666666667,223.58333333333334,229.05000000000004,234.55000000000004,240.15000000000006,245.7833333333334,251.2166666666667,256.48333333333335,261.65000000000003,267.0166666666667,272.28333333333336,277.85,283.45,289.15000000000003,294.75,300.35,305.98333333333335,311.6166666666667,317.3833333333333,322.95,328.35,333.55,338.65000000000003,343.8500000000001,348.98333333333335,354.4166666666667,359.7833333333333,365.2166666666667,372.875,377.90000000000003,380.35,382.80000000000007,387.775,395.48333333333335,400.81666666666666,406.15000000000003,413.79999999999995,416.3500000000001,418.975,426.6833333333334,432.05,439.725,444.725,447.11,451.95,456.75,461.61,466.48999999999995,471.41,473.85,478.82500000000005,488.75000000000006,493.55,495.83000000000004,500.51000000000005,505.21000000000004,509.9700000000001,514.8100000000001,519.77,522.275,527.2750000000001,537.375,542.4000000000001,544.8700000000001,549.75,554.45,559.1099999999999,563.79,568.41,573.17,575.625,582.95,590.1,592.3100000000001,596.83,601.3100000000001,605.8500000000001,610.53,615.27,619.85,624.51,629.1700000000001,633.8299999999999,638.3900000000001,644.35,646.47,648.475,648.475],"y":[0.00034471400000000003,0.00034471400000000003,0.000345714,0.00034868066666666667,0.000351114,0.0003534473333333333,0.0003556806666666666,0.00035781399999999997,0.00035991399999999997,0.0003620806666666666,0.00036434733333333327,0.000366814,0.000369514,0.00037248066666666665,0.0003757473333333334,0.0003793473333333333,0.00038328066666666664,0.00038754733333333334,0.00039204733333333334,0.0003965806666666667,0.000400814,0.0004044806666666666,0.000407614,0.000410314,0.0004127806666666667,0.0004150806666666667,0.000417314,0.000419514,0.0004217473333333334,0.00042408066666666666,0.00042654733333333337,0.0004291473333333333,0.00043184733333333333,0.000434614,0.0004374473333333333,0.0004403806666666667,0.00044338066666666664,0.000446414,0.000449414,0.00045238066666666664,0.00045524733333333336,0.0004580139999999999,0.00046064733333333333,0.00046324733333333334,0.00046578066666666664,0.000468314,0.00047078066666666666,0.00047318066666666666,0.000475514,0.00047778066666666666,0.0004799473333333333,0.00048198066666666666,0.00048388066666666665,0.0004856473333333333,0.0004871806666666666,0.0004884140000000001,0.0004893140000000001,0.0004899806666666667,0.0004904140000000001,0.000490614,0.0004904806666666667,0.0004900140000000001,0.000488639,0.000487464,0.00048673400000000006,0.000486089,0.000484589,0.00048221400000000007,0.0004806473333333333,0.00047911399999999994,0.000477064,0.0004763806666666667,0.000475864,0.00047434733333333334,0.00047361399999999997,0.00047273899999999996,0.00047226399999999996,0.00047211399999999993,0.000471814,0.00047163399999999996,0.00047163399999999996,0.00047179399999999994,0.000472094,0.00047223899999999995,0.000472764,0.000474064,0.000474789,0.00047525399999999993,0.000476214,0.000477354,0.00047873400000000003,0.000480374,0.0004822740000000001,0.000483214,0.000485539,0.000491139,0.000494464,0.0004963540000000001,0.000500014,0.0005036740000000001,0.0005061940000000001,0.0005031740000000001,0.00048689400000000003,0.00044613400000000005,0.00042996399999999996,0.000282384,0.0001302315,0.00010523559999999999,4.49612e-05,1.6556200000000003e-05,5.364000000000001e-06,2.258e-06,1.3234e-06,9.0098e-07,6.467199999999999e-07,4.6350000000000004e-07,3.2512000000000004e-07,2.1680000000000006e-07,1.090166666666667e-07,6.728000000000003e-08,3.737500000000003e-08,3.737500000000003e-08]},"selected":{"id":"4431"},"selection_policy":{"id":"4430"}},"id":"4415","type":"ColumnDataSource"},{"attributes":{"data":{"x":[651.0500000000001,649.15,646.95,644.15,640.95,637.15,633.75,630.25,626.75,623.0500000000001,619.25,614.85,610.75,607.0500000000001,602.95,599.25,595.25,590.5500000000001,586.85,582.45,578.75,574.75,570.15,565.85,561.5500000000001,556.95,552.65,547.75,543.15,538.25,534.0500000000001,529.45,524.95,520.95,516.45,512.25,507.35,502.55000000000007,497.75,493.85,489.35,484.85,480.05000000000007,475.65,470.25,465.85,461.05000000000007,456.05000000000007,450.95000000000005,445.65,440.65,435.95000000000005,431.55000000000007,426.85,422.15,417.25,412.25,407.35,401.75,397.15,392.25,387.55000000000007,382.35,377.45000000000005,372.25,366.85,361.65,356.55000000000007,350.75,345.65,340.55000000000007,335.15,330.25,325.15,320.35,314.75,309.35,304.05000000000007,298.95000000000005,293.95000000000005,288.55000000000007,283.55000000000007,278.55000000000007,272.95000000000005,267.65,262.15,256.25,251.05000000000007,245.55000000000007,240.25,234.75,229.55,224.35000000000002,219.15000000000003,213.65000000000003,208.45000000000005,203.05,197.85000000000002,192.45000000000005,187.55,182.15000000000003,177.25,172.15000000000003,166.75,161.35000000000002,156.25,150.85000000000002,146.05,140.95000000000005,135.65000000000003,131.15000000000003,126.35000000000002,121.25,116.75,112.05000000000001,107.25,102.45000000000005,98.05000000000001],"y":[0.0,3.740000000000006e-08,7.47e-08,1.1210000000000006e-07,1.6820000000000004e-07,2.4300000000000005e-07,3.3639999999999997e-07,4.299e-07,5.610000000000001e-07,7.29e-07,9.720000000000002e-07,1.29e-06,1.794e-06,2.654e-06,4.374e-06,1.0804e-05,4.1124e-05,0.000154714,0.000305414,0.000424914,0.000503714,0.0005407140000000001,0.0005464140000000001,0.000543114,0.000538314,0.000533514,0.000529114,0.0005252140000000001,0.000521514,0.0005181140000000001,0.000515014,0.0005122140000000001,0.000509814,0.000507514,0.0005051140000000001,0.000502714,0.0005005140000000001,0.000498314,0.0004961140000000001,0.000494314,0.000492514,0.0004907140000000001,0.0004888140000000001,0.00048701399999999997,0.000485114,0.000483214,0.000481514,0.000479814,0.00047811399999999997,0.000476414,0.000474814,0.00047351399999999997,0.000472014,0.000470514,0.00046921399999999997,0.000467714,0.000466314,0.000464914,0.000463614,0.00046231399999999996,0.000461114,0.000459814,0.000458614,0.000457414,0.000456214,0.000455114,0.000453814,0.000452714,0.000451614,0.000450414,0.000449414,0.000448414,0.000447414,0.000446514,0.000445614,0.00044471399999999997,0.000443714,0.000442814,0.000442014,0.000441214,0.000440414,0.000439614,0.000438814,0.00043801399999999997,0.000437214,0.000436414,0.00043561399999999997,0.000434814,0.000434114,0.00043341399999999997,0.000432714,0.000432014,0.00043141399999999997,0.000430814,0.000430114,0.000429414,0.000428814,0.000428214,0.000427614,0.000427114,0.00042661399999999996,0.000426014,0.000425614,0.000425114,0.00042461399999999997,0.000424114,0.000423814,0.000423314,0.000423014,0.000422714,0.00042241399999999997,0.000422114,0.000421814,0.000421614,0.000421314,0.000421114,0.000421014,0.000420814]},"selected":{"id":"4452"},"selection_policy":{"id":"4451"}},"id":"4434","type":"ColumnDataSource"},{"attributes":{"data":{"x":[647.825,646.45,644.9,644.9,642.0166666666667,638.8666666666667,633.77,630.19,626.61,622.83,618.9300000000001,614.99,610.97,606.97,603.05,599.01,594.97,590.8700000000001,586.7700000000001,582.6700000000001,578.59,574.39,570.21,565.85,561.4300000000001,556.95,552.4100000000001,547.75,543.1700000000001,538.5300000000001,533.97,529.5300000000001,525.1700000000001,520.8100000000001,516.3900000000001,511.91,507.2700000000001,502.75,498.16999999999996,493.66999999999996,489.1700000000001,484.7500000000001,480.03000000000003,475.33000000000004,470.57000000000005,465.7700000000001,463.30000000000007,458.4750000000001,450.8833333333334,443.3,438.45000000000005,436.13,431.43,426.75,422.01000000000005,417.16999999999996,414.75,409.65,399.625,394.67500000000007,392.21000000000004,389.82500000000005,384.90000000000003,377.3500000000001,372.1833333333334,366.9166666666667,361.6833333333334,356.31666666666666,350.98333333333335,345.65000000000003,340.45,332.775,327.725,327.725,322.625,314.81666666666666,309.3833333333334,304.11666666666673,298.9833333333334,293.8166666666667,286.1500000000001,283.55000000000007,280.9000000000001,273.05,267.5833333333333,262.01666666666665,256.48333333333335,250.95000000000005,245.6166666666667,240.18333333333337,234.85,229.55000000000004,224.35000000000002,219.05000000000004,213.75000000000003,208.38333333333335,203.1166666666667,197.7833333333334,192.6166666666667,187.38333333333335,179.77500000000003,177.18333333333337,174.57500000000002,166.75000000000003,161.45000000000002,156.15,148.52500000000003,145.95000000000002,140.93,133.52500000000003,131.07000000000002,126.23000000000002,121.51000000000002,116.73000000000002,111.95,107.31000000000002,104.95000000000002,102.58333333333336],"y":[5.605000000000003e-08,7.848000000000003e-08,1.0590000000000003e-07,1.0590000000000003e-07,1.619666666666667e-07,2.2738333333333336e-07,3.477000000000001e-07,4.5986000000000004e-07,6.0566e-07,7.9638e-07,1.0692000000000003e-06,1.4878000000000002e-06,2.2168e-06,4.1832e-06,1.215e-05,4.2734e-05,0.000103286,0.000187394,0.000285976,0.000385894,0.000464234,0.0005117740000000001,0.000534454,0.0005404140000000001,0.000538094,0.0005338540000000001,0.0005295340000000001,0.0005254939999999999,0.0005217940000000001,0.0005184140000000001,0.000515334,0.000512534,0.0005099340000000001,0.0005074740000000001,0.0005051340000000001,0.0005028340000000001,0.0005005540000000001,0.0004983940000000001,0.0004963540000000001,0.0004943940000000001,0.0004924940000000001,0.0004906740000000001,0.0004888340000000001,0.000486974,0.000485134,0.0004833339999999999,0.000482414,0.000480664,0.00047811399999999997,0.00047571399999999997,0.00047418899999999997,0.000473454,0.00047201400000000004,0.00047059399999999996,0.00046915399999999995,0.0004677339999999999,0.00046703899999999993,0.00046563899999999995,0.000462989,0.00046171399999999995,0.0004610939999999999,0.000460464,0.000459239,0.00045741399999999995,0.00045624733333333333,0.0004550473333333333,0.00045388066666666673,0.00045271399999999995,0.0004515806666666666,0.00045048066666666665,0.000449414,0.000447939,0.000446989,0.000446989,0.000446064,0.0004446806666666666,0.0004437473333333333,0.0004428473333333333,0.00044201399999999996,0.00044121399999999994,0.000440014,0.000439614,0.000439214,0.000438014,0.000437214,0.000436414,0.00043561399999999997,0.0004348473333333333,0.000434114,0.000433414,0.000432714,0.0004320473333333333,0.00043141399999999997,0.0004307806666666667,0.00043011399999999994,0.00042944733333333333,0.000428814,0.00042821399999999995,0.00042764733333333334,0.000427114,0.00042633899999999997,0.00042608066666666665,0.000425839,0.00042511400000000004,0.00042461399999999997,0.00042418066666666666,0.00042356399999999997,0.00042338066666666664,0.00042305399999999996,0.00042256399999999995,0.00042241399999999997,0.00042213399999999995,0.000421854,0.00042159399999999996,0.0004213740000000001,0.00042117399999999996,0.000421064,0.00042098066666666664]},"selected":{"id":"4475"},"selection_policy":{"id":"4474"}},"id":"4455","type":"ColumnDataSource"},{"attributes":{"coordinates":null,"data_source":{"id":"4455"},"glyph":{"id":"4456"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"4458"},"nonselection_glyph":{"id":"4457"},"view":{"id":"4460"}},"id":"4459","type":"GlyphRenderer"},{"attributes":{"coordinates":null,"data_source":{"id":"4415"},"glyph":{"id":"4416"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"4418"},"nonselection_glyph":{"id":"4417"},"view":{"id":"4420"}},"id":"4419","type":"GlyphRenderer"},{"attributes":{"line_color":"blue","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"4456","type":"Line"},{"attributes":{"overlay":{"id":"4390"}},"id":"4387","type":"BoxZoomTool"},{"attributes":{"source":{"id":"4434"}},"id":"4439","type":"CDSView"},{"attributes":{"label":{"value":"Heating \u2013 smoothed"},"renderers":[{"id":"4419"}]},"id":"4433","type":"LegendItem"},{"attributes":{"line_alpha":0.2,"line_color":"red","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"4418","type":"Line"},{"attributes":{},"id":"4371","type":"DataRange1d"},{"attributes":{"coordinates":null,"data_source":{"id":"4434"},"glyph":{"id":"4435"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"4437"},"nonselection_glyph":{"id":"4436"},"view":{"id":"4439"}},"id":"4438","type":"GlyphRenderer"},{"attributes":{"line_alpha":0.1,"line_color":"red","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"4417","type":"Line"},{"attributes":{"line_alpha":0.1,"line_color":"blue","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"4457","type":"Line"},{"attributes":{"line_alpha":0.2,"line_color":"blue","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"4458","type":"Line"},{"attributes":{"label":{"value":"Cooling \u2013 smoothed"},"renderers":[{"id":"4459"}]},"id":"4477","type":"LegendItem"},{"attributes":{},"id":"4375","type":"LinearScale"},{"attributes":{"source":{"id":"4397"}},"id":"4402","type":"CDSView"},{"attributes":{"coordinates":null,"data_source":{"id":"4397"},"glyph":{"id":"4398"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"4400"},"nonselection_glyph":{"id":"4399"},"view":{"id":"4402"}},"id":"4401","type":"GlyphRenderer"},{"attributes":{"label":{"value":"Heating \u2013 zero corrected"},"renderers":[{"id":"4401"}]},"id":"4414","type":"LegendItem"},{"attributes":{},"id":"4451","type":"UnionRenderers"},{"attributes":{},"id":"4474","type":"UnionRenderers"},{"attributes":{},"id":"4369","type":"DataRange1d"},{"attributes":{},"id":"4385","type":"PanTool"},{"attributes":{"coordinates":null,"group":null,"text":"magnetite_Wright 3006-k(T)-02"},"id":"4367","type":"Title"},{"attributes":{},"id":"4431","type":"Selection"},{"attributes":{},"id":"4386","type":"WheelZoomTool"},{"attributes":{},"id":"4475","type":"Selection"},{"attributes":{},"id":"4388","type":"ResetTool"},{"attributes":{},"id":"4405","type":"BasicTickFormatter"},{"attributes":{},"id":"4430","type":"UnionRenderers"},{"attributes":{"axis":{"id":"4381"},"coordinates":null,"dimension":1,"grid_line_color":"lightgray","group":null,"ticker":null},"id":"4384","type":"Grid"},{"attributes":{},"id":"4406","type":"AllLabels"},{"attributes":{},"id":"4378","type":"BasicTicker"},{"attributes":{"axis_label":"Temperature (\u00b0C)","coordinates":null,"formatter":{"id":"4408"},"group":null,"major_label_policy":{"id":"4409"},"ticker":{"id":"4378"}},"id":"4377","type":"LinearAxis"},{"attributes":{},"id":"4408","type":"BasicTickFormatter"},{"attributes":{"fill_alpha":{"value":0.5},"fill_color":{"value":"red"},"hatch_alpha":{"value":0.5},"hatch_color":{"value":"red"},"line_alpha":{"value":0.5},"line_color":{"value":"red"},"size":{"value":6},"x":{"field":"x"},"y":{"field":"y"}},"id":"4398","type":"Circle"},{"attributes":{},"id":"4389","type":"SaveTool"},{"attributes":{},"id":"4373","type":"LinearScale"},{"attributes":{"axis":{"id":"4377"},"coordinates":null,"grid_line_color":"lightgray","group":null,"ticker":null},"id":"4380","type":"Grid"},{"attributes":{},"id":"4409","type":"AllLabels"}],"root_ids":["4366"]},"title":"Bokeh Application","version":"2.4.3"}};
+  const render_items = [{"docid":"20b6e5b5-5655-4627-9615-289afac4bcfb","root_ids":["4366"],"roots":{"4366":"4270c07c-5fab-43e1-a8a6-f06a3b3961e3"}}];
+  root.Bokeh.embed.embed_items_notebook(docs_json, render_items);
+  }
+  if (root.Bokeh !== undefined) {
+    embed_document(root);
+  } else {
+    let attempts = 0;
+    const timer = setInterval(function(root) {
+      if (root.Bokeh !== undefined) {
+        clearInterval(timer);
+        embed_document(root);
+      } else {
+        attempts++;
+        if (attempts > 100) {
+          clearInterval(timer);
+          console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+        }
+      }
+    }, 10, root)
+  }
+})(window);</script><div class="output text_html">
+  <div class="bk-root" id="5d74b8b8-4ca6-4a3a-9167-db8fe8ad4a17" data-root-id="4482"></div>
+</div><script type="application/javascript">(function(root) {
+  function embed_document(root) {
+  const docs_json = {"e4514fe3-e893-4ec2-b1ec-a4b580987d7c":{"defs":[],"roots":{"references":[{"attributes":{"background_fill_color":"white","below":[{"id":"4493"}],"center":[{"id":"4496"},{"id":"4500"},{"id":"4529"}],"height":556,"left":[{"id":"4497"}],"outline_line_color":"black","renderers":[{"id":"4517"},{"id":"4535"}],"title":{"id":"4483"},"toolbar":{"id":"4507"},"width":900,"x_range":{"id":"4485"},"x_scale":{"id":"4489"},"y_range":{"id":"4487"},"y_scale":{"id":"4491"}},"id":"4482","subtype":"Figure","type":"Plot"},{"attributes":{"label":{"value":"Heating \u2013 dX/dT"},"renderers":[{"id":"4517"}]},"id":"4530","type":"LegendItem"},{"attributes":{},"id":"4526","type":"UnionRenderers"},{"attributes":{},"id":"4527","type":"Selection"},{"attributes":{"line_color":"blue","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"4532","type":"Line"},{"attributes":{"tools":[{"id":"4501"},{"id":"4502"},{"id":"4503"},{"id":"4504"},{"id":"4505"},{"id":"4550"},{"id":"4552"}]},"id":"4507","type":"Toolbar"},{"attributes":{"source":{"id":"4531"}},"id":"4536","type":"CDSView"},{"attributes":{"data":{"x":[647.825,646.45,644.9,644.9,642.0166666666667,638.8666666666667,633.77,630.19,626.61,622.83,618.9300000000001,614.99,610.97,606.97,603.05,599.01,594.97,590.8700000000001,586.7700000000001,582.6700000000001,578.59,574.39,570.21,565.85,561.4300000000001,556.95,552.4100000000001,547.75,543.1700000000001,538.5300000000001,533.97,529.5300000000001,525.1700000000001,520.8100000000001,516.3900000000001,511.91,507.2700000000001,502.75,498.16999999999996,493.66999999999996,489.1700000000001,484.7500000000001,480.03000000000003,475.33000000000004,470.57000000000005,465.7700000000001,463.30000000000007,458.4750000000001,450.8833333333334,443.3,438.45000000000005,436.13,431.43,426.75,422.01000000000005,417.16999999999996,414.75,409.65,399.625,394.67500000000007,392.21000000000004,389.82500000000005,384.90000000000003,377.3500000000001,372.1833333333334,366.9166666666667,361.6833333333334,356.31666666666666,350.98333333333335,345.65000000000003,340.45,332.775,327.725,327.725,322.625,314.81666666666666,309.3833333333334,304.11666666666673,298.9833333333334,293.8166666666667,286.1500000000001,283.55000000000007,280.9000000000001,273.05,267.5833333333333,262.01666666666665,256.48333333333335,250.95000000000005,245.6166666666667,240.18333333333337,234.85,229.55000000000004,224.35000000000002,219.05000000000004,213.75000000000003,208.38333333333335,203.1166666666667,197.7833333333334,192.6166666666667,187.38333333333335,179.77500000000003,177.18333333333337,174.57500000000002,166.75000000000003,161.45000000000002,156.15,148.52500000000003,145.95000000000002,140.93,133.52500000000003,131.07000000000002,126.23000000000002,121.51000000000002,116.73000000000002,111.95,107.31000000000002,104.95000000000002,102.58333333333336],"y":{"__ndarray__":"NA7eIQKEUb55V9gNBDZSvgAAAAAAAPj/AAAAAAAA+P9Loy/is45Vvr7fUZCadle+UNCMe/M3Xr72S+oypFdjvkUoLUfDZ2i+1tstv78ecL4senD+vJ93vmTChze9P4O+a+bCVC+blr4VxpBojk21vuZr1wOP9tO+YDpaiHqn576NRub8kJfyvsgDvaiLXPe+3F6WKRpi+b7ecgyaVdb2vhyaIh+pD/C+oC8XMiWL4b4gmgQaldnMvoDCdriDsJy+gDH+ygujqD6AeXAmk9evPoA6xiEdh64+AJJ64xEXrD6AfslOncipPsAzwh2ri6c+wDIBafXmpT5AGHruapSkPsCoVrmGeKM+ADLPlSJaoj6Ahd+LRn+hPsDUzVAf3aA+QBh5GSlCoD6AooXv2PyePoAk9mG7jp0+gLsLSEHInD6A2plnFvubPgByPq/V65o+gGD+uCVcmj4A9i+JZkCaPoAlG6Mejpk+ABpDxb8NmT4ApCgTHsaYPoCw9rAgpJc+AG52QcvjlT6A8sbHqCeVPgCIbHiLNZU+gBJVm44HlT4AJeVmGnaUPoD9JGbtX5Q+gI0znLgKlD4AzsU2YmmTPkAFzpPI/5I+AFsyCSAxkj4A4mSjhm+RPgDa2FuuA5E+AFxiXGFPkT5AUQKKpWORPoAJdmmggZA+AJoyl9Qsjz4ARJ/CY3GOPgBMlRsKQI4+AB9ls9uNjT4AJmLvNtmMPgCH/fkRGow+ABYgBy6biz4AgMSVf9SKPgDZJrofd4k+AAAAAAAA+P8AAAAAAAD4/wBW1Ae+Hog+AG7OLCpahz4ANu9htP6GPgC7137bWoY+AFGOK3dJhT4AS4XHf9+EPgAYfCplvYQ+ANTiM7h0hD7A1ajODFOEPgCscoZJAIQ+AIA88X93gz4AzDAr2FiDPgBqSQkuAIM+AOJ78z2Ggj4A9W/d+OCBPgCHDcWZdIE+AJ8irI0/gT4ARY26wZyAPgDkaH68MYA+AO8XIO51gD4AYM2HTceAPgCSpvhvZ4A+AH7wZgM/fz4AfGsoa9B9PgBGx9PTZ3w+ALf6IuRZez4AQIkq+ud6PgBUZ40w0Xk+gDMm8/reeD4AfE3HISR5PgCQaoPFonc+AGdFa5bZdT4AwBzVhsRzPgBrw7L1jXI+AJNvkUiWcT4AEOMbhr1wPgC/5XOeG3A+ANz3z1p1bz4AAJIHmYhuPgCkC1qz9Go+AOzUM+LpZz4AeGJCkGNoPgBw9MfU92U+rgxWV2bnYj4=","dtype":"float64","order":"little","shape":[118]}},"selected":{"id":"4547"},"selection_policy":{"id":"4546"}},"id":"4531","type":"ColumnDataSource"},{"attributes":{"coordinates":null,"data_source":{"id":"4531"},"glyph":{"id":"4532"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"4534"},"nonselection_glyph":{"id":"4533"},"view":{"id":"4536"}},"id":"4535","type":"GlyphRenderer"},{"attributes":{},"id":"4491","type":"LinearScale"},{"attributes":{"callback":null,"renderers":[{"id":"4535"}],"tooltips":[["T","@x"],["dX/dT (cool)","@y"]]},"id":"4552","type":"HoverTool"},{"attributes":{"label":{"value":"Cooling \u2013 dX/dT"},"renderers":[{"id":"4535"}]},"id":"4549","type":"LegendItem"},{"attributes":{"line_alpha":0.2,"line_color":"blue","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"4534","type":"Line"},{"attributes":{"line_alpha":0.1,"line_color":"blue","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"4533","type":"Line"},{"attributes":{"callback":null,"renderers":[{"id":"4517"}],"tooltips":[["T","@x"],["dX/dT (heat)","@y"]]},"id":"4550","type":"HoverTool"},{"attributes":{"coordinates":null,"group":null,"text":"magnetite_Wright 3006-k(T)-02 \u2013 dX/dT"},"id":"4483","type":"Title"},{"attributes":{"line_alpha":0.2,"line_color":"red","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"4516","type":"Line"},{"attributes":{},"id":"4524","type":"BasicTickFormatter"},{"attributes":{},"id":"4546","type":"UnionRenderers"},{"attributes":{"source":{"id":"4513"}},"id":"4518","type":"CDSView"},{"attributes":{"coordinates":null,"data_source":{"id":"4513"},"glyph":{"id":"4514"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"4516"},"nonselection_glyph":{"id":"4515"},"view":{"id":"4518"}},"id":"4517","type":"GlyphRenderer"},{"attributes":{},"id":"4485","type":"DataRange1d"},{"attributes":{"coordinates":null,"group":null,"items":[{"id":"4530"},{"id":"4549"}],"location":"top_left"},"id":"4529","type":"Legend"},{"attributes":{"axis_label":"Temperature (\u00b0C)","coordinates":null,"formatter":{"id":"4524"},"group":null,"major_label_policy":{"id":"4525"},"ticker":{"id":"4494"}},"id":"4493","type":"LinearAxis"},{"attributes":{},"id":"4547","type":"Selection"},{"attributes":{"line_color":"red","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"4514","type":"Line"},{"attributes":{"data":{"x":[25.716666666666697,25.716666666666697,28.650000000000034,37.7166666666667,45.65000000000001,53.616666666666674,61.25000000000002,68.48333333333336,75.28333333333336,81.65000000000002,87.68333333333334,93.55000000000001,99.25000000000001,104.78333333333336,110.05000000000003,115.35000000000002,120.55000000000001,125.88333333333334,131.01666666666668,136.28333333333336,141.51666666666668,146.68333333333337,151.95000000000002,157.15000000000003,162.6166666666667,168.08333333333334,173.65,179.25,184.85000000000002,190.55000000000004,196.15,201.75,207.2833333333334,212.75,218.1166666666667,223.58333333333334,229.05000000000004,234.55000000000004,240.15000000000006,245.7833333333334,251.2166666666667,256.48333333333335,261.65000000000003,267.0166666666667,272.28333333333336,277.85,283.45,289.15000000000003,294.75,300.35,305.98333333333335,311.6166666666667,317.3833333333333,322.95,328.35,333.55,338.65000000000003,343.8500000000001,348.98333333333335,354.4166666666667,359.7833333333333,365.2166666666667,372.875,377.90000000000003,380.35,382.80000000000007,387.775,395.48333333333335,400.81666666666666,406.15000000000003,413.79999999999995,416.3500000000001,418.975,426.6833333333334,432.05,439.725,444.725,447.11,451.95,456.75,461.61,466.48999999999995,471.41,473.85,478.82500000000005,488.75000000000006,493.55,495.83000000000004,500.51000000000005,505.21000000000004,509.9700000000001,514.8100000000001,519.77,522.275,527.2750000000001,537.375,542.4000000000001,544.8700000000001,549.75,554.45,559.1099999999999,563.79,568.41,573.17,575.625,582.95,590.1,592.3100000000001,596.83,601.3100000000001,605.8500000000001,610.53,615.27,619.85,624.51,629.1700000000001,633.8299999999999,638.3900000000001,644.35,646.47,648.475,648.475],"y":{"__ndarray__":"AAAAAAAA+P8AAAAAAAD4/wAX8wQ6p5Y+wPuTzaw5lT7APLZ/2x6UPoCxyCQJpZM+QD5UgjG3kz6AqK1V5UWUPgDYv+Pz0JU+gK6WT5oOmD4AyRJgOLyaPoAojZAuB54+gKL4bCn1oD7AYV4unG+jPoCWLQqBzKU+ADfB/j8ZqD5ACIl/XBqqPoC/7bxUJ6w+gAg2SuAmrT7AFPX6fwKsPsD4aPuUd6k+gPjNl//npT4AEb/oPa+iPoC3CdlaT6A+gPloAgFCnT6AiSQA15WbPoBd6ZoXpZo+gA4gaV2Qmj4ACIwfSx2bPoDNBfFfhpw+AKIkeNhbnj4AjcgV4PSfPkCxxMHhraA+ACEKcxFaoT6Ahdy2zduhPkCOYWCcNaI+gKnRtbJ1oj5Au4bsOT6iPgAfI3zW0qE+QB/+p/qvoT6A6e2+HqqhPsAXNf2eXKE+AKnGG+WvoD7A7lHklTKgPgBOxrc5b58+AG+GaToNnj4AxKjn8+mcPgBTrN2eG5w+gE8GiASQmz4Aqol6Nn2aPoDEdHZUBJk+gJhGR+Etlz6AxrwphbKVPgDNXejmKJQ+gDlAo+R0kT4AZlQIVLiLPgDUvOFWeoQ+AAjtjeJ/fD4Azg2NtnNwPgBApxun4Dg+AOA2KbWfbb6AaaVppb6AvgCNpCdZf4y+AHYvVs2Vkr4AuGO04dSSvgBkJXemg5K+QJSD9FZolL4AWskcdhuUvoAYbUTmgJO+gKntmWnBkr4A/r17wfuRvgA62bjnQo++gF68H0Vqir4AubZR3aaFvgAzsrUEF4G+AGJwiJWDe74A8HoEiKpzvgCg9nVYzXC+AExShXitar4AoDAS+UFUvgDw3jXxkFE+AIxPK2cjaT4AiJWRCRdwPgDCnzk7BnQ+AKkPaNybfj4AiistFGWDPgBs6TUtFok+AEGElN5siz4ADdmmvAmOPgATgHpL25E+AG0S8H4VlT4AVNWdfDSYPgCc/m3KW5k+ABXusmMxmz7AQqwZw5igPoCT2AzaAaU+ADC7SuaHqD4AtnXqCYGpPkDnU40iqKk+QJaPDNMepj4AkG2Ne2BrvvB6xqF8kMG+EOeF1bAw2b5QLwX+X3LeviiMtrqv8+S+QD3E6CS69b7Ejbfz+afsvnZHbssmHem+EOSQDT6Z5L6WdT5JVYXSvmTR3IgLerq+V324TSf8nL5Jdv7G+kyDvt3y1Y//vnO+WA3eZ18zab6rw4xYh4ZiviKWpsw1qVy+vT4kv/3dVr6uykkI969UvnBXVB9sgVK+AAAAAAAA+P8AAAAAAAD4/w==","dtype":"float64","order":"little","shape":[122]}},"selected":{"id":"4527"},"selection_policy":{"id":"4526"}},"id":"4513","type":"ColumnDataSource"},{"attributes":{},"id":"4487","type":"DataRange1d"},{"attributes":{},"id":"4494","type":"BasicTicker"},{"attributes":{"axis":{"id":"4493"},"coordinates":null,"grid_line_color":"lightgray","group":null,"ticker":null},"id":"4496","type":"Grid"},{"attributes":{},"id":"4489","type":"LinearScale"},{"attributes":{},"id":"4522","type":"AllLabels"},{"attributes":{"line_alpha":0.1,"line_color":"red","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"4515","type":"Line"},{"attributes":{},"id":"4502","type":"WheelZoomTool"},{"attributes":{},"id":"4521","type":"BasicTickFormatter"},{"attributes":{"axis_label":"dX/dT","coordinates":null,"formatter":{"id":"4521"},"group":null,"major_label_policy":{"id":"4522"},"ticker":{"id":"4498"}},"id":"4497","type":"LinearAxis"},{"attributes":{"axis":{"id":"4497"},"coordinates":null,"dimension":1,"grid_line_color":"lightgray","group":null,"ticker":null},"id":"4500","type":"Grid"},{"attributes":{},"id":"4498","type":"BasicTicker"},{"attributes":{},"id":"4525","type":"AllLabels"},{"attributes":{"bottom_units":"screen","coordinates":null,"fill_alpha":0.5,"fill_color":"lightgrey","group":null,"left_units":"screen","level":"overlay","line_alpha":1.0,"line_color":"black","line_dash":[4,4],"line_width":2,"right_units":"screen","syncable":false,"top_units":"screen"},"id":"4506","type":"BoxAnnotation"},{"attributes":{},"id":"4501","type":"PanTool"},{"attributes":{"overlay":{"id":"4506"}},"id":"4503","type":"BoxZoomTool"},{"attributes":{},"id":"4504","type":"ResetTool"},{"attributes":{},"id":"4505","type":"SaveTool"}],"root_ids":["4482"]},"title":"Bokeh Application","version":"2.4.3"}};
+  const render_items = [{"docid":"e4514fe3-e893-4ec2-b1ec-a4b580987d7c","root_ids":["4482"],"roots":{"4482":"5d74b8b8-4ca6-4a3a-9167-db8fe8ad4a17"}}];
+  root.Bokeh.embed.embed_items_notebook(docs_json, render_items);
+  }
+  if (root.Bokeh !== undefined) {
+    embed_document(root);
+  } else {
+    let attempts = 0;
+    const timer = setInterval(function(root) {
+      if (root.Bokeh !== undefined) {
+        clearInterval(timer);
+        embed_document(root);
+      } else {
+        attempts++;
+        if (attempts > 100) {
+          clearInterval(timer);
+          console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+        }
+      }
+    }, 10, root)
+  }
+})(window);</script></div>
 </div>
 </section>
-</section>
-<section id="save-the-figures">
-<h2>Save the figures<a class="headerlink" href="#save-the-figures" title="Link to this heading">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## code for saving the figures in png format</span>
-<span class="c1"># save the first figure</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">write_image</span><span class="p">(</span><span class="s2">&quot;fig.png&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># save the dX/dT figure</span>
-<span class="n">fig_dXdT</span><span class="o">.</span><span class="n">write_image</span><span class="p">(</span><span class="s2">&quot;fig_dXdT.png&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># save the 1/X vs T figure</span>
-<span class="n">fig_inv</span><span class="o">.</span><span class="n">write_image</span><span class="p">(</span><span class="s2">&quot;fig_inv.png&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
 </section>
 <section id="determining-the-best-temperature-window-for-smoothing">
 <h2>Determining the best temperature window for smoothing<a class="headerlink" href="#determining-the-best-temperature-window-for-smoothing" title="Link to this heading">#</a></h2>
-<p>The following function plots the <strong>model roughness</strong> against the <strong>root mean square error</strong> of the model <strong>(note that the y-axis is inverted)</strong> (a measure of the difference between the running average and the data). Each point on the graph is for a different temperature window size. The <code class="docutils literal notranslate"><span class="pre">knee</span></code> in the curve (the break of slope) is the optimal tempeature window. At this point (window) there is a decent trade off between the smoothness of the model (the running average) and error on the model.</p>
-<p>set values for <code class="docutils literal notranslate"><span class="pre">min_temp_window</span></code> and <code class="docutils literal notranslate"><span class="pre">max_temp_window</span></code> to set the temperature range for exploring the rms and variance tradeoff.</p>
+<p>The following function plots the <strong>model roughness</strong> against the <strong>root mean square error</strong> of the model <strong>(note that the y-axis is inverted)</strong> (a measure of the difference between the running average and the data). Each point on the graph is for a different temperature window size. The <code class="docutils literal notranslate"><span class="pre">knee</span></code> in the curve (the break of slope) can be interpreted as the optimal temperature window for smoothing. At this point (window) there is a decent trade off between the smoothness of the model (the running average) and error on the model.</p>
+<p>Set values for <code class="docutils literal notranslate"><span class="pre">min_temp_window</span></code> and <code class="docutils literal notranslate"><span class="pre">max_temp_window</span></code> to set the temperature range for exploring the rms and variance tradeoff.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">min_temp_window</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">max_temp_window</span> <span class="o">=</span> <span class="mi">50</span>
 <span class="n">steps</span> <span class="o">=</span> <span class="mi">20</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">optimize_X_T_running_average_window</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">min_temp_window</span><span class="p">,</span> <span class="n">max_temp_window</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">optimize_X_T_running_average_window</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">min_temp_window</span><span class="p">,</span> <span class="n">max_temp_window</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/079a54a4df7661715a4a4e09105e546046d21fa6ffce8df1956fd7a83c53a44a.png" src="../_images/079a54a4df7661715a4a4e09105e546046d21fa6ffce8df1956fd7a83c53a44a.png" />
+<img alt="../_images/e77c24c0efc37dc877aa7a2805fd480f9069a7e7ac0316ca89d92d377db4d592.png" src="../_images/e77c24c0efc37dc877aa7a2805fd480f9069a7e7ac0316ca89d92d377db4d592.png" />
 </div>
 </div>
 <ul class="simple">
@@ -946,11 +1065,11 @@ measurements  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-data">Import data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-project-export-contains-data-from-all-the-experiments">The project export contains data from all the experiments</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#select-a-chi-t-experiment">Select a <span style="font-family: 'Times New Roman';"><em><span class="math notranslate nohighlight">\(\chi\)</span>-T</em></span> Experiment</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-chi-t-data-the-derivatives-and-inverse-chi-t">Plot <span class="math notranslate nohighlight">\(\chi\)</span>-T data, the derivatives, and inverse <span class="math notranslate nohighlight">\(\chi\)</span>-T</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-chi-t-data">Plot <span class="math notranslate nohighlight">\(\chi\)</span>-T data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-chi-t-data-with-smoothed-curve-and-derivative">Plot <span class="math notranslate nohighlight">\(\chi\)</span>-T data with smoothed curve and derivative</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-tc-using-inverse-susceptibility">Calculate <span style="font-family: 'Times New Roman';"><em>T<sub>c</sub></em></span> using inverse susceptibility</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-the-figures">Save the figures</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#determining-the-best-temperature-window-for-smoothing">Determining the best temperature window for smoothing</a></li>
 </ul>
   </nav></div>
