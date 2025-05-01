@@ -38,3 +38,4 @@ sphinx:
   config:
      bibtex_reference_style: author_year
      bibtex_csl_path: book/american-geophysical-union.csl
+     html_extra_path: ['images']
