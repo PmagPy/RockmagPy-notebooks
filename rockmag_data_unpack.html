@@ -457,7 +457,6 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.ipmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ipmag</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.contribution_builder</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cb</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -475,33 +474,22 @@ document.write(`
 <span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;./example_data/ECMB&#39;</span>
 
 <span class="c1"># set the name of the MagIC file</span>
-<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="s1">&#39;ECMB 2018.TXT&#39;</span><span class="p">,</span> 
+<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="s1">&#39;magic_contribution_20213.txt&#39;</span><span class="p">,</span> 
                      <span class="n">dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">,</span>
-                     <span class="n">input_dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">)</span>
+                     <span class="n">input_dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">,</span>
+                     <span class="n">print_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="n">ECMB_contribution</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">Contribution</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>working on:  &#39;contribution\r&#39;
-1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/contribution.txt
-  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/contribution.txt
-working on:  &#39;specimens\r&#39;
-15  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/specimens.txt
-  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/specimens.txt
-working on:  &#39;samples\r&#39;
-5  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/samples.txt
-  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/samples.txt
-working on:  &#39;sites\r&#39;
-5  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/sites.txt
-  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/sites.txt
-working on:  &#39;locations\r&#39;
-10  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/locations.txt
-  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/locations.txt
-working on:  &#39;measurements\r&#39;
-5018  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/measurements.txt
-  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/measurements.txt
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/contribution.txt
+1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/locations.txt
+90  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/sites.txt
+312  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/samples.txt
+1574  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/specimens.txt
+17428  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/measurements.txt
 -I- Using online data model
 -I- Getting method codes from earthref.org
 -I- Importing controlled vocabularies from https://earthref.org
@@ -524,31 +512,19 @@ working on:  &#39;measurements\r&#39;
 <span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;example_data/Jackson2012&#39;</span>
 
 <span class="n">result</span><span class="p">,</span> <span class="n">magic_file</span> <span class="o">=</span> <span class="n">ipmag</span><span class="o">.</span><span class="n">download_magic_from_id</span><span class="p">(</span><span class="n">magic_id</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">dir_path</span><span class="p">)</span>
-<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="n">magic_file</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">)</span>
+<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="n">magic_file</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">,</span> <span class="n">print_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">J12_contribution</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">Contribution</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Download successful. File saved to: example_data/Jackson2012/magic_contribution_16460.txt
-working on:  &#39;contribution\r&#39;
 1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/contribution.txt
-  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/contribution.txt
-working on:  &#39;locations\r&#39;
 5  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/locations.txt
-  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/locations.txt
-working on:  &#39;sites\r&#39;
 8  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/sites.txt
-  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/sites.txt
-working on:  &#39;samples\r&#39;
 51  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/samples.txt
-  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/samples.txt
-working on:  &#39;specimens\r&#39;
 186  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/specimens.txt
-  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/specimens.txt
-working on:  &#39;measurements\r&#39;
 4758  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/measurements.txt
-  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/measurements.txt
 </pre></div>
 </div>
 </div>
@@ -575,31 +551,19 @@ working on:  &#39;measurements\r&#39;
 <span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;example_data/SSRM2022C&#39;</span>
 
 <span class="n">result</span><span class="p">,</span> <span class="n">magic_file</span> <span class="o">=</span> <span class="n">ipmag</span><span class="o">.</span><span class="n">download_magic_from_id</span><span class="p">(</span><span class="n">magic_id</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">dir_path</span><span class="p">,</span> <span class="n">share_key</span><span class="o">=</span><span class="n">share_key</span><span class="p">)</span>
-<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="n">magic_file</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">)</span>
+<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="n">magic_file</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">,</span> <span class="n">print_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">SSRM2022C_contribution</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">Contribution</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Download successful. File saved to: example_data/SSRM2022C/magic_contribution_20100.txt
-working on:  &#39;contribution&#39;
 1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/contribution.txt
-contribution  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/contribution.txt
-working on:  &#39;locations&#39;
 6  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/locations.txt
-locations  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/locations.txt
-working on:  &#39;sites&#39;
 6  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/sites.txt
-sites  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/sites.txt
-working on:  &#39;samples&#39;
 28  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/samples.txt
-samples  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/samples.txt
-working on:  &#39;specimens&#39;
 47  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/specimens.txt
-specimens  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/specimens.txt
-working on:  &#39;measurements&#39;
 140501  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/measurements.txt
-measurements  data put in  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/measurements.txt
 </pre></div>
 </div>
 </div>
