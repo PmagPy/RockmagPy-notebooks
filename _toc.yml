@@ -20,7 +20,7 @@ parts:
       - file: hysteresis_backfield_notebooks/VSM_intro
         title: Hysteresis/backfield notebooks
         sections:
-          - file: hysteresis_backfield_notebooks/hysteresis_processing_walk_through.ipynb
+          - file: hysteresis_backfield_notebooks/hysteresis_processing_walk_through
           - file: hysteresis_backfield_notebooks/VSM_backfield_unmixing
       - file: thermomagnetic_notebooks/thermomag_intro
         title: Thermomagnetic notebooks
@@ -32,7 +32,10 @@ parts:
           - file: anisotropy_notebooks/anisotropy_plot_AMS
   - caption: Rock Magnetic Bestiary notebooks
     chapters:
-      - file: RMB_siderite
+      - file: RMB_notebooks/RMB_intro
+        sections: 
+          - file: RMB_siderite
+          - file: RMB_titanomagnetite
   - caption: Background
     chapters:
       - file: book/background/low_temperature_behavior.md
