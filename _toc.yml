@@ -34,8 +34,8 @@ parts:
     chapters:
       - file: RMB_notebooks/RMB_intro
         sections: 
-          - file: RMB_siderite
-          - file: RMB_titanomagnetite
+          - file: RMB_notebooks/RMB_siderite
+          - file: RMB_notebooks/RMB_titanomagnetite
   - caption: Background
     chapters:
       - file: book/background/low_temperature_behavior.md
