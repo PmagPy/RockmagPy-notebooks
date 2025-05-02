@@ -1,0 +1,1770 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Unmixing coercivity spectra from backfield curves &#8212; RockmagPy Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'hysteresis_backfield_notebooks/coercivity_unmixing_lmfit';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../book/intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/rockmagpy.png" class="logo__image only-light" alt="RockmagPy Documentation - Home"/>
+    <script>document.write(`<img src="../_static/rockmagpy.png" class="logo__image only-dark" alt="RockmagPy Documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../book/intro.html">
+                    RockmagPy: tools for rock magnetic data analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Nuts &amp; Bolts</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../rockmag_set_up.html">Getting going with rockmag.py on JupyterHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rockmag_data_unpack.html">Rock magnetic data import</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data Processing Notebooks</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../MPMS_notebooks/MPMS_intro.html">MPMS notebooks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../MPMS_notebooks/MPMS_plot_dc.html">Plot MPMS data (DC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MPMS_notebooks/MPMS_plot_ac.html">Plot MPMS data (AC susceptibility)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MPMS_notebooks/MPMS_verwey_fit.html">Estimate the Verwey transition temperature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MPMS_notebooks/MPMS_goethite_fit.html">Fit and remove the goethite component</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="VSM_intro.html">Hysteresis/backfield notebooks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="hysteresis_processing_walk_through.html">Hysteresis Processing walkthrough notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VSM_backfield_unmixing.html">Unmixing coercivity spectra from backfield curves</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../thermomagnetic_notebooks/high_T_susceptibility.html">Analysis of susceptibility-temperature, <span style="font-family: 'Times New Roman';"><em>(Kappabridge <span class="math notranslate nohighlight">\(\chi\)</span>-T)</em></span>, data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../anisotropy_notebooks/anisotropy_plot_AMS.html">Plot and analyze anisotropy data (AMS)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Rock Magnetic Bestiary notebooks</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../RMB_notebooks/RMB_intro.html">The Rock Magnetic Bestiary</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../RMB_notebooks/RMB_siderite.html">Siderite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../RMB_notebooks/RMB_titanomagnetite.html">(Titano)magnetite</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Background</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../book/background/low_temperature_behavior.html">Low temperature behavior</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../book/background/morin.html">Morin transition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../book/minerals/siderite.html">Siderite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../book/background/paramagnetism.html">Paramagnetism</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">More resources</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../book/resources.html">Resources for learning more about rock magnetism</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/pmagpy/rockmagpy-notebooks" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/pmagpy/rockmagpy-notebooks/issues/new?title=Issue%20on%20page%20%2Fhysteresis_backfield_notebooks/coercivity_unmixing_lmfit.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/hysteresis_backfield_notebooks/coercivity_unmixing_lmfit.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Unmixing coercivity spectra from backfield curves</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background-on-coercivity-spectra">Background on coercivity spectra</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-scientific-python-libraries">Import scientific python libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-data">Import data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#now-let-s-extract-the-backfield-experiment-data-lp-bcr-bf-from-the-measurements-table">now let’s extract the backfield experiment data (LP-BCR-BF) from the measurements table</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#we-need-to-do-some-preprocessing-on-the-raw-data-in-order-to-unmix-the-spectrum">We need to do some preprocessing on the raw data in order to unmix the spectrum</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1">Example 1</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-initial-guesses-for-skewnormal-distribution-parameters">set up initial guesses for skewnormal distribution parameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2">Example 2</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">set up initial guesses for skewnormal distribution parameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3">Example 3</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">set up initial guesses for skewnormal distribution parameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-maxunmix-example">Example 4 (MaxUnmix example)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-unmixing-demo">interactive Unmixing demo</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#component">1 component</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#components">2 components</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lmfit-standard-error-propagation">lmfit standard error propagation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maxunmix-error-estimate">MaxUnmix error estimate</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="unmixing-coercivity-spectra-from-backfield-curves">
+<h1>Unmixing coercivity spectra from backfield curves<a class="headerlink" href="#unmixing-coercivity-spectra-from-backfield-curves" title="Link to this heading">#</a></h1>
+<section id="background-on-coercivity-spectra">
+<h2>Background on coercivity spectra<a class="headerlink" href="#background-on-coercivity-spectra" title="Link to this heading">#</a></h2>
+<p>Natural samples contain ferromagnetic materials dispersed in paramagnetic and/or diamagnetic matrix material. Ferromagnetic mineral assemblages can be composed of minerals with different compositions, shapes, and sizes, such that they have different coercivities. Coercivity refers to the resistance of a ferromagnetic material to becoming demagnetized in the presence of an applied field. It is common in the fields of rock and environmental magnetism to use backfield magnetic remanence curves to gain insight into coercivity and thereby the ferromagnetic mineral assemblage within samples. Alternatively, a similar analysis can be conducted on isothermal remanent magnetization (IRM) acquisition or alternating field (AF) demagnetization data.</p>
+<p>A backfield experiment is typically conducted on a vibrating sample magnetometer (VSM). In such an experiment, a strong external field is applied to the sample in one direction to induce a saturation isothermal remanent magnetization (sIRM), followed by the application of a field in the opposite direction. The process is repeated with the sIRM being applied, followed by reverse fields that are progressively larger in each step of the experiment. The derivative of the resultant backfield curve is referred to as the coercivity spectra. A common data analysis workflow is to fit components of this spectra to ‘unmix’ different populations of magnetic minerals.</p>
+<p>Available programs for processing backfield coercivity curves include Max UnMix, IRM UnMix, GECA, IRM-CLG.</p>
+</section>
+<section id="import-scientific-python-libraries">
+<h2>Import scientific python libraries<a class="headerlink" href="#import-scientific-python-libraries" title="Link to this heading">#</a></h2>
+<p>Run the cell below to import the functions needed for the notebook.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.rockmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rmag</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.ipmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ipmag</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.contribution_builder</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cb</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span> 
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.rockmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rmag</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.ipmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ipmag</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.contribution_builder</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cb</span>
+
+<span class="n">File</span> <span class="o">~/</span><span class="n">Github</span><span class="o">/</span><span class="n">PmagPy</span><span class="o">/</span><span class="n">pmagpy</span><span class="o">/</span><span class="n">rockmag</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">11</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">colors</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">patches</span>
+<span class="ne">---&gt; </span><span class="mi">11</span> <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.widgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">FloatSlider</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span>     <span class="kn">import</span><span class="w"> </span><span class="nn">ipywidgets</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">widgets</span>
+
+<span class="ne">ImportError</span>: cannot import name &#39;FloatSlider&#39; from &#39;matplotlib.widgets&#39; (/Users/yimingzhang/.local/lib/python3.10/site-packages/matplotlib/widgets.py)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="import-data">
+<h2>Import data<a class="headerlink" href="#import-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define the path to the folder </span>
+<span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;../example_data/SSRM2024C&#39;</span>
+<span class="c1"># download the data from the MagIC database using my private contribution key </span>
+<span class="n">result</span><span class="p">,</span> <span class="n">magic_file</span> <span class="o">=</span> <span class="n">ipmag</span><span class="o">.</span><span class="n">download_magic_from_id</span><span class="p">(</span><span class="s1">&#39;20133&#39;</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">dir_path</span><span class="p">,</span> <span class="n">share_key</span><span class="o">=</span><span class="s1">&#39;3b58527f-872b-4e64-a0f1-1e57120c9f15&#39;</span><span class="p">)</span>
+<span class="c1"># unpack the MagIC file</span>
+<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="n">magic_file</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">,</span> <span class="n">print_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># get the contribution object</span>
+<span class="n">contribution</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">Contribution</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
+<span class="c1"># get the measurements table</span>
+<span class="n">measurements</span> <span class="o">=</span> <span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;measurements&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
+<span class="n">measurements</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Download successful. File saved to: ../example_data/SSRM2024C/magic_contribution_20133.txt
+1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2024C/contribution.txt
+1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2024C/locations.txt
+16  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2024C/sites.txt
+28  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2024C/samples.txt
+50  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2024C/specimens.txt
+16966  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2024C/measurements.txt
+-I- Using online data model
+-I- Getting method codes from earthref.org
+-I- Importing controlled vocabularies from https://earthref.org
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>dir_dec</th>
+      <th>dir_inc</th>
+      <th>experiment</th>
+      <th>instrument_codes</th>
+      <th>magn_mass</th>
+      <th>magn_moment</th>
+      <th>magn_r2_det</th>
+      <th>magn_x</th>
+      <th>magn_y</th>
+      <th>magn_z</th>
+      <th>...</th>
+      <th>quality</th>
+      <th>sequence</th>
+      <th>software_packages</th>
+      <th>specimen</th>
+      <th>standard</th>
+      <th>susc_chi_mass</th>
+      <th>susc_chi_qdr_mass</th>
+      <th>timestamp</th>
+      <th>treat_ac_field</th>
+      <th>treat_dc_field</th>
+    </tr>
+    <tr>
+      <th>measurement name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>IRM-Magnon-14466-0</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-Magnon-LP-X:LP-X-F:LP-X-H-14466</td>
+      <td>IRM-Magnon</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>IRMDB Version2</td>
+      <td>MA1-1b</td>
+      <td>u</td>
+      <td>0.001594</td>
+      <td>0.000006</td>
+      <td>2024:06:05:15:51:58.00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>IRM-Magnon-14466-1</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-Magnon-LP-X:LP-X-F:LP-X-H-14466</td>
+      <td>IRM-Magnon</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>IRMDB Version2</td>
+      <td>MA1-1b</td>
+      <td>u</td>
+      <td>0.001610</td>
+      <td>0.000006</td>
+      <td>2024:06:05:15:51:58.00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>IRM-Magnon-14466-2</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-Magnon-LP-X:LP-X-F:LP-X-H-14466</td>
+      <td>IRM-Magnon</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>IRMDB Version2</td>
+      <td>MA1-1b</td>
+      <td>u</td>
+      <td>0.001605</td>
+      <td>0.000014</td>
+      <td>2024:06:05:15:51:58.00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>IRM-Magnon-14466-3</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-Magnon-LP-X:LP-X-F:LP-X-H-14466</td>
+      <td>IRM-Magnon</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>IRMDB Version2</td>
+      <td>MA1-1b</td>
+      <td>u</td>
+      <td>0.001600</td>
+      <td>0.000012</td>
+      <td>2024:06:05:15:51:58.00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>IRM-Magnon-14466-4</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-Magnon-LP-X:LP-X-F:LP-X-H-14466</td>
+      <td>IRM-Magnon</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>IRMDB Version2</td>
+      <td>MA1-1b</td>
+      <td>u</td>
+      <td>0.001590</td>
+      <td>0.000010</td>
+      <td>2024:06:05:15:51:58.00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>nan</th>
+      <td>38.182488</td>
+      <td>23.926673</td>
+      <td>SJ1-5b-NRM_demag(T,Hac)-LP-DIR-AF-0</td>
+      <td>IRM-SRM-U</td>
+      <td>NaN</td>
+      <td>5.942540e-08</td>
+      <td>NaN</td>
+      <td>4.269700e-08</td>
+      <td>3.357810e-08</td>
+      <td>2.410100e-08</td>
+      <td>...</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>SJ1-5b</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2024:06:05:09:35:29.00</td>
+      <td>0.17</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>nan</th>
+      <td>-194.492598</td>
+      <td>-32.183836</td>
+      <td>MA1-1b-NRM_demag(T,Hac)-LP-DIR-AF-0</td>
+      <td>IRM-SRM-U</td>
+      <td>NaN</td>
+      <td>2.107890e-06</td>
+      <td>NaN</td>
+      <td>-1.727230e-06</td>
+      <td>4.464540e-07</td>
+      <td>-1.122740e-06</td>
+      <td>...</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>MA1-1b</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2024:06:05:09:35:51.00</td>
+      <td>0.17</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>nan</th>
+      <td>-215.249814</td>
+      <td>-18.923425</td>
+      <td>MA1-2b-NRM_demag(T,Hac)-LP-DIR-AF-0</td>
+      <td>IRM-SRM-U</td>
+      <td>NaN</td>
+      <td>8.466490e-07</td>
+      <td>NaN</td>
+      <td>-6.540420e-07</td>
+      <td>4.622280e-07</td>
+      <td>-2.745720e-07</td>
+      <td>...</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>MA1-2b</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2024:06:05:09:36:13.00</td>
+      <td>0.17</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>nan</th>
+      <td>-210.301191</td>
+      <td>-4.890774</td>
+      <td>MA1-3b-NRM_demag(T,Hac)-LP-DIR-AF-0</td>
+      <td>IRM-SRM-U</td>
+      <td>NaN</td>
+      <td>1.792450e-06</td>
+      <td>NaN</td>
+      <td>-1.541940e-06</td>
+      <td>9.010800e-07</td>
+      <td>-1.528180e-07</td>
+      <td>...</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>MA1-3b</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2024:06:05:09:36:36.00</td>
+      <td>0.17</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>nan</th>
+      <td>184.133604</td>
+      <td>13.586462</td>
+      <td>MA1-8b-NRM_demag(T,Hac)-LP-DIR-AF-0</td>
+      <td>IRM-SRM-U</td>
+      <td>NaN</td>
+      <td>1.217370e-06</td>
+      <td>NaN</td>
+      <td>-1.180220e-06</td>
+      <td>-8.529500e-08</td>
+      <td>2.859740e-07</td>
+      <td>...</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>MA1-8b</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2024:06:05:09:36:58.00</td>
+      <td>0.17</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>16966 rows × 27 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="now-let-s-extract-the-backfield-experiment-data-lp-bcr-bf-from-the-measurements-table">
+<h2>now let’s extract the backfield experiment data (LP-BCR-BF) from the measurements table<a class="headerlink" href="#now-let-s-extract-the-backfield-experiment-data-lp-bcr-bf-from-the-measurements-table" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>let’s filter for the experiment with a protocol of <code class="docutils literal notranslate"><span class="pre">LP-BCR-BF</span></code> which stands for lab protocol-backfield coercivity remanence-backfield</p></li>
+<li><p>columns <code class="docutils literal notranslate"><span class="pre">magn_mass</span></code> and <code class="docutils literal notranslate"><span class="pre">treat_dc_field</span></code> contain the magnetization (mass normalized) and the applied back field respectively.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># filter for backfield measurements</span>
+<span class="n">backfield_measurements</span> <span class="o">=</span> <span class="n">measurements</span><span class="p">[</span><span class="n">measurements</span><span class="o">.</span><span class="n">method_codes</span> <span class="o">==</span> <span class="s1">&#39;LP-BCR-BF&#39;</span><span class="p">]</span>
+<span class="c1"># let&#39;s drop the empty columns</span>
+<span class="n">backfield_measurements</span> <span class="o">=</span> <span class="n">backfield_measurements</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+<span class="c1"># let&#39;s inspec the data table</span>
+<span class="n">backfield_measurements</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>experiment</th>
+      <th>instrument_codes</th>
+      <th>magn_mass</th>
+      <th>measurement</th>
+      <th>method_codes</th>
+      <th>quality</th>
+      <th>specimen</th>
+      <th>standard</th>
+      <th>timestamp</th>
+      <th>treat_dc_field</th>
+    </tr>
+    <tr>
+      <th>measurement name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>MA1-5-r gelcapIRM-VSM3-LP-BCR-BF-2393701</th>
+      <td>IRM-VSM3-LP-BCR-BF-239370</td>
+      <td>IRM-VSM3</td>
+      <td>0.002470</td>
+      <td>MA1-5-r gelcapIRM-VSM3-LP-BCR-BF-2393701</td>
+      <td>LP-BCR-BF</td>
+      <td>g</td>
+      <td>MA1-5-r gelcap</td>
+      <td>300</td>
+      <td>2024:06:06:15:41:00.00</td>
+      <td>-0.000070</td>
+    </tr>
+    <tr>
+      <th>MA1-5-r gelcapIRM-VSM3-LP-BCR-BF-2393702</th>
+      <td>IRM-VSM3-LP-BCR-BF-239370</td>
+      <td>IRM-VSM3</td>
+      <td>0.001872</td>
+      <td>MA1-5-r gelcapIRM-VSM3-LP-BCR-BF-2393702</td>
+      <td>LP-BCR-BF</td>
+      <td>g</td>
+      <td>MA1-5-r gelcap</td>
+      <td>300</td>
+      <td>2024:06:06:15:41:00.00</td>
+      <td>-0.005054</td>
+    </tr>
+    <tr>
+      <th>MA1-5-r gelcapIRM-VSM3-LP-BCR-BF-2393703</th>
+      <td>IRM-VSM3-LP-BCR-BF-239370</td>
+      <td>IRM-VSM3</td>
+      <td>0.001353</td>
+      <td>MA1-5-r gelcapIRM-VSM3-LP-BCR-BF-2393703</td>
+      <td>LP-BCR-BF</td>
+      <td>g</td>
+      <td>MA1-5-r gelcap</td>
+      <td>300</td>
+      <td>2024:06:06:15:41:00.00</td>
+      <td>-0.010090</td>
+    </tr>
+    <tr>
+      <th>MA1-5-r gelcapIRM-VSM3-LP-BCR-BF-2393704</th>
+      <td>IRM-VSM3-LP-BCR-BF-239370</td>
+      <td>IRM-VSM3</td>
+      <td>0.000952</td>
+      <td>MA1-5-r gelcapIRM-VSM3-LP-BCR-BF-2393704</td>
+      <td>LP-BCR-BF</td>
+      <td>g</td>
+      <td>MA1-5-r gelcap</td>
+      <td>300</td>
+      <td>2024:06:06:15:41:00.00</td>
+      <td>-0.015070</td>
+    </tr>
+    <tr>
+      <th>MA1-5-r gelcapIRM-VSM3-LP-BCR-BF-2393705</th>
+      <td>IRM-VSM3-LP-BCR-BF-239370</td>
+      <td>IRM-VSM3</td>
+      <td>0.000591</td>
+      <td>MA1-5-r gelcapIRM-VSM3-LP-BCR-BF-2393705</td>
+      <td>LP-BCR-BF</td>
+      <td>g</td>
+      <td>MA1-5-r gelcap</td>
+      <td>300</td>
+      <td>2024:06:06:15:41:00.00</td>
+      <td>-0.020050</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="we-need-to-do-some-preprocessing-on-the-raw-data-in-order-to-unmix-the-spectrum">
+<h3>We need to do some preprocessing on the raw data in order to unmix the spectrum<a class="headerlink" href="#we-need-to-do-some-preprocessing-on-the-raw-data-in-order-to-unmix-the-spectrum" title="Link to this heading">#</a></h3>
+<p>pick your own <code class="docutils literal notranslate"><span class="pre">smooth_frac</span></code> value between 0 and 1 for smoothing the raw backfield data</p>
+</section>
+</section>
+<section id="example-1">
+<h2>Example 1<a class="headerlink" href="#example-1" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">specimne_1</span> <span class="o">=</span> <span class="s1">&#39;SJ1-4-r gelcap&#39;</span>
+<span class="n">experiment_1</span> <span class="o">=</span> <span class="s1">&#39;IRM-VSM4-LP-BCR-BF-239364&#39;</span>
+<span class="n">smooth_frac</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+<span class="n">selected_experiment</span> <span class="o">=</span> <span class="n">backfield_measurements</span><span class="p">[(</span><span class="n">backfield_measurements</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">specimne_1</span><span class="p">)</span> <span class="o">&amp;</span> 
+                                      <span class="p">(</span><span class="n">backfield_measurements</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">experiment_1</span><span class="p">)]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">selected_experiment</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">backfield_data_processing</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">smooth_frac</span><span class="o">=</span><span class="n">smooth_frac</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">)</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">plot_backfield_data</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="../_images/88abfe7ded12b132e17d24c05d768c749f76a92af0fe59b8550d9b5004cc4652.png"><img alt="../_images/88abfe7ded12b132e17d24c05d768c749f76a92af0fe59b8550d9b5004cc4652.png" src="../_images/88abfe7ded12b132e17d24c05d768c749f76a92af0fe59b8550d9b5004cc4652.png" style="width: 590px; height: 1049px;" />
+</a>
+</div>
+</div>
+<section id="set-up-initial-guesses-for-skewnormal-distribution-parameters">
+<h3>set up initial guesses for skewnormal distribution parameters<a class="headerlink" href="#set-up-initial-guesses-for-skewnormal-distribution-parameters" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>we need to set up a Pandas DataFrame table for the initial guesses of the skewnormal distribution parameters</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">amplitude</span></code> represents the relative height of the peak, i.e. the maximum amplitutde should be 1.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">center</span></code> represents the x axis value of the peak in unit of mT</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sigma</span></code> represents the width of the peak in unit of mT</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gamma</span></code> represents the skewness of the peak, should be between -1 and 1</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;amplitude&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">],</span> <span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;sigma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">10.0</span><span class="p">],</span> <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">]})</span>
+<span class="n">parameters</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>amplitude</th>
+      <th>center</th>
+      <th>sigma</th>
+      <th>gamma</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.5</td>
+      <td>10</td>
+      <td>10.0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="p">,</span> <span class="n">updated_parameters</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">backfield_unmixing</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_log_dc_field&#39;</span><span class="p">],</span> <span class="n">selected_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_magn_mass_shift&#39;</span><span class="p">],</span> <span class="n">n_comps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">plot_backfield_unmixing_result</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="../_images/2252655fa12ff7a8ecf8f45646338d16ed1c3351577e06c79bc7966411fa2219.png"><img alt="../_images/2252655fa12ff7a8ecf8f45646338d16ed1c3351577e06c79bc7966411fa2219.png" src="../_images/2252655fa12ff7a8ecf8f45646338d16ed1c3351577e06c79bc7966411fa2219.png" style="width: 714px; height: 551px;" />
+</a>
+</div>
+</div>
+</section>
+</section>
+<section id="example-2">
+<h2>Example 2<a class="headerlink" href="#example-2" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>we can also try to fit this data with two components</p></li>
+</ul>
+<section id="id1">
+<h3>set up initial guesses for skewnormal distribution parameters<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>you need to set up your own Pandas DataFrame table for the initial guesses of the skewnormal distribution parameters</p></li>
+<li><p>the parameter table gets updated each time you run the unmixing algorithm</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;amplitude&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">],</span> <span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span> <span class="s1">&#39;sigma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]})</span>
+<span class="n">parameters</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>amplitude</th>
+      <th>center</th>
+      <th>sigma</th>
+      <th>gamma</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.2</td>
+      <td>20</td>
+      <td>2</td>
+      <td>-1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.7</td>
+      <td>50</td>
+      <td>2</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="p">,</span> <span class="n">updated_parameters</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">backfield_unmixing</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_log_dc_field&#39;</span><span class="p">],</span> <span class="n">selected_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_magn_mass_shift&#39;</span><span class="p">],</span> <span class="n">n_comps</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">plot_backfield_unmixing_result</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="../_images/78f0b11715ef11bba1f3c87f16a683a1c04b3420857d6eba09d5141b68fadfae.png"><img alt="../_images/78f0b11715ef11bba1f3c87f16a683a1c04b3420857d6eba09d5141b68fadfae.png" src="../_images/78f0b11715ef11bba1f3c87f16a683a1c04b3420857d6eba09d5141b68fadfae.png" style="width: 714px; height: 551px;" />
+</a>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">updated_parameters</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>amplitude</th>
+      <th>center</th>
+      <th>sigma</th>
+      <th>gamma</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.562765</td>
+      <td>88.868127</td>
+      <td>6.019906</td>
+      <td>-3.362998</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.298851</td>
+      <td>19.597055</td>
+      <td>1.628651</td>
+      <td>-0.745458</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="example-3">
+<h2>Example 3<a class="headerlink" href="#example-3" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">specimne_2</span> <span class="o">=</span> <span class="s1">&#39;MA1-OX-r&#39;</span>
+<span class="n">experiment_2</span> <span class="o">=</span> <span class="s1">&#39;IRM-VSM4-LP-BCR-BF-239379&#39;</span>
+<span class="n">smooth_frac</span> <span class="o">=</span> <span class="mf">0.03</span>
+
+<span class="n">selected_experiment</span> <span class="o">=</span> <span class="n">backfield_measurements</span><span class="p">[(</span><span class="n">backfield_measurements</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">specimne_2</span><span class="p">)</span> <span class="o">&amp;</span> 
+                                      <span class="p">(</span><span class="n">backfield_measurements</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">experiment_2</span><span class="p">)]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">selected_experiment</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">backfield_data_processing</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">smooth_frac</span><span class="o">=</span><span class="n">smooth_frac</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">)</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">plot_backfield_data</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="../_images/1c174a9666b28481cdcfeb496b0378bf7058b900d32d41064f6e8a096830b8db.png"><img alt="../_images/1c174a9666b28481cdcfeb496b0378bf7058b900d32d41064f6e8a096830b8db.png" src="../_images/1c174a9666b28481cdcfeb496b0378bf7058b900d32d41064f6e8a096830b8db.png" style="width: 581px; height: 1049px;" />
+</a>
+</div>
+</div>
+<section id="id2">
+<h3>set up initial guesses for skewnormal distribution parameters<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>you need to set up your own Pandas DataFrame table for the initial guesses of the skewnormal distribution parameters</p></li>
+<li><p>the parameter table gets updated each time you run the unmixing algorithm</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;amplitude&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span> <span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">],</span> <span class="s1">&#39;sigma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span> <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]})</span>
+<span class="n">parameters</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>amplitude</th>
+      <th>center</th>
+      <th>sigma</th>
+      <th>gamma</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.1</td>
+      <td>10</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.3</td>
+      <td>100</td>
+      <td>10</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.1</td>
+      <td>1000</td>
+      <td>50</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="p">,</span> <span class="n">updated_parameters</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">backfield_unmixing</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_log_dc_field&#39;</span><span class="p">],</span> <span class="n">selected_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_magn_mass_shift&#39;</span><span class="p">],</span> <span class="n">n_comps</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">plot_backfield_unmixing_result</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="../_images/7e75d4fbaac78e314a3ddc8cb87eb76ef6548689b36e1dc1d4847ef1649cfa5f.png"><img alt="../_images/7e75d4fbaac78e314a3ddc8cb87eb76ef6548689b36e1dc1d4847ef1649cfa5f.png" src="../_images/7e75d4fbaac78e314a3ddc8cb87eb76ef6548689b36e1dc1d4847ef1649cfa5f.png" style="width: 705px; height: 551px;" />
+</a>
+</div>
+</div>
+</section>
+</section>
+<section id="example-4-maxunmix-example">
+<h2>Example 4 (MaxUnmix example)<a class="headerlink" href="#example-4-maxunmix-example" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>MaxUnmix example data file</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MaxUmnix_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../example_data/backfield_unmixing/MaxUnmix_example.csv&#39;</span><span class="p">)</span>
+<span class="n">MaxUmnix_data</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">MaxUmnix_data</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">1000</span>
+<span class="n">MaxUmnix_data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>B</th>
+      <th>M</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-0.00146</td>
+      <td>6.950000e-06</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-0.00224</td>
+      <td>6.930000e-06</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-0.00305</td>
+      <td>6.900000e-06</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-0.00389</td>
+      <td>6.860000e-06</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>-0.00477</td>
+      <td>6.830000e-06</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>93</th>
+      <td>-0.84446</td>
+      <td>3.320000e-07</td>
+    </tr>
+    <tr>
+      <th>94</th>
+      <td>-0.88053</td>
+      <td>2.450000e-07</td>
+    </tr>
+    <tr>
+      <th>95</th>
+      <td>-0.91852</td>
+      <td>1.590000e-07</td>
+    </tr>
+    <tr>
+      <th>96</th>
+      <td>-0.95798</td>
+      <td>7.670000e-08</td>
+    </tr>
+    <tr>
+      <th>97</th>
+      <td>-0.99898</td>
+      <td>0.000000e+00</td>
+    </tr>
+  </tbody>
+</table>
+<p>98 rows × 2 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MaxUmnix_experiment</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">backfield_data_processing</span><span class="p">(</span><span class="n">MaxUmnix_data</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">magnetization</span><span class="o">=</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="n">smooth_frac</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="c1"># MaxUmnix_experiment[&#39;smoothed_magn_mass_shift&#39;] = MaxUmnix_experiment[&#39;smoothed_magn_mass_shift&#39;]/MaxUmnix_experiment[&#39;smoothed_magn_mass_shift&#39;].max()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">)</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">plot_backfield_data</span><span class="p">(</span><span class="n">MaxUmnix_experiment</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">magnetization</span><span class="o">=</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="../_images/71b700c897af1fbd518d2d170c59b87849da825523814f04d6498712c822433a.png"><img alt="../_images/71b700c897af1fbd518d2d170c59b87849da825523814f04d6498712c822433a.png" src="../_images/71b700c897af1fbd518d2d170c59b87849da825523814f04d6498712c822433a.png" style="width: 788px; height: 1049px;" />
+</a>
+</div>
+</div>
+<section id="interactive-unmixing-demo">
+<h3>interactive Unmixing demo<a class="headerlink" href="#interactive-unmixing-demo" title="Link to this heading">#</a></h3>
+<section id="component">
+<h4>1 component<a class="headerlink" href="#component" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> widget
+<span class="n">rmag</span><span class="o">.</span><span class="n">interactive_backfield_fit</span><span class="p">(</span><span class="n">MaxUmnix_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_log_dc_field&#39;</span><span class="p">],</span> 
+                          <span class="n">MaxUmnix_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_magn_mass_shift&#39;</span><span class="p">],</span> 
+                          <span class="n">n_components</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">18</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;widget&#39;</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">rmag</span><span class="o">.</span><span class="n">interactive_backfield_fit</span><span class="p">(</span><span class="n">MaxUmnix_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_log_dc_field&#39;</span><span class="p">],</span> 
+<span class="g g-Whitespace">      </span><span class="mi">3</span>                           <span class="n">MaxUmnix_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_magn_mass_shift&#39;</span><span class="p">],</span> 
+<span class="g g-Whitespace">      </span><span class="mi">4</span>                           <span class="n">n_components</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="nn">File ~/Github/PmagPy/pmagpy/rockmag.py:3365,</span> in <span class="ni">interactive_backfield_fit</span><span class="nt">(field, magnetization, n_components, figsize)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3352</span> <span class="k">def</span><span class="w"> </span><span class="nf">create_slider_dict</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">min_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">description</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">3353</span>     <span class="k">return</span> <span class="p">{</span>
+<span class="g g-Whitespace">   </span><span class="mi">3354</span>         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">FloatSlider</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">3355</span>             <span class="n">value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="nn">   3362         for i</span> in <span class="ni">range</span><span class="nt">(n_components)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3363</span>     <span class="p">}</span>
+<span class="ne">-&gt; </span><span class="mi">3365</span> <span class="n">amp_slidebars</span> <span class="o">=</span> <span class="n">create_slider_dict</span><span class="p">(</span><span class="s1">&#39;amplitude&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3366</span> <span class="n">center_slidebars</span> <span class="o">=</span> <span class="n">create_slider_dict</span><span class="p">(</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">field</span><span class="p">),</span> <span class="mi">10</span><span class="o">**</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">field</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;center&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3367</span> <span class="n">sigma_slidebars</span> <span class="o">=</span> <span class="n">create_slider_dict</span><span class="p">(</span><span class="s1">&#39;sigma&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">field</span><span class="p">),</span> <span class="mi">10</span><span class="o">**</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">field</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;sigma&#39;</span><span class="p">)</span>
+
+<span class="nn">File ~/Github/PmagPy/pmagpy/rockmag.py:3353,</span> in <span class="ni">interactive_backfield_fit.&lt;locals&gt;.create_slider_dict</span><span class="nt">(name, min_val, max_val, step, description)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3352</span> <span class="k">def</span><span class="w"> </span><span class="nf">create_slider_dict</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">min_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">description</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">3353</span>     <span class="k">return</span> <span class="p">{</span>
+<span class="g g-Whitespace">   </span><span class="mi">3354</span>         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">FloatSlider</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">3355</span>             <span class="n">value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3356</span>             <span class="nb">min</span><span class="o">=</span><span class="n">min_val</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3357</span>             <span class="nb">max</span><span class="o">=</span><span class="n">max_val</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3358</span>             <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3359</span>             <span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">description</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3360</span>             <span class="n">continuous_update</span><span class="o">=</span><span class="kc">False</span>
+<span class="g g-Whitespace">   </span><span class="mi">3361</span>         <span class="p">)</span>
+<span class="nn">   3362         for i</span> in <span class="ni">range</span><span class="nt">(n_components)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3363</span>     <span class="p">}</span>
+
+<span class="nn">File ~/Github/PmagPy/pmagpy/rockmag.py:3354,</span> in <span class="ni">&lt;dictcomp&gt;</span><span class="nt">(.0)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3352</span> <span class="k">def</span><span class="w"> </span><span class="nf">create_slider_dict</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">min_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">description</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">3353</span>     <span class="k">return</span> <span class="p">{</span>
+<span class="ne">-&gt; </span><span class="mi">3354</span>         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">FloatSlider</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">3355</span>             <span class="n">value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3356</span>             <span class="nb">min</span><span class="o">=</span><span class="n">min_val</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3357</span>             <span class="nb">max</span><span class="o">=</span><span class="n">max_val</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3358</span>             <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3359</span>             <span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">description</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">3360</span>             <span class="n">continuous_update</span><span class="o">=</span><span class="kc">False</span>
+<span class="g g-Whitespace">   </span><span class="mi">3361</span>         <span class="p">)</span>
+<span class="nn">   3362         for i</span> in <span class="ni">range</span><span class="nt">(n_components)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3363</span>     <span class="p">}</span>
+
+<span class="ne">NameError</span>: name &#39;FloatSlider&#39; is not defined
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "4297657521e74c9d82be0fa37d958f4c", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+</section>
+<section id="components">
+<h4>2 components<a class="headerlink" href="#components" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> widget
+<span class="n">rmag</span><span class="o">.</span><span class="n">interactive_backfield_fit</span><span class="p">(</span><span class="n">MaxUmnix_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_log_dc_field&#39;</span><span class="p">],</span> 
+                          <span class="n">MaxUmnix_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_magn_mass_shift&#39;</span><span class="p">],</span> 
+                          <span class="n">n_components</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "4ce82805990e4d9aa6e62d02f99ee18d", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "9692f40554754c57b80cd75992975f5e", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "c233346949034992b40d3e1f56d38701", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># parameters = pd.DataFrame({&#39;amplitude&#39;: [1], &#39;center&#39;: [950], &#39;sigma&#39;: [4.6], &#39;gamma&#39;: [-3]})</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;amplitude&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span> <span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">400</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="s1">&#39;sigma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]})</span>
+<span class="c1"># parameters = pd.DataFrame({&#39;amplitude&#39;: [0.25, 0.56, 0.74], &#39;center&#39;: [119, 784, 647], &#39;sigma&#39;: [5, 683, 2.5], &#39;gamma&#39;: [-2,1,-1]})</span>
+<span class="n">parameters</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>amplitude</th>
+      <th>center</th>
+      <th>sigma</th>
+      <th>gamma</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.8</td>
+      <td>400</td>
+      <td>100</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.2</td>
+      <td>20</td>
+      <td>5</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="lmfit-standard-error-propagation">
+<h3>lmfit standard error propagation<a class="headerlink" href="#lmfit-standard-error-propagation" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="p">,</span> <span class="n">updated_parameters</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">backfield_unmixing</span><span class="p">(</span><span class="n">MaxUmnix_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_log_dc_field&#39;</span><span class="p">],</span> 
+                                                    <span class="n">MaxUmnix_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_magn_mass_shift&#39;</span><span class="p">],</span> 
+                                                    <span class="n">n_comps</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span> <span class="nb">iter</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="o">.</span><span class="n">params</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="jp-toc-ignore"><caption>Parameters</caption><tr><th style='text-align:left'>name</th><th style='text-align:left'>value</th><th style='text-align:left'>standard error</th><th style='text-align:left'>relative error</th><th style='text-align:left'>initial value</th><th style='text-align:left'>min</th><th style='text-align:left'>max</th><th style='text-align:right'>vary</th></tr><tr><td style='text-align:left'>g1_amplitude</td><td style='text-align:left'> 0.52858433</td><td style='text-align:left'> 0.06816409</td><td style='text-align:left'>(12.90%)</td><td style='text-align:left'>0.5285843251805794</td><td style='text-align:left'> 0.00000000</td><td style='text-align:left'> 1.00000000</td><td style='text-align:right'>True</td></tr><tr><td style='text-align:left'>g1_center</td><td style='text-align:left'> 2.40391778</td><td style='text-align:left'> 0.03005265</td><td style='text-align:left'>(1.25%)</td><td style='text-align:left'>2.4039177837063175</td><td style='text-align:left'> 0.16435286</td><td style='text-align:left'> 2.99955679</td><td style='text-align:right'>True</td></tr><tr><td style='text-align:left'>g1_sigma</td><td style='text-align:left'> 0.38735437</td><td style='text-align:left'> 0.06300504</td><td style='text-align:left'>(16.27%)</td><td style='text-align:left'>0.38735437340348966</td><td style='text-align:left'> 0.00000000</td><td style='text-align:left'> 2.83520394</td><td style='text-align:right'>True</td></tr><tr><td style='text-align:left'>g1_gamma</td><td style='text-align:left'> 1.34023960</td><td style='text-align:left'> 0.43393565</td><td style='text-align:left'>(32.38%)</td><td style='text-align:left'>1.3402396045862648</td><td style='text-align:left'>       -inf</td><td style='text-align:left'>        inf</td><td style='text-align:right'>True</td></tr><tr><td style='text-align:left'>g2_amplitude</td><td style='text-align:left'> 1.00000000</td><td style='text-align:left'> 2.41688844</td><td style='text-align:left'>(241.69%)</td><td style='text-align:left'>0.9999999999377208</td><td style='text-align:left'> 0.00000000</td><td style='text-align:left'> 1.00000000</td><td style='text-align:right'>True</td></tr><tr><td style='text-align:left'>g2_center</td><td style='text-align:left'> 1.26550343</td><td style='text-align:left'> 0.17234715</td><td style='text-align:left'>(13.62%)</td><td style='text-align:left'>1.265503426705969</td><td style='text-align:left'> 0.16435286</td><td style='text-align:left'> 2.99955679</td><td style='text-align:right'>True</td></tr><tr><td style='text-align:left'>g2_sigma</td><td style='text-align:left'> 2.67163603</td><td style='text-align:left'> 3.77245977</td><td style='text-align:left'>(141.20%)</td><td style='text-align:left'>2.6716360343772676</td><td style='text-align:left'> 0.00000000</td><td style='text-align:left'> 2.83520394</td><td style='text-align:right'>True</td></tr><tr><td style='text-align:left'>g2_gamma</td><td style='text-align:left'> 4.32739172</td><td style='text-align:left'> 7.01639077</td><td style='text-align:left'>(162.14%)</td><td style='text-align:left'>4.327391720223624</td><td style='text-align:left'>       -inf</td><td style='text-align:left'>        inf</td><td style='text-align:right'>True</td></tr></table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">plot_backfield_unmixing_result</span><span class="p">(</span><span class="n">MaxUmnix_experiment</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "fcb0556360974af08bfc06de1df9f97f", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+</section>
+<section id="maxunmix-error-estimate">
+<h3>MaxUnmix error estimate<a class="headerlink" href="#maxunmix-error-estimate" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MaxUnmix_ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">backfield_MaxUnmix</span><span class="p">(</span><span class="n">MaxUmnix_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_log_dc_field&#39;</span><span class="p">],</span> 
+                    <span class="n">MaxUmnix_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_magn_mass_shift&#39;</span><span class="p">],</span> 
+                    <span class="n">n_comps</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span> <span class="n">n_resample</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "0642c4711b034c13b1bdad410933dcf6", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># report parameter median and standard deviation as MaxUnmix does</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./hysteresis_backfield_notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background-on-coercivity-spectra">Background on coercivity spectra</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-scientific-python-libraries">Import scientific python libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-data">Import data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#now-let-s-extract-the-backfield-experiment-data-lp-bcr-bf-from-the-measurements-table">now let’s extract the backfield experiment data (LP-BCR-BF) from the measurements table</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#we-need-to-do-some-preprocessing-on-the-raw-data-in-order-to-unmix-the-spectrum">We need to do some preprocessing on the raw data in order to unmix the spectrum</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1">Example 1</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-initial-guesses-for-skewnormal-distribution-parameters">set up initial guesses for skewnormal distribution parameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2">Example 2</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">set up initial guesses for skewnormal distribution parameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3">Example 3</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">set up initial guesses for skewnormal distribution parameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-maxunmix-example">Example 4 (MaxUnmix example)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-unmixing-demo">interactive Unmixing demo</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#component">1 component</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#components">2 components</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lmfit-standard-error-propagation">lmfit standard error propagation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maxunmix-error-estimate">MaxUnmix error estimate</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By RockmagPy Contributors
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
