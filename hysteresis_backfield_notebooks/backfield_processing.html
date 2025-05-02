@@ -1,0 +1,1980 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Backfield processing &#8212; RockmagPy Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'hysteresis_backfield_notebooks/backfield_processing';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../book/intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/rockmagpy.png" class="logo__image only-light" alt="RockmagPy Documentation - Home"/>
+    <script>document.write(`<img src="../_static/rockmagpy.png" class="logo__image only-dark" alt="RockmagPy Documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../book/intro.html">
+                    RockmagPy: tools for rock magnetic data analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Nuts &amp; Bolts</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../rockmag_set_up.html">Getting going with rockmag.py on JupyterHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rockmag_data_unpack.html">Rock magnetic data import</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data Processing Notebooks</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../MPMS_notebooks/MPMS_intro.html">MPMS notebooks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../MPMS_notebooks/MPMS_plot_dc.html">Plot MPMS data (DC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MPMS_notebooks/MPMS_plot_ac.html">Plot MPMS data (AC susceptibility)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MPMS_notebooks/MPMS_verwey_fit.html">Estimate the Verwey transition temperature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MPMS_notebooks/MPMS_goethite_fit.html">Fit and remove the goethite component</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="VSM_intro.html">Hysteresis/backfield notebooks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="hysteresis_processing_walk_through.html">Hysteresis Processing walkthrough notebook</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../thermomagnetic_notebooks/high_T_susceptibility.html">Analysis of susceptibility-temperature, <span style="font-family: 'Times New Roman';"><em>(Kappabridge <span class="math notranslate nohighlight">\(\chi\)</span>-T)</em></span>, data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../anisotropy_notebooks/anisotropy_plot_AMS.html">Plot and analyze anisotropy data (AMS)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Rock Magnetic Bestiary notebooks</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../RMB_notebooks/RMB_intro.html">The Rock Magnetic Bestiary</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../RMB_notebooks/RMB_siderite.html">Siderite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../RMB_notebooks/RMB_titanomagnetite.html">(Titano)magnetite</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Background</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../book/background/low_temperature_behavior.html">Low temperature behavior</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../book/background/morin.html">Morin transition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../book/minerals/siderite.html">Siderite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../book/background/paramagnetism.html">Paramagnetism</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">More resources</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../book/resources.html">Resources for learning more about rock magnetism</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/pmagpy/rockmagpy-notebooks" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/pmagpy/rockmagpy-notebooks/issues/new?title=Issue%20on%20page%20%2Fhysteresis_backfield_notebooks/backfield_processing.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/hysteresis_backfield_notebooks/backfield_processing.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Backfield processing</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Backfield processing</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-data">Import data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#select-specimen-backfield-experiment-data">select specimen backfield experiment data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#process-backfield-data">process backfield data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-the-calculated-bcr-values-to-the-specimens-data-table">add the calculated Bcr values to the specimens data table</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overwrite-the-specimens-data-table">overwrite the specimens data table</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#export-magic-upload-files">export MagIC upload files</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="backfield-processing">
+<h1>Backfield processing<a class="headerlink" href="#backfield-processing" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Primarily to obtain Bcr – coercivity of remanence values</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.rockmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rmag</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.ipmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ipmag</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.pmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pmag</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.contribution_builder</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cb</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span> 
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<section id="import-data">
+<h2>Import data<a class="headerlink" href="#import-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define the path to the folder </span>
+<span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;../example_data/SSRM2024C&#39;</span>
+<span class="c1"># download the data from the MagIC database using my private contribution key </span>
+<span class="n">result</span><span class="p">,</span> <span class="n">magic_file</span> <span class="o">=</span> <span class="n">ipmag</span><span class="o">.</span><span class="n">download_magic_from_id</span><span class="p">(</span><span class="s1">&#39;20133&#39;</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">dir_path</span><span class="p">,</span> <span class="n">share_key</span><span class="o">=</span><span class="s1">&#39;3b58527f-872b-4e64-a0f1-1e57120c9f15&#39;</span><span class="p">)</span>
+<span class="c1"># unpack the MagIC file</span>
+<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="n">magic_file</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">,</span> <span class="n">print_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># get the contribution object</span>
+<span class="n">contribution</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">Contribution</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
+<span class="c1"># get the measurements table</span>
+<span class="n">measurements</span> <span class="o">=</span> <span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;measurements&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
+<span class="n">measurements</span> <span class="o">=</span> <span class="n">measurements</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+<span class="n">specimens</span> <span class="o">=</span> <span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;specimens&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Download successful. File saved to: ../example_data/SSRM2024C/magic_contribution_20133.txt
+1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2024C/contribution.txt
+1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2024C/locations.txt
+16  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2024C/sites.txt
+28  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2024C/samples.txt
+50  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2024C/specimens.txt
+16966  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SSRM2024C/measurements.txt
+-I- Using online data model
+-I- Getting method codes from earthref.org
+-I- Importing controlled vocabularies from https://earthref.org
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="select-specimen-backfield-experiment-data">
+<h2>select specimen backfield experiment data<a class="headerlink" href="#select-specimen-backfield-experiment-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># filter for the backfield data</span>
+<span class="n">backfield_data</span> <span class="o">=</span> <span class="n">measurements</span><span class="p">[</span><span class="n">measurements</span><span class="p">[</span><span class="s1">&#39;method_codes&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;LP-BCR-BF&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># investigate the specimens that have backfield data</span>
+<span class="n">backfield_data</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;MA1-5-r gelcap&#39;, &#39;MA1-OX-r&#39;, &#39;SJ1-4-r gelcap&#39;, &#39;SJ5-5-r gelcap&#39;,
+       &#39;WS3-1-r&#39;], dtype=object)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># select the specimen</span>
+<span class="n">specimen</span> <span class="o">=</span> <span class="s1">&#39;SJ1-4-r gelcap&#39;</span>
+<span class="n">specimen_data</span> <span class="o">=</span> <span class="n">backfield_data</span><span class="p">[</span><span class="n">backfield_data</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">specimen</span><span class="p">]</span>
+
+<span class="c1"># investigate the available backfield experiments, sometimes multiple experiments are done on the same specimen</span>
+<span class="n">specimen_data</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;IRM-VSM4-LP-BCR-BF-239364&#39;], dtype=object)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected_experiment</span> <span class="o">=</span> <span class="n">specimen_data</span><span class="p">[</span><span class="n">specimen_data</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;IRM-VSM4-LP-BCR-BF-239364&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="process-backfield-data">
+<h2>process backfield data<a class="headerlink" href="#process-backfield-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">Bcr</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">backfield_data_processing</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">)</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">plot_backfield_data</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="../_images/0dfa11311046cf2ef4d052289be5f82445f09626439f074098c6dbe2b5e99342.png"><img alt="../_images/0dfa11311046cf2ef4d052289be5f82445f09626439f074098c6dbe2b5e99342.png" src="../_images/0dfa11311046cf2ef4d052289be5f82445f09626439f074098c6dbe2b5e99342.png" style="width: 590px; height: 1189px;" />
+</a>
+</div>
+</div>
+</section>
+<section id="add-the-calculated-bcr-values-to-the-specimens-data-table">
+<h2>add the calculated Bcr values to the specimens data table<a class="headerlink" href="#add-the-calculated-bcr-values-to-the-specimens-data-table" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rmag</span><span class="o">.</span><span class="n">add_Bcr_to_specimens_table</span><span class="p">(</span><span class="n">specimens</span><span class="p">,</span> <span class="s1">&#39;IRM-VSM4-LP-BCR-BF-239364&#39;</span><span class="p">,</span> <span class="n">Bcr</span><span class="p">)</span>
+<span class="n">specimens</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>azimuth</th>
+      <th>description</th>
+      <th>dip</th>
+      <th>experiments</th>
+      <th>hyst_bc</th>
+      <th>hyst_bc_offset</th>
+      <th>hyst_bcr</th>
+      <th>hyst_mr_mass</th>
+      <th>hyst_ms_mass</th>
+      <th>hyst_xhf</th>
+      <th>...</th>
+      <th>rem_hirm_mass</th>
+      <th>rem_sratio</th>
+      <th>rem_sratio_back</th>
+      <th>rem_sratio_forward</th>
+      <th>result_quality</th>
+      <th>sample</th>
+      <th>specimen</th>
+      <th>volume</th>
+      <th>weight</th>
+      <th>rem_bcr</th>
+    </tr>
+    <tr>
+      <th>specimen name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>HH8-1-r</th>
+      <td>181.3</td>
+      <td>Haliburton Highlands 8-1 VSM specimen</td>
+      <td>43.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>HH8-3</td>
+      <td>HH8-1-r</td>
+      <td>0.000001</td>
+      <td>0.000072</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>HH8-1x</th>
+      <td>181.3</td>
+      <td>Haliburton Highlands 8-1 X-T specimen</td>
+      <td>43.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>HH8-3</td>
+      <td>HH8-1x</td>
+      <td>0.000001</td>
+      <td>0.000181</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>HH8-3b</th>
+      <td>181.3</td>
+      <td>Haliburton Highlands 8-3 core</td>
+      <td>43.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>HH8-3</td>
+      <td>HH8-3b</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>MA1-1b</th>
+      <td>211.7</td>
+      <td>MA1-1 core</td>
+      <td>56.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>MA1-1</td>
+      <td>MA1-1b</td>
+      <td>0.000000</td>
+      <td>0.015202</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>MA1-2-r</th>
+      <td>222.7</td>
+      <td>MA1-2 VSM specimen</td>
+      <td>56.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>MA1-2</td>
+      <td>MA1-2-r</td>
+      <td>0.000001</td>
+      <td>0.000081</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>MA1-2b</th>
+      <td>222.7</td>
+      <td>MA1-2 core</td>
+      <td>56.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>MA1-2</td>
+      <td>MA1-2b</td>
+      <td>0.000000</td>
+      <td>0.015471</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>MA1-2x</th>
+      <td>222.7</td>
+      <td>MA1-2 X-T specimen</td>
+      <td>56.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>MA1-2</td>
+      <td>MA1-2x</td>
+      <td>0.000001</td>
+      <td>0.000146</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>MA1-3b</th>
+      <td>215.7</td>
+      <td>MA1-3 core</td>
+      <td>49.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>MA1-3</td>
+      <td>MA1-3b</td>
+      <td>0.000000</td>
+      <td>0.015741</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>MA1-5-r gelcap</th>
+      <td>NaN</td>
+      <td>gel cap for MPMS</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>MA1-5-r</td>
+      <td>MA1-5-r gelcap</td>
+      <td>0.000000</td>
+      <td>0.000090</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>MA1-5b</th>
+      <td>226.7</td>
+      <td>Marcy anorthosite 1-5 core</td>
+      <td>56.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>MA1-5</td>
+      <td>MA1-5b</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>MA1-8b</th>
+      <td>236.7</td>
+      <td>MA1-8 core</td>
+      <td>51.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>MA1-8</td>
+      <td>MA1-8b</td>
+      <td>0.000000</td>
+      <td>0.015539</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>MA1-OX-cube</th>
+      <td>211.7</td>
+      <td>MA1-OX X-T cube specimen</td>
+      <td>56.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>MA1-1</td>
+      <td>MA1-OX-cube</td>
+      <td>0.000001</td>
+      <td>0.011767</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>MA1-OX-r</th>
+      <td>211.7</td>
+      <td>MA1-OX VSM specimen</td>
+      <td>56.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>MA1-1</td>
+      <td>MA1-OX-r</td>
+      <td>0.000001</td>
+      <td>0.000113</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>MA1-OX-x</th>
+      <td>211.7</td>
+      <td>MA1-OX X-T specimen</td>
+      <td>56.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>MA1-1</td>
+      <td>MA1-OX-x</td>
+      <td>0.000001</td>
+      <td>0.000205</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>MA5-3-r</th>
+      <td>0.0</td>
+      <td>Marcy anorthosite 5-3 VSM specimen</td>
+      <td>0.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>MA5-4</td>
+      <td>MA5-3-r</td>
+      <td>0.000001</td>
+      <td>0.000090</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>MA5-4b</th>
+      <td>289.3</td>
+      <td>Marcy anorthosite 5-4 core</td>
+      <td>64.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>MA5-4</td>
+      <td>MA5-4b</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>SJ1-1b</th>
+      <td>181.5</td>
+      <td>St Jean 1-1 core</td>
+      <td>48.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>SJ1-1</td>
+      <td>SJ1-1b</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>SJ1-1x</th>
+      <td>181.5</td>
+      <td>St Jean 1-1 core</td>
+      <td>48.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>SJ1-1</td>
+      <td>SJ1-1x</td>
+      <td>0.000001</td>
+      <td>0.000000</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>SJ1-2b</th>
+      <td>189.5</td>
+      <td>SJ1-2 core</td>
+      <td>50.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>SJ1-2</td>
+      <td>SJ1-2b</td>
+      <td>0.000000</td>
+      <td>0.016136</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>SJ1-3-r</th>
+      <td>179.5</td>
+      <td>SJ1-3 VSM specimen</td>
+      <td>55.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>SJ1-3</td>
+      <td>SJ1-3-r</td>
+      <td>0.000001</td>
+      <td>0.000089</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>SJ1-3b</th>
+      <td>179.5</td>
+      <td>SJ1-3 core</td>
+      <td>55.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>SJ1-3</td>
+      <td>SJ1-3b</td>
+      <td>0.000000</td>
+      <td>0.016219</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>SJ1-3x</th>
+      <td>179.5</td>
+      <td>SJ1-3 X-T specimen</td>
+      <td>55.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>SJ1-3</td>
+      <td>SJ1-3x</td>
+      <td>0.000001</td>
+      <td>0.000086</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>SJ1-4-r gelcap</th>
+      <td>NaN</td>
+      <td>gel cap for MPMS</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>SJ1-4-r</td>
+      <td>SJ1-4-r gelcap</td>
+      <td>0.000000</td>
+      <td>0.000069</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>SJ1-5b</th>
+      <td>174.5</td>
+      <td>SJ1-5 core</td>
+      <td>36.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>SJ1-5</td>
+      <td>SJ1-5b</td>
+      <td>0.000000</td>
+      <td>0.013974</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>SJ1-5x</th>
+      <td>174.5</td>
+      <td>SJ1-5 X-T specimen</td>
+      <td>36.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>SJ1-5</td>
+      <td>SJ1-5x</td>
+      <td>0.000001</td>
+      <td>0.000062</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>SJ5-5-r gelcap</th>
+      <td>NaN</td>
+      <td>gel cap for MPMS</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>SJ5-5-r</td>
+      <td>SJ5-5-r gelcap</td>
+      <td>0.000000</td>
+      <td>0.000143</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>SJ5-5b</th>
+      <td>38.9</td>
+      <td>St Jean 5-4 core</td>
+      <td>47.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>SJ5-5</td>
+      <td>SJ5-5b</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>TH1-1b</th>
+      <td>77.6</td>
+      <td>Thanet gabbro 1-1 core</td>
+      <td>17.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>TH1-1</td>
+      <td>TH1-1b</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>TH1-2-r</th>
+      <td>0.0</td>
+      <td>Thanet gabbro 1-2 VSM core</td>
+      <td>0.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>TH1-1</td>
+      <td>TH1-2-r</td>
+      <td>0.000001</td>
+      <td>0.000087</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>WS3-1-r</th>
+      <td>11.6</td>
+      <td>Whitestone anorthosite 3-1 VSM specimen</td>
+      <td>69.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>WS3-1</td>
+      <td>WS3-1-r</td>
+      <td>0.000001</td>
+      <td>0.000093</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>WS3-1b</th>
+      <td>11.6</td>
+      <td>Whitestone anorthosite 3-1 core</td>
+      <td>69.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>WS3-1</td>
+      <td>WS3-1b</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>WS3-1x</th>
+      <td>11.6</td>
+      <td>Whitestone anorthosite 3-1 X-T specimen</td>
+      <td>69.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>WS3-1</td>
+      <td>WS3-1x</td>
+      <td>0.000001</td>
+      <td>0.000083</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>WS9-1-r</th>
+      <td>308.7</td>
+      <td>Whitestone anorthosite 9-1 VSM core</td>
+      <td>48.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>WS9-1</td>
+      <td>WS9-1-r</td>
+      <td>0.000001</td>
+      <td>0.000176</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>WS9-1b</th>
+      <td>308.7</td>
+      <td>Whitestone anorthosite 9-1 core</td>
+      <td>48.0</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>WS9-1</td>
+      <td>WS9-1b</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>HH8-1-r</th>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>IRM-VSM3-LP-HYS-239366</td>
+      <td>0.385700</td>
+      <td>-1.135000e-02</td>
+      <td>NaN</td>
+      <td>0.000031</td>
+      <td>-0.000434</td>
+      <td>1.546000e-07</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>HH8-3</td>
+      <td>HH8-1-r</td>
+      <td>NaN</td>
+      <td>0.000072</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>MA1-5-r gelcap</th>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>IRM-VSM3-LP-HYS-239371</td>
+      <td>0.003126</td>
+      <td>2.087000e-04</td>
+      <td>NaN</td>
+      <td>0.002624</td>
+      <td>0.118800</td>
+      <td>2.125000e-08</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>MA1-5-r</td>
+      <td>MA1-5-r gelcap</td>
+      <td>NaN</td>
+      <td>0.000090</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>MA1-OX-r</th>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>IRM-VSM3-LP-HYS-239373</td>
+      <td>0.009699</td>
+      <td>1.141000e-04</td>
+      <td>NaN</td>
+      <td>0.117200</td>
+      <td>0.829900</td>
+      <td>1.039000e-06</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>MA1-1</td>
+      <td>MA1-OX-r</td>
+      <td>NaN</td>
+      <td>0.000113</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>MA1-OX-r</th>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>IRM-VSM4-LP-HYS-239361</td>
+      <td>0.009273</td>
+      <td>-1.335000e-04</td>
+      <td>NaN</td>
+      <td>0.113600</td>
+      <td>0.907100</td>
+      <td>1.014000e-06</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>MA1-1</td>
+      <td>MA1-OX-r</td>
+      <td>NaN</td>
+      <td>0.000113</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>MA1-OX-r</th>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>IRM-VSM4-LP-HYS-239360</td>
+      <td>0.009273</td>
+      <td>-1.335000e-04</td>
+      <td>NaN</td>
+      <td>0.113600</td>
+      <td>0.907100</td>
+      <td>1.014000e-06</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>MA1-1</td>
+      <td>MA1-OX-r</td>
+      <td>NaN</td>
+      <td>0.000113</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>MA1-OX-r</th>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>IRM-VSM4-LP-HYS-239377</td>
+      <td>0.008366</td>
+      <td>-1.466000e-04</td>
+      <td>NaN</td>
+      <td>0.135500</td>
+      <td>0.906200</td>
+      <td>1.013000e-06</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>MA1-1</td>
+      <td>MA1-OX-r</td>
+      <td>NaN</td>
+      <td>0.000113</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>SJ1-4-r gelcap</th>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>IRM-VSM4-LP-HYS-239362</td>
+      <td>0.005387</td>
+      <td>-5.115000e-05</td>
+      <td>NaN</td>
+      <td>0.002785</td>
+      <td>0.068540</td>
+      <td>6.427000e-09</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>SJ1-4-r</td>
+      <td>SJ1-4-r gelcap</td>
+      <td>NaN</td>
+      <td>0.000069</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>SJ5-5-r gelcap</th>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>IRM-VSM3-LP-HYS-239368</td>
+      <td>0.003830</td>
+      <td>1.238000e-04</td>
+      <td>NaN</td>
+      <td>0.079200</td>
+      <td>2.135000</td>
+      <td>1.985000e-07</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>SJ5-5-r</td>
+      <td>SJ5-5-r gelcap</td>
+      <td>NaN</td>
+      <td>0.000143</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>TH1-2-r</th>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>IRM-VSM4-LP-HYS-239383</td>
+      <td>0.009204</td>
+      <td>1.397000e-10</td>
+      <td>NaN</td>
+      <td>0.010700</td>
+      <td>0.086650</td>
+      <td>1.232000e-07</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>TH1-1</td>
+      <td>TH1-2-r</td>
+      <td>NaN</td>
+      <td>0.000087</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>WS3-1-r</th>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>IRM-VSM3-LP-HYS-239367</td>
+      <td>0.001666</td>
+      <td>1.163000e-04</td>
+      <td>NaN</td>
+      <td>0.081580</td>
+      <td>5.388000</td>
+      <td>2.708000e-07</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>WS3-1</td>
+      <td>WS3-1-r</td>
+      <td>NaN</td>
+      <td>0.000093</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>MA1-5-r gelcap</th>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>IRM-VSM3-LP-BCR-BF-239370</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0311</td>
+      <td>0.002470</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>0.000</td>
+      <td>0.1</td>
+      <td>1.0</td>
+      <td>None</td>
+      <td>MA1-5-r</td>
+      <td>MA1-5-r gelcap</td>
+      <td>NaN</td>
+      <td>0.000090</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>MA1-OX-r</th>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>IRM-VSM3-LP-BCR-BF-239372</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0537</td>
+      <td>0.120400</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>0.113</td>
+      <td>0.1</td>
+      <td>1.0</td>
+      <td>None</td>
+      <td>MA1-1</td>
+      <td>MA1-OX-r</td>
+      <td>NaN</td>
+      <td>0.000113</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>MA1-OX-r</th>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>IRM-VSM4-LP-BCR-BF-239379</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0600</td>
+      <td>0.135800</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.012450</td>
+      <td>0.083</td>
+      <td>0.1</td>
+      <td>1.8</td>
+      <td>None</td>
+      <td>MA1-1</td>
+      <td>MA1-OX-r</td>
+      <td>NaN</td>
+      <td>0.000113</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>SJ1-4-r gelcap</th>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>IRM-VSM4-LP-BCR-BF-239364</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0196</td>
+      <td>0.002780</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.000027</td>
+      <td>0.894</td>
+      <td>0.1</td>
+      <td>1.8</td>
+      <td>None</td>
+      <td>SJ1-4-r</td>
+      <td>SJ1-4-r gelcap</td>
+      <td>NaN</td>
+      <td>0.000069</td>
+      <td>0.019619</td>
+    </tr>
+    <tr>
+      <th>SJ5-5-r gelcap</th>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>IRM-VSM3-LP-BCR-BF-239369</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0152</td>
+      <td>0.079250</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>0.000</td>
+      <td>0.1</td>
+      <td>1.0</td>
+      <td>None</td>
+      <td>SJ5-5-r</td>
+      <td>SJ5-5-r gelcap</td>
+      <td>NaN</td>
+      <td>0.000143</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>WS3-1-r</th>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>IRM-VSM3-LP-BCR-BF-239374</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0110</td>
+      <td>0.080810</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>0.940</td>
+      <td>0.1</td>
+      <td>1.0</td>
+      <td>None</td>
+      <td>WS3-1</td>
+      <td>WS3-1-r</td>
+      <td>NaN</td>
+      <td>0.000093</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>50 rows × 25 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="overwrite-the-specimens-data-table">
+<h2>overwrite the specimens data table<a class="headerlink" href="#overwrite-the-specimens-data-table" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pmag</span><span class="o">.</span><span class="n">magic_write</span><span class="p">(</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s1">&#39;/specimens.txt&#39;</span><span class="p">,</span> <span class="n">specimens</span><span class="p">,</span> <span class="s1">&#39;specimens&#39;</span><span class="p">,</span> <span class="n">dataframe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="export-magic-upload-files">
+<h1>export MagIC upload files<a class="headerlink" href="#export-magic-upload-files" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ipmag.upload_magic(dir_path=dir_path,input_dir_path=dir_path, verbose=False)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./hysteresis_backfield_notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Backfield processing</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-data">Import data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#select-specimen-backfield-experiment-data">select specimen backfield experiment data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#process-backfield-data">process backfield data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-the-calculated-bcr-values-to-the-specimens-data-table">add the calculated Bcr values to the specimens data table</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overwrite-the-specimens-data-table">overwrite the specimens data table</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#export-magic-upload-files">export MagIC upload files</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By RockmagPy Contributors
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
