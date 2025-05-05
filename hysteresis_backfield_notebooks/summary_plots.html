@@ -458,26 +458,29 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set the dir_path to the directory where the measurements.txt file is located</span>
-<span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;../example_data/ECMB&#39;</span>
+<span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;../example_data/Jackson2012&#39;</span>
 
-<span class="c1"># set the name of the MagIC file</span>
-<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="s1">&#39;ECMB 2018.TXT&#39;</span><span class="p">,</span> 
-                     <span class="n">dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">,</span>
-                     <span class="n">input_dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">,</span>
-                     <span class="n">print_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-<span class="c1"># create a contribution object from the tables in the directory</span>
+<span class="c1"># download the data from the MagIC database using my private contribution key </span>
+<span class="n">result</span><span class="p">,</span> <span class="n">magic_file</span> <span class="o">=</span> <span class="n">ipmag</span><span class="o">.</span><span class="n">download_magic_from_id</span><span class="p">(</span><span class="s1">&#39;16460&#39;</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">dir_path</span><span class="p">)</span>
+<span class="c1"># unpack the MagIC file</span>
+<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="n">magic_file</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">,</span> <span class="n">print_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># get the contribution object</span>
 <span class="n">contribution</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">Contribution</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
+<span class="c1"># get the measurements table</span>
+<span class="n">measurements</span> <span class="o">=</span> <span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;measurements&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
+<span class="n">measurements</span> <span class="o">=</span> <span class="n">measurements</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
 <span class="n">specimens</span> <span class="o">=</span> <span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;specimens&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/locations.txt
-312  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/samples.txt
-1574  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/specimens.txt
-90  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/sites.txt
-17428  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/measurements.txt
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Download successful. File saved to: ../example_data/Jackson2012/magic_contribution_16460.txt
+1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/Jackson2012/contribution.txt
+5  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/Jackson2012/locations.txt
+8  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/Jackson2012/sites.txt
+51  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/Jackson2012/samples.txt
+186  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/Jackson2012/specimens.txt
+4758  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/Jackson2012/measurements.txt
 -I- Using online data model
 -I- Getting method codes from earthref.org
 -I- Importing controlled vocabularies from https://earthref.org
@@ -490,24 +493,7 @@ document.write(`
 <h2>filter for VSM rock magnetic data (Mr, Ms,Bcr, Bc)<a class="headerlink" href="#filter-for-vsm-rock-magnetic-data-mr-ms-bcr-bc" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">VSM_specimen_data</span> <span class="o">=</span> <span class="n">specimens</span><span class="p">[</span><span class="n">specimens</span><span class="p">[</span><span class="s1">&#39;method_codes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-<span class="n">VSM_specimen_data</span> <span class="o">=</span> <span class="n">VSM_specimen_data</span><span class="p">[</span><span class="n">VSM_specimen_data</span><span class="p">[</span><span class="s1">&#39;method_codes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;LP-BCR-BF|LP-HYS-M&#39;</span><span class="p">)]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-<span class="n">VSM_specimen_data</span> <span class="o">=</span> <span class="n">VSM_specimen_data</span><span class="p">[[</span><span class="s1">&#39;specimen&#39;</span><span class="p">,</span> <span class="s1">&#39;hyst_mr_mass&#39;</span><span class="p">,</span> <span class="s1">&#39;hyst_ms_mass&#39;</span><span class="p">,</span> <span class="s1">&#39;hyst_bcr&#39;</span><span class="p">,</span> <span class="s1">&#39;hyst_bc&#39;</span><span class="p">]]</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="option-1-filter-for-individual-specimen-data-and-plot-them">
-<h2>Option 1: filter for individual specimen data and plot them<a class="headerlink" href="#option-1-filter-for-individual-specimen-data-and-plot-them" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>One has more flexibility to make a custom plot</p></li>
-<li><p>However, the user has to specify the row numbers that contain each of the attributes</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">NED1_5c_VSM_data</span> <span class="o">=</span> <span class="n">VSM_specimen_data</span><span class="p">[</span><span class="n">VSM_specimen_data</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;NED1-5c&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-<span class="n">NED1_5c_VSM_data</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">specimens</span>
 </pre></div>
 </div>
 </div>
@@ -530,43 +516,439 @@ document.write(`
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>index</th>
-      <th>specimen</th>
+      <th>citations</th>
+      <th>description</th>
+      <th>experiments</th>
+      <th>hyst_bc</th>
+      <th>hyst_bc_offset</th>
       <th>hyst_mr_mass</th>
       <th>hyst_ms_mass</th>
-      <th>hyst_bcr</th>
+      <th>hyst_xhf</th>
+      <th>instrument_codes</th>
+      <th>meas_orient_phi</th>
+      <th>...</th>
+      <th>rem_bcr</th>
+      <th>rem_hirm_mass</th>
+      <th>rem_mr_mass</th>
+      <th>rem_sratio</th>
+      <th>rem_sratio_back</th>
+      <th>result_quality</th>
+      <th>sample</th>
+      <th>specimen</th>
+      <th>volume</th>
+      <th>weight</th>
+    </tr>
+    <tr>
+      <th>specimen name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>09-27</th>
+      <td>This study</td>
+      <td>None</td>
+      <td>IRM-VSM1-4231</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-VSM1</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0448</td>
+      <td>0.0</td>
+      <td>0.003193</td>
+      <td>0.0</td>
+      <td>0.1</td>
+      <td>g</td>
+      <td>09-27</td>
+      <td>09-27</td>
+      <td>3.690000e-06</td>
+      <td>0.00738</td>
+    </tr>
+    <tr>
+      <th>09-27</th>
+      <td>This study</td>
+      <td>None</td>
+      <td>IRM-VSM1-4231</td>
+      <td>0.010590</td>
+      <td>0.000015</td>
+      <td>0.003193</td>
+      <td>0.010860</td>
+      <td>6.732000e-08</td>
+      <td>IRM-VSM1</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>09-27</td>
+      <td>09-27</td>
+      <td>3.690000e-06</td>
+      <td>0.00738</td>
+    </tr>
+    <tr>
+      <th>10-23</th>
+      <td>This study</td>
+      <td>None</td>
+      <td>IRM-VSM1-4232</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-VSM1</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0399</td>
+      <td>0.0</td>
+      <td>0.004520</td>
+      <td>0.0</td>
+      <td>0.1</td>
+      <td>g</td>
+      <td>10-23</td>
+      <td>10-23</td>
+      <td>3.925000e-06</td>
+      <td>0.00785</td>
+    </tr>
+    <tr>
+      <th>10-23</th>
+      <td>This study</td>
+      <td>None</td>
+      <td>IRM-VSM1-4232</td>
+      <td>0.004550</td>
+      <td>0.000046</td>
+      <td>0.004520</td>
+      <td>0.025970</td>
+      <td>-1.511000e-08</td>
+      <td>IRM-VSM1</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>10-23</td>
+      <td>10-23</td>
+      <td>3.925000e-06</td>
+      <td>0.00785</td>
+    </tr>
+    <tr>
+      <th>11-29</th>
+      <td>This study</td>
+      <td>None</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>11-29</td>
+      <td>11-29</td>
+      <td>4.505000e-06</td>
+      <td>0.00901</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>cop 7.12</th>
+      <td>This study</td>
+      <td>None</td>
+      <td>IRM-VSM1-4241</td>
+      <td>0.010570</td>
+      <td>0.000875</td>
+      <td>0.000224</td>
+      <td>0.001582</td>
+      <td>5.660000e-08</td>
+      <td>IRM-VSM1</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>cop 7.12</td>
+      <td>cop 7.12</td>
+      <td>7.500000e-07</td>
+      <td>0.00150</td>
+    </tr>
+    <tr>
+      <th>fcp 3.1c</th>
+      <td>This study</td>
+      <td>None</td>
+      <td>IRM-VSM1-4242</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-VSM1</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0404</td>
+      <td>0.0</td>
+      <td>0.000691</td>
+      <td>0.0</td>
+      <td>0.1</td>
+      <td>g</td>
+      <td>fcp 3.1c</td>
+      <td>fcp 3.1c</td>
+      <td>7.500000e-07</td>
+      <td>0.00150</td>
+    </tr>
+    <tr>
+      <th>fcp 3.1c</th>
+      <td>This study</td>
+      <td>None</td>
+      <td>IRM-VSM1-4242</td>
+      <td>0.005909</td>
+      <td>0.000000</td>
+      <td>0.000691</td>
+      <td>0.001523</td>
+      <td>5.696000e-08</td>
+      <td>IRM-VSM1</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>fcp 3.1c</td>
+      <td>fcp 3.1c</td>
+      <td>7.500000e-07</td>
+      <td>0.00150</td>
+    </tr>
+    <tr>
+      <th>nm35.1</th>
+      <td>This study</td>
+      <td>None</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>nm35.1</td>
+      <td>nm35.1</td>
+      <td>7.500000e-07</td>
+      <td>0.00150</td>
+    </tr>
+    <tr>
+      <th>nm42.3</th>
+      <td>This study</td>
+      <td>None</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>nm42.3</td>
+      <td>nm42.3</td>
+      <td>7.500000e-07</td>
+      <td>0.00150</td>
+    </tr>
+  </tbody>
+</table>
+<p>186 rows × 23 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="option-1-filter-for-individual-specimen-data-and-plot-them">
+<h2>Option 1: filter for individual specimen data and plot them<a class="headerlink" href="#option-1-filter-for-individual-specimen-data-and-plot-them" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>One has more flexibility to make a custom plot</p></li>
+<li><p>However, the user has to specify the row numbers that contain each of the attributes</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example_specimen_data</span> <span class="o">=</span> <span class="n">specimens</span><span class="p">[</span><span class="n">specimens</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;09-27&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">example_specimen_data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>specimen name</th>
+      <th>citations</th>
+      <th>description</th>
+      <th>experiments</th>
       <th>hyst_bc</th>
+      <th>hyst_bc_offset</th>
+      <th>hyst_mr_mass</th>
+      <th>hyst_ms_mass</th>
+      <th>hyst_xhf</th>
+      <th>instrument_codes</th>
+      <th>...</th>
+      <th>rem_bcr</th>
+      <th>rem_hirm_mass</th>
+      <th>rem_mr_mass</th>
+      <th>rem_sratio</th>
+      <th>rem_sratio_back</th>
+      <th>result_quality</th>
+      <th>sample</th>
+      <th>specimen</th>
+      <th>volume</th>
+      <th>weight</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>0</td>
-      <td>NED1-5c</td>
-      <td>0.006022</td>
-      <td>0.03578</td>
+      <td>09-27</td>
+      <td>This study</td>
+      <td>None</td>
+      <td>IRM-VSM1-4231</td>
       <td>NaN</td>
-      <td>0.01427</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-VSM1</td>
+      <td>...</td>
+      <td>0.0448</td>
+      <td>0.0</td>
+      <td>0.003193</td>
+      <td>0.0</td>
+      <td>0.1</td>
+      <td>g</td>
+      <td>09-27</td>
+      <td>09-27</td>
+      <td>0.000004</td>
+      <td>0.00738</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>5</td>
-      <td>NED1-5c</td>
-      <td>0.006201</td>
+      <td>09-27</td>
+      <td>This study</td>
+      <td>None</td>
+      <td>IRM-VSM1-4231</td>
+      <td>0.01059</td>
+      <td>0.000015</td>
+      <td>0.003193</td>
+      <td>0.01086</td>
+      <td>6.732000e-08</td>
+      <td>IRM-VSM1</td>
+      <td>...</td>
       <td>NaN</td>
-      <td>0.0264</td>
       <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>09-27</td>
+      <td>09-27</td>
+      <td>0.000004</td>
+      <td>0.00738</td>
     </tr>
   </tbody>
 </table>
+<p>2 rows × 24 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">day_plot</span><span class="p">(</span><span class="n">Mr</span> <span class="o">=</span> <span class="n">NED1_5c_VSM_data</span><span class="p">[</span><span class="s1">&#39;hyst_mr_mass&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> 
-                   <span class="n">Ms</span> <span class="o">=</span> <span class="n">NED1_5c_VSM_data</span><span class="p">[</span><span class="s1">&#39;hyst_ms_mass&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
-                   <span class="n">Bcr</span> <span class="o">=</span><span class="n">NED1_5c_VSM_data</span><span class="p">[</span><span class="s1">&#39;hyst_bcr&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
-                   <span class="n">Bc</span> <span class="o">=</span> <span class="n">NED1_5c_VSM_data</span><span class="p">[</span><span class="s1">&#39;hyst_bc&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">day_plot</span><span class="p">(</span><span class="n">Mr</span> <span class="o">=</span> <span class="n">example_specimen_data</span><span class="p">[</span><span class="s1">&#39;hyst_mr_mass&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> 
+                   <span class="n">Ms</span> <span class="o">=</span> <span class="n">example_specimen_data</span><span class="p">[</span><span class="s1">&#39;hyst_ms_mass&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                   <span class="n">Bcr</span> <span class="o">=</span> <span class="n">example_specimen_data</span><span class="p">[</span><span class="s1">&#39;rem_bcr&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                   <span class="n">Bc</span> <span class="o">=</span> <span class="n">example_specimen_data</span><span class="p">[</span><span class="s1">&#39;hyst_bc&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> 
                    <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> 
                    <span class="n">marker</span> <span class="o">=</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> 
                    <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;NED&#39;</span><span class="p">,</span> 
@@ -579,7 +961,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/9ab01d48143cf24b095d6e9b6e34aa3818bf51d349840b126d7af7fd9c88b840.png"><img alt="../_images/9ab01d48143cf24b095d6e9b6e34aa3818bf51d349840b126d7af7fd9c88b840.png" src="../_images/9ab01d48143cf24b095d6e9b6e34aa3818bf51d349840b126d7af7fd9c88b840.png" style="width: 716px; height: 551px;" />
+<a class="reference internal image-reference" href="../_images/2b7990602a35197121228d279887df06d8b2212e3d9082d64de171a1420fa3d3.png"><img alt="../_images/2b7990602a35197121228d279887df06d8b2212e3d9082d64de171a1420fa3d3.png" src="../_images/2b7990602a35197121228d279887df06d8b2212e3d9082d64de171a1420fa3d3.png" style="width: 716px; height: 551px;" />
 </a>
 </div>
 </div>
@@ -592,13 +974,332 @@ document.write(`
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">=</span><span class="n">rmag</span><span class="o">.</span><span class="n">day_plot_MagIC</span><span class="p">(</span><span class="n">VSM_specimen_data</span><span class="p">,</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">H_specimens</span> <span class="o">=</span> <span class="n">specimens</span><span class="p">[</span><span class="n">specimens</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">)]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">H_specimens</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>specimen name</th>
+      <th>citations</th>
+      <th>description</th>
+      <th>experiments</th>
+      <th>hyst_bc</th>
+      <th>hyst_bc_offset</th>
+      <th>hyst_mr_mass</th>
+      <th>hyst_ms_mass</th>
+      <th>hyst_xhf</th>
+      <th>instrument_codes</th>
+      <th>...</th>
+      <th>rem_bcr</th>
+      <th>rem_hirm_mass</th>
+      <th>rem_mr_mass</th>
+      <th>rem_sratio</th>
+      <th>rem_sratio_back</th>
+      <th>result_quality</th>
+      <th>sample</th>
+      <th>specimen</th>
+      <th>volume</th>
+      <th>weight</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>H1-0.2A</td>
+      <td>This study</td>
+      <td>None</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>H1-0.2</td>
+      <td>H1-0.2A</td>
+      <td>0.000010</td>
+      <td>0.028482</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>H1-0.2B</td>
+      <td>This study</td>
+      <td>None</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>H1-0.2</td>
+      <td>H1-0.2B</td>
+      <td>0.000010</td>
+      <td>0.028730</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>H1-0.2C</td>
+      <td>This study</td>
+      <td>None</td>
+      <td>IRM-VSM3-66769</td>
+      <td>0.004854</td>
+      <td>-0.003742</td>
+      <td>0.000034</td>
+      <td>0.000189</td>
+      <td>3.774000e-09</td>
+      <td>IRM-VSM3</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>H1-0.2</td>
+      <td>H1-0.2C</td>
+      <td>0.000001</td>
+      <td>0.004169</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>H1-0.4A</td>
+      <td>This study</td>
+      <td>None</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>H1-0.4</td>
+      <td>H1-0.4A</td>
+      <td>0.000010</td>
+      <td>0.028457</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>H1-0.4B</td>
+      <td>This study</td>
+      <td>None</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>H1-0.4</td>
+      <td>H1-0.4B</td>
+      <td>0.000010</td>
+      <td>0.028187</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>98</th>
+      <td>H2-5.35c2</td>
+      <td>This study</td>
+      <td>None</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>H2-5.3</td>
+      <td>H2-5.35c2</td>
+      <td>0.000005</td>
+      <td>0.000525</td>
+    </tr>
+    <tr>
+      <th>99</th>
+      <td>H2-5.75A</td>
+      <td>This study</td>
+      <td>None</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>H2-5.7</td>
+      <td>H2-5.75A</td>
+      <td>0.000010</td>
+      <td>0.028478</td>
+    </tr>
+    <tr>
+      <th>100</th>
+      <td>H2-5.75B</td>
+      <td>This study</td>
+      <td>None</td>
+      <td>IRM-VSM1-4226</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-VSM1</td>
+      <td>...</td>
+      <td>0.0385</td>
+      <td>0.0</td>
+      <td>0.000191</td>
+      <td>0.0</td>
+      <td>0.1</td>
+      <td>g</td>
+      <td>H2-5.7</td>
+      <td>H2-5.75B</td>
+      <td>0.000004</td>
+      <td>0.014591</td>
+    </tr>
+    <tr>
+      <th>101</th>
+      <td>H2-5.75B</td>
+      <td>This study</td>
+      <td>None</td>
+      <td>IRM-VSM1-4226</td>
+      <td>0.004375</td>
+      <td>0.000000</td>
+      <td>0.000191</td>
+      <td>0.001063</td>
+      <td>-1.431000e-09</td>
+      <td>IRM-VSM1</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>H2-5.7</td>
+      <td>H2-5.75B</td>
+      <td>0.000004</td>
+      <td>0.014591</td>
+    </tr>
+    <tr>
+      <th>102</th>
+      <td>H2-5.75C</td>
+      <td>This study</td>
+      <td>None</td>
+      <td>None</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>None</td>
+      <td>H2-5.7</td>
+      <td>H2-5.75C</td>
+      <td>0.000002</td>
+      <td>0.007319</td>
+    </tr>
+  </tbody>
+</table>
+<p>103 rows × 24 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">=</span><span class="n">rmag</span><span class="o">.</span><span class="n">day_plot_MagIC</span><span class="p">(</span><span class="n">H_specimens</span><span class="p">,</span>
                <span class="n">by</span><span class="o">=</span><span class="s1">&#39;specimen&#39;</span><span class="p">,</span>
                <span class="n">Mr</span><span class="o">=</span><span class="s1">&#39;hyst_mr_mass&#39;</span><span class="p">,</span> 
                <span class="n">Ms</span><span class="o">=</span><span class="s1">&#39;hyst_ms_mass&#39;</span><span class="p">,</span> 
-               <span class="n">Bcr</span><span class="o">=</span><span class="s1">&#39;hyst_bcr&#39;</span><span class="p">,</span> 
+               <span class="n">Bcr</span><span class="o">=</span><span class="s1">&#39;rem_bcr&#39;</span><span class="p">,</span> 
                <span class="n">Bc</span><span class="o">=</span><span class="s1">&#39;hyst_bc&#39;</span><span class="p">,</span> 
-               <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> 
+               <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;dodgerblue&#39;</span><span class="p">,</span> 
                <span class="n">marker</span> <span class="o">=</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> 
                <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;NED&#39;</span><span class="p">,</span> 
                <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
@@ -607,7 +1308,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/51214560a40055ad20be598edd69f68a86fd6a8817149df40529bb9f6bd65189.png"><img alt="../_images/51214560a40055ad20be598edd69f68a86fd6a8817149df40529bb9f6bd65189.png" src="../_images/51214560a40055ad20be598edd69f68a86fd6a8817149df40529bb9f6bd65189.png" style="width: 716px; height: 551px;" />
+<a class="reference internal image-reference" href="../_images/592643b43ca2f2a05d63543e2f5b371b9cde8822b9534bfa89c52cab4eea04a3.png"><img alt="../_images/592643b43ca2f2a05d63543e2f5b371b9cde8822b9534bfa89c52cab4eea04a3.png" src="../_images/592643b43ca2f2a05d63543e2f5b371b9cde8822b9534bfa89c52cab4eea04a3.png" style="width: 716px; height: 551px;" />
 </a>
 </div>
 </div>
