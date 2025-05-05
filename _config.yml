@@ -29,6 +29,10 @@ repository:
 html:
   use_issues_button: true
   use_repository_button: true
+  theme:
+    name: sphinx_book_theme
+    options:
+      body_max_width: none
 
 sphinx:
   extra_extensions:
