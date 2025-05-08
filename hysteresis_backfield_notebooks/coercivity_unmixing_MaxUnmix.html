@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Python implementation of the Max Unmix method &#8212; RockmagPy Documentation</title>
+    <title>Python implementation of the Max Unmix method for coercivity spectra analysis &#8212; RockmagPy Documentation</title>
   
   
   
@@ -406,7 +406,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Python implementation of the Max Unmix method</h1>
+    <h1>Python implementation of the Max Unmix method for coercivity spectra analysis</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -418,11 +418,8 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-scientific-python-libraries">Import scientific python libraries</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maxunmix-example">MaxUnmix example</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-data">import data</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backfield-processing">backfield processing</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-unmixing-demo">interactive Unmixing demo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#backfield-processing">backfield processing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-fitting">interactive fitting</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#component">1 component</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#components">2 components</a></li>
 </ul>
@@ -441,12 +438,13 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="python-implementation-of-the-max-unmix-method">
-<h1>Python implementation of the Max Unmix method<a class="headerlink" href="#python-implementation-of-the-max-unmix-method" title="Link to this heading">#</a></h1>
-<ul class="simple">
-<li><p>Originally written in R, Maxbauer, D. P., Feinberg, J. M., &amp; Fox, D. L. (2016). MAX UnMix: A web application for unmixing magnetic coercivity distributions. Computers &amp; Geosciences, 95, 140–145. <a class="reference external" href="https://doi.org/10.1016/j.cageo.2016.07.009">https://doi.org/10.1016/j.cageo.2016.07.009</a></p></li>
-<li><p>The code below shows our Python implementation of the Max Unmix method, and show a comparison with the lmfit uncertainty estimation.</p></li>
-</ul>
+  <section class="tex2jax_ignore mathjax_ignore" id="python-implementation-of-the-max-unmix-method-for-coercivity-spectra-analysis">
+<h1>Python implementation of the Max Unmix method for coercivity spectra analysis<a class="headerlink" href="#python-implementation-of-the-max-unmix-method-for-coercivity-spectra-analysis" title="Link to this heading">#</a></h1>
+<p>This notebook illustrates the <code class="docutils literal notranslate"><span class="pre">rockmagpy</span></code> implementation of the MAX UnMix algorithm developed for unmixing magnetic coercivity spectra. MAX UnMix was originally written in R, is currently available within a Shiny app (<a class="reference external" href="https://shinyapps.carleton.edu/max-unmix/">https://shinyapps.carleton.edu/max-unmix/</a>), and is documented in the paper:</p>
+<blockquote>
+<div><p>Maxbauer, D. P., Feinberg, J. M., &amp; Fox, D. L. (2016). MAX UnMix: A web application for unmixing magnetic coercivity distributions. Computers &amp; Geosciences, 95, 140–145. <a class="reference external" href="https://doi.org/10.1016/j.cageo.2016.07.009">https://doi.org/10.1016/j.cageo.2016.07.009</a></p>
+</div></blockquote>
+<p>Here, we start by using the example data file used in MaxUnmix and then continue to illustrate how the Python implementation enables batch analysis.</p>
 <section id="import-scientific-python-libraries">
 <h2>Import scientific python libraries<a class="headerlink" href="#import-scientific-python-libraries" title="Link to this heading">#</a></h2>
 <p>Run the cell below to import the functions needed for the notebook.</p>
@@ -467,16 +465,12 @@ document.write(`
 </section>
 <section id="maxunmix-example">
 <h2>MaxUnmix example<a class="headerlink" href="#maxunmix-example" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>MaxUnmix example data file</p></li>
-</ul>
-<section id="import-data">
-<h3>import data<a class="headerlink" href="#import-data" title="Link to this heading">#</a></h3>
+<p>Here we import the data that were published with MaxUnmix as an example file.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MaxUmnix_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../example_data/backfield_unmixing/MaxUnmix_example.csv&#39;</span><span class="p">)</span>
-<span class="n">MaxUmnix_data</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">MaxUmnix_data</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">1000</span>
-<span class="n">MaxUmnix_data</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MaxUnmix_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../example_data/backfield_unmixing/MaxUnmix_example.csv&#39;</span><span class="p">)</span>
+<span class="n">MaxUnmix_data</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">MaxUnmix_data</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">1000</span>
+<span class="n">MaxUnmix_data</span>
 </pre></div>
 </div>
 </div>
@@ -564,224 +558,44 @@ document.write(`
 <p>98 rows × 2 columns</p>
 </div></div></div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">MaxUmnix_data</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">],</span> <span class="n">MaxUmnix_data</span><span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x324429e10&gt;]
-</pre></div>
-</div>
-<a class="reference internal image-reference" href="../_images/fe615f73b590883fb48f968ec4a9e2a97cafb3936d4364db4bc3a4688ddb21db.png"><img alt="../_images/fe615f73b590883fb48f968ec4a9e2a97cafb3936d4364db4bc3a4688ddb21db.png" src="../_images/fe615f73b590883fb48f968ec4a9e2a97cafb3936d4364db4bc3a4688ddb21db.png" style="width: 534px; height: 428px;" />
-</a>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rmag</span><span class="o">.</span><span class="n">find_y_crossing</span><span class="p">(</span><span class="n">MaxUmnix_data</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">],</span> <span class="n">MaxUmnix_data</span><span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MaxUmnix_experiment</span><span class="p">,</span> <span class="n">Bcr</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">backfield_data_processing</span><span class="p">(</span><span class="n">MaxUmnix_data</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">magnetization</span><span class="o">=</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="n">smooth_frac</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MaxUmnix_experiment</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>B</th>
-      <th>M</th>
-      <th>magn_mass_shift</th>
-      <th>log_dc_field</th>
-      <th>smoothed_magn_mass_shift</th>
-      <th>smoothed_log_dc_field</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>-0.00146</td>
-      <td>6.950000e-06</td>
-      <td>6.950000e-06</td>
-      <td>0.164353</td>
-      <td>6.950580e-06</td>
-      <td>0.164353</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>-0.00224</td>
-      <td>6.930000e-06</td>
-      <td>6.930000e-06</td>
-      <td>0.350248</td>
-      <td>6.926971e-06</td>
-      <td>0.350248</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>-0.00305</td>
-      <td>6.900000e-06</td>
-      <td>6.900000e-06</td>
-      <td>0.484300</td>
-      <td>6.894074e-06</td>
-      <td>0.484300</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>-0.00389</td>
-      <td>6.860000e-06</td>
-      <td>6.860000e-06</td>
-      <td>0.589950</td>
-      <td>6.860672e-06</td>
-      <td>0.589950</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>-0.00477</td>
-      <td>6.830000e-06</td>
-      <td>6.830000e-06</td>
-      <td>0.678518</td>
-      <td>6.828790e-06</td>
-      <td>0.678518</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>93</th>
-      <td>-0.84446</td>
-      <td>3.320000e-07</td>
-      <td>3.320000e-07</td>
-      <td>2.926579</td>
-      <td>3.329773e-07</td>
-      <td>2.926579</td>
-    </tr>
-    <tr>
-      <th>94</th>
-      <td>-0.88053</td>
-      <td>2.450000e-07</td>
-      <td>2.450000e-07</td>
-      <td>2.944744</td>
-      <td>2.455264e-07</td>
-      <td>2.944744</td>
-    </tr>
-    <tr>
-      <th>95</th>
-      <td>-0.91852</td>
-      <td>1.590000e-07</td>
-      <td>1.590000e-07</td>
-      <td>2.963089</td>
-      <td>1.599512e-07</td>
-      <td>2.963089</td>
-    </tr>
-    <tr>
-      <th>96</th>
-      <td>-0.95798</td>
-      <td>7.670000e-08</td>
-      <td>7.670000e-08</td>
-      <td>2.981356</td>
-      <td>7.825401e-08</td>
-      <td>2.981356</td>
-    </tr>
-    <tr>
-      <th>97</th>
-      <td>-0.99898</td>
-      <td>0.000000e+00</td>
-      <td>0.000000e+00</td>
-      <td>2.999557</td>
-      <td>-6.170804e-10</td>
-      <td>2.999557</td>
-    </tr>
-  </tbody>
-</table>
-<p>98 rows × 6 columns</p>
-</div></div></div>
-</div>
-</section>
-</section>
 <section id="backfield-processing">
-<h2>backfield processing<a class="headerlink" href="#backfield-processing" title="Link to this heading">#</a></h2>
+<h3>backfield processing<a class="headerlink" href="#backfield-processing" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">)</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">plot_backfield_data</span><span class="p">(</span><span class="n">MaxUmnix_experiment</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">magnetization</span><span class="o">=</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">plot_processed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plot_spectrum</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_figure</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MaxUnmix_experiment</span><span class="p">,</span> <span class="n">Bcr</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">backfield_data_processing</span><span class="p">(</span><span class="n">MaxUnmix_data</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">magnetization</span><span class="o">=</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="n">smooth_frac</span><span class="o">=</span><span class="mf">0.075</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">plot_backfield_data</span><span class="p">(</span><span class="n">MaxUnmix_experiment</span><span class="p">,</span> 
+                                    <span class="n">field</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">magnetization</span><span class="o">=</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> 
+                                    <span class="n">plot_processed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">plot_spectrum</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_figure</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/a79b0c07be13ffca5bfa3348fb302ca4963dcd64e8ff47ad454cea7ca2719ad6.png"><img alt="../_images/a79b0c07be13ffca5bfa3348fb302ca4963dcd64e8ff47ad454cea7ca2719ad6.png" src="../_images/a79b0c07be13ffca5bfa3348fb302ca4963dcd64e8ff47ad454cea7ca2719ad6.png" style="width: 889px; height: 1189px;" />
+<a class="reference internal image-reference" href="../_images/67e86a3a2b0addfaafff27404511902354c3d6914534dde6000e9f4ac9bb25cc.png"><img alt="../_images/67e86a3a2b0addfaafff27404511902354c3d6914534dde6000e9f4ac9bb25cc.png" src="../_images/67e86a3a2b0addfaafff27404511902354c3d6914534dde6000e9f4ac9bb25cc.png" style="width: 789px; height: 590px;" />
 </a>
 </div>
 </div>
-<section id="interactive-unmixing-demo">
-<h3>interactive Unmixing demo<a class="headerlink" href="#interactive-unmixing-demo" title="Link to this heading">#</a></h3>
+</section>
+<section id="interactive-fitting">
+<h3>interactive fitting<a class="headerlink" href="#interactive-fitting" title="Link to this heading">#</a></h3>
+<p>An important aspect of the MaxUnmix process is for the user to make an initial guess for the parameters associated with the coercivity spectra that can then be optimized to fit. In the code cells below, the user can choose parameters that are then optimized by the code to become fits. An advantage to the approach implemented in rockmagpy, is rapid optimization. The user can specify the number of components to fit.</p>
 <section id="component">
 <h4>1 component<a class="headerlink" href="#component" title="Link to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> widget
-<span class="n">rmag</span><span class="o">.</span><span class="n">interactive_backfield_fit</span><span class="p">(</span><span class="n">MaxUmnix_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_log_dc_field&#39;</span><span class="p">],</span> 
-                          <span class="n">MaxUmnix_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_magn_mass_shift&#39;</span><span class="p">],</span> 
-                          <span class="n">n_components</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">one_fit</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">interactive_backfield_fit</span><span class="p">(</span><span class="n">MaxUnmix_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_log_dc_field&#39;</span><span class="p">],</span> 
+                               <span class="n">MaxUnmix_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_magn_mass_shift&#39;</span><span class="p">],</span> 
+                               <span class="n">n_components</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "13bde9b4f2dd43ab8bc4781133fe432f", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "456bd8fbb9eb4b7b911738ea51944305", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "3e8ce2691cc34cd3a2787b5d0d27654d", "version_major": 2, "version_minor": 0}</script></div>
-</div>
-</section>
-<section id="components">
-<h4>2 components<a class="headerlink" href="#components" title="Link to this heading">#</a></h4>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> widget
-<span class="n">rmag</span><span class="o">.</span><span class="n">interactive_backfield_fit</span><span class="p">(</span><span class="n">MaxUmnix_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_log_dc_field&#39;</span><span class="p">],</span> 
-                          <span class="n">MaxUmnix_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_magn_mass_shift&#39;</span><span class="p">],</span> 
-                          <span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "72dd3913d8174117a3e4fb8fc2033924", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "b4e7c12646db4b40ba211107af741c59", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "f39230d29134479b9c322ebc545f6626", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "9fc9fb6bd3444b29af38981613bf0d8e", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "e6c624edef12447a961ef5febeb958ce", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "983abe6037a1474c90c3eeb59843e553", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># parameters = pd.DataFrame({&#39;amplitude&#39;: [1], &#39;center&#39;: [950], &#39;sigma&#39;: [4.6], &#39;gamma&#39;: [-3]})</span>
-<span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;amplitude&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">250</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="s1">&#39;sigma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]})</span>
-<span class="c1"># parameters = pd.DataFrame({&#39;amplitude&#39;: [0.25, 0.56, 0.74], &#39;center&#39;: [119, 784, 647], &#39;sigma&#39;: [5, 683, 2.5], &#39;gamma&#39;: [-2,1,-1]})</span>
-<span class="n">parameters</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">one_fit</span>
 </pre></div>
 </div>
 </div>
@@ -813,17 +627,76 @@ document.write(`
   <tbody>
     <tr>
       <th>0</th>
-      <td>0.6</td>
-      <td>250</td>
-      <td>3</td>
-      <td>0</td>
+      <td>1.0</td>
+      <td>407.402769</td>
+      <td>2.7202</td>
+      <td>0.021476</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="components">
+<h4>2 components<a class="headerlink" href="#components" title="Link to this heading">#</a></h4>
+<p>This example is not well-fit by one component — let’s try two components.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> widget
+<span class="n">two_fits</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">interactive_backfield_fit</span><span class="p">(</span><span class="n">MaxUnmix_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_log_dc_field&#39;</span><span class="p">],</span> 
+                               <span class="n">MaxUnmix_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_magn_mass_shift&#39;</span><span class="p">],</span> 
+                               <span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "b66e2be4a18d49048c71f48accc26dda", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "ef02cf895ec44044ba7e8bf85f5e3e65", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "be5094e57e334a9d94c73385b7db4016", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">two_fits</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>amplitude</th>
+      <th>center</th>
+      <th>sigma</th>
+      <th>gamma</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.531629</td>
+      <td>249.219410</td>
+      <td>2.496574</td>
+      <td>1.431270</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>0.5</td>
-      <td>100</td>
-      <td>5</td>
-      <td>0</td>
+      <td>1.000000</td>
+      <td>20.051005</td>
+      <td>344.202713</td>
+      <td>3.909178</td>
     </tr>
   </tbody>
 </table>
@@ -835,14 +708,14 @@ document.write(`
 <h3>MaxUnmix error estimate<a class="headerlink" href="#maxunmix-error-estimate" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MaxUnmix_ax</span><span class="p">,</span> <span class="n">MaxUnmix_params</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">backfield_MaxUnmix</span><span class="p">(</span><span class="n">MaxUmnix_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_log_dc_field&#39;</span><span class="p">],</span> 
-                                                            <span class="n">MaxUmnix_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_magn_mass_shift&#39;</span><span class="p">],</span> 
-                                                            <span class="n">n_comps</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span> <span class="n">n_resample</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MaxUnmix_ax</span><span class="p">,</span> <span class="n">MaxUnmix_params</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">backfield_MaxUnmix</span><span class="p">(</span><span class="n">MaxUnmix_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_log_dc_field&#39;</span><span class="p">],</span> 
+                                                            <span class="n">MaxUnmix_experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_magn_mass_shift&#39;</span><span class="p">],</span> 
+                                                            <span class="n">n_comps</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">two_fits</span><span class="p">,</span> <span class="n">n_resample</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "44e8f5c3847a465ab08b437ed5bebd18", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "92734b1a531b445393565e33dd5155ff", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -851,22 +724,22 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;g1_&#39;: {&#39;amplitude&#39;: 0.545439083693794,
-  &#39;center&#39;: 252.86878528113593,
-  &#39;sigma&#39;: 2.4755997315524882,
-  &#39;gamma&#39;: 1.3698455210469875,
-  &#39;amplitude_std&#39;: 0.06198792977364634,
-  &#39;center_std&#39;: 1.0332607633534268,
-  &#39;sigma_std&#39;: 1.0701547285554305,
-  &#39;gamma_std&#39;: 0.17849933687765476},
- &#39;g2_&#39;: {&#39;amplitude&#39;: 0.9344835320285404,
-  &#39;center&#39;: 22.882214341054304,
-  &#39;sigma&#39;: 260.69701392201097,
-  &#39;gamma&#39;: 3.7377842785790945,
-  &#39;amplitude_std&#39;: 0.17571864533631779,
-  &#39;center_std&#39;: 1.7205870074548435,
-  &#39;sigma_std&#39;: 3.5965584706282585,
-  &#39;gamma_std&#39;: 1.5419916836271064}}
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;g1_amplitude&#39;: 0.5307223354730236,
+ &#39;g1_center&#39;: 250.09362274333927,
+ &#39;g1_sigma&#39;: 2.485060288080717,
+ &#39;g1_gamma&#39;: 1.4160112853048434,
+ &#39;g1_amplitude_std&#39;: 0.010554474028322075,
+ &#39;g1_center_std&#39;: 1.0177949644228275,
+ &#39;g1_sigma_std&#39;: 1.0241354918377197,
+ &#39;g1_gamma_std&#39;: 0.09092430523620693,
+ &#39;g2_amplitude&#39;: 0.9991048538798091,
+ &#39;g2_center&#39;: 20.22345853541957,
+ &#39;g2_sigma&#39;: 338.68121564536756,
+ &#39;g2_gamma&#39;: 3.9016278500367463,
+ &#39;g2_amplitude_std&#39;: 0.004145645630097796,
+ &#39;g2_center_std&#39;: 1.1247882822594009,
+ &#39;g2_sigma_std&#39;: 1.3109995485275134,
+ &#39;g2_gamma_std&#39;: 0.40431158534307887}
 </pre></div>
 </div>
 </div>
@@ -923,11 +796,8 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-scientific-python-libraries">Import scientific python libraries</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maxunmix-example">MaxUnmix example</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-data">import data</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backfield-processing">backfield processing</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-unmixing-demo">interactive Unmixing demo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#backfield-processing">backfield processing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-fitting">interactive fitting</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#component">1 component</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#components">2 components</a></li>
 </ul>
