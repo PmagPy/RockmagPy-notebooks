@@ -451,10 +451,14 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.rockmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rmag</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.ipmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ipmag</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.contribution_builder</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cb</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span> 
+
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
 <span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
@@ -743,6 +747,400 @@ document.write(`
 </pre></div>
 </div>
 </div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;../example_data/SwansonHysell2019&#39;</span>
+
+<span class="n">MagIC_id</span> <span class="o">=</span> <span class="s1">&#39;20387&#39;</span>
+<span class="n">share_key</span> <span class="o">=</span> <span class="s1">&#39;2deccada-115d-495c-964f-52f13f9786b2&#39;</span>
+
+<span class="n">result</span><span class="p">,</span> <span class="n">magic_file</span> <span class="o">=</span> <span class="n">ipmag</span><span class="o">.</span><span class="n">download_magic_from_id</span><span class="p">(</span><span class="n">MagIC_id</span><span class="p">,</span> <span class="n">share_key</span><span class="o">=</span><span class="n">share_key</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">dir_path</span><span class="p">)</span>
+<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="n">magic_file</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">,</span> <span class="n">print_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Download successful. File saved to: ../example_data/SwansonHysell2019/magic_contribution_20387.txt
+1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SwansonHysell2019/contribution.txt
+1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SwansonHysell2019/locations.txt
+8  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SwansonHysell2019/sites.txt
+74  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SwansonHysell2019/samples.txt
+486  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SwansonHysell2019/specimens.txt
+20944  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SwansonHysell2019/measurements.txt
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get the contribution object</span>
+<span class="n">contribution</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">Contribution</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
+<span class="c1"># get the measurements table</span>
+<span class="n">measurements</span> <span class="o">=</span> <span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;measurements&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
+<span class="n">measurements</span> <span class="o">=</span> <span class="n">measurements</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+<span class="n">specimens</span> <span class="o">=</span> <span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;specimens&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-I- Using online data model
+-I- Getting method codes from earthref.org
+-I- Importing controlled vocabularies from https://earthref.org
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">measurements_backfield</span> <span class="o">=</span> <span class="n">measurements</span><span class="p">[(</span><span class="n">measurements</span><span class="p">[</span><span class="s1">&#39;method_codes&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;LP-BCR-BF&#39;</span><span class="p">)]</span>
+<span class="n">backfield_experiments</span> <span class="o">=</span> <span class="n">measurements_backfield</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">backfield_experiment_1</span> <span class="o">=</span> <span class="n">measurements_backfield</span><span class="p">[</span><span class="n">measurements_backfield</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">backfield_experiments</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+<span class="n">backfield_experiment_1</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>citations</th>
+      <th>dir_csd</th>
+      <th>dir_dec</th>
+      <th>dir_inc</th>
+      <th>experiment</th>
+      <th>instrument_codes</th>
+      <th>magn_mass</th>
+      <th>magn_moment</th>
+      <th>magn_r2_det</th>
+      <th>magn_x_sigma</th>
+      <th>magn_y_sigma</th>
+      <th>magn_z_sigma</th>
+      <th>meas_field_ac</th>
+      <th>meas_field_dc</th>
+      <th>meas_freq</th>
+      <th>meas_n_orient</th>
+      <th>meas_temp</th>
+      <th>measurement</th>
+      <th>method_codes</th>
+      <th>quality</th>
+      <th>sequence</th>
+      <th>software_packages</th>
+      <th>specimen</th>
+      <th>standard</th>
+      <th>susc_chi_mass</th>
+      <th>susc_chi_qdr_mass</th>
+      <th>timestamp</th>
+      <th>treat_ac_field</th>
+      <th>treat_dc_field</th>
+      <th>treat_dc_field_phi</th>
+      <th>treat_dc_field_theta</th>
+      <th>treat_step_num</th>
+      <th>treat_temp</th>
+    </tr>
+    <tr>
+      <th>measurement name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>BRIC-20cIRM-VSM2-LP-BCR-BF-1981061</th>
+      <td>This study</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-VSM2-LP-BCR-BF-198106</td>
+      <td>IRM-VSM2</td>
+      <td>0.007466</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>BRIC-20cIRM-VSM2-LP-BCR-BF-1981061</td>
+      <td>LP-BCR-BF</td>
+      <td>g</td>
+      <td>7426</td>
+      <td>None</td>
+      <td>BRIC-20c</td>
+      <td>300</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2018-11-13T15:48:00.000-06:00</td>
+      <td>NaN</td>
+      <td>-0.000003</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>BRIC-20cIRM-VSM2-LP-BCR-BF-1981062</th>
+      <td>This study</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-VSM2-LP-BCR-BF-198106</td>
+      <td>IRM-VSM2</td>
+      <td>0.007439</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>BRIC-20cIRM-VSM2-LP-BCR-BF-1981062</td>
+      <td>LP-BCR-BF</td>
+      <td>g</td>
+      <td>7427</td>
+      <td>None</td>
+      <td>BRIC-20c</td>
+      <td>300</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2018-11-13T15:48:00.000-06:00</td>
+      <td>NaN</td>
+      <td>-0.000251</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>BRIC-20cIRM-VSM2-LP-BCR-BF-1981063</th>
+      <td>This study</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-VSM2-LP-BCR-BF-198106</td>
+      <td>IRM-VSM2</td>
+      <td>0.007425</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>BRIC-20cIRM-VSM2-LP-BCR-BF-1981063</td>
+      <td>LP-BCR-BF</td>
+      <td>g</td>
+      <td>7428</td>
+      <td>None</td>
+      <td>BRIC-20c</td>
+      <td>300</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2018-11-13T15:48:00.000-06:00</td>
+      <td>NaN</td>
+      <td>-0.000516</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>BRIC-20cIRM-VSM2-LP-BCR-BF-1981064</th>
+      <td>This study</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-VSM2-LP-BCR-BF-198106</td>
+      <td>IRM-VSM2</td>
+      <td>0.007415</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>BRIC-20cIRM-VSM2-LP-BCR-BF-1981064</td>
+      <td>LP-BCR-BF</td>
+      <td>g</td>
+      <td>7429</td>
+      <td>None</td>
+      <td>BRIC-20c</td>
+      <td>300</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2018-11-13T15:48:00.000-06:00</td>
+      <td>NaN</td>
+      <td>-0.000799</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>BRIC-20cIRM-VSM2-LP-BCR-BF-1981065</th>
+      <td>This study</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>IRM-VSM2-LP-BCR-BF-198106</td>
+      <td>IRM-VSM2</td>
+      <td>0.007404</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>BRIC-20cIRM-VSM2-LP-BCR-BF-1981065</td>
+      <td>LP-BCR-BF</td>
+      <td>g</td>
+      <td>743</td>
+      <td>None</td>
+      <td>BRIC-20c</td>
+      <td>300</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2018-11-13T15:48:00.000-06:00</td>
+      <td>NaN</td>
+      <td>-0.001101</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">experiment_1</span><span class="p">,</span> <span class="n">Bcr</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">backfield_data_processing</span><span class="p">(</span><span class="n">backfield_experiment_1</span><span class="p">,</span> 
+                                                          <span class="n">field</span><span class="o">=</span><span class="s1">&#39;treat_dc_field&#39;</span><span class="p">,</span> <span class="n">magnetization</span><span class="o">=</span><span class="s1">&#39;magn_mass&#39;</span><span class="p">,</span> 
+                                                          <span class="n">smooth_frac</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">plot_backfield_data</span><span class="p">(</span><span class="n">experiment_1</span><span class="p">,</span> 
+                                    <span class="n">field</span><span class="o">=</span><span class="s1">&#39;treat_dc_field&#39;</span><span class="p">,</span> <span class="n">magnetization</span><span class="o">=</span><span class="s1">&#39;magn_mass&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> 
+                                    <span class="n">plot_processed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">plot_spectrum</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_figure</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1118f3bc8cc94714aea3d92df2698930", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> widget
+<span class="n">two_fits</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">interactive_backfield_fit</span><span class="p">(</span><span class="n">experiment_1</span><span class="p">[</span><span class="s1">&#39;smoothed_log_dc_field&#39;</span><span class="p">],</span> 
+                               <span class="n">experiment_1</span><span class="p">[</span><span class="s1">&#39;smoothed_magn_mass_shift&#39;</span><span class="p">],</span> 
+                               <span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "14cc184412b54198b870d8ed5528ae85", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "1e253341d7c14674b134935944c877c6", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "e437b2ca792848d5895f60e87d2b9988", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">experiment_1_ax</span><span class="p">,</span> <span class="n">experiment_1_params</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">backfield_MaxUnmix</span><span class="p">(</span><span class="n">experiment_1</span><span class="p">[</span><span class="s1">&#39;smoothed_log_dc_field&#39;</span><span class="p">],</span> 
+                                                            <span class="n">experiment_1</span><span class="p">[</span><span class="s1">&#39;smoothed_magn_mass_shift&#39;</span><span class="p">],</span> 
+                                                            <span class="n">n_comps</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">two_fits</span><span class="p">,</span> <span class="n">n_resample</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "e2c15535fb9649d89eaf571b5105e523", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">params_by_experiment</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">backfield_experiments</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]:</span>
+    <span class="n">backfield_experiment</span> <span class="o">=</span> <span class="n">measurements_backfield</span><span class="p">[</span><span class="n">measurements_backfield</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">ex</span><span class="p">]</span>
+    <span class="n">experiment</span><span class="p">,</span> <span class="n">Bcr</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">backfield_data_processing</span><span class="p">(</span><span class="n">backfield_experiment</span><span class="p">,</span> 
+                                                          <span class="n">field</span><span class="o">=</span><span class="s1">&#39;treat_dc_field&#39;</span><span class="p">,</span> <span class="n">magnetization</span><span class="o">=</span><span class="s1">&#39;magn_mass&#39;</span><span class="p">,</span> 
+                                                          <span class="n">smooth_frac</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="n">experiment_ax</span><span class="p">,</span> <span class="n">experiment_params</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">backfield_MaxUnmix</span><span class="p">(</span><span class="n">experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_log_dc_field&#39;</span><span class="p">],</span> 
+                                                            <span class="n">experiment</span><span class="p">[</span><span class="s1">&#39;smoothed_magn_mass_shift&#39;</span><span class="p">],</span> 
+                                                            <span class="n">n_comps</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">two_fits</span><span class="p">,</span> <span class="n">n_resample</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">experiment_ax</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "4f21f968cb7c4f5e9745fa2bebbba69f", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "6fdca8dee79c43d68f7e075808bbdb9e", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "379703bd3aad4522aeb0ac85d9789031", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "45e9537eaa944b738fa0f6082f72093a", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 </section>
