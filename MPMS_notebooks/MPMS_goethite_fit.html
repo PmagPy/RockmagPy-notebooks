@@ -467,7 +467,7 @@ document.write(`
 <h2>Import Python packages<a class="headerlink" href="#import-python-packages" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">rockmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rmag</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.rockmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rmag</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.ipmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ipmag</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.contribution_builder</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cb</span>
 
@@ -492,7 +492,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set the directory path (dir_path) to the data</span>
-<span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;./example_data/goethite&#39;</span>
+<span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;../example_data/goethite&#39;</span>
 
 <span class="c1"># set the name of the MagIC file</span>
 <span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="s1">&#39;A73-7-1350-4B-01a_mpms.txt&#39;</span><span class="p">,</span> 
@@ -509,20 +509,20 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>working on:  &#39;specimens\r&#39;
-1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/goethite/specimens.txt
-  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/goethite/specimens.txt
+1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/goethite/specimens.txt
+  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/goethite/specimens.txt
 working on:  &#39;samples\r&#39;
-1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/goethite/samples.txt
-  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/goethite/samples.txt
+1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/goethite/samples.txt
+  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/goethite/samples.txt
 working on:  &#39;sites\r&#39;
-1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/goethite/sites.txt
-  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/goethite/sites.txt
+1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/goethite/sites.txt
+  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/goethite/sites.txt
 working on:  &#39;locations\r&#39;
-1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/goethite/locations.txt
-  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/goethite/locations.txt
+1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/goethite/locations.txt
+  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/goethite/locations.txt
 working on:  &#39;measurements\r&#39;
-240  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/goethite/measurements.txt
-  data put in  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/goethite/measurements.txt
+240  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/goethite/measurements.txt
+  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/goethite/measurements.txt
 -I- Using online data model
 -I- Getting method codes from earthref.org
 -I- Importing controlled vocabularies from https://earthref.org
@@ -719,14 +719,14 @@ working on:  &#39;measurements\r&#39;
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">specimen_name</span> <span class="o">=</span> <span class="s1">&#39;A73-7-1350-4B-01a&#39;</span>
-<span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">extract_mpms_data</span><span class="p">(</span><span class="n">measurements</span><span class="p">,</span> <span class="n">specimen_name</span><span class="p">)</span>
-<span class="n">rmag</span><span class="o">.</span><span class="n">plot_mpms_data</span><span class="p">(</span><span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span><span class="p">,</span>
+<span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">extract_mpms_data_dc</span><span class="p">(</span><span class="n">measurements</span><span class="p">,</span> <span class="n">specimen_name</span><span class="p">)</span>
+<span class="n">rmag</span><span class="o">.</span><span class="n">plot_mpms_dc</span><span class="p">(</span><span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span><span class="p">,</span>
                     <span class="n">plot_derivative</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/5be9ed2321e302a5c7b4d31e97a1d8b826dc11f84daa8213ef665594192ca243.png"><img alt="../_images/5be9ed2321e302a5c7b4d31e97a1d8b826dc11f84daa8213ef665594192ca243.png" src="../_images/5be9ed2321e302a5c7b4d31e97a1d8b826dc11f84daa8213ef665594192ca243.png" style="width: 856px; height: 567px;" />
+<a class="reference internal image-reference" href="../_images/6e431816ccc957b57e00642825db9f499016427a347eaec07d810caa964a71f7.png"><img alt="../_images/6e431816ccc957b57e00642825db9f499016427a347eaec07d810caa964a71f7.png" src="../_images/6e431816ccc957b57e00642825db9f499016427a347eaec07d810caa964a71f7.png" style="width: 990px; height: 788px;" />
 </a>
 </div>
 </div>
@@ -741,7 +741,7 @@ working on:  &#39;measurements\r&#39;
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ce4e4992847d449d8666824cd65b6093", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "b203d3dd63db4b84aee4c1cc631d2f65", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -750,7 +750,7 @@ working on:  &#39;measurements\r&#39;
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "fb02834f606a45938134502dc07eb339", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "875ca47d585842f98bf71fce4f404816", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "31c26da110e14ace973ffeaca2c6edf7", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "24fd6f2093c0485ab766995a8333346d", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="apply-the-function-rmag-goethite-removal">
@@ -765,7 +765,7 @@ working on:  &#39;measurements\r&#39;
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/eda3da547522e915d524fb190a5d1106fddbb6443881168e3a8733277c96c036.png"><img alt="../_images/eda3da547522e915d524fb190a5d1106fddbb6443881168e3a8733277c96c036.png" src="../_images/eda3da547522e915d524fb190a5d1106fddbb6443881168e3a8733277c96c036.png" style="width: 853px; height: 567px;" />
+<a class="reference internal image-reference" href="../_images/bf1b39da70f130b136be97e60ef5437293622ea59287ef144e2077106bdb6b6a.png"><img alt="../_images/bf1b39da70f130b136be97e60ef5437293622ea59287ef144e2077106bdb6b6a.png" src="../_images/bf1b39da70f130b136be97e60ef5437293622ea59287ef144e2077106bdb6b6a.png" style="width: 1187px; height: 790px;" />
 </a>
 </div>
 </div>
@@ -781,7 +781,7 @@ working on:  &#39;measurements\r&#39;
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/eda3da547522e915d524fb190a5d1106fddbb6443881168e3a8733277c96c036.png"><img alt="../_images/eda3da547522e915d524fb190a5d1106fddbb6443881168e3a8733277c96c036.png" src="../_images/eda3da547522e915d524fb190a5d1106fddbb6443881168e3a8733277c96c036.png" style="width: 853px; height: 567px;" />
+<a class="reference internal image-reference" href="../_images/bf1b39da70f130b136be97e60ef5437293622ea59287ef144e2077106bdb6b6a.png"><img alt="../_images/bf1b39da70f130b136be97e60ef5437293622ea59287ef144e2077106bdb6b6a.png" src="../_images/bf1b39da70f130b136be97e60ef5437293622ea59287ef144e2077106bdb6b6a.png" style="width: 1187px; height: 790px;" />
 </a>
 </div>
 </div>
