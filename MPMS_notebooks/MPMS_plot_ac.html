@@ -442,12 +442,8 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="plot-mpms-data-ac-susceptibility">
 <h1>Plot MPMS data (AC susceptibility)<a class="headerlink" href="#plot-mpms-data-ac-susceptibility" title="Link to this heading">#</a></h1>
-<p>This notebook visualizes data from low-temperature AC susceptibility experiments conducted on an MPMS instrument and exported to MagIC format.</p>
-<ul class="simple">
-<li><p>AC field: <span class="math notranslate nohighlight">\(H(t)=H_0\cos\omega t\)</span> → sample response: <span class="math notranslate nohighlight">\(M(t)=M_0\cos(\omega t-\delta)\)</span></p></li>
-<li><p>In-phase susceptibility: <span class="math notranslate nohighlight">\(\chi'=\frac{M_0\cos\delta}{H_0}\)</span> from <code class="docutils literal notranslate"><span class="pre">susc_chi_mass</span></code></p></li>
-<li><p>Out-of-phase susceptibility: <span class="math notranslate nohighlight">\(\chi''=\frac{M_0\sin\delta}{H_0}\)</span> from <code class="docutils literal notranslate"><span class="pre">susc_chi_qdr_mass</span></code></p></li>
-</ul>
+<p>This notebook visualizes data from low-temperature AC susceptibility (<span class="math notranslate nohighlight">\(\chi\)</span>) experiments conducted on an MPMS instrument and exported to MagIC format.</p>
+<p>The response of magnetization to changes in an applied oscillating field is both dependent on time and temperature. Given that <span class="math notranslate nohighlight">\(\chi\)</span> can depend on frequency and temperature, experiments conducted on an MPMS will apply different frequency AC fields and make measurements as a function of temperature. The results of these experiments are visualized both in terms of the in-phase susceptibility (<code class="docutils literal notranslate"><span class="pre">susc_chi_mass</span></code>) and the out-of-phase susceptibility (<code class="docutils literal notranslate"><span class="pre">susc_chi_qdr_mass</span></code>)</p>
 <section id="import-scientific-python-libraries">
 <h2>Import scientific python libraries<a class="headerlink" href="#import-scientific-python-libraries" title="Link to this heading">#</a></h2>
 <p>Run the cell below to import the functions needed for the notebook.</p>
