@@ -464,7 +464,7 @@ document.write(`
     </style>
     <div>
         <a href="https://bokeh.org" target="_blank" class="bk-notebook-logo"></a>
-        <span id="f81dd96b-dd8c-4a56-ad86-e9b18cdff1c1">Loading BokehJS ...</span>
+        <span id="cc575b67-3b1e-4807-9333-b148c09e4d7d">Loading BokehJS ...</span>
     </div>
 </div><script type="application/javascript">'use strict';
 (function(root) {
@@ -629,7 +629,7 @@ const JS_MIME_TYPE = 'application/javascript';
      "</div>"}};
 
   function display_loaded(error = null) {
-    const el = document.getElementById("f81dd96b-dd8c-4a56-ad86-e9b18cdff1c1");
+    const el = document.getElementById("cc575b67-3b1e-4807-9333-b148c09e4d7d");
     if (el != null) {
       const html = (() => {
         if (typeof root.Bokeh === "undefined") {
@@ -763,7 +763,7 @@ function(Bokeh) {
       console.log("Bokeh: BokehJS failed to load within specified timeout.");
       root._bokeh_failed_load = true;
     } else if (force !== true) {
-      const cell = $(document.getElementById("f81dd96b-dd8c-4a56-ad86-e9b18cdff1c1")).parents('.cell').data().cell;
+      const cell = $(document.getElementById("cc575b67-3b1e-4807-9333-b148c09e4d7d")).parents('.cell').data().cell;
       cell.output_area.append_execute_result(NB_LOAD_WARNING)
     }
   }
@@ -793,7 +793,7 @@ function(Bokeh) {
 <span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;../example_data/ECMB&#39;</span>
 
 <span class="c1"># set the name of the MagIC file</span>
-<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="s1">&#39;magic_contribution_20213.txt&#39;</span><span class="p">,</span> 
+<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="s1">&#39;ECMB_30.Apr.2025.txt&#39;</span><span class="p">,</span> 
                      <span class="n">dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">,</span>
                      <span class="n">input_dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">,</span>
                      <span class="n">print_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -806,12 +806,12 @@ function(Bokeh) {
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/contribution.txt
-1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/locations.txt
-90  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/sites.txt
-312  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/samples.txt
-1574  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/specimens.txt
-17428  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/measurements.txt
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/contribution.txt
+1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/locations.txt
+90  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/sites.txt
+312  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/samples.txt
+1574  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/specimens.txt
+17428  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/measurements.txt
 -I- Using online data model
 -I- Getting method codes from earthref.org
 -I- Importing controlled vocabularies from https://earthref.org
