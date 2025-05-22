@@ -441,15 +441,15 @@ document.write(`
 <p>Magnetic susceptibility describes the relationship between an applied magnetic field and the magnetization that is induced by this field:</p>
 <p><span class="math notranslate nohighlight">\(M = \chi H\)</span></p>
 <p>where <span class="math notranslate nohighlight">\(M\)</span> is the magnetization (in Am<sup>2</sup>/kg), <span class="math notranslate nohighlight">\(H\)</span> is the applied field (in A/m), and <span class="math notranslate nohighlight">\(\chi\)</span> is the magnetic susceptibility (this is the mass susceptibility in m<sup>3</sup>/kg). Magnetic susceptibility reflects the diamagnetic, paramagnetic, and/or ferromagnetic response of minerals within a sample.</p>
-<p>If a material is perfectly isotropic, the relationship described by <span class="math notranslate nohighlight">\(\chi\)</span> is independent of the orientation of the sample relative to the applied field. However, if there is a different response in different orientations the material can be considered to be anisotropic.</p>
-<p>In practice, AMS is quantified by varying the orientation of a sample within the coils of a magnetic susceptibility bridge. By doing so, the length and orientation of the principal, major, and minor eigenvectors can be determined where:</p>
+<p>If a material is perfectly isotropic with the magnetization response being uniform in all directions, the relationship described by <span class="math notranslate nohighlight">\(\chi\)</span> is independent of the orientation of the sample relative to the applied field. In this case, <span class="math notranslate nohighlight">\(\chi\)</span> is a scalar quantity (a single number). However, if there is a different response in different orientations the material can be considered to be anisotropic. In this case, <span class="math notranslate nohighlight">\(\chi\)</span> needs to be described as a tensor (<span class="math notranslate nohighlight">\(\chi_{ij}\)</span>).</p>
+<p>In practice, anisotropy of magnetic susceptibility (AMS) is quantified by varying the orientation of a sample within the coils of a magnetic susceptibility bridge. By doing so, the length and orientation of the principal, major, and minor eigenvectors which are defined as:</p>
 <p><span class="math notranslate nohighlight">\(V_1 \geq V_2 \geq V_3\)</span></p>
 <p>these eigenvectors are also referred to in the literature as:</p>
 <p><span class="math notranslate nohighlight">\(K_{max} \geq K_{int} \geq K_{min}\)</span></p>
-<p>and the anisotropy of magnetic susceptibility ellipsoid can be illustrated as:</p>
+<p>and the AMS ellipsoid can be illustrated as:</p>
 <figure>
-  <img src="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/AMS.png" alt="Description of the image" width="450">
-  <figcaption>from https://www.agico.cz/downloads/documents/agicoprints/ams_rocks_pres.pdf </figcaption>
+  <img src="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/AMS.png" alt="A three-dimensional ellipsoid with orthogonal principal axes labeled Kmax, Kint, and Kmin, representing the maximum, intermediate, and minimum magnetic susceptibility directions. A plane intersects the Kmax and Kint axes and is labeled magnetic foliation." width="450">
+  <figcaption>From https://www.agico.cz/downloads/documents/agicoprints/ams_rocks_pres.pdf </figcaption>
 </figure>
 <p>In the above plot, the axes of the ellipsoid are the eigenvectors (commonly referred to as the “principal axes”) with their magnitudes corresponding to the eigenvalues. Collectively, the eigenvalues and eigenvectors are called the eigenparameters. The orientation of this ellipsoid and the relative magnitude of the eigenvectors is central to the interpretation of AMS data.</p>
 <section id="the-magic-convention-for-the-magnetic-susceptibility-tensor">
@@ -468,33 +468,35 @@ document.write(`
 </section>
 <section id="anisotropy-measurements-in-practice">
 <h2>Anisotropy measurements in practice<a class="headerlink" href="#anisotropy-measurements-in-practice" title="Link to this heading">#</a></h2>
-<p>In many laboratories, magnetic susceptibility is measured by placing a sample ina solenoid with an applied field <em>H</em>. The induced magentization <em>M</em> parallel to <em>H</em> is measured in different orientations. only s1, s2, and s3 can be measured direclty. The other terms s4, s5, and s6 are only indireclty determined. For multi-positional approaches, the sets of values of measurements such as susceptibility would be $<span class="math notranslate nohighlight">\( K_i = A_{ij}s_j\)</span>$ where <em>A</em> is the design matrix.</p>
+<p>In many laboratories, magnetic susceptibility is measured by placing a sample in a solenoid with an applied field <em>H</em>. The induced magnetization <em>M</em> parallel to <em>H</em> is measured in different orientations. Only s1, s2, and s3 can be measured directly. The other terms s4, s5, and s6 are only indirectly determined. For multi-positional approaches, the sets of values of measurements such as susceptibility would be <span class="math notranslate nohighlight">\(K_i = A_{ij}s_j\)</span> where <em>A</em> is the design matrix.</p>
 <section id="the-jelinek-15-position-diagram">
 <h3>The Jelinek 15 position diagram<a class="headerlink" href="#the-jelinek-15-position-diagram" title="Link to this heading">#</a></h3>
-<p><strong>Statistical processing of anisotropy of magnetic susceptibility measured on groups of specimens</strong> by Jelinek (1978) illustrates the 15 position scheme of anisotropy measurement.</p>
+<p><strong>Statistical processing of anisotropy of magnetic susceptibility measured on groups of specimens</strong> by Jelínek (1978) illustrates the 15 position scheme of anisotropy measurement.</p>
 <figure>
-  <img src="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/Jelinek_15_method.png" alt="Description of the image" width="600">
+  <img src="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/Jelinek_15_method.png" alt="15 position scheme of anisotropy measurement" width="600">
 </figure>
-<p>It is also possible to adopt a 9-position experimental approach. In this case, follow positions 1,2,3, 6,7,8, 11,12,13 of the Jelinek 15 position scheme for the anisotorpy experiments.</p>
+<p>It is also possible to adopt a 9-position experimental approach. In this case, follow positions 1,2,3, 6,7,8, 11,12,13 of the Jelinek 15 position scheme for the anisotropy experiments.</p>
 <p>The 15-position design matrix is given by:
-$$
+<span class="math notranslate nohighlight">\(
 A = \begin{pmatrix}
-.5 &amp; .5 &amp; 0 &amp; -1 &amp; 0 &amp; 0 \
-.5 &amp; .5 &amp; 0 &amp; 1  &amp; 0 &amp; 0 \
-1  &amp; 0  &amp; 0 &amp; 0  &amp; 0 &amp; 0 \
-.5 &amp; .5 &amp; 0 &amp; -1 &amp; 0 &amp; 0 \
-.5 &amp; .5 &amp; 0 &amp; 1  &amp; 0 &amp; 0 \
-0 &amp; .5 &amp; .5 &amp; 0  &amp; -1 &amp; 0 \
-0 &amp; .5 &amp; .5 &amp; 0  &amp; 1  &amp; 0 \
-0 &amp; 1 &amp; 0 &amp; 0  &amp; 0 &amp; 0 \
-0 &amp; .5 &amp; .5 &amp; 0  &amp; -1 &amp; 0 \
-0 &amp; .5 &amp; .5 &amp; 0  &amp; 1  &amp; 0 \
-.5 &amp; 0 &amp; .5 &amp; 0  &amp; 0 &amp; -1 \
-.5 &amp; 0 &amp; .5 &amp; 0  &amp; 0 &amp; 1 \
-0 &amp; 0 &amp; 1 &amp; 0  &amp; 0 &amp; 0 \
-.5 &amp; 0 &amp; .5 &amp; 0  &amp; 0 &amp; -1 \
-.5 &amp; 0 &amp; .5 &amp; 0  &amp; 0 &amp; 1 \
-\end{pmatrix}</p>
+.5 &amp; .5 &amp; 0 &amp; -1 &amp; 0 &amp; 0 \\
+.5 &amp; .5 &amp; 0 &amp; 1  &amp; 0 &amp; 0 \\
+1  &amp; 0  &amp; 0 &amp; 0  &amp; 0 &amp; 0 \\
+.5 &amp; .5 &amp; 0 &amp; -1 &amp; 0 &amp; 0 \\
+.5 &amp; .5 &amp; 0 &amp; 1  &amp; 0 &amp; 0 \\
+0 &amp; .5 &amp; .5 &amp; 0  &amp; -1 &amp; 0 \\
+0 &amp; .5 &amp; .5 &amp; 0  &amp; 1  &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0  &amp; 0 &amp; 0 \\
+0 &amp; .5 &amp; .5 &amp; 0  &amp; -1 &amp; 0 \\
+0 &amp; .5 &amp; .5 &amp; 0  &amp; 1  &amp; 0 \\
+.5 &amp; 0 &amp; .5 &amp; 0  &amp; 0 &amp; -1 \\
+.5 &amp; 0 &amp; .5 &amp; 0  &amp; 0 &amp; 1 \\
+0 &amp; 0 &amp; 1 &amp; 0  &amp; 0 &amp; 0 \\
+.5 &amp; 0 &amp; .5 &amp; 0  &amp; 0 &amp; -1 \\
+.5 &amp; 0 &amp; .5 &amp; 0  &amp; 0 &amp; 1 \\
+\end{pmatrix}
+\)</span></p>
+<p>This 15-position procedure is widely adopted in experiments that seek to quantify the AMS tensor.</p>
 </section>
 </section>
 </section>
