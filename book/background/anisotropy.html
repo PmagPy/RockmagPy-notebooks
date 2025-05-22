@@ -420,7 +420,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-magic-convention">The MagIC convention</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-magic-convention-for-the-magnetic-susceptibility-tensor">The MagIC convention for the magnetic susceptibility tensor</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anisotropy-measurements-in-practice">Anisotropy measurements in practice</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-jelinek-15-position-diagram">The Jelinek 15 position diagram</a></li>
 </ul>
 </li>
@@ -451,8 +452,8 @@ document.write(`
   <figcaption>from https://www.agico.cz/downloads/documents/agicoprints/ams_rocks_pres.pdf </figcaption>
 </figure>
 <p>In the above plot, the axes of the ellipsoid are the eigenvectors (commonly referred to as the “principal axes”) with their magnitudes corresponding to the eigenvalues. Collectively, the eigenvalues and eigenvectors are called the eigenparameters. The orientation of this ellipsoid and the relative magnitude of the eigenvectors is central to the interpretation of AMS data.</p>
-<section id="the-magic-convention">
-<h2>The MagIC convention<a class="headerlink" href="#the-magic-convention" title="Link to this heading">#</a></h2>
+<section id="the-magic-convention-for-the-magnetic-susceptibility-tensor">
+<h2>The MagIC convention for the magnetic susceptibility tensor<a class="headerlink" href="#the-magic-convention-for-the-magnetic-susceptibility-tensor" title="Link to this heading">#</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">aniso_s</span></code> list is a succinct representation of the anisotropy tensor <span class="math notranslate nohighlight">\(\chi\)</span>. In the linear equations below, <span class="math notranslate nohighlight">\(M_1\)</span>, <span class="math notranslate nohighlight">\(M_2\)</span>, and <span class="math notranslate nohighlight">\(M_3\)</span> are the components of the magnetization vector <span class="math notranslate nohighlight">\(M\)</span>. The relationship between the magnetization and the magnetic field (<span class="math notranslate nohighlight">\(H_1\)</span>, <span class="math notranslate nohighlight">\(H_2\)</span>, and <span class="math notranslate nohighlight">\(H_3\)</span>) is described by the components of the magnetic susceptibility tensor <span class="math notranslate nohighlight">\(\chi_{ij}\)</span>. If the material is anisotropic, there will be different values in different orientations described by the <span class="math notranslate nohighlight">\(\chi\)</span> tensor.</p>
 <p><span class="math notranslate nohighlight">\( M_1 = \chi_{11} H_1 + \chi_{12} H_2 + \chi_{13} H_3 \)</span></p>
 <p><span class="math notranslate nohighlight">\( M_2 = \chi_{21} H_1 + \chi_{22} H_2 + \chi_{23} H_3 \)</span></p>
@@ -464,12 +465,37 @@ document.write(`
 <p><span class="math notranslate nohighlight">\( s_4 = \chi_{12} = \chi_{21} \)</span></p>
 <p><span class="math notranslate nohighlight">\( s_5 = \chi_{23} = \chi_{32} \)</span></p>
 <p><span class="math notranslate nohighlight">\( s_6 = \chi_{13} = \chi_{31} \)</span></p>
+</section>
+<section id="anisotropy-measurements-in-practice">
+<h2>Anisotropy measurements in practice<a class="headerlink" href="#anisotropy-measurements-in-practice" title="Link to this heading">#</a></h2>
+<p>In many laboratories, magnetic susceptibility is measured by placing a sample ina solenoid with an applied field <em>H</em>. The induced magentization <em>M</em> parallel to <em>H</em> is measured in different orientations. only s1, s2, and s3 can be measured direclty. The other terms s4, s5, and s6 are only indireclty determined. For multi-positional approaches, the sets of values of measurements such as susceptibility would be $<span class="math notranslate nohighlight">\( K_i = A_{ij}s_j\)</span>$ where <em>A</em> is the design matrix.</p>
 <section id="the-jelinek-15-position-diagram">
 <h3>The Jelinek 15 position diagram<a class="headerlink" href="#the-jelinek-15-position-diagram" title="Link to this heading">#</a></h3>
 <p><strong>Statistical processing of anisotropy of magnetic susceptibility measured on groups of specimens</strong> by Jelinek (1978) illustrates the 15 position scheme of anisotropy measurement.</p>
 <figure>
   <img src="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/Jelinek_15_method.png" alt="Description of the image" width="600">
-</figure></section>
+</figure>
+<p>It is also possible to adopt a 9-position experimental approach. In this case, follow positions 1,2,3, 6,7,8, 11,12,13 of the Jelinek 15 position scheme for the anisotorpy experiments.</p>
+<p>The 15-position design matrix is given by:
+$$
+A = \begin{pmatrix}
+.5 &amp; .5 &amp; 0 &amp; -1 &amp; 0 &amp; 0 \
+.5 &amp; .5 &amp; 0 &amp; 1  &amp; 0 &amp; 0 \
+1  &amp; 0  &amp; 0 &amp; 0  &amp; 0 &amp; 0 \
+.5 &amp; .5 &amp; 0 &amp; -1 &amp; 0 &amp; 0 \
+.5 &amp; .5 &amp; 0 &amp; 1  &amp; 0 &amp; 0 \
+0 &amp; .5 &amp; .5 &amp; 0  &amp; -1 &amp; 0 \
+0 &amp; .5 &amp; .5 &amp; 0  &amp; 1  &amp; 0 \
+0 &amp; 1 &amp; 0 &amp; 0  &amp; 0 &amp; 0 \
+0 &amp; .5 &amp; .5 &amp; 0  &amp; -1 &amp; 0 \
+0 &amp; .5 &amp; .5 &amp; 0  &amp; 1  &amp; 0 \
+.5 &amp; 0 &amp; .5 &amp; 0  &amp; 0 &amp; -1 \
+.5 &amp; 0 &amp; .5 &amp; 0  &amp; 0 &amp; 1 \
+0 &amp; 0 &amp; 1 &amp; 0  &amp; 0 &amp; 0 \
+.5 &amp; 0 &amp; .5 &amp; 0  &amp; 0 &amp; -1 \
+.5 &amp; 0 &amp; .5 &amp; 0  &amp; 0 &amp; 1 \
+\end{pmatrix}</p>
+</section>
 </section>
 </section>
 
@@ -537,7 +563,8 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-magic-convention">The MagIC convention</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-magic-convention-for-the-magnetic-susceptibility-tensor">The MagIC convention for the magnetic susceptibility tensor</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anisotropy-measurements-in-practice">Anisotropy measurements in practice</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-jelinek-15-position-diagram">The Jelinek 15 position diagram</a></li>
 </ul>
 </li>
