@@ -27,7 +27,7 @@ In the above plot, the axes of the ellipsoid are the eigenvectors (commonly refe
 
 ## The MagIC convention for the magnetic susceptibility tensor
 
-The `aniso_s` list is a succinct representation of the anisotropy tensor $\chi$. In the linear equations below, $M_1$, $M_2$, and $M_3$ are the components of the magnetization vector $M$. The relationship between the magnetization and the magnetic field ($H_1$, $H_2$, and $H_3$) is described by the components of the magnetic susceptibility tensor $\chi_{ij}$. If the material is anisotropic, there will be different values in different orientations described by the $\chi$ tensor.
+The `aniso_s` list is a six-element colon-delimited list provided in the `aniso_s` column of a MagIC specimens tables that is a succinct representation of the anisotropy tensor $\chi$. In the linear equations below, $M_1$, $M_2$, and $M_3$ are the components of the magnetization vector $M$. The relationship between the magnetization and the magnetic field ($H_1$, $H_2$, and $H_3$) is described by the components of the magnetic susceptibility tensor $\chi_{ij}$. If the material is anisotropic, there will be different values in different orientations described by the $\chi$ tensor.
 
 $ M_1 = \chi_{11} H_1 + \chi_{12} H_2 + \chi_{13} H_3 $
 
