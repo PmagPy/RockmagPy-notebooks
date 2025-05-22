@@ -51,6 +51,7 @@ parts:
             title: Siderite
           - file: book/background/paramagnetism.md
             title: Paramagnetism
+      - file: book/background/anisotropy.md
   - caption: More resources
     chapters:
       - file: book/resources.md
