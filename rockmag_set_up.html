@@ -504,42 +504,39 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> install pmagpy --user --upgrade # install or upgrade pmagpy in your user packages
 <span class="o">%</span><span class="k">pip</span> install cartopy --user --upgrade # install or upgrade cartopy in your user packages
-<span class="o">%</span><span class="k">pip</span> install bokeh --user --upgrade # install or upgrade cartopy in your user packages
-<span class="o">%</span><span class="k">pip</span> install ipympl --user --upgrade # install or upgrade cartopy in your user packages
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting pmagpy
-  Downloading pmagpy-4.2.121-py3-none-any.whl (42.7 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">42.7/42.7 MB</span> <span class=" -Color -Color-Red">11.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>00:0100:01
-?25hInstalling collected packages: pmagpy
-<span class=" -Color -Color-Yellow">  WARNING: The script pmagpy is installed in &#39;/Users/yimingzhang/.local/bin&#39; which is not on PATH.</span>
-<span class=" -Color -Color-Yellow">  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.</span>
-Successfully installed pmagpy-4.2.121
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pmagpy in /Users/unimos/0000_Github/PmagPy (4.3.1)
 Note: you may need to restart the kernel to use updated packages.
-Requirement already satisfied: cartopy in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (0.22.1.dev74+g234a077)
+Requirement already satisfied: cartopy in /Users/unimos/opt/anaconda3/lib/python3.9/site-packages (0.18.0)
 Collecting cartopy
   Downloading Cartopy-0.23.0-cp39-cp39-macosx_10_9_x86_64.whl (10.9 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">10.9/10.9 MB</span> <span class=" -Color -Color-Red">11.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>00:0100:01
-?25hRequirement already satisfied: packaging&gt;=20 in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from cartopy) (23.1)
-Requirement already satisfied: pyshp&gt;=2.3 in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from cartopy) (2.3.1)
-Requirement already satisfied: shapely&gt;=1.7 in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from cartopy) (2.0.2)
-Requirement already satisfied: matplotlib&gt;=3.5 in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from cartopy) (3.5.2)
-Requirement already satisfied: numpy&gt;=1.21 in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from cartopy) (1.24.2)
-Requirement already satisfied: pyproj&gt;=3.3.1 in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from cartopy) (3.6.1)
-Requirement already satisfied: cycler&gt;=0.10 in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from matplotlib&gt;=3.5-&gt;cartopy) (0.11.0)
-Requirement already satisfied: python-dateutil&gt;=2.7 in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from matplotlib&gt;=3.5-&gt;cartopy) (2.8.2)
-Requirement already satisfied: pyparsing&gt;=2.2.1 in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from matplotlib&gt;=3.5-&gt;cartopy) (3.0.9)
-Requirement already satisfied: pillow&gt;=6.2.0 in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from matplotlib&gt;=3.5-&gt;cartopy) (9.4.0)
-Requirement already satisfied: kiwisolver&gt;=1.0.1 in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from matplotlib&gt;=3.5-&gt;cartopy) (1.4.2)
-Requirement already satisfied: fonttools&gt;=4.22.0 in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from matplotlib&gt;=3.5-&gt;cartopy) (4.25.0)
-Requirement already satisfied: certifi in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from pyproj&gt;=3.3.1-&gt;cartopy) (2023.11.17)
-Requirement already satisfied: six&gt;=1.5 in /Users/yimingzhang/opt/anaconda3/lib/python3.9/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib&gt;=3.5-&gt;cartopy) (1.16.0)
-Installing collected packages: cartopy
-<span class=" -Color -Color-Yellow">  WARNING: The script cartopy_feature_download is installed in &#39;/Users/yimingzhang/.local/bin&#39; which is not on PATH.</span>
+     |████████████████████████████████| 10.9 MB 12.3 MB/s eta 0:00:01
+?25hRequirement already satisfied: shapely&gt;=1.7 in /Users/unimos/opt/anaconda3/lib/python3.9/site-packages (from cartopy) (1.7.1)
+Collecting pyproj&gt;=3.3.1
+  Downloading pyproj-3.6.1-cp39-cp39-macosx_10_9_x86_64.whl (6.1 MB)
+     |████████████████████████████████| 6.1 MB 8.1 MB/s eta 0:00:01
+?25hCollecting pyshp&gt;=2.3
+  Using cached pyshp-2.3.1-py2.py3-none-any.whl (46 kB)
+Requirement already satisfied: packaging&gt;=20 in /Users/unimos/opt/anaconda3/lib/python3.9/site-packages (from cartopy) (21.3)
+Requirement already satisfied: matplotlib&gt;=3.5 in /Users/unimos/opt/anaconda3/lib/python3.9/site-packages (from cartopy) (3.5.1)
+Requirement already satisfied: numpy&gt;=1.21 in /Users/unimos/opt/anaconda3/lib/python3.9/site-packages (from cartopy) (1.21.5)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /Users/unimos/opt/anaconda3/lib/python3.9/site-packages (from matplotlib&gt;=3.5-&gt;cartopy) (4.25.0)
+Requirement already satisfied: pillow&gt;=6.2.0 in /Users/unimos/opt/anaconda3/lib/python3.9/site-packages (from matplotlib&gt;=3.5-&gt;cartopy) (9.0.1)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /Users/unimos/opt/anaconda3/lib/python3.9/site-packages (from matplotlib&gt;=3.5-&gt;cartopy) (2.8.2)
+Requirement already satisfied: pyparsing&gt;=2.2.1 in /Users/unimos/opt/anaconda3/lib/python3.9/site-packages (from matplotlib&gt;=3.5-&gt;cartopy) (3.0.4)
+Requirement already satisfied: cycler&gt;=0.10 in /Users/unimos/opt/anaconda3/lib/python3.9/site-packages (from matplotlib&gt;=3.5-&gt;cartopy) (0.11.0)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /Users/unimos/opt/anaconda3/lib/python3.9/site-packages (from matplotlib&gt;=3.5-&gt;cartopy) (1.3.2)
+Requirement already satisfied: certifi in /Users/unimos/opt/anaconda3/lib/python3.9/site-packages (from pyproj&gt;=3.3.1-&gt;cartopy) (2025.4.26)
+Requirement already satisfied: six&gt;=1.5 in /Users/unimos/opt/anaconda3/lib/python3.9/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib&gt;=3.5-&gt;cartopy) (1.16.0)
+Installing collected packages: pyshp, pyproj, cartopy
+<span class=" -Color -Color-Yellow">  WARNING: The script pyproj is installed in &#39;/Users/unimos/.local/bin&#39; which is not on PATH.</span>
 <span class=" -Color -Color-Yellow">  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.</span>
-Successfully installed cartopy-0.23.0
+<span class=" -Color -Color-Yellow">  WARNING: The script cartopy_feature_download is installed in &#39;/Users/unimos/.local/bin&#39; which is not on PATH.</span>
+<span class=" -Color -Color-Yellow">  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.</span>
+Successfully installed cartopy-0.23.0 pyproj-3.6.1 pyshp-2.3.1
 Note: you may need to restart the kernel to use updated packages.
 </pre></div>
 </div>
