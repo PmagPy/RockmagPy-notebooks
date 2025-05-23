@@ -473,7 +473,7 @@ document.write(`
 <span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;../example_data/ECMB&#39;</span>
 
 <span class="c1"># set the name of the MagIC file</span>
-<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="s1">&#39;ECMB 2018.TXT&#39;</span><span class="p">,</span> 
+<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="s1">&#39;magic_contribution_20213.txt&#39;</span><span class="p">,</span> 
                      <span class="n">dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">,</span>
                      <span class="n">input_dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">,</span>
                      <span class="n">print_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -485,14 +485,12 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/locations.txt
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/contribution.txt
+1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/locations.txt
+90  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/sites.txt
 312  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/samples.txt
 1574  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/specimens.txt
-90  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/sites.txt
 17428  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/measurements.txt
--I- Using online data model
--I- Getting method codes from earthref.org
--I- Importing controlled vocabularies from https://earthref.org
 </pre></div>
 </div>
 </div>
@@ -530,7 +528,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "d5f9d2a51d9544758e8a5bdba72661b4", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "66938121f4c245828204b350d213bfad", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p>Once a sample is selected, we can estimate the Verwey transition using the method described above. Adjust the sliders to change the range of the background that is being fit, the temperature range that is being excluded from the background fit, and the polynomial degree that is being used for the background fit.</p>
 <p><em>Note: if you change the specimen or method in the dropdown menus above, rerun the code in the cell below to do the fit for the new specimen.</em></p>
@@ -542,7 +540,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "33d699fb0e614500a750bb9b0873c866", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "dec3071035c84fe7979abf8e1c46774e", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "6eed70c3195e4a44a4eb41f7473bccca", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "baef7238c3694489b69208c8a39306d1", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="use-the-rmag-verwey-estimate-function">
@@ -580,9 +578,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/5218f06b2c0af768f136407b6c4249313fa2b8ca5e25b3816790ec9162e302d0.png"><img alt="../_images/5218f06b2c0af768f136407b6c4249313fa2b8ca5e25b3816790ec9162e302d0.png" src="../_images/5218f06b2c0af768f136407b6c4249313fa2b8ca5e25b3816790ec9162e302d0.png" style="width: 1005px; height: 463px;" />
-</a>
-</div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "4595a4c86e4f411189569c4319e63f7b", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="plot-the-second-derivative-curve">
@@ -606,9 +602,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/6a89e8f8aacff5911713a49cec7b9fd3d60c0c307fb65d472ea341a141c64ea3.png"><img alt="../_images/6a89e8f8aacff5911713a49cec7b9fd3d60c0c307fb65d472ea341a141c64ea3.png" src="../_images/6a89e8f8aacff5911713a49cec7b9fd3d60c0c307fb65d472ea341a141c64ea3.png" style="width: 1005px; height: 463px;" />
-</a>
-</div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "efe7f96fa2ee4718836e954f20ede27c", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="determine-and-record-the-verwey-temperatures-for-multiple-specimens">
@@ -689,13 +683,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/c0ef7db556e1aa3fdae794067bb47e6d92611099fe3cd8f59c43f831eb607b48.png"><img alt="../_images/c0ef7db556e1aa3fdae794067bb47e6d92611099fe3cd8f59c43f831eb607b48.png" src="../_images/c0ef7db556e1aa3fdae794067bb47e6d92611099fe3cd8f59c43f831eb607b48.png" style="width: 1014px; height: 469px;" />
-</a>
-<a class="reference internal image-reference" href="../_images/114f4d47ee88af7807c69a5594206c64ef459ffd5d079542b1218f092d03044c.png"><img alt="../_images/114f4d47ee88af7807c69a5594206c64ef459ffd5d079542b1218f092d03044c.png" src="../_images/114f4d47ee88af7807c69a5594206c64ef459ffd5d079542b1218f092d03044c.png" style="width: 1005px; height: 469px;" />
-</a>
-<a class="reference internal image-reference" href="../_images/724f57f670b57d6d0c12f9d0e60f97a5873d4914763b6a35eb0ff7e54066a508.png"><img alt="../_images/724f57f670b57d6d0c12f9d0e60f97a5873d4914763b6a35eb0ff7e54066a508.png" src="../_images/724f57f670b57d6d0c12f9d0e60f97a5873d4914763b6a35eb0ff7e54066a508.png" style="width: 992px; height: 469px;" />
-</a>
-</div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "efb01e03d4e94b5c8186bc3bb5255632", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "2b3c2f096ab54dbcb7ab63e64ed3deef", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "bfc8e72b4e8b4afab6b3bbb80d0eeeef", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p>We can now have a look at Verwey estimate that have been recorded:</p>
 <div class="cell docutils container">
@@ -857,23 +845,10 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>aniso_f</th>
-      <th>aniso_l</th>
-      <th>aniso_p</th>
-      <th>aniso_s</th>
-      <th>aniso_s_n_measurements</th>
-      <th>aniso_t</th>
-      <th>aniso_type</th>
-      <th>azimuth</th>
       <th>citations</th>
-      <th>contribution_id</th>
       <th>critical_temp</th>
-      <th>critical_temp_high</th>
-      <th>critical_temp_low</th>
-      <th>critical_temp_mineral</th>
       <th>critical_temp_type</th>
       <th>description</th>
-      <th>dip</th>
       <th>dir_comp</th>
       <th>dir_dang</th>
       <th>dir_dec</th>
@@ -886,12 +861,9 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
       <th>hyst_bc</th>
       <th>hyst_bc_offset</th>
       <th>hyst_bcr</th>
-      <th>hyst_loop</th>
       <th>hyst_mr_mass</th>
       <th>hyst_ms_mass</th>
       <th>hyst_xhf</th>
-      <th>igsn</th>
-      <th>igsn_parent</th>
       <th>instrument_codes</th>
       <th>int_corr</th>
       <th>meas_orient_phi</th>
@@ -901,17 +873,14 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
       <th>meas_step_unit</th>
       <th>meas_temp</th>
       <th>method_codes</th>
-      <th>mineral_type</th>
       <th>rem_hirm_mass</th>
       <th>rem_sratio</th>
       <th>rem_sratio_back</th>
       <th>rem_sratio_forward</th>
       <th>result_quality</th>
-      <th>row_id</th>
       <th>sample</th>
       <th>software_packages</th>
       <th>specimen</th>
-      <th>synthetic_alternatives</th>
       <th>volume</th>
       <th>weight</th>
     </tr>
@@ -955,47 +924,15 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
       <th></th>
       <th></th>
       <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>NED1-1b</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
       <td>This study</td>
       <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
       <td>None</td>
       <td>None</td>
-      <td>NaN</td>
       <td>mc</td>
       <td>2.8</td>
       <td>159.7</td>
@@ -1005,9 +942,6 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
       <td>5.0</td>
       <td>-1.0</td>
       <td>NED1-1b_LP-DIR-AF</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1027,35 +961,19 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>NaN</td>
       <td>g</td>
-      <td>NaN</td>
       <td>NED1-1</td>
       <td>pmagpy-4.2.25: demag_gui</td>
       <td>NED1-1b</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>NaN</td>
     </tr>
     <tr>
       <th>NED1-1b</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
       <td>This study</td>
       <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
       <td>None</td>
       <td>None</td>
-      <td>NaN</td>
       <td>mc</td>
       <td>2.8</td>
       <td>139.2</td>
@@ -1065,9 +983,6 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
       <td>5.0</td>
       <td>0.0</td>
       <td>NED1-1b_LP-DIR-AF</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1087,35 +1002,19 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>NaN</td>
       <td>g</td>
-      <td>NaN</td>
       <td>NED1-1</td>
       <td>pmagpy-4.2.25: demag_gui</td>
       <td>NED1-1b</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>NaN</td>
     </tr>
     <tr>
       <th>NED1-1b</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
       <td>This study</td>
       <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
       <td>None</td>
       <td>None</td>
-      <td>NaN</td>
       <td>None</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1125,9 +1024,6 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
       <td>NaN</td>
       <td>NaN</td>
       <td>None</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1147,35 +1043,19 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>NaN</td>
       <td>None</td>
-      <td>NaN</td>
       <td>NED1-1</td>
       <td>None</td>
       <td>NED1-1b</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>NaN</td>
     </tr>
     <tr>
       <th>NED1-2b</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
       <td>This study</td>
       <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
       <td>None</td>
       <td>None</td>
-      <td>NaN</td>
       <td>mc</td>
       <td>3.4</td>
       <td>164.1</td>
@@ -1185,9 +1065,6 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
       <td>7.0</td>
       <td>-1.0</td>
       <td>NED1-2b_LP-DIR-AF</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1207,35 +1084,19 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>NaN</td>
       <td>g</td>
-      <td>NaN</td>
       <td>NED1-2</td>
       <td>pmagpy-4.2.25: demag_gui</td>
       <td>NED1-2b</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>NaN</td>
     </tr>
     <tr>
       <th>NED1-2b</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
       <td>This study</td>
       <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
       <td>None</td>
       <td>None</td>
-      <td>NaN</td>
       <td>mc</td>
       <td>3.4</td>
       <td>149.9</td>
@@ -1245,9 +1106,6 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
       <td>7.0</td>
       <td>0.0</td>
       <td>NED1-2b_LP-DIR-AF</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1267,13 +1125,10 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>NaN</td>
       <td>g</td>
-      <td>NaN</td>
       <td>NED1-2</td>
       <td>pmagpy-4.2.25: demag_gui</td>
       <td>NED1-2b</td>
-      <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
@@ -1317,45 +1172,13 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
       <td>...</td>
       <td>...</td>
       <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
     </tr>
     <tr>
       <th>NED18-2c</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>NaN</td>
+      <td>This study</td>
       <td>105.900000</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>Verwey transition</td>
+      <td>Verwey</td>
       <td>None</td>
-      <td>NaN</td>
       <td>None</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1365,9 +1188,6 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
       <td>NaN</td>
       <td>NaN</td>
       <td>None</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1387,35 +1207,19 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>NaN</td>
       <td>None</td>
-      <td>NaN</td>
       <td>NED18-2</td>
       <td>None</td>
       <td>NED18-2c</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>NaN</td>
     </tr>
     <tr>
       <th>NED18-2c</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>NaN</td>
+      <td>This study</td>
       <td>106.300000</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>Verwey transition</td>
+      <td>Verwey</td>
       <td>None</td>
-      <td>NaN</td>
       <td>None</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1425,9 +1229,6 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
       <td>NaN</td>
       <td>NaN</td>
       <td>None</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1447,35 +1248,19 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>NaN</td>
       <td>None</td>
-      <td>NaN</td>
       <td>NED18-2</td>
       <td>None</td>
       <td>NED18-2c</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>NaN</td>
     </tr>
     <tr>
       <th>NED18-2c</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
       <td>None</td>
-      <td>NaN</td>
       <td>105.861068</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
       <td>Verwey</td>
       <td>calculated using MPMS_verwey_fit.ipynb with pa...</td>
-      <td>NaN</td>
       <td>None</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1485,9 +1270,6 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
       <td>NaN</td>
       <td>NaN</td>
       <td>None</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1507,35 +1289,19 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>NaN</td>
       <td>None</td>
-      <td>NaN</td>
       <td>NED18-2</td>
       <td>None</td>
       <td>NED18-2c</td>
-      <td>NaN</td>
       <td>NaN</td>
       <td>0.000254</td>
     </tr>
     <tr>
       <th>NED2-8c</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
       <td>None</td>
-      <td>NaN</td>
       <td>116.145701</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
       <td>Verwey</td>
       <td>calculated using MPMS_verwey_fit.ipynb with pa...</td>
-      <td>NaN</td>
       <td>None</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1545,9 +1311,6 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
       <td>NaN</td>
       <td>NaN</td>
       <td>None</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1567,36 +1330,20 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>NaN</td>
       <td>None</td>
-      <td>NaN</td>
       <td>NED2-8</td>
       <td>None</td>
       <td>NED2-8c</td>
-      <td>NaN</td>
       <td>NaN</td>
       <td>0.000188</td>
     </tr>
     <tr>
       <th>NED4-1c</th>
       <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
       <td>117.902959</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
       <td>Verwey</td>
       <td>calculated using MPMS_verwey_fit.ipynb with pa...</td>
       <td>None</td>
-      <td>None</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1608,12 +1355,9 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>None</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>None</td>
-      <td>None</td>
       <td>None</td>
       <td>None</td>
       <td>NaN</td>
@@ -1623,23 +1367,20 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
       <td>None</td>
       <td>NaN</td>
       <td>SM-1DMAX:LP-FC</td>
-      <td>None</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>None</td>
       <td>None</td>
       <td>NED4-1</td>
       <td>None</td>
       <td>NED4-1c</td>
-      <td>None</td>
       <td>NaN</td>
       <td>0.000211</td>
     </tr>
   </tbody>
 </table>
-<p>1577 rows × 57 columns</p>
+<p>1577 rows × 38 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -1674,15 +1415,11 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
 -I- /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/measurements.txt file successfully read in
 17428  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/upload.txt
 -I- /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/measurements.txt written to  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/upload.txt
-Finished preparing upload file: /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/ECMB_12.May.2025.txt 
+Finished preparing upload file: /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/ECMB_23.May.2025.txt 
 Validating upload file with public endpoint
 status_code= 200
-The specimens table is missing required column &quot;method_codes&quot;. in rows: 
-[1560, 1561, 1562, 1563, 1564]
 The specimens table is missing required column &quot;citations&quot;. in rows: 
-[1560, 1561, 1562, 1563, 1564, 1565, 1566, 1567, 1568, 1569, 1570, 1571, 1572, 1573, 1574, 1575, 1576, 1577]
-The specimens table column &quot;critical_temp_type&quot; value &quot;Verwey transition&quot; is not in the &quot;Critical Temperature Types&quot; controlled vocabulary. in rows: 
-[1573, 1574]
+[1575, 1576, 1577]
 The measurements table column &quot;standard&quot; value &quot;300&quot; is not in the &quot;Measurement Type&quot; controlled vocabulary. in rows: 
 [16421, 16422, 16423, 16424, 16425, 16426, 16427, 16428, 16429, 16430, 16431, 16432, 16433, 16434, 16435, 16436, 16437, 16438, 16439, 16440, 16441, 16442, 16443, 16444, 16445, 16446, 16447, 16448, 16449, 16450, 16451, 16452, 16453, 16454, 16455, 16456, 16457, 16458, 16459, 16460, 16461, 16462, 16463, 16464, 16465, 16466, 16467, 16468, 16469, 16470, 16471, 16472, 16473, 16474, 16475, 16476, 16477, 16478, 16479, 16480, 16481, 16482, 16483, 16484, 16485, 16486, 16487, 16488, 16489, 16490, 16491, 16492, 16493, 16494, 16495, 16496, 16497, 16498, 16499, 16500, 16501, 16502, 16503, 16504, 16505, 16506, 16507, 16508, 16509, 16510, 16511, 16512, 16513, 16514, 16515, 16516, 16517, 16518, 16519, 16520, 16521, 16522, 16523, 16524, 16525, 16526, 16527, 16528, 16529, 16530, 16531, 16532, 16533, 16534, 16535, 16536, 16537, 16538, 16539, 16540, 16541, 16542, 16543, 16544, 16545, 16546, 16547, 16548, 16549, 16550, 16551, 16552, 16553, 16554, 16555, 16556, 16557, 16558, 16559, 16560, 16561, 16562, 16563, 16564, 16565, 16566, 16567, 16568, 16569, 16570, 16571, 16572, 16573, 16574, 16575, 16576, 16577, 16578, 16579, 16580, 16581, 16582, 16583, 16584, 16585, 16586, 16587, 16588, 16589, 16590, 16591, 16592, 16593, 16594, 16595, 16596, 16597, 16598, 16599, 16600, 16601, 16602, 16603, 16604, 16605, 16606, 16607, 16608, 16609, 16610, 16611, 16612, 16613, 16614, 16615, 16616, 16617, 16618, 16619, 16620, 16621, 16622, 16623, 16624, 16625, 16626, 16627, 16628, 16629, 16630, 16631, 16632, 16633, 16634, 16635, 16636, 16637, 16638, 16639, 16640, 16641, 16642, 16643, 16644, 16645, 16646, 16647, 16648, 16649, 16650, 16651, 16652, 16653, 16654, 16655, 16656, 16657, 16658, 16659, 16660, 16661, 16662, 16663, 16664, 16665, 16666, 16667, 16668, 16669, 16670, 16671, 16672, 16673, 16674, 16675, 16676, 16677, 16678, 16679, 16680, 16681, 16682, 16683, 16684, 16685, 16686, 16687, 16688, 16689, 16690, 16691, 16692, 16693, 16694, 16695, 16696, 16697, 16698, 16699, 16700, 16701, 16702, 16703, 16704, 16705, 16706, 16707, 16708, 16709, 16710, 16711, 16712, 16713, 16714, 16715, 16716, 16717, 16718, 16719, 16720]
 The measurements table is missing required column &quot;citations&quot;. in rows: 
