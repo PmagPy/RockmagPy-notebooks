@@ -427,7 +427,12 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-and-unpack-data-directly-from-a-public-magic-contribution">Download and unpack data directly from a public MagIC contribution</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-and-unpack-data-directly-from-a-private-magic-contribution">Download and unpack data directly from a private MagIC contribution</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-the-measurements-table">Inspect the measurements table</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-list-of-specimens-and-experiments">Get list of specimens and experiments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-a-table-of-specimens-and-experiments">Generate a table of specimens and experiments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isolate-data-from-a-single-experiment">Isolate data from a single experiment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isolate-data-from-a-single-specimen">Isolate data from a single specimen</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-specimen-data-on-method-code">Filter specimen data on method code.</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -461,6 +466,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.ipmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ipmag</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.rockmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rmag</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.contribution_builder</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cb</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
@@ -473,7 +479,7 @@ document.write(`
 <h2>Download and import data<a class="headerlink" href="#download-and-import-data" title="Link to this heading">#</a></h2>
 <section id="download-and-unpack-data-from-a-local-magic-file">
 <h3>Download and unpack data from a local MagIC file<a class="headerlink" href="#download-and-unpack-data-from-a-local-magic-file" title="Link to this heading">#</a></h3>
-<p>Within the folder <code class="docutils literal notranslate"><span class="pre">./example_data/ECMB</span></code>, there is a MagIC contribution called <code class="docutils literal notranslate"><span class="pre">'ECMB</span> <span class="pre">2018.TXT'</span></code>. Running the code cell below unpacks that MagIC contribution so that we can visualize and analyze the measurement data. We can then create a contribution object that has all of the MagIC tables. This approach can be applied to MagIC contributions that are downloaded from the database.</p>
+<p>Within the folder <code class="docutils literal notranslate"><span class="pre">./example_data/ECMB</span></code>, there is a MagIC contribution called <code class="docutils literal notranslate"><span class="pre">'magic_contribution_20213.txt'</span></code> that has been downloaded already from the MagIC database. Running the code cell below unpacks that MagIC contribution so that we can visualize and analyze the measurement data. We can then create a contribution object that has all of the MagIC tables. This approach can be applied to MagIC contributions that are downloaded from the database.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set the directory path (dir_path) to the data</span>
@@ -490,12 +496,12 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/contribution.txt
-1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/locations.txt
-90  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/sites.txt
-312  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/samples.txt
-1574  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/specimens.txt
-17428  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/ECMB/measurements.txt
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/contribution.txt
+1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/locations.txt
+90  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/sites.txt
+312  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/samples.txt
+1574  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/specimens.txt
+17428  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/measurements.txt
 -I- Using online data model
 -I- Getting method codes from earthref.org
 -I- Importing controlled vocabularies from https://earthref.org
@@ -508,7 +514,7 @@ document.write(`
 <h3>Download and unpack data directly from a public MagIC contribution<a class="headerlink" href="#download-and-unpack-data-directly-from-a-public-magic-contribution" title="Link to this heading">#</a></h3>
 <p>We can also download and unpack a MagIC contribution from a public MagIC contribution by providing the MagIC ID. Let’s do that and pull in data from the paper:</p>
 <p><em>Jackson, M. and Swanson-Hysell, N.L. (2012), Rock Magnetism of Remagnetized Carbonate Rocks: Another Look, In: Elmore, R. D., Muxworthy, A. R., Aldana, M. M. and Mena, M., eds., Remagnetization and Chemical Alteration of Sedimentary Rocks, Geological Society of London Special Publication, 371, doi:10.1144/SP371.3.</em></p>
-<p>The MagIC contribution is here: <a class="reference external" href="https://earthref.org/MagIC/16460">https://earthref.org/MagIC/16460</a> with 16460 being the MagIC ID.</p>
+<p>The MagIC contribution is here: <a class="reference external" href="https://earthref.org/MagIC/16460">https://earthref.org/MagIC/16460</a> with <code class="docutils literal notranslate"><span class="pre">'16460'</span></code> being the MagIC ID.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set the MagIC ID for the data set here</span>
@@ -525,12 +531,12 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Download successful. File saved to: example_data/Jackson2012/magic_contribution_16460.txt
-1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/contribution.txt
-5  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/locations.txt
-8  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/sites.txt
-51  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/samples.txt
-186  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/specimens.txt
-4758  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/Jackson2012/measurements.txt
+1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/Jackson2012/contribution.txt
+5  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/Jackson2012/locations.txt
+8  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/Jackson2012/sites.txt
+51  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/Jackson2012/samples.txt
+186  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/Jackson2012/specimens.txt
+4758  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/Jackson2012/measurements.txt
 </pre></div>
 </div>
 </div>
@@ -538,7 +544,7 @@ document.write(`
 </section>
 <section id="download-and-unpack-data-directly-from-a-private-magic-contribution">
 <h3>Download and unpack data directly from a private MagIC contribution<a class="headerlink" href="#download-and-unpack-data-directly-from-a-private-magic-contribution" title="Link to this heading">#</a></h3>
-<p>To bring in a data from a contribution that has been uploaded to MagIC, but that is not yet publically published, you need to both set the <code class="docutils literal notranslate"><span class="pre">magic_id</span></code> (20100 for the private contribution in this example) and provide the share key for your MagIC contribution which you can find by clicking on the “Share” button in the MagIC database. Here we will do that with data developed by participants in one of the groups from the IRM Summer School.</p>
+<p>To bring in a data from a contribution that has been uploaded to MagIC, but that is not yet publically published, you need to both set the <code class="docutils literal notranslate"><span class="pre">magic_id</span></code> (<code class="docutils literal notranslate"><span class="pre">'20100'</span></code> for the private contribution in this example) and provide the share key for your MagIC contribution which you can find by clicking on the “Share” button in the MagIC database. Here we will do that with data developed by participants in one of the groups from the IRM Summer School.</p>
 <figure>
   <img src="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/MagIC_private_contribution_1.png" alt="Description of the image" width="800">
 </figure>
@@ -564,12 +570,12 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Download successful. File saved to: example_data/SSRM2022C/magic_contribution_20100.txt
-1  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/contribution.txt
-6  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/locations.txt
-6  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/sites.txt
-28  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/samples.txt
-47  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/specimens.txt
-140501  records written to file  /Users/penokean/0000_GitHub/RockmagPy-notebooks/example_data/SSRM2022C/measurements.txt
+1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/SSRM2022C/contribution.txt
+6  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/SSRM2022C/locations.txt
+6  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/SSRM2022C/sites.txt
+28  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/SSRM2022C/samples.txt
+47  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/SSRM2022C/specimens.txt
+140501  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/SSRM2022C/measurements.txt
 </pre></div>
 </div>
 </div>
@@ -833,9 +839,9 @@ document.write(`
 </div></div></div>
 </div>
 </section>
-<section id="get-list-of-specimens-and-experiments">
-<h3>Get list of specimens and experiments<a class="headerlink" href="#get-list-of-specimens-and-experiments" title="Link to this heading">#</a></h3>
-<p>Now that we have imported the measurement data, we can look at the different experimental methods that have been applied to different specimens. The method codes correspond to the controlled vocabularies in the MagIC database.</p>
+<section id="generate-a-table-of-specimens-and-experiments">
+<h3>Generate a table of specimens and experiments<a class="headerlink" href="#generate-a-table-of-specimens-and-experiments" title="Link to this heading">#</a></h3>
+<p>Now that we have imported the measurement data, we can look at the different experiments that have been applied to different specimens. The method codes associated with the experiments are from the controlled vocabularies in the MagIC database <a class="reference external" href="https://www2.earthref.org/MagIC/method-codes">https://www2.earthref.org/MagIC/method-codes</a>.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Method Code</p></th>
@@ -866,7 +872,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SSRM2022C_experiments</span> <span class="o">=</span> <span class="n">SSRM2022C_measurements</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;specimen&#39;</span><span class="p">,</span> <span class="s1">&#39;method_codes&#39;</span><span class="p">,</span> <span class="s1">&#39;experiment&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SSRM2022C_experiments</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">make_experiment_df</span><span class="p">(</span><span class="n">SSRM2022C_measurements</span><span class="p">)</span>
 <span class="n">SSRM2022C_experiments</span>
 </pre></div>
 </div>
@@ -1248,7 +1254,145 @@ document.write(`
 </table>
 </div></div></div>
 </div>
-<p>Get the data for one specimen and look at the first 5 rows.</p>
+</section>
+<section id="isolate-data-from-a-single-experiment">
+<h3>Isolate data from a single experiment<a class="headerlink" href="#isolate-data-from-a-single-experiment" title="Link to this heading">#</a></h3>
+<p>Data for a single experiment can be isolated using the <code class="docutils literal notranslate"><span class="pre">experiment_name</span></code>.</p>
+<p>Here we specify the experiment data, extract the associated data, and look at the first 5 rows.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">experiment_name</span> <span class="o">=</span> <span class="s1">&#39;IRM-VSM3-LP-HYS-228041&#39;</span>
+<span class="n">DA4_r_hys</span> <span class="o">=</span> <span class="n">SSRM2022C_measurements</span><span class="p">[</span><span class="n">SSRM2022C_measurements</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">experiment_name</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
+<span class="n">DA4_r_hys</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">DA4_r_hys</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>experiment</th>
+      <th>instrument_codes</th>
+      <th>magn_mass</th>
+      <th>meas_field_dc</th>
+      <th>meas_temp</th>
+      <th>measurement</th>
+      <th>method_codes</th>
+      <th>quality</th>
+      <th>specimen</th>
+      <th>standard</th>
+      <th>timestamp</th>
+    </tr>
+    <tr>
+      <th>measurement name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>IRM-VSM3-LP-HYS-228041-1</th>
+      <td>IRM-VSM3-LP-HYS-228041</td>
+      <td>IRM-VSM3</td>
+      <td>0.09985</td>
+      <td>1.0000</td>
+      <td>300.0</td>
+      <td>IRM-VSM3-LP-HYS-228041-1</td>
+      <td>LP-HYS</td>
+      <td>g</td>
+      <td>DA4-r</td>
+      <td>u</td>
+      <td>2022:06:07:15:27:00.00</td>
+    </tr>
+    <tr>
+      <th>IRM-VSM3-LP-HYS-228041-2</th>
+      <td>IRM-VSM3-LP-HYS-228041</td>
+      <td>IRM-VSM3</td>
+      <td>0.09984</td>
+      <td>0.9950</td>
+      <td>300.0</td>
+      <td>IRM-VSM3-LP-HYS-228041-2</td>
+      <td>LP-HYS</td>
+      <td>g</td>
+      <td>DA4-r</td>
+      <td>u</td>
+      <td>2022:06:07:15:27:00.00</td>
+    </tr>
+    <tr>
+      <th>IRM-VSM3-LP-HYS-228041-3</th>
+      <td>IRM-VSM3-LP-HYS-228041</td>
+      <td>IRM-VSM3</td>
+      <td>0.09973</td>
+      <td>0.9829</td>
+      <td>300.0</td>
+      <td>IRM-VSM3-LP-HYS-228041-3</td>
+      <td>LP-HYS</td>
+      <td>g</td>
+      <td>DA4-r</td>
+      <td>u</td>
+      <td>2022:06:07:15:27:00.00</td>
+    </tr>
+    <tr>
+      <th>IRM-VSM3-LP-HYS-228041-4</th>
+      <td>IRM-VSM3-LP-HYS-228041</td>
+      <td>IRM-VSM3</td>
+      <td>0.09960</td>
+      <td>0.9668</td>
+      <td>300.0</td>
+      <td>IRM-VSM3-LP-HYS-228041-4</td>
+      <td>LP-HYS</td>
+      <td>g</td>
+      <td>DA4-r</td>
+      <td>u</td>
+      <td>2022:06:07:15:27:00.00</td>
+    </tr>
+    <tr>
+      <th>IRM-VSM3-LP-HYS-228041-5</th>
+      <td>IRM-VSM3-LP-HYS-228041</td>
+      <td>IRM-VSM3</td>
+      <td>0.09947</td>
+      <td>0.9485</td>
+      <td>300.0</td>
+      <td>IRM-VSM3-LP-HYS-228041-5</td>
+      <td>LP-HYS</td>
+      <td>g</td>
+      <td>DA4-r</td>
+      <td>u</td>
+      <td>2022:06:07:15:27:00.00</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="isolate-data-from-a-single-specimen">
+<h3>Isolate data from a single specimen<a class="headerlink" href="#isolate-data-from-a-single-specimen" title="Link to this heading">#</a></h3>
+<p>We can alternatively filter the measurements to get all the data for a specified specimen</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">specimen_name</span> <span class="o">=</span> <span class="s1">&#39;DX1-5r&#39;</span>
@@ -1421,7 +1565,9 @@ document.write(`
 </table>
 </div></div></div>
 </div>
-<p>Get the data for an experiment on this specimen. This filtering can either be done using the associated <code class="docutils literal notranslate"><span class="pre">method_code</span></code> (as in the example below) or the associated experiment.</p>
+<section id="filter-specimen-data-on-method-code">
+<h4>Filter specimen data on method code.<a class="headerlink" href="#filter-specimen-data-on-method-code" title="Link to this heading">#</a></h4>
+<p>Filtering can also be done using the associated <code class="docutils literal notranslate"><span class="pre">method_code</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">experiment_method_code</span> <span class="o">=</span> <span class="s1">&#39;LP-FC&#39;</span>
@@ -1593,178 +1739,7 @@ document.write(`
 </table>
 </div></div></div>
 </div>
-<p>Here the data for a single experiment is isolated using the <code class="docutils literal notranslate"><span class="pre">experiment_name</span></code></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">experiment_name</span> <span class="o">=</span> <span class="s1">&#39;DX1-5r-LP-ZFC-DC-14657&#39;</span>
-<span class="n">zfc_data</span> <span class="o">=</span> <span class="n">specimen_data</span><span class="p">[</span><span class="n">specimen_data</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">experiment_name</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
-<span class="n">zfc_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>experiment</th>
-      <th>instrument_codes</th>
-      <th>magn_mass</th>
-      <th>magn_r2_det</th>
-      <th>meas_field_ac</th>
-      <th>meas_field_dc</th>
-      <th>meas_freq</th>
-      <th>meas_temp</th>
-      <th>measurement</th>
-      <th>method_codes</th>
-      <th>quality</th>
-      <th>sequence</th>
-      <th>specimen</th>
-      <th>standard</th>
-      <th>susc_chi_mass</th>
-      <th>susc_chi_qdr_mass</th>
-      <th>timestamp</th>
-    </tr>
-    <tr>
-      <th>measurement name</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>DX1-5r-LP-ZFC-DC-14657-1-0</th>
-      <td>DX1-5r-LP-ZFC-DC-14657</td>
-      <td>IRM-MPMS3</td>
-      <td>0.000202</td>
-      <td>9.263549e-09</td>
-      <td>NaN</td>
-      <td>0.002543</td>
-      <td>NaN</td>
-      <td>10.000146</td>
-      <td>DX1-5r-LP-ZFC-DC-14657-1-0</td>
-      <td>LP-ZFC</td>
-      <td>g</td>
-      <td>NaN</td>
-      <td>DX1-5r</td>
-      <td>u</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>2092:06:11:13:24:23.667</td>
-    </tr>
-    <tr>
-      <th>DX1-5r-LP-ZFC-DC-14657-1-1</th>
-      <td>DX1-5r-LP-ZFC-DC-14657</td>
-      <td>IRM-MPMS3</td>
-      <td>0.000221</td>
-      <td>3.116004e-08</td>
-      <td>NaN</td>
-      <td>0.002543</td>
-      <td>NaN</td>
-      <td>10.143874</td>
-      <td>DX1-5r-LP-ZFC-DC-14657-1-1</td>
-      <td>LP-ZFC</td>
-      <td>g</td>
-      <td>NaN</td>
-      <td>DX1-5r</td>
-      <td>u</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>2092:06:11:13:24:27.274</td>
-    </tr>
-    <tr>
-      <th>DX1-5r-LP-ZFC-DC-14657-1-2</th>
-      <td>DX1-5r-LP-ZFC-DC-14657</td>
-      <td>IRM-MPMS3</td>
-      <td>0.000209</td>
-      <td>1.119533e-08</td>
-      <td>NaN</td>
-      <td>0.002543</td>
-      <td>NaN</td>
-      <td>15.002557</td>
-      <td>DX1-5r-LP-ZFC-DC-14657-1-2</td>
-      <td>LP-ZFC</td>
-      <td>g</td>
-      <td>NaN</td>
-      <td>DX1-5r</td>
-      <td>u</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>2092:06:11:13:24:59.821</td>
-    </tr>
-    <tr>
-      <th>DX1-5r-LP-ZFC-DC-14657-1-3</th>
-      <td>DX1-5r-LP-ZFC-DC-14657</td>
-      <td>IRM-MPMS3</td>
-      <td>0.000198</td>
-      <td>9.603557e-09</td>
-      <td>NaN</td>
-      <td>0.002543</td>
-      <td>NaN</td>
-      <td>20.056095</td>
-      <td>DX1-5r-LP-ZFC-DC-14657-1-3</td>
-      <td>LP-ZFC</td>
-      <td>g</td>
-      <td>NaN</td>
-      <td>DX1-5r</td>
-      <td>u</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>2092:06:11:13:25:32.207</td>
-    </tr>
-    <tr>
-      <th>DX1-5r-LP-ZFC-DC-14657-1-4</th>
-      <td>DX1-5r-LP-ZFC-DC-14657</td>
-      <td>IRM-MPMS3</td>
-      <td>0.000193</td>
-      <td>1.147419e-08</td>
-      <td>NaN</td>
-      <td>0.002543</td>
-      <td>NaN</td>
-      <td>25.022688</td>
-      <td>DX1-5r-LP-ZFC-DC-14657-1-4</td>
-      <td>LP-ZFC</td>
-      <td>g</td>
-      <td>NaN</td>
-      <td>DX1-5r</td>
-      <td>u</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>2092:06:11:13:26:04.140</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
+</section>
 </section>
 </section>
 </section>
@@ -1839,7 +1814,12 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-and-unpack-data-directly-from-a-public-magic-contribution">Download and unpack data directly from a public MagIC contribution</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-and-unpack-data-directly-from-a-private-magic-contribution">Download and unpack data directly from a private MagIC contribution</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-the-measurements-table">Inspect the measurements table</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-list-of-specimens-and-experiments">Get list of specimens and experiments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-a-table-of-specimens-and-experiments">Generate a table of specimens and experiments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isolate-data-from-a-single-experiment">Isolate data from a single experiment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isolate-data-from-a-single-specimen">Isolate data from a single specimen</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-specimen-data-on-method-code">Filter specimen data on method code.</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
