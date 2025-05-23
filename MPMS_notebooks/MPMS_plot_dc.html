@@ -467,7 +467,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/javascript">'use strict';
+<script type="application/javascript">
 (function(root) {
   function now() {
     return new Date();
@@ -480,7 +480,7 @@ document.write(`
     root._bokeh_is_loading = undefined;
   }
 
-const JS_MIME_TYPE = 'application/javascript';
+  const JS_MIME_TYPE = 'application/javascript';
   const HTML_MIME_TYPE = 'text/html';
   const EXEC_MIME_TYPE = 'application/vnd.bokehjs_exec.v0+json';
   const CLASS_NAME = 'output_bokeh rendered_html';
@@ -497,22 +497,14 @@ const JS_MIME_TYPE = 'application/javascript';
    * Handle when an output is cleared or removed
    */
   function handleClearOutput(event, handle) {
-    function drop(id) {
-      const view = Bokeh.index.get_by_id(id)
-      if (view != null) {
-        view.model.document.clear()
-        Bokeh.index.delete(view)
-      }
-    }
-
     const cell = handle.cell;
 
     const id = cell.output_area._bokeh_element_id;
     const server_id = cell.output_area._bokeh_server_id;
-
     // Clean up Bokeh references
-    if (id != null) {
-      drop(id)
+    if (id != null && id in Bokeh.index) {
+      Bokeh.index[id].model.document.clear();
+      delete Bokeh.index[id];
     }
 
     if (server_id !== undefined) {
@@ -521,8 +513,11 @@ const JS_MIME_TYPE = 'application/javascript';
       cell.notebook.kernel.execute(cmd_clean, {
         iopub: {
           output: function(msg) {
-            const id = msg.content.text.trim()
-            drop(id)
+            const id = msg.content.text.trim();
+            if (id in Bokeh.index) {
+              Bokeh.index[id].model.document.clear();
+              delete Bokeh.index[id];
+            }
           }
         }
       });
@@ -608,6 +603,8 @@ const JS_MIME_TYPE = 'application/javascript';
       register_renderer(events, OutputArea);
     }
   }
+
+  
   if (typeof (root._bokeh_timeout) === "undefined" || force === true) {
     root._bokeh_timeout = Date.now() + 5000;
     root._bokeh_failed_load = false;
@@ -629,44 +626,20 @@ const JS_MIME_TYPE = 'application/javascript';
      "</code>\n"+
      "</div>"}};
 
-  function display_loaded(error = null) {
+  function display_loaded() {
     const el = document.getElementById(null);
     if (el != null) {
-      const html = (() => {
-        if (typeof root.Bokeh === "undefined") {
-          if (error == null) {
-            return "BokehJS is loading ...";
-          } else {
-            return "BokehJS failed to load.";
-          }
-        } else {
-          const prefix = `BokehJS ${root.Bokeh.version}`;
-          if (error == null) {
-            return `${prefix} successfully loaded.`;
-          } else {
-            return `${prefix} <b>encountered errors</b> while loading and may not function as expected.`;
-          }
-        }
-      })();
-      el.innerHTML = html;
-
-      if (error != null) {
-        const wrapper = document.createElement("div");
-        wrapper.style.overflow = "auto";
-        wrapper.style.height = "5em";
-        wrapper.style.resize = "vertical";
-        const content = document.createElement("div");
-        content.style.fontFamily = "monospace";
-        content.style.whiteSpace = "pre-wrap";
-        content.style.backgroundColor = "rgb(255, 221, 221)";
-        content.textContent = error.stack ?? error.toString();
-        wrapper.append(content);
-        el.append(wrapper);
+      el.textContent = "BokehJS is loading...";
+    }
+    if (root.Bokeh !== undefined) {
+      if (el != null) {
+        el.textContent = "BokehJS " + root.Bokeh.version + " successfully loaded.";
       }
     } else if (Date.now() < root._bokeh_timeout) {
-      setTimeout(() => display_loaded(error), 100);
+      setTimeout(display_loaded, 100)
     }
   }
+
 
   function run_callbacks() {
     try {
@@ -738,25 +711,29 @@ const JS_MIME_TYPE = 'application/javascript';
     document.body.appendChild(element);
   }
 
-  const js_urls = ["https://cdn.bokeh.org/bokeh/release/bokeh-3.6.2.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-gl-3.6.2.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-widgets-3.6.2.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-tables-3.6.2.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-mathjax-3.6.2.min.js"];
+  
+  const js_urls = ["https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-gl-2.4.2.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.2.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.2.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-mathjax-2.4.2.min.js"];
   const css_urls = [];
+  
 
-  const inline_js = [    function(Bokeh) {
+  const inline_js = [
+    function(Bokeh) {
       Bokeh.set_log_level("info");
     },
-function(Bokeh) {
+    function(Bokeh) {
+    
+    
     }
   ];
 
   function run_inline_js() {
+    
     if (root.Bokeh !== undefined || force === true) {
-      try {
-            for (let i = 0; i < inline_js.length; i++) {
+      
+    for (let i = 0; i < inline_js.length; i++) {
       inline_js[i].call(root, root.Bokeh);
     }
-
-      } catch (error) {throw error;
-      }} else if (Date.now() < root._bokeh_timeout) {
+    } else if (Date.now() < root._bokeh_timeout) {
       setTimeout(run_inline_js, 100);
     } else if (!root._bokeh_failed_load) {
       console.log("Bokeh: BokehJS failed to load within specified timeout.");
@@ -765,6 +742,7 @@ function(Bokeh) {
       const cell = $(document.getElementById(null)).parents('.cell').data().cell;
       cell.output_area.append_execute_result(NB_LOAD_WARNING)
     }
+
   }
 
   if (root._bokeh_is_loading === 0) {
@@ -781,14 +759,14 @@ function(Bokeh) {
 </section>
 <section id="import-data">
 <h2>Import data<a class="headerlink" href="#import-data" title="Link to this heading">#</a></h2>
-<p>We can take the same approach as in the <code class="docutils literal notranslate"><span class="pre">rockmag_data_unpack.ipynb</span></code> notebook to bring the MagIC data into the notebook as a Contribution. To bring in a different contribution, set the directory path (currently <code class="docutils literal notranslate"><span class="pre">'./example_data/ECMB'</span></code>) and the name of the file (currently <code class="docutils literal notranslate"><span class="pre">'ECMB</span> <span class="pre">2018.TXT'</span></code>) to be those relevant to your data.</p>
+<p>We can take the same approach as in the <code class="docutils literal notranslate"><span class="pre">rockmag_data_unpack.ipynb</span></code> notebook to bring the MagIC data into the notebook as a Contribution. To bring in a different contribution, set the directory path (currently <code class="docutils literal notranslate"><span class="pre">'./example_data/ECMB'</span></code>) and the name of the file (currently <code class="docutils literal notranslate"><span class="pre">'magic_contribution_20213.txt'</span></code>) to be those relevant to your data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set the dir_path to the directory where the measurements.txt file is located</span>
 <span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;../example_data/ECMB&#39;</span>
 
 <span class="c1"># set the name of the MagIC file</span>
-<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="s1">&#39;ECMB 2018.TXT&#39;</span><span class="p">,</span> 
+<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="s1">&#39;magic_contribution_20213.txt&#39;</span><span class="p">,</span> 
                      <span class="n">dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">,</span>
                      <span class="n">input_dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">,</span>
                      <span class="n">print_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -800,11 +778,12 @@ function(Bokeh) {
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/locations.txt
-312  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/samples.txt
-1574  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/specimens.txt
-90  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/sites.txt
-17428  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/measurements.txt
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/contribution.txt
+1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/locations.txt
+90  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/sites.txt
+312  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/samples.txt
+1574  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/specimens.txt
+17428  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/ECMB/measurements.txt
 -I- Using online data model
 -I- Getting method codes from earthref.org
 -I- Importing controlled vocabularies from https://earthref.org
@@ -823,7 +802,7 @@ function(Bokeh) {
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "cb15039cf79d44c98fbe42e16d32ee28", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8d47a9060c0f447892fc4e52224feec3", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <section id="extract-mpms-data-for-a-single-specimen">
 <h3>Extract MPMS data for a single specimen<a class="headerlink" href="#extract-mpms-data-for-a-single-specimen" title="Link to this heading">#</a></h3>
