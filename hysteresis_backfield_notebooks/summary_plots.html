@@ -196,6 +196,8 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="VSM_intro.html">Hysteresis/backfield notebooks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="hysteresis_processing.html">Hysteresis Processing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="hysteresis_processing_walk_through.html">Hysteresis Processing walkthrough notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backfield_processing.html">Backfield processing</a></li>
+
 <li class="toctree-l2"><a class="reference internal" href="coercivity_unmixing_MaxUnmix.html">Python implementation of the Max Unmix method for coercivity spectra analysis</a></li>
 </ul>
 </details></li>
@@ -444,7 +446,6 @@ document.write(`
 <span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.ipmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ipmag</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.contribution_builder</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cb</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
@@ -458,7 +459,7 @@ document.write(`
 <p>In this demonstration we will be using local data.</p>
 <p>The data is from the following publication:</p>
 <ul class="simple">
-<li><p>Swanson-Hysell, N. L., Avery, M. S., Zhang, Y., Hodgin, E. B., Sherwood, R. J., Apen, F. E., et al. (2021). The paleogeography of Laurentia in its early years: New constraints from the Paleoproterozoic East-Central Minnesota Batholith. Tectonics, 40, e2021TC006751. <a class="reference external" href="https://doi.org/10.1029/2021TC006751">https://doi.org/10.1029/2021TC006751</a></p></li>
+<li><p>Jackson, M. and Swanson-Hysell, N.L. (2012), Rock Magnetism of Remagnetized Carbonate Rocks: Another Look, In: Elmore, R. D., Muxworthy, A. R., Aldana, M. M. and Mena, M., eds., Remagnetization and Chemical Alteration of Sedimentary Rocks, Geological Society of London Special Publication, 371, <a class="reference external" href="https://doi.org/10.1144/SP371.3">https://doi.org/10.1144/SP371.3</a>.</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -480,12 +481,12 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Download successful. File saved to: ../example_data/Jackson2012/magic_contribution_16460.txt
-1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/Jackson2012/contribution.txt
-5  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/Jackson2012/locations.txt
-8  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/Jackson2012/sites.txt
-51  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/Jackson2012/samples.txt
-186  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/Jackson2012/specimens.txt
-4758  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/Jackson2012/measurements.txt
+1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/Jackson2012/contribution.txt
+5  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/Jackson2012/locations.txt
+8  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/Jackson2012/sites.txt
+51  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/Jackson2012/samples.txt
+186  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/Jackson2012/specimens.txt
+4758  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/Jackson2012/measurements.txt
 -I- Using online data model
 -I- Getting method codes from earthref.org
 -I- Importing controlled vocabularies from https://earthref.org
@@ -498,7 +499,7 @@ document.write(`
 <h2>filter for VSM rock magnetic data (Mr, Ms,Bcr, Bc)<a class="headerlink" href="#filter-for-vsm-rock-magnetic-data-mr-ms-bcr-bc" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">specimens</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">specimens</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -590,7 +591,7 @@ document.write(`
       <td>g</td>
       <td>09-27</td>
       <td>09-27</td>
-      <td>3.690000e-06</td>
+      <td>0.000004</td>
       <td>0.00738</td>
     </tr>
     <tr>
@@ -598,10 +599,10 @@ document.write(`
       <td>This study</td>
       <td>None</td>
       <td>IRM-VSM1-4231</td>
-      <td>0.010590</td>
+      <td>0.01059</td>
       <td>0.000015</td>
       <td>0.003193</td>
-      <td>0.010860</td>
+      <td>0.01086</td>
       <td>6.732000e-08</td>
       <td>IRM-VSM1</td>
       <td>0.0</td>
@@ -614,7 +615,7 @@ document.write(`
       <td>g</td>
       <td>09-27</td>
       <td>09-27</td>
-      <td>3.690000e-06</td>
+      <td>0.000004</td>
       <td>0.00738</td>
     </tr>
     <tr>
@@ -638,7 +639,7 @@ document.write(`
       <td>g</td>
       <td>10-23</td>
       <td>10-23</td>
-      <td>3.925000e-06</td>
+      <td>0.000004</td>
       <td>0.00785</td>
     </tr>
     <tr>
@@ -646,10 +647,10 @@ document.write(`
       <td>This study</td>
       <td>None</td>
       <td>IRM-VSM1-4232</td>
-      <td>0.004550</td>
+      <td>0.00455</td>
       <td>0.000046</td>
       <td>0.004520</td>
-      <td>0.025970</td>
+      <td>0.02597</td>
       <td>-1.511000e-08</td>
       <td>IRM-VSM1</td>
       <td>0.0</td>
@@ -662,7 +663,7 @@ document.write(`
       <td>g</td>
       <td>10-23</td>
       <td>10-23</td>
-      <td>3.925000e-06</td>
+      <td>0.000004</td>
       <td>0.00785</td>
     </tr>
     <tr>
@@ -686,156 +687,12 @@ document.write(`
       <td>None</td>
       <td>11-29</td>
       <td>11-29</td>
-      <td>4.505000e-06</td>
+      <td>0.000005</td>
       <td>0.00901</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>cop 7.12</th>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM1-4241</td>
-      <td>0.010570</td>
-      <td>0.000875</td>
-      <td>0.000224</td>
-      <td>0.001582</td>
-      <td>5.660000e-08</td>
-      <td>IRM-VSM1</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>cop 7.12</td>
-      <td>cop 7.12</td>
-      <td>7.500000e-07</td>
-      <td>0.00150</td>
-    </tr>
-    <tr>
-      <th>fcp 3.1c</th>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM1-4242</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>IRM-VSM1</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0404</td>
-      <td>0.0</td>
-      <td>0.000691</td>
-      <td>0.0</td>
-      <td>0.1</td>
-      <td>g</td>
-      <td>fcp 3.1c</td>
-      <td>fcp 3.1c</td>
-      <td>7.500000e-07</td>
-      <td>0.00150</td>
-    </tr>
-    <tr>
-      <th>fcp 3.1c</th>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM1-4242</td>
-      <td>0.005909</td>
-      <td>0.000000</td>
-      <td>0.000691</td>
-      <td>0.001523</td>
-      <td>5.696000e-08</td>
-      <td>IRM-VSM1</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>fcp 3.1c</td>
-      <td>fcp 3.1c</td>
-      <td>7.500000e-07</td>
-      <td>0.00150</td>
-    </tr>
-    <tr>
-      <th>nm35.1</th>
-      <td>This study</td>
-      <td>None</td>
-      <td>None</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>nm35.1</td>
-      <td>nm35.1</td>
-      <td>7.500000e-07</td>
-      <td>0.00150</td>
-    </tr>
-    <tr>
-      <th>nm42.3</th>
-      <td>This study</td>
-      <td>None</td>
-      <td>None</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>nm42.3</td>
-      <td>nm42.3</td>
-      <td>7.500000e-07</td>
-      <td>0.00150</td>
     </tr>
   </tbody>
 </table>
-<p>186 rows × 23 columns</p>
+<p>5 rows × 23 columns</p>
 </div></div></div>
 </div>
 </section>
@@ -847,7 +704,8 @@ document.write(`
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example_specimen_data</span> <span class="o">=</span> <span class="n">specimens</span><span class="p">[</span><span class="n">specimens</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;09-27&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">specimen_name</span> <span class="o">=</span> <span class="s1">&#39;09-27&#39;</span>
+<span class="n">example_specimen_data</span> <span class="o">=</span> <span class="n">specimens</span><span class="p">[</span><span class="n">specimens</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">specimen_name</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="n">example_specimen_data</span>
 </pre></div>
 </div>
@@ -956,7 +814,7 @@ document.write(`
                    <span class="n">Bc</span> <span class="o">=</span> <span class="n">example_specimen_data</span><span class="p">[</span><span class="s1">&#39;hyst_bc&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> 
                    <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> 
                    <span class="n">marker</span> <span class="o">=</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> 
-                   <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;NED&#39;</span><span class="p">,</span> 
+                   <span class="n">label</span> <span class="o">=</span> <span class="n">specimen_name</span><span class="p">,</span> 
                    <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
                    <span class="n">lc</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">)</span>
 
@@ -966,7 +824,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/2b7990602a35197121228d279887df06d8b2212e3d9082d64de171a1420fa3d3.png"><img alt="../_images/2b7990602a35197121228d279887df06d8b2212e3d9082d64de171a1420fa3d3.png" src="../_images/2b7990602a35197121228d279887df06d8b2212e3d9082d64de171a1420fa3d3.png" style="width: 716px; height: 551px;" />
+<a class="reference internal image-reference" href="../_images/00b3c01907b715f79ade7f7afcc9dd60677a81405233a18b639de92c397bbbfa.png"><img alt="../_images/00b3c01907b715f79ade7f7afcc9dd60677a81405233a18b639de92c397bbbfa.png" src="../_images/00b3c01907b715f79ade7f7afcc9dd60677a81405233a18b639de92c397bbbfa.png" style="width: 515px; height: 390px;" />
 </a>
 </div>
 </div>
@@ -1306,14 +1164,14 @@ document.write(`
                <span class="n">Bc</span><span class="o">=</span><span class="s1">&#39;hyst_bc&#39;</span><span class="p">,</span> 
                <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;dodgerblue&#39;</span><span class="p">,</span> 
                <span class="n">marker</span> <span class="o">=</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> 
-               <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;NED&#39;</span><span class="p">,</span> 
+               <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Jackson 2012 carbonates&#39;</span><span class="p">,</span> 
                <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
                <span class="n">lc</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/592643b43ca2f2a05d63543e2f5b371b9cde8822b9534bfa89c52cab4eea04a3.png"><img alt="../_images/592643b43ca2f2a05d63543e2f5b371b9cde8822b9534bfa89c52cab4eea04a3.png" src="../_images/592643b43ca2f2a05d63543e2f5b371b9cde8822b9534bfa89c52cab4eea04a3.png" style="width: 716px; height: 551px;" />
+<a class="reference internal image-reference" href="../_images/53ea669f547d678b86df1994adc95bd554263efc4bdfc9f591ed5f52cf20ea3d.png"><img alt="../_images/53ea669f547d678b86df1994adc95bd554263efc4bdfc9f591ed5f52cf20ea3d.png" src="../_images/53ea669f547d678b86df1994adc95bd554263efc4bdfc9f591ed5f52cf20ea3d.png" style="width: 515px; height: 390px;" />
 </a>
 </div>
 </div>
