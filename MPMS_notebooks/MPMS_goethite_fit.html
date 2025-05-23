@@ -477,13 +477,7 @@ document.write(`
 <span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.contribution_builder</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cb</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
-
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
 </pre></div>
@@ -502,7 +496,7 @@ document.write(`
 <span class="c1"># set the name of the MagIC file</span>
 <span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="s1">&#39;A73-7-1350-4B-01a_mpms.txt&#39;</span><span class="p">,</span> 
                      <span class="n">dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">,</span>
-                     <span class="n">input_dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">)</span>
+                     <span class="n">input_dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">,</span> <span class="n">print_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="c1"># create a contribution object from the tables in the directory</span>
 <span class="n">contribution</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">Contribution</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
@@ -513,21 +507,11 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>working on:  &#39;specimens\r&#39;
-1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/goethite/specimens.txt
-  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/goethite/specimens.txt
-working on:  &#39;samples\r&#39;
-1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/goethite/samples.txt
-  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/goethite/samples.txt
-working on:  &#39;sites\r&#39;
-1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/goethite/sites.txt
-  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/goethite/sites.txt
-working on:  &#39;locations\r&#39;
-1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/goethite/locations.txt
-  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/goethite/locations.txt
-working on:  &#39;measurements\r&#39;
-240  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/goethite/measurements.txt
-  data put in  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/goethite/measurements.txt
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/goethite/specimens.txt
+1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/goethite/samples.txt
+1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/goethite/sites.txt
+1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/goethite/locations.txt
+240  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/goethite/measurements.txt
 -I- Using online data model
 -I- Getting method codes from earthref.org
 -I- Importing controlled vocabularies from https://earthref.org
@@ -731,7 +715,7 @@ working on:  &#39;measurements\r&#39;
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/6e431816ccc957b57e00642825db9f499016427a347eaec07d810caa964a71f7.png"><img alt="../_images/6e431816ccc957b57e00642825db9f499016427a347eaec07d810caa964a71f7.png" src="../_images/6e431816ccc957b57e00642825db9f499016427a347eaec07d810caa964a71f7.png" style="width: 990px; height: 788px;" />
+<a class="reference internal image-reference" href="../_images/79f699fb9db247cb2631ad20c504f7c18c0ecf60197d2f327196a44c92411b58.png"><img alt="../_images/79f699fb9db247cb2631ad20c504f7c18c0ecf60197d2f327196a44c92411b58.png" src="../_images/79f699fb9db247cb2631ad20c504f7c18c0ecf60197d2f327196a44c92411b58.png" style="width: 712px; height: 567px;" />
 </a>
 </div>
 </div>
@@ -746,7 +730,7 @@ working on:  &#39;measurements\r&#39;
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "b203d3dd63db4b84aee4c1cc631d2f65", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "fddb4bfb504d40e3bc42a9e276537f92", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -755,7 +739,7 @@ working on:  &#39;measurements\r&#39;
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "31c26da110e14ace973ffeaca2c6edf7", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "24fd6f2093c0485ab766995a8333346d", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "6dc20e90bae844c5b3228a6f0f914405", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "5197783ae3e8496aa639091d84c56f21", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="apply-the-function-rmag-goethite-removal">
@@ -770,7 +754,7 @@ working on:  &#39;measurements\r&#39;
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/bf1b39da70f130b136be97e60ef5437293622ea59287ef144e2077106bdb6b6a.png"><img alt="../_images/bf1b39da70f130b136be97e60ef5437293622ea59287ef144e2077106bdb6b6a.png" src="../_images/bf1b39da70f130b136be97e60ef5437293622ea59287ef144e2077106bdb6b6a.png" style="width: 1187px; height: 790px;" />
+<a class="reference internal image-reference" href="../_images/eda3da547522e915d524fb190a5d1106fddbb6443881168e3a8733277c96c036.png"><img alt="../_images/eda3da547522e915d524fb190a5d1106fddbb6443881168e3a8733277c96c036.png" src="../_images/eda3da547522e915d524fb190a5d1106fddbb6443881168e3a8733277c96c036.png" style="width: 853px; height: 567px;" />
 </a>
 </div>
 </div>
@@ -786,7 +770,7 @@ working on:  &#39;measurements\r&#39;
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/bf1b39da70f130b136be97e60ef5437293622ea59287ef144e2077106bdb6b6a.png"><img alt="../_images/bf1b39da70f130b136be97e60ef5437293622ea59287ef144e2077106bdb6b6a.png" src="../_images/bf1b39da70f130b136be97e60ef5437293622ea59287ef144e2077106bdb6b6a.png" style="width: 1187px; height: 790px;" />
+<a class="reference internal image-reference" href="../_images/eda3da547522e915d524fb190a5d1106fddbb6443881168e3a8733277c96c036.png"><img alt="../_images/eda3da547522e915d524fb190a5d1106fddbb6443881168e3a8733277c96c036.png" src="../_images/eda3da547522e915d524fb190a5d1106fddbb6443881168e3a8733277c96c036.png" style="width: 853px; height: 567px;" />
 </a>
 </div>
 </div>
