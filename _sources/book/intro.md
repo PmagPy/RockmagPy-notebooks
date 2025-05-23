@@ -13,14 +13,13 @@ RockmagPy is designed to work with the [MagIC database](https://earthref.org/Mag
 :gutter: 3
 
 :::{grid-item-card}
-:link: https://pmagpy.github.io/PmagPy-docs/installation/PmagPy_install.html
-:link-type: doc
+:link: https://pmagpy.github.io/PmagPy-docs/installation/PmagPy_install
 :class-header: bg-light
 
 Installation 🪴
 ^^^
 
-Instructions for how to install PmagPy for your use case.
+Instructions for how to install PmagPy on your computer.
 
 :::
 
@@ -31,7 +30,7 @@ Instructions for how to install PmagPy for your use case.
 Live notebooks 🚀
 ^^^
 
-Launch RockmagPy notebooks on Earthref's JupyterHub. Run `rockmag_set_up.ipynb` to start.
+Launch RockmagPy notebooks in the cloud on Earthref's JupyterHub. Run `rockmag_set_up.ipynb` to start.
 :::
 
 :::{grid-item-card}
@@ -51,30 +50,7 @@ Develop new contributions and analyze existing datasets in the MagIC database.
 Notebooks have been developed to use RockmagPy to analyze data from rock magnetic experiments.
 The notebook versions that are shown within this book are static (i.e. they don't run the code).
 Some of the interactive features that have been developed are not visible as they would be in a running notebook. 
-The rendered notebooks do give an overall sense of what functions are available within RockmagPy and explain some associated methods.
-
-### Code/data nuts and bolts notebooks
-
-- [**RockmagPy set-up**](./rockmag_set_up.ipynb) This notebook can be imported into JupyterHub (like the EarthRef JupyterHub) and be used to import the latest code and notebooks from Github.
-- [**Rockmag MagIC data unpack**](./rockmag_data_unpack.ipynb) This notebook takes data from rock magnetic experiments that are in MagIC format and splits out the different MagIC tables. It also summarizes all the specimens and associated experiments within the measurements table.
-  
-### Data processing notebooks
-
-
-
-### Rock Magnetic bestiary notebooks
-
-
-
-
-
-
-
-### Kappabridge data analysis
-
-
-
-
+The rendered notebooks do give an overall sense of what functions are available within  and explain associated methods. These notebooks can be run by either downloading them from the [RockmagPy repository](https://github.com/pmagpy/rockmagpy-notebooks) and running them in a Python environment on your computer or by running them in the cloud such as on the [EarthRef JupyterHub](https://jupyterhub.earthref.org/). The [**RockmagPy set-up**](../rockmag_set_up.ipynb) notebook is the place to get started with running notebooks on Jupyterhub. The [**Rockmag MagIC data unpack**](../rockmag_data_unpack.ipynb) notebook illustrates how data from rock magnetic experiments that are in MagIC format can be imported from the database.
 
 # Acknowledgements
 
