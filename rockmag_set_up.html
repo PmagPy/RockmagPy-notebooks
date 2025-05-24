@@ -433,6 +433,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-rockmagpy">What is <code class="docutils literal notranslate"><span class="pre">RockmagPy</span></code>?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-the-latest-release-of-pmagpy">Installing the latest release of <code class="docutils literal notranslate"><span class="pre">PmagPy</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-the-rockmagpy-notebook-materials-from-github">Get the RockmagPy-notebook materials from GitHub:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-the-2025-rockmagpy-workshop-materials-from-github">Get the 2025 Rockmagpy Workshop materials from GitHub:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-step">Next step:</a></li>
 </ul>
             </nav>
@@ -550,9 +551,9 @@ Note: you may need to restart the kernel to use updated packages.
 <p>Run the code block below to pull in the files and RockmagPy Jupyter Notebooks from Github (<a class="github reference external" href="https://github.com/PmagPy/RockmagPy-notebooks">PmagPy/RockmagPy-notebooks</a>).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>rm<span class="w"> </span>-Rf<span class="w"> </span>~/rockmag<span class="w"> </span>#<span class="w"> </span>remove<span class="w"> </span>any<span class="w"> </span>existing<span class="w"> </span>downloaded<span class="w"> </span>files
-<span class="o">!</span>mkdir<span class="w"> </span>~/rockmag<span class="w"> </span>#<span class="w"> </span>make<span class="w"> </span>space<span class="w"> </span><span class="k">for</span><span class="w"> </span>downloaded<span class="w"> </span>files
-<span class="o">!</span>wget<span class="w"> </span>-O<span class="w"> </span>-<span class="w"> </span>https://github.com/PmagPy/RockmagPy-notebooks/tarball/master<span class="w"> </span><span class="p">|</span><span class="w"> </span>tar<span class="w"> </span>xz<span class="w"> </span>-C<span class="w"> </span>~/rockmag<span class="w"> </span>#<span class="w"> </span>download<span class="w"> </span>the<span class="w"> </span>latest<span class="w"> </span>files
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>rm<span class="w"> </span>-Rf<span class="w"> </span>~/rockmag_notebooks<span class="w"> </span>#<span class="w"> </span>remove<span class="w"> </span>any<span class="w"> </span>existing<span class="w"> </span>downloaded<span class="w"> </span>files
+<span class="o">!</span>mkdir<span class="w"> </span>~/rockmag_notebooks<span class="w"> </span>#<span class="w"> </span>make<span class="w"> </span>space<span class="w"> </span><span class="k">for</span><span class="w"> </span>downloaded<span class="w"> </span>files
+<span class="o">!</span>wget<span class="w"> </span>-O<span class="w"> </span>-<span class="w"> </span>https://github.com/PmagPy/RockmagPy-notebooks/tarball/master<span class="w"> </span><span class="p">|</span><span class="w"> </span>tar<span class="w"> </span>xz<span class="w"> </span>-C<span class="w"> </span>~/rockmag_notebooks<span class="w"> </span>#<span class="w"> </span>download<span class="w"> </span>the<span class="w"> </span>latest<span class="w"> </span>files
 </pre></div>
 </div>
 </div>
@@ -577,11 +578,24 @@ Saving to: &#39;STDOUT&#39;
 </div>
 </div>
 </section>
+<section id="get-the-2025-rockmagpy-workshop-materials-from-github">
+<h2>Get the 2025 Rockmagpy Workshop materials from GitHub:<a class="headerlink" href="#get-the-2025-rockmagpy-workshop-materials-from-github" title="Link to this heading">#</a></h2>
+<p>Run the code block below to pull in the files and Jupyter Notebooks from Github associated with the 2025 Rockmagpy Workshop at the IRM conference (<a class="github reference external" href="https://github.com/Institute-for-Rock-Magnetism/2025_rockmagpy_workshop">Institute-for-Rock-Magnetism/2025_rockmagpy_workshop</a>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>rm<span class="w"> </span>-Rf<span class="w"> </span>~/2025_rockmagpy_workshop<span class="w"> </span>#<span class="w"> </span>remove<span class="w"> </span>any<span class="w"> </span>existing<span class="w"> </span>downloaded<span class="w"> </span>files
+<span class="o">!</span>mkdir<span class="w"> </span>~/2025_rockmagpy_workshop<span class="w"> </span>#<span class="w"> </span>make<span class="w"> </span>space<span class="w"> </span><span class="k">for</span><span class="w"> </span>downloaded<span class="w"> </span>files
+<span class="o">!</span>wget<span class="w"> </span>-O<span class="w"> </span>-<span class="w"> </span>https://github.com/Institute-for-Rock-Magnetism/2025_rockmagpy_workshop/tarball/master<span class="w"> </span><span class="p">|</span><span class="w"> </span>tar<span class="w"> </span>xz<span class="w"> </span>-C<span class="w"> </span>~/2025_rockmagpy_workshop<span class="w"> </span>#<span class="w"> </span>download<span class="w"> </span>the<span class="w"> </span>latest<span class="w"> </span>files
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 <section id="next-step">
 <h2>Next step:<a class="headerlink" href="#next-step" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Click on ‘Open’ under the ‘File’ menu. You may need to refresh your browser to see the new <strong>rockmag</strong> directory). Open the  <strong>rockmag</strong> directory and navigate through to your notebook of choice.</p></li>
-<li><p>You can return to this notebook and re-run the cells above to <strong>upgrade the packages</strong> or <strong>reset and update the  notebook library and data files</strong> in the future.</p></li>
+<li><p>Click on ‘Open’ under the ‘File’ menu. You may need to refresh your browser to see the new <strong>rockmag_notebooks</strong> and <strong>2025_rockmagpy_workshop</strong> directories). Open the  <strong>rockmag</strong> directory and navigate through to your notebook of choice.</p></li>
+<li><p>You can return to this notebook and re-run the cells above to <strong>upgrade the packages</strong> or <strong>reset and update the notebook library and data files</strong> in the future.</p></li>
 </ul>
 </section>
 </section>
@@ -660,6 +674,7 @@ Saving to: &#39;STDOUT&#39;
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-rockmagpy">What is <code class="docutils literal notranslate"><span class="pre">RockmagPy</span></code>?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-the-latest-release-of-pmagpy">Installing the latest release of <code class="docutils literal notranslate"><span class="pre">PmagPy</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-the-rockmagpy-notebook-materials-from-github">Get the RockmagPy-notebook materials from GitHub:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-the-2025-rockmagpy-workshop-materials-from-github">Get the 2025 Rockmagpy Workshop materials from GitHub:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-step">Next step:</a></li>
 </ul>
   </nav></div>
