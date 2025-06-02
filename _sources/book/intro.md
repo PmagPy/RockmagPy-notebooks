@@ -4,9 +4,9 @@ title: RockmagPy
 
 # RockmagPy: tools for rock magnetic data analysis
 
-RockmagPy is a module of the [PmagPy](https://pmagpy.github.io/PmagPy-docs/intro.html) tools written in Python that is focused on the analysis of rock magnetic data. The functions within RockmagPy facilitate the visualization and interpretation of the results from experiments such as hysteresis loops, low-temperature remenance experiments, and thermomagnetic curves. 
+RockmagPy is a module of the [PmagPy](https://pmagpy.github.io/PmagPy-docs/intro.html) tools written in Python that is focused on the analysis of rock magnetic data. The functions within RockmagPy facilitate the visualization and interpretation of the results from experiments such as hysteresis loops, low-temperature remenance cycling, and thermomagnetic curves. 
 
-RockmagPy is designed to work with the [MagIC database](https://earthref.org/MagIC). It enables manipulation of MagIC data sets as well as preparation of contributions for uploading to MagIC. Example notebooks have been developed to aid in the use of RockmagPy and to enable well-documented data analysis. These notebooks can be downloaded from the [RockmagPy notebooks repository](https://github.com/pmagpy/rockmagpy-notebooks) to be run locally on one's computer or run in the cloud on the [EarthRef JupyterHub](https://jupyterhub.earthref.org/).
+RockmagPy is designed to work with the [MagIC database](https://earthref.org/MagIC). It enables manipulation of MagIC data sets as well as the preparation of contributions for uploading to MagIC. Example notebooks have been developed to aid in the use of RockmagPy and with the goal of supporting well-documented data analysis. These notebooks can be downloaded from the [RockmagPy notebooks repository](https://github.com/pmagpy/rockmagpy-notebooks) to be run locally on one's computer or run in the cloud on the [EarthRef JupyterHub](https://jupyterhub.earthref.org/).
 
 ::::{grid} 1 1 2 3
 :class-container: text-center
@@ -50,7 +50,7 @@ Develop new contributions and analyze existing datasets in the MagIC database.
 Notebooks have been developed to use RockmagPy to analyze data from rock magnetic experiments.
 The notebook versions that are shown within this book are static (i.e. they don't run the code).
 Some of the interactive features that have been developed are not visible as they would be in a running notebook. 
-The rendered notebooks do give an overall sense of what functions are available within  and explain associated methods. These notebooks can be run by either downloading them from the [RockmagPy repository](https://github.com/pmagpy/rockmagpy-notebooks) and running them in a Python environment on your computer or by running them in the cloud such as on the [EarthRef JupyterHub](https://jupyterhub.earthref.org/). The [**RockmagPy set-up**](../rockmag_set_up.ipynb) notebook is the place to get started with running notebooks on Jupyterhub. The [**Rockmag MagIC data unpack**](../rockmag_data_unpack.ipynb) notebook illustrates how data from rock magnetic experiments that are in MagIC format can be imported from the database.
+The rendered notebooks do give an overall sense of what functions are available within RockmagPy and explain associated methods. These notebooks can be run by either downloading them from the [RockmagPy repository](https://github.com/pmagpy/rockmagpy-notebooks) and running them in a Python environment on your computer or by running them in the cloud such as on the [EarthRef JupyterHub](https://jupyterhub.earthref.org/). The [**RockmagPy set-up**](../rockmag_set_up.ipynb) notebook is the place to get started with running notebooks on Jupyterhub. The [**Rockmag MagIC data unpack**](../rockmag_data_unpack.ipynb) notebook illustrates how data from rock magnetic experiments that are in MagIC format can be imported from the database.
 
 # Acknowledgements
 
