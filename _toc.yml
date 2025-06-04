@@ -17,6 +17,7 @@ parts:
           - file: MPMS_notebooks/MPMS_plot_ac
           - file: MPMS_notebooks/MPMS_verwey_fit
           - file: MPMS_notebooks/MPMS_goethite_fit
+          - file: MPMS_notebooks/MPMS_signal_blender
       - file: hysteresis_backfield_notebooks/VSM_intro
         title: Hysteresis/backfield notebooks
         sections:
