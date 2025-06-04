@@ -424,11 +424,14 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-rock-magnetism-bestiary-data-from-the-magic-database">load rock magnetism bestiary data from the MagIC database</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#carbonates">carbonates</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oxyhydroxides">Oxyhydroxides</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#carbonates">carbonates</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-mpms-data-from-the-rock-magnetism-bestiary">extract MPMS data from the rock magnetism bestiary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactively-blend-the-remanence-curves-of-two-specimens">Interactively blend the remanence curves of two specimens</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#view-blending-results-in-context-of-the-end-members">view blending results in context of the end members</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -467,40 +470,6 @@ document.write(`
 <li><p>Sulfides:</p></li>
 <li><p>Carbonates: <a class="reference external" href="https://earthref.org/MagIC/20384">https://earthref.org/MagIC/20384</a></p></li>
 </ol>
-<section id="carbonates">
-<h3>carbonates<a class="headerlink" href="#carbonates" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set the MagIC ID for the data set here</span>
-<span class="n">magic_id</span> <span class="o">=</span> <span class="s1">&#39;20384&#39;</span>
-
-<span class="c1"># set where you want the downloaded data to go</span>
-<span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;example_data/&#39;</span><span class="o">+</span><span class="n">magic_id</span>
-
-<span class="n">result</span><span class="p">,</span> <span class="n">magic_file</span> <span class="o">=</span> <span class="n">ipmag</span><span class="o">.</span><span class="n">download_magic_from_id</span><span class="p">(</span><span class="n">magic_id</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">dir_path</span><span class="p">)</span>
-<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="n">magic_file</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">,</span> <span class="n">print_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">carbonates_cb</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">Contribution</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
-<span class="n">carbonates_specimens</span> <span class="o">=</span> <span class="n">carbonates_cb</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;specimens&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
-<span class="n">carbonates_measurements</span> <span class="o">=</span> <span class="n">carbonates_cb</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;measurements&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Download successful. File saved to: example_data/20384/magic_contribution_20384.txt
-1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/MPMS_notebooks/example_data/20384/contribution.txt
-1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/MPMS_notebooks/example_data/20384/locations.txt
-1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/MPMS_notebooks/example_data/20384/sites.txt
-3  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/MPMS_notebooks/example_data/20384/samples.txt
-6  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/MPMS_notebooks/example_data/20384/specimens.txt
-1243  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/MPMS_notebooks/example_data/20384/measurements.txt
--I- Using online data model
--I- Getting method codes from earthref.org
--I- Importing controlled vocabularies from https://earthref.org
-</pre></div>
-</div>
-</div>
-</div>
-</section>
 <section id="oxyhydroxides">
 <h3>Oxyhydroxides<a class="headerlink" href="#oxyhydroxides" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
@@ -532,9 +501,41 @@ document.write(`
 </div>
 </div>
 </section>
+<section id="carbonates">
+<h3>carbonates<a class="headerlink" href="#carbonates" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set the MagIC ID for the data set here</span>
+<span class="n">magic_id</span> <span class="o">=</span> <span class="s1">&#39;20384&#39;</span>
+
+<span class="c1"># set where you want the downloaded data to go</span>
+<span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;example_data/&#39;</span><span class="o">+</span><span class="n">magic_id</span>
+
+<span class="n">result</span><span class="p">,</span> <span class="n">magic_file</span> <span class="o">=</span> <span class="n">ipmag</span><span class="o">.</span><span class="n">download_magic_from_id</span><span class="p">(</span><span class="n">magic_id</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="n">dir_path</span><span class="p">)</span>
+<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="n">magic_file</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">,</span> <span class="n">print_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">carbonates_cb</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">Contribution</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
+<span class="n">carbonates_specimens</span> <span class="o">=</span> <span class="n">carbonates_cb</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;specimens&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
+<span class="n">carbonates_measurements</span> <span class="o">=</span> <span class="n">carbonates_cb</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;measurements&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Download successful. File saved to: example_data/20384/magic_contribution_20384.txt
+1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/MPMS_notebooks/example_data/20384/contribution.txt
+1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/MPMS_notebooks/example_data/20384/locations.txt
+1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/MPMS_notebooks/example_data/20384/sites.txt
+3  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/MPMS_notebooks/example_data/20384/samples.txt
+6  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/MPMS_notebooks/example_data/20384/specimens.txt
+1243  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/MPMS_notebooks/example_data/20384/measurements.txt
+</pre></div>
+</div>
+</div>
+</div>
 </section>
-<section id="extract-mpms-data-from-the-rock-magnetism-bestiary">
-<h2>extract MPMS data from the rock magnetism bestiary<a class="headerlink" href="#extract-mpms-data-from-the-rock-magnetism-bestiary" title="Link to this heading">#</a></h2>
+</section>
+<section id="interactively-blend-the-remanence-curves-of-two-specimens">
+<h2>Interactively blend the remanence curves of two specimens<a class="headerlink" href="#interactively-blend-the-remanence-curves-of-two-specimens" title="Link to this heading">#</a></h2>
+<p>Upon executing the following cell, the user can select two specimens from the RMB and use the slide bar to adjust the relative fractions of the two specimens in the toy mixture model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> widget
@@ -545,8 +546,45 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "993bddcd267449079ff34146ed75348b", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "f628990c32014f528ffbf32e7763bed7", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "3cad9963d9e0473b8bc9df15157dbae9", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "aa1254a038644bb9bf4ced6c2cb056e6", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a60d30cc2bcd46089ceb95f5e4be835b", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "9c5a3f1edb064e44a9e9e229eef0327e", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "f9f96d7e483148938b0a2a66c654b8a4", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "75dc23bc7d894fdf8556b9b0e68ceb5d", "version_major": 2, "version_minor": 0}</script></div>
 </div>
+<section id="view-blending-results-in-context-of-the-end-members">
+<h3>view blending results in context of the end members<a class="headerlink" href="#view-blending-results-in-context-of-the-end-members" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">carbonate_example</span> <span class="o">=</span> <span class="s1">&#39;siderite_Dalizi-YP-01&#39;</span>
+<span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">extract_mpms_data_dc</span><span class="p">(</span><span class="n">carbonates_measurements</span><span class="p">,</span> <span class="n">carbonate_example</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rmag</span><span class="o">.</span><span class="n">plot_mpms_dc</span><span class="p">(</span><span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "31b433fa9ffd4f50981f34b0ace9e65e", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">oxyhydroxide_example</span> <span class="o">=</span> <span class="s1">&#39;ferroxyhyte_Princeton-1985-M1-1&#39;</span>
+<span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">extract_mpms_data_dc</span><span class="p">(</span><span class="n">oxyhydroxides_measurements</span><span class="p">,</span> <span class="n">oxyhydroxide_example</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rmag</span><span class="o">.</span><span class="n">plot_mpms_dc</span><span class="p">(</span><span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "70554f87417d42c4bc0b02847760b1b2", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+</section>
 </section>
 </section>
 
@@ -597,11 +635,14 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-rock-magnetism-bestiary-data-from-the-magic-database">load rock magnetism bestiary data from the MagIC database</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#carbonates">carbonates</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oxyhydroxides">Oxyhydroxides</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#carbonates">carbonates</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-mpms-data-from-the-rock-magnetism-bestiary">extract MPMS data from the rock magnetism bestiary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactively-blend-the-remanence-curves-of-two-specimens">Interactively blend the remanence curves of two specimens</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#view-blending-results-in-context-of-the-end-members">view blending results in context of the end members</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
