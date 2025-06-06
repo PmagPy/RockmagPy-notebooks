@@ -53,7 +53,7 @@ $ s_6 = \chi_{13} = \chi_{31} $
 
 In many laboratories, magnetic susceptibility is measured by placing a sample in a solenoid with an applied field *H*. The induced magnetization *M* parallel to *H* is measured in different orientations. Only s1, s2, and s3 can be measured directly. The other terms s4, s5, and s6 are only indirectly determined. For multi-positional approaches, the sets of values of measurements such as susceptibility would be $K_i = A_{ij}s_j$ where *A* is the design matrix. 
 
-### The Jelinek 15 position diagram
+### The Jelínek 15 position diagram
 
 **Statistical processing of anisotropy of magnetic susceptibility measured on groups of specimens** by Jelínek (1978) illustrates the 15 position scheme of anisotropy measurement. 
 
@@ -61,7 +61,7 @@ In many laboratories, magnetic susceptibility is measured by placing a sample in
   <img src="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/Jelinek_15_method.png" alt="15 position scheme of anisotropy measurement" width="600">
 </figure>
 
-It is also possible to adopt a 9-position experimental approach. In this case, follow positions 1,2,3, 6,7,8, 11,12,13 of the Jelinek 15 position scheme for the anisotropy experiments. 
+It is also possible to adopt a 9-position experimental approach. In this case, follow positions 1,2,3, 6,7,8, 11,12,13 of the Jelínek 15 position scheme for the anisotropy experiments. 
 
 The 15-position design matrix is given by:
 $
