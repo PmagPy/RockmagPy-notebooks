@@ -452,7 +452,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="plot-and-analyze-anisotropy-data-ams">
 <h1>Plot and analyze anisotropy data (AMS)<a class="headerlink" href="#plot-and-analyze-anisotropy-data-ams" title="Link to this heading">#</a></h1>
-<p>The anisotropy of magnetic susceptibility and remanence can give significant insight to geological processes. Phenomena such as sedimentary deposition, magma flow, and deformation can all lead to preferred orientations of magnetic minerals. Such “magnetic fabrics’’ give rise to anisotropy. Additionally, paleomagnetic vectors can potentially be influenced by magnetic fabrics in their direction and intensity which further motivates efforts to quantify anisotropy.</p>
+<p>The anisotropy of magnetic susceptibility (and remanence) can give significant insight to geological processes. Phenomena such as sedimentary deposition, magma flow, and deformation can all lead to preferred orientations of magnetic minerals. Such “magnetic fabrics’’ give rise to anisotropy. Additionally, paleomagnetic vectors can potentially be influenced by magnetic fabrics in their direction and intensity which further motivates efforts to quantify anisotropy.</p>
 <p>This notebook is focused on one of the most common types of anisotropy data which is anisotropy of magnetic susceptibility (AMS).</p>
 <section id="import-python-libraries">
 <h2>Import python libraries<a class="headerlink" href="#import-python-libraries" title="Link to this heading">#</a></h2>
@@ -653,7 +653,7 @@ document.write(`
 <section id="plot-the-data">
 <h2>Plot the data<a class="headerlink" href="#plot-the-data" title="Link to this heading">#</a></h2>
 <p>The data can be plotted using the function <code class="docutils literal notranslate"><span class="pre">ipmag.aniso_magic_nb()</span></code>.</p>
-<p>An important aspect of AMS data analysis is estimating uncertainty associated with the mean eigenvectors. These directional means and their associated uncertainties are typically determined through two main approaches. These approaches estimate the confidence ellipses associated with data from a given site and are:</p>
+<p>An important aspect of AMS data analysis is estimating uncertainty associated with the eigenvectors. These directional means and their associated uncertainties are typically determined through two main approaches. These approaches estimate the confidence ellipses associated with data from a given site and are:</p>
 <ul class="simple">
 <li><p>parametric Hext confidence ellipses (Hext, 1963)</p></li>
 <li><p>non-parametric bootstrap confidence ellipses (Constable and Tauxe, 1990)</p></li>
