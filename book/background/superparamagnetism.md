@@ -1,15 +1,14 @@
 ## Superparamagnetism
 
-`````{admonition} Source of text
+```{admonition} Source of text
 :class: note
 This text on superparamagnetic behavior at low temperature is from the Fall 2009 issue of the IRM Quarterly: *Bowles, Julie; Jackson, Mike; Chen, Amy; Solheid, Peat. (2009). IRM Quarterly, Volume 19, Number 3 (Fall 2009). Cover article: Interpretation of Low-Temperature Data Part 1: Superparamagnetism and Paramagnetism. Retrieved from the University Digital Conservancy, https://hdl.handle.net/11299/171316.*
  with minor edits by Nick Swanson-Hysell.
-`````
+```
 
 Superparamagnetism (SP) describes the state of a single-domain-sized grain when thermal energy is sufficient to overcome barriers to a reversal of magnetization. Here the term “reversal” assumes uniaxial anisotropy with two minimum energy states having anti-parallel moment orientations. Energy barriers to magnetization changing arise from magnetocrystalline, magnetoelastic and/or shape anisotropy, all of which are proportional to grain volume (V). When the energy barriers are large with respect to thermal energy, the magnetization is “blocked” and the probability of spontaneous reversal approaches nil. But when the barriers are relatively low, thermal excitations can result in reversal of the magnetization over very short time scales, and the grain is in a superparamagnetic state. At a given temperature the volume at which a particle goes from being unblocked to blocked is known as the blocking volume (V<sub>b</sub>). For a given volume, we can block the grain by lowering the temperature (i.e. decreasing the available thermal energy) below the blocking temperature (T<sub>b</sub>).
 
-```{figure}
-https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Ferrofluid_close.jpg/800px-Ferrofluid_close.jpg
+```{figure} https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Ferrofluid_close.jpg/800px-Ferrofluid_close.jpg
 :name: ferrofluid_figure
 :align: center
 :width: 60%
@@ -18,84 +17,138 @@ Ferrofluid (containing SP iron particles) placed over a
 rare earth magnet. Source: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Ferrofluid_close.jpg).
 ```
 
-More formally, we can think about SP blocking in terms of a particle’s characteristic relaxation time (τ) and how rapidly a particle or assemblage of particles may approach equilibrium. Based on Néel theory of thermally activated magnetization (Néel, 1949) and the terminology of Dunlop and Özdemir (1997), the equilibrium magnetization \(M\) for aligned, uniaxial grains is given by:
+More formally, we can think about SP blocking in terms of a particle’s characteristic relaxation time ($\tau$) and how rapidly a particle or assemblage of particles may approach equilibrium. Based on Néel theory of thermally activated magnetization (Néel, 1949) and the terminology of Dunlop and Özdemir (1997), the equilibrium magnetization ($M$) for aligned, uniaxial grains is given by:
 
-\[
-M_{\mathrm{eq}}(H_{0}, T) \;=\; M_{s}\,\tanh(\alpha),
-\]
-where \(\alpha = \frac{\mu_{0}\,M_{s}\,H_{0}\,V}{k_{B}\,T}\). For small \(\alpha\),  
-\[
-M_{\mathrm{eq}} \;\approx\; M_{s}\,\alpha.
-\]
+```{math}
+:label: eq_equilibrium_magnetization
+M_{\mathrm{eq}}(H_{0}, T) = M_{s}\tanh(\alpha)
+```
 
-The relaxation time \(\tau\) in weak or zero field is:
+which is $\approx M_{s}\alpha$ for small $\alpha$ where,
+
+```{math}
+:label: eq_alpha_single_domain
+\alpha = \frac{\mu_{0}\,M_{s}\,H_{0}\,V}{k_{B}\,T}
+```
+
+and the relaxation time ($\tau$) in weak or zero field is:
  
-\[
-\tau \;=\; \tau_{0}\,\exp\!\Bigl(\frac{K\,V}{k_{B}\,T}\Bigr),
-\]
-where \(M_{s}\) is the saturation magnetization, \(\mu_{0}\) is the permeability of free space, \(H_{0}\) is a (weak) applied field, and \(\tau_{0}\) is a time constant related to the atomic reorganization time (on the order of \(10^{-9}\) s). \(K\) is an anisotropy constant also related to particle microcoercivity. In the equilibrium state, some fraction of the population has the high‐energy moment orientation (antiparallel to the applied field) while others occupy the low‐energy orientation, and spontaneous reversals occur at the same rate in each orientation (like a two‐well system in chemical equilibrium). For an assemblage of randomly oriented single‐domain grains, the relationship follows a Langevin function as:
+```{math}
+:label: eq_relaxation_time
+\tau = \tau_{0} \exp\!\Bigl(\frac{K V}{k_{B} T}\Bigr)
+```
 
-\[
-M_{\mathrm{eq}}(H_{0}, T) \;=\; M_{s}\,\Bigl[\coth(\alpha) \;-\; \frac{1}{\alpha}\Bigr].
-\] 
+where $M_{s}$ is the saturation magnetization, $\mu_{0}$ is the permeability of free space, $H_{0}$ is a (weak) applied field, and $\tau_{0}$ is a time constant related to the atomic reorganization time (on the order of $10^{-9}$ s), $k_{B}$ is Boltzmann’s constant, and $K$ is an anisotropy constant also related to particle microcoercivity. In the equilibrium state, some fraction of the population has the high‐energy moment orientation (antiparallel to the applied field) while others occupy the low‐energy orientation, and spontaneous reversals occur at the same rate in each orientation (like a two‐way reaction in chemical equilibrium). For an assemblage of randomly oriented single‐domain grains, the relationship follows a Langevin function as:
 
-\[
-\approx \frac{M_s \alpha}{3}
-\]
-for small \(\alpha\).
+```{math}
+:label: eq_sd_Langevin
+M_{\mathrm{eq}}(H_{0}, T) \;=\; M_{s}\,\Bigl[\coth(\alpha) \;-\; \frac{1}{\alpha}\Bigr]
+```
 
-When \(\tau\) is short compared to the observation time (the superparamagnetic state), the sample moment can equilibrate quickly with changes in applied field. In contrast, when \(\tau\) is long the sample is blocked and in a stable single domain (SSD) state; it can take a very long time (millions or billions of years) to reach magnetic equilibrium. Whether or not a particle is SP or SSD will depend on both temperature and volume, through their affect on \(\tau\).
+$\approx \frac{M_s \alpha}{3}$ for small $\alpha$.
+
+When $\tau$ is short compared to the observation time (the superparamagnetic state), the sample moment can equilibrate quickly with changes in applied field. In contrast, when $\tau$ is long the sample is blocked and in a stable single domain (SSD) state; it can take a very long time (millions or billions of years) to reach magnetic equilibrium. Whether or not a particle is SP or SSD will depend on both temperature and volume, through their affect on $\tau$. 
+
+```{seealso}
+A much more thorough theoretical discussion of blocking behavoir can be found in [Dunlop and Özdemir (1997)](../resources.md).
+```
 
 ## Remanence Data
 
-The typical remanence experiments performed by visitors to the IRM include low-temperature cycling (300K → 20K → 300K) of a room-temperature (300K) saturation isothermal remanence (SIRM). A second common experiment cools the sample in zero field (ZFC) to low (e.g. 20K) temperature, where an SIRM is acquired. This low-temperature remanence is then measured as the sample warms back to room temperature. A room-temperature SIRM is not typically useful for studying SP particles, because they will not block at room temperature. However, many grains that are SP at room temperature will be SSD (blocked) at 20K. A sample with a **low-temperature SIRM that warms in zero field** (\(M_{eq} = 0\)) will demagnetize via the unblocking of these particles as they pass through their blocking temperature. If the sample contains a relatively narrow grain-size distribution of SP particles, the low-T remanence will unblock over a relatively narrow temperature interval (e.g. Fig. 2, circles). If, however, the sample has a more distributed grain-size distribution, the unblocking will be more gradual (e.g. Fig. 2, squares and diamonds). See Worm and Jackson (1999) for a discussion of volume distribution calculations based on the unblocking of a low-temperature remanence.
+The typical remanence experiments performed by visitors to the IRM include low-temperature cycling (300K → 20K → 300K) of a room-temperature (300K) saturation isothermal remanence (SIRM). A second common experiment cools the sample in zero field (ZFC) to low (e.g. 10K) temperature, where an SIRM is imparted. This low-temperature remanence is then measured as the sample warms back to room temperature. A room-temperature SIRM is not typically useful for studying SP particles, because they will not block at room temperature. However, many grains that are SP at room temperature will be SSD (blocked) at 20K. A sample with a low-temperature SIRM that warms in zero field ($M_{eq} = 0$) will demagnetize via the unblocking of these particles as they pass through their blocking temperature. If the sample contains a relatively narrow grain-size distribution of SP particles, the low-T remanence will unblock over a relatively narrow temperature interval (e.g. {numref}`SP_ZFC`, circles). If, however, the sample has a more distributed grain-size distribution, the unblocking will be more gradual (e.g. {numref}`SP_ZFC`, squares and diamonds). See Worm and Jackson (1999) for a discussion of volume distribution calculations based on the unblocking of a low-temperature remanence.
 
-```{figure}
-https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/SP_ZFC.png
+```{figure} https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/SP_ZFC.png
 :name: SP_ZFC
 :align: center
 :width: 60%
 
-Saturation IRM acquired at 10K (ZFC) and measured on warming from 10K to 300K. The decrease in magnetization results from thermal unblocking of an SP population. Blue circles are from a Tiva Canyon Tuff sample with a relatively narrow grain-size distribution. Data from the same sample are shown in Fig. 3 and Fig. 4b. Red squares and green triangles are from synthetic, glassy basalts with more distributed grain-size distributions.
+Saturation IRM acquired at 10K (ZFC) and measured on warming from 10K to 300K. The decrease in magnetization results from thermal unblocking of an SP population. Blue circles are from a Tiva Canyon Tuff sample with a relatively narrow grain-size distribution. Data from the same sample are shown in {numref}`SP_induced` and {numref}`SP_ac`b. Red squares and green triangles are from synthetic, glassy basalts with more distributed grain-size distributions.
 ```
 
-Not every such gradual decrease of low-temperature temperature remanence on warming is related to superparamagnetism, however. Moskowitz et al. (1998) demonstrate that multi-domain, high-Ti titanomagnetite exhibits similar behavior resulting from domain reorganization as magnetocrystalline anisotropy decreases on warming. (This phenomenon will be discussed at greater length in a future *IRM Quarterly* article.) It has also been demonstrated that partially oxidized magnetite (for example) may exhibit similar behavior. (See, e.g., Visiting Fellow report by Amy Chen, pg. 4, Fig. 2, insets.)
+Not every such gradual decrease of low-temperature temperature remanence on warming is related to superparamagnetism, however. Moskowitz et al. (1998) demonstrate that multi-domain, high-Ti titanomagnetite exhibits similar behavior resulting from domain reorganization as magnetocrystalline anisotropy decreases on warming.
 
 ## Induced Magnetization Data
 
-In an experiment more common to the physics community (but increasingly used by rock magnetists, e.g. Berquó et al., 2007), a sample is cooled in zero field (**ZFC**) to 20 K (for example), and the induced sample moment (\(M_i\)) is then measured on warming in the presence of a small (e.g. 5 mT) field. **This is followed by cooling the sample in the same 5 mT field (FC) and again measuring \(M_i\) on warming in a 5 mT field (Fig. 3).** In the FC case, for \(T < T_b\), magnetization can be described by regular TRM theory, i.e. \[
-M_{TRM}(T) = M_{eq}(T_B) \frac{M_S(T)}{M_S(T_B)}
-\]  
-**Eq. 4**  
+```{figure} https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/SP_induced.png
+:name: SP_induced
+:align: center
+:width: 50%
 
-for a uniform distribution of particles with a single \( T_B \). For non-uniform distributions (e.g. Fig. 3), Eq. 4 must be integrated over all \( T_B \).  
-**In the ZFC case, as the sample warms back up,** \( M_{i(ZFC)} \) **is initially less than** \( M_{i(FC)} \) **because the sample has blocked in a zero-field remanence.** As the sample warms through \( T_B \), \( \tau \) becomes short enough that the moment approaches \( M_{eq} \) in the applied field. Where the FC and ZFC curves join together defines the (maximum) blocking temperature, and for \( T > T_B \), both curves represent \( M_{eq} \). If the sample has a narrow-enough grain-size distribution and enough is known about its properties in order to estimate \( K \), particle volume can be estimated by solving Eq. 3 for \( V \).  
+Induced FC-ZFC experiment on Tiva Canyon Tuff sample.
+Sample is cooled in zero field and then measured on warming in a 5 mT DC field (blue circles). Sample is then cooled in a 5 mT field and measured on warming in a 5 mT field. Sample is fully unblocked when the two curves coincide. Data from the same sample are shown in {numref}`SP_ZFC` (circles) and {numref}`SP_ac`b.
+```
+
+In an experiment more common to the physics community (but also used by rock magnetists, e.g. Berquó et al., 2007), a sample is cooled in zero field (ZFC) to a low temperature such as 20K, and the induced sample moment ($M_i$) is then measured on warming in the presence of a small (e.g. 5 mT) field. This is followed by cooling the sample in the same 5 mT field (FC) and again measuring $M_i$ on warming in a 5 mT field ({numref}`SP_induced`). In the FC case, for \(T < T_b\), magnetization can be described by regular TRM theory, i.e. 
+
+```{math}
+:label: eq_TRM_theory
+M_{TRM}(T) = M_{eq}(T_B) \frac{M_S(T)}{M_S(T_B)}
+```
+ 
+for a uniform distribution of particles with a single $T_B$. For non-uniform distributions (e.g. {numref}`SP_induced`), equation {eq}`eq_TRM_theory` must be integrated over all $T_B$. In the ZFC case, as the sample warms back up, $M_{i(ZFC)}$ is initially less than** $M_{i(FC)}$ because the sample has blocked in a zero-field remanence. As the sample warms through $T_B$, $\tau$ becomes short enough that the moment approaches $M_{eq}$ in the applied field. Where the FC and ZFC curves join together defines the (maximum) blocking temperature, and for $T > T_B$, both curves represent $M_{eq}$. If the sample has a narrow-enough grain-size distribution and enough is known about its properties in order to estimate $K$, particle volume can be estimated by solving Eq. {eq}`eq_sd_Langevin` for $V$.  
 
 ## AC Susceptibility Data  
 
-In measuring low-field susceptibility (\( \chi \)), a weak, time-varying alternating field \([H(t) = H_0 \cos(\omega t)]\) is applied to the sample, and the magnetic response is measured. Consider the behavior of a superparamagnetic grain above and below its blocking temperature.  
+In measuring low-field susceptibility ($\chi$), a weak, time-varying alternating field ($H(t) = H_0 \cos(\omega t)$) is applied to the sample, and the magnetic response is measured. Consider the behavior of a superparamagnetic grain above and below its blocking temperature.  At $T_B << T < T_C$, the grain is ferromagnetically ordered, but $\tau$ is very short compared to the observation time ($t_{obs}$), and the moment will respond exactly in phase with the alternating field.  
 
-At \( T_B << T < T_C \), **the grain is ferromagnetically ordered**, but \( \tau \) is very short compared to the observation time (\( t_{obs} \)), and the moment will respond **exactly in phase** with the alternating field.  
+For an assemblage of randomly-oriented identical grains, susceptibility falls off with 1/T according to:  
 
-For an assemblage of randomly-oriented identical grains, susceptibility falls off with \( 1/T \) according to:  
-
-\[
+```{math}
+:label: eq_sp_chi
 \chi_{sp} = \frac{\mu_0 V M_S^2}{3kT} = \frac{M_{eq}(H_0)}{H_0}
-\]  
-**Eq. 5**  
+```
 
-This type of behavior can be observed in Fig. 4a at \( T > \sim200K \).  
+This type of behavior can be observed in {numref}`SP_ZFC`a at $T > \sim200K$.  
 
-At \( T << T_B \), \( \tau \) **is very long compared to** \( t_{obs} \), the grains are fully blocked in the SSD state, and susceptibility will be **negligible in weak fields**:  
+At $T << T_B$, $\tau$ is very long compared to $t_{obs}$, the grains are fully blocked in the SSD state, and susceptibility will be negligible in weak fields:  
 
-\[
+```{math}
+:label: eq_sd_chi
 \chi_{sd} = \frac{2M_S}{3H_k}
-\]  
-**Eq. 6**  
+```
 
-where \( H_k \) is the microcoercivity of the grain (the field required to reverse the magnetization in the absence of any thermal effects). This type of behavior is observed in Fig. 4c at \( T < \sim100K \).
+where $H_k$ is the microcoercivity of the grain (the field required to reverse the magnetization in the absence of any thermal effects). This type of behavior is observed in {numref}`SP_ZFC`c at $T < \sim100K$.
 
+```{figure} https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/SP_ac.png
+:name: SP_ac
+:align: center
+:width: 100%
 
+AC susceptibility measured as a function of frequency and temperature on three samples of Tiva Canyon Tuff. Average grain size (determined by TEM) given above plots. As the dominant grain size increases, so does the temperature of the peak in both in-phase and out- of-phase susceptibility, which corresponds to the blocking temperature.
+The sample shown in panel b with average grain size of 37 x 7.5 nm  is the same as in {numref}`SP_ZFC` (circles) and {numref}`SP_induced`.
+```
+
+## References
+
+Berquó, T.S., Banerjee, S.K., Ford, R.G., Penn, R.L., & Pichler, T. (2007). High-crystallinity Si-ferrihydrite: An insight into its Néel temperature and size dependence of magnetic properties. *J. Geophys. Res.*, 112, B02S02.
+
+Burton, B.P., Robinson, P., McEnroe, S.A., Fabian, K., & Boffa Ballaran, T. (2008). A low-temperature phase diagram for ilmenite-rich compositions in the system Fe₂O₃–FeTiO₃. *American Mineralogist*, 93, 870–872.
+
+Carter-Stiglitz, B., Moskowitz, B., Solheid, P., Berquó, T.S., Jackson, M., & Kosterov, A. (2006). Low-temperature magnetic behavior of multidomain titanomagnetites: TM0, TM16, and TM35. *J. Geophys. Res.*, 111, B12S05.
+
+Dunlop, D.J. (1965). Grain distributions in rocks containing single-domain grains. *J. Geomag. Geoelec.*, 17, 459–471.
+
+Dunlop, D.J., & Özdemir, Ö. (1997). *Rock Magnetism: Fundamentals and Frontiers*. Cambridge University Press, New York.
+
+Egli, R. (2009). Magnetic susceptibility measurements as a function of temperature and frequency I: inversion theory. *Geophys. J. Int.*, 177, 395–420.
+
+Jackson, M. (2004). Imaginary Susceptibility: A Primer. *IRM Quarterly*, 13(4).
+
+Jackson, M., Carter-Stiglitz, B., Egli, R., & Solheid, P. (2008). Characterizing the superparamagnetic grain distribution f(V,Hk) by thermal fluctuation tomography. *J. Geophys. Res.*, 113, B12S07.
+
+Lagroix, F., Banerjee, S.K., & Jackson, M.J. (2004). Magnetic properties of the Old Crow tephra: Identification of a complex iron titanium oxide mineralogy. *J. Geophys. Res.*, 109, B01104.
+
+Moskowitz, B.M., Jackson, M., & Kissel, C. (1998). Low-temperature magnetic behavior of titanomagnetites. *Earth Planet. Sci. Lett.*, 157, 141–149.
+
+Néel, L. (1949). Théorie du trainage magnétique des ferromagnétiques en grains fins avec application aux terres cuites. *Ann. Géophys.*, 5, 99–136.
+
+Schlinger, C.M., Veblen, P.R., & Rosenbaum, J.G. (1991). Magnetism and magnetic mineralogy of ash flow tuffs from Yucca Mountain, Nevada. *J. Geophys. Res.*, 96, 6035–6052.
+
+Shcherbakov, V., & Fabian, K. (2005). On the determination of magnetic grain-size distributions of superparamagnetic particle ensembles using the frequency dependence of susceptibility at different temperatures. *Geophys. J. Int.*, 162, 736–748.
+
+Worm, H.-U., & Jackson, M.J. (1999). The superparamagnetism of the Yucca Mountain Tuff. *J. Geophys. Res.*, 104, 25,415–25,425.
+
+Worm, H.-U. (1998). On the superparamagnetic-stable single domain transition for magnetite, and frequency dependence of susceptibility. *Geophys. J. Int.*, 133, 201–210.
 
 
 
