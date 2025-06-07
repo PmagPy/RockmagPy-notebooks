@@ -60,8 +60,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'book/background/paramagnetism';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Introduction to anisotropy of magnetic susceptibility (AMS)" href="anisotropy.html" />
-    <link rel="prev" title="Low-Temperature Magnetic Behavior of Siderite (FeCO\(_3\))" href="../minerals/siderite.html" />
+    <link rel="next" title="The Hematite Morin Transition" href="morin.html" />
+    <link rel="prev" title="Superparamagnetism" href="superparamagnetism.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -219,9 +219,16 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Background</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="low_temperature_behavior.html">Low temperature behavior</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="superparamagnetism.html">Superparamagnetism</a></li>
+
+
+
+
+
+
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Paramagnetism</a></li>
 <li class="toctree-l2"><a class="reference internal" href="morin.html">Morin transition</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../minerals/siderite.html">Siderite</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Paramagnetism</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="anisotropy.html">Introduction to anisotropy of magnetic susceptibility (AMS)</a></li>
@@ -433,20 +440,20 @@ document.write(`
 <p>This text on paramagnetic behavior at low temperature is from the Fall 2009 issue of the IRM Quarterly: <em>Bowles, Julie; Jackson, Mike; Chen, Amy; Solheid, Peat. (2009). IRM Quarterly, Volume 19, Number 3 (Fall 2009). Cover article: Interpretation of Low-Temperature Data Part 1: Superparamagnetism and Paramagnetism. Retrieved from the University Digital Conservancy, <a class="reference external" href="https://hdl.handle.net/11299/171316">https://hdl.handle.net/11299/171316</a>.</em>
 with minor edits by Nick Swanson-Hysell.</p>
 </div>
-<p>Any sample that has a paramagnetic phase in addition to ferromagnetic phases may result in a low-temperature signal that is the sum of both a ferromagnetic and a paramagnetic response. Because paramagnetic susceptibility (χₚ = M/H = C/T, where C is the Curie constant) is inversely proportional to temperature, it may dominate at very low temperatures when magnetization is blocked in other grains including superparamagnetic ones that therefore have very low susceptibility. <a class="reference internal" href="#paramag-x"><span class="std std-numref">Fig. 6</span></a> shows AC‐susceptibility data for a sample with a high paramagnetic/ferromagnetic ratio, and at T &lt; ~100 K, χₚ dominates with its characteristic 1/T signal:</p>
+<p>Any sample that has a paramagnetic phase in addition to ferromagnetic phases may result in a low-temperature signal that is the sum of both a ferromagnetic and a paramagnetic response. Because paramagnetic susceptibility (χₚ = M/H = C/T, where C is the Curie constant) is inversely proportional to temperature, it may dominate at very low temperatures when magnetization is blocked in other grains including superparamagnetic ones that therefore have very low susceptibility. <a class="reference internal" href="#paramag-x"><span class="std std-numref">Fig. 7</span></a> shows AC‐susceptibility data for a sample with a high paramagnetic/ferromagnetic ratio, and at T &lt; ~100 K, χₚ dominates with its characteristic 1/T signal:</p>
 <figure class="align-center" id="paramag-x">
 <a class="reference internal image-reference" href="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/paramag_suscep_low_T.png"><img alt="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/paramag_suscep_low_T.png" src="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/paramag_suscep_low_T.png" style="width: 50%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 6 </span><span class="caption-text">AC susceptibility measured as a function of frequency and temperature on a synthetic basaltic sample. Data show evidence for a broad superparamagnetic grain-size distribution. Additionally, the rapid decrease in susceptibility from 10 K to 50 K results from a significant paramagnetic fraction.</span><a class="headerlink" href="#paramag-x" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">AC susceptibility measured as a function of frequency and temperature on a synthetic basaltic sample. Data show evidence for a broad superparamagnetic grain-size distribution. Additionally, the rapid decrease in susceptibility from 10 K to 50 K results from a significant paramagnetic fraction.</span><a class="headerlink" href="#paramag-x" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<p>In theory, there can be no paramagnetic contribution to remanence data because H = 0. However, in practice it is difficult to produce a true zero‐field environment inside the MPMS. It is not uncommon to have a “zero‐field” of ±1–2 µT, and for samples with a high paramagnetic/ferromagnetic ratio this is sufficient to induce a noticeable paramagnetic moment at low temperatures (<a class="reference internal" href="#paramag-low-t"><span class="std std-numref">Fig. 7</span></a>). This difficulty is exacerbated within the MPMS-3 instrument where a low-field is more difficult to obtain than the MPMS-XL.</p>
+<p>In theory, there can be no paramagnetic contribution to remanence data because H = 0. However, in practice it is difficult to produce a true zero‐field environment inside the MPMS. It is not uncommon to have a “zero‐field” of ±1–2 µT, and for samples with a high paramagnetic/ferromagnetic ratio this is sufficient to induce a noticeable paramagnetic moment at low temperatures (<a class="reference internal" href="#paramag-low-t"><span class="std std-numref">Fig. 8</span></a>). This difficulty is exacerbated within the MPMS-3 instrument where a low-field is more difficult to obtain than the MPMS-XL.</p>
 <figure class="align-center" id="paramag-low-t">
 <a class="reference internal image-reference" href="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/paramag_low_T.png"><img alt="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/paramag_low_T.png" src="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/paramag_low_T.png" style="width: 50%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 7 </span><span class="caption-text">Example of the effects of non-zero field in MPMS during remanence measurements. Panels show data from two different synthetic basaltic glass samples. A room-temperature SIRM was measured on cooling (red squares), and a 10 K SIRM was measured on warming (blue circles). At temperatures below ~50-100 K, the induced paramagnetic signal dominates, resulting from a small, residual field in the MPMS can be either negative (top), or positive (bottom).</span><a class="headerlink" href="#paramag-low-t" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 8 </span><span class="caption-text">Example of the effects of non-zero field in MPMS during remanence measurements. Panels show data from two different synthetic basaltic glass samples. A room-temperature SIRM was measured on cooling (red squares), and a 10 K SIRM was measured on warming (blue circles). At temperatures below ~50-100 K, the induced paramagnetic signal dominates, resulting from a small, residual field in the MPMS can be either negative (top), or positive (bottom).</span><a class="headerlink" href="#paramag-low-t" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -482,20 +489,20 @@ with minor edits by Nick Swanson-Hysell.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../minerals/siderite.html"
+       href="superparamagnetism.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Low-Temperature Magnetic Behavior of Siderite (FeCO<span class="math notranslate nohighlight">\(_3\)</span>)</p>
+        <p class="prev-next-title">Superparamagnetism</p>
       </div>
     </a>
     <a class="right-next"
-       href="anisotropy.html"
+       href="morin.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Introduction to anisotropy of magnetic susceptibility (AMS)</p>
+        <p class="prev-next-title">The Hematite Morin Transition</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

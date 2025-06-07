@@ -16,18 +16,18 @@ The interpretation of low-temperature remanence experiments typically begins wit
 
 ## References
 
-- **Besnus, M. J., & Meyer, A. J.** (1964). *Magnétisme de la pyrrhotine naturelle. Nouvelles données expérimentales*. In *Proc. Int. Conf. Mag.* (Vol. 20, pp. 507–511).
+Besnus, M. J., & Meyer, A. J. (1964). Magnétisme de la pyrrhotine naturelle. Nouvelles données expérimentales. In Proc. Int. Conf. Mag. (Vol. 20, pp. 507–511). [DOI not available]
 
-- **Jackson, M. J., & Moskowitz, B.** (2020, October). *On the distribution of Verwey transition temperatures in natural magnetites*. *Geophysical Journal International*, 224(2), 1314–1325. Retrieved from [http://dx.doi.org/10.1093/gji/ggaa516](http://dx.doi.org/10.1093/gji/ggaa516). doi: 10.1093/gji/ggaa516
+Jackson, M. J., & Moskowitz, B. (2020). On the distribution of Verwey transition temperatures in natural magnetites. Geophysical Journal International, 224(2), 1314–1325. [doi:10.1093/gji/ggaa516](http://dx.doi.org/10.1093/gji/ggaa516)
 
-- **Liu, Q., Banerjee, S. K., Jackson, M. J., Chen, F., Pan, Y., & Zhu, R.** (2004). *Determining the climatic boundary between the Chinese loess and palaeosol: Evidence from aeolian coarse-grained magnetite*. *Geophysical Journal International*, 156(2), 267–274.
+Liu, Q., Banerjee, S. K., Jackson, M. J., Chen, F., Pan, Y., & Zhu, R. (2004). Determining the climatic boundary between the Chinese loess and palaeosol: Evidence from aeolian coarse-grained magnetite. Geophysical Journal International, 156(2), 267–274. [doi:10.1111/j.1365-246X.2003.02148.x](http://dx.doi.org/10.1111/j.1365-246X.2003.02148.x)
 
-- **Morin, F. J.** (1950). *Magnetic suceptibility of α-Fe₂O₃ and α-Fe₂O₃ with added titanium*. *Physical Review*, 78, 819–820.
+Morin, F. J. (1950). Magnetic susceptibility of α-Fe₂O₃ and α-Fe₂O₃ with added titanium. Physical Review, 78(6), 819–820. [doi:10.1103/PhysRev.78.819.2](http://dx.doi.org/10.1103/PhysRev.78.819.2)
 
-- **Moskowitz, B., Jackson, M., & Kissel, C.** (1998). *Low-temperature magnetic behavior of titanomagnetites*. *Earth and Planetary Science Letters*, 157, 141–149.
+Moskowitz, B., Jackson, M., & Kissel, C. (1998). Low-temperature magnetic behavior of titanomagnetites. Earth and Planetary Science Letters, 157(3–4), 141–149. [doi:10.1016/S0012-821X(98)00033-8](http://dx.doi.org/10.1016/S0012-821X(98)00033-8)
 
-- **Özdemir, O., Dunlop, D. J., & Berquo, T. S.** (2008). *Morin transition in hematite: Size dependence and thermal hysteresis*. *Geochemistry, Geophysics, Geosystems*, 9(10), Q10Z01.
+Özdemir, Ö., Dunlop, D. J., & Berquó, T. S. (2008). Morin transition in hematite: Size dependence and thermal hysteresis. Geochemistry, Geophysics, Geosystems, 9(10), Q10Z01. [doi:10.1029/2008GC002110](http://dx.doi.org/10.1029/2008GC002110)
 
-- **Rochette, P., Fillion, G., Mattéi, J.-L., & Dekkers, M. J.** (1990, June). *Magnetic transition at 30–34 Kelvin in pyrrhotite: Insight into a widespread occurrence of this mineral in rocks*. *Earth and Planetary Science Letters*, 98(3–4), 319–328.
+Rochette, P., Fillion, G., Mattéi, J.-L., & Dekkers, M. J. (1990). Magnetic transition at 30–34 Kelvin in pyrrhotite: Insight into a widespread occurrence of this mineral in rocks. Earth and Planetary Science Letters, 98(3–4), 319–328. [doi:10.1016/0012-821X(90)90034-U](http://dx.doi.org/10.1016/0012-821X(90)90034-U)
 
-- **Worm, H.-U., & Jackson, M.** (1999). *The superparamagnetism of Yucca Mountain Tuff*. *Journal of Geophysical Research*, 104(B11), 25415–25425. doi: 10.1029/1999JB900285
+Worm, H.-U., & Jackson, M. (1999). The superparamagnetism of Yucca Mountain Tuff. Journal of Geophysical Research: Solid Earth, 104(B11), 25415–25425. [doi:10.1029/1999JB900285](http://dx.doi.org/10.1029/1999JB900285)
