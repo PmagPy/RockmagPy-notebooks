@@ -45,14 +45,14 @@ parts:
     chapters:
       - file: book/background/low_temperature_behavior.md
         sections:
-          - file: book/background/morin.md
-            title: Morin transition
-          - file: book/background/Verwey.md
-            title: Verwey transition
-          - file: book/minerals/siderite.md
-            title: Siderite
+          - file: book/background/superparamagnetism.md
+            title: Superparamagnetism
           - file: book/background/paramagnetism.md
             title: Paramagnetism
+          - file: book/background/morin.md
+            title: Morin transition
+          - file: book/minerals/siderite.md
+            title: Siderite
       - file: book/background/anisotropy.md
   - caption: More resources
     chapters:
