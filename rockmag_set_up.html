@@ -518,40 +518,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pmagpy in /Users/unimos/0000_Github/PmagPy (4.3.1)
-Note: you may need to restart the kernel to use updated packages.
-Requirement already satisfied: cartopy in /Users/unimos/opt/anaconda3/lib/python3.9/site-packages (0.18.0)
-Collecting cartopy
-  Downloading Cartopy-0.23.0-cp39-cp39-macosx_10_9_x86_64.whl (10.9 MB)
-     |████████████████████████████████| 10.9 MB 12.3 MB/s eta 0:00:01
-?25hRequirement already satisfied: shapely&gt;=1.7 in /Users/unimos/opt/anaconda3/lib/python3.9/site-packages (from cartopy) (1.7.1)
-Collecting pyproj&gt;=3.3.1
-  Downloading pyproj-3.6.1-cp39-cp39-macosx_10_9_x86_64.whl (6.1 MB)
-     |████████████████████████████████| 6.1 MB 8.1 MB/s eta 0:00:01
-?25hCollecting pyshp&gt;=2.3
-  Using cached pyshp-2.3.1-py2.py3-none-any.whl (46 kB)
-Requirement already satisfied: packaging&gt;=20 in /Users/unimos/opt/anaconda3/lib/python3.9/site-packages (from cartopy) (21.3)
-Requirement already satisfied: matplotlib&gt;=3.5 in /Users/unimos/opt/anaconda3/lib/python3.9/site-packages (from cartopy) (3.5.1)
-Requirement already satisfied: numpy&gt;=1.21 in /Users/unimos/opt/anaconda3/lib/python3.9/site-packages (from cartopy) (1.21.5)
-Requirement already satisfied: fonttools&gt;=4.22.0 in /Users/unimos/opt/anaconda3/lib/python3.9/site-packages (from matplotlib&gt;=3.5-&gt;cartopy) (4.25.0)
-Requirement already satisfied: pillow&gt;=6.2.0 in /Users/unimos/opt/anaconda3/lib/python3.9/site-packages (from matplotlib&gt;=3.5-&gt;cartopy) (9.0.1)
-Requirement already satisfied: python-dateutil&gt;=2.7 in /Users/unimos/opt/anaconda3/lib/python3.9/site-packages (from matplotlib&gt;=3.5-&gt;cartopy) (2.8.2)
-Requirement already satisfied: pyparsing&gt;=2.2.1 in /Users/unimos/opt/anaconda3/lib/python3.9/site-packages (from matplotlib&gt;=3.5-&gt;cartopy) (3.0.4)
-Requirement already satisfied: cycler&gt;=0.10 in /Users/unimos/opt/anaconda3/lib/python3.9/site-packages (from matplotlib&gt;=3.5-&gt;cartopy) (0.11.0)
-Requirement already satisfied: kiwisolver&gt;=1.0.1 in /Users/unimos/opt/anaconda3/lib/python3.9/site-packages (from matplotlib&gt;=3.5-&gt;cartopy) (1.3.2)
-Requirement already satisfied: certifi in /Users/unimos/opt/anaconda3/lib/python3.9/site-packages (from pyproj&gt;=3.3.1-&gt;cartopy) (2025.4.26)
-Requirement already satisfied: six&gt;=1.5 in /Users/unimos/opt/anaconda3/lib/python3.9/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib&gt;=3.5-&gt;cartopy) (1.16.0)
-Installing collected packages: pyshp, pyproj, cartopy
-<span class=" -Color -Color-Yellow">  WARNING: The script pyproj is installed in &#39;/Users/unimos/.local/bin&#39; which is not on PATH.</span>
-<span class=" -Color -Color-Yellow">  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.</span>
-<span class=" -Color -Color-Yellow">  WARNING: The script cartopy_feature_download is installed in &#39;/Users/unimos/.local/bin&#39; which is not on PATH.</span>
-<span class=" -Color -Color-Yellow">  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.</span>
-Successfully installed cartopy-0.23.0 pyproj-3.6.1 pyshp-2.3.1
-Note: you may need to restart the kernel to use updated packages.
-</pre></div>
-</div>
-</div>
 </div>
 </section>
 <section id="get-the-rockmagpy-notebook-materials-from-github">
@@ -562,25 +528,6 @@ Note: you may need to restart the kernel to use updated packages.
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>rm<span class="w"> </span>-Rf<span class="w"> </span>~/rockmag_notebooks<span class="w"> </span>#<span class="w"> </span>remove<span class="w"> </span>any<span class="w"> </span>existing<span class="w"> </span>downloaded<span class="w"> </span>files
 <span class="o">!</span>mkdir<span class="w"> </span>~/rockmag_notebooks<span class="w"> </span>#<span class="w"> </span>make<span class="w"> </span>space<span class="w"> </span><span class="k">for</span><span class="w"> </span>downloaded<span class="w"> </span>files
 <span class="o">!</span>wget<span class="w"> </span>-O<span class="w"> </span>-<span class="w"> </span>https://github.com/PmagPy/RockmagPy-notebooks/tarball/master<span class="w"> </span><span class="p">|</span><span class="w"> </span>tar<span class="w"> </span>xz<span class="w"> </span>-C<span class="w"> </span>~/rockmag_notebooks<span class="w"> </span>#<span class="w"> </span>download<span class="w"> </span>the<span class="w"> </span>latest<span class="w"> </span>files
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--2024-05-29 15:32:17--  https://github.com/PmagPy/RockmagPy-notebooks/tarball/master
-Resolving github.com (github.com)... 140.82.113.4
-Connecting to github.com (github.com)|140.82.113.4|:443... connected.
-HTTP request sent, awaiting response... 302 Found
-Location: https://codeload.github.com/PmagPy/RockmagPy-notebooks/legacy.tar.gz/main [following]
---2024-05-29 15:32:17--  https://codeload.github.com/PmagPy/RockmagPy-notebooks/legacy.tar.gz/main
-Resolving codeload.github.com (codeload.github.com)... 140.82.114.9
-Connecting to codeload.github.com (codeload.github.com)|140.82.114.9|:443... connected.
-HTTP request sent, awaiting response... 200 OK
-Length: unspecified [application/x-gzip]
-Saving to: &#39;STDOUT&#39;
-
--                       [     &lt;=&gt;            ]   9.55M  10.4MB/s    in 0.9s    
-
-2024-05-29 15:32:18 (10.4 MB/s) - written to stdout [10014943]
 </pre></div>
 </div>
 </div>
