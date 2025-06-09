@@ -504,6 +504,9 @@ document.write(`
 84  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/MPMS_notebooks/example_data/20427/samples.txt
 85  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/MPMS_notebooks/example_data/20427/specimens.txt
 3800  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/MPMS_notebooks/example_data/20427/measurements.txt
+-I- Using online data model
+-I- Getting method codes from earthref.org
+-I- Importing controlled vocabularies from https://earthref.org
 </pre></div>
 </div>
 </div>
@@ -546,6 +549,32 @@ document.write(`
 <p>Upon executing the following cell, the user can select two specimens from the RMB and use the slide bar to adjust the relative fractions of the two specimens in the toy mixture model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">carbonates_measurements</span><span class="p">[</span><span class="s1">&#39;method_codes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;LP-X:LP-X-T:LP-X-F&#39;, &#39;LP-ZFC&#39;, &#39;LP-FC&#39;, &#39;LP-CW-SIRM:LP-MC&#39;,
+       &#39;LP-CW-SIRM:LP-MW&#39;, &#39;LP-MST&#39;], dtype=object)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">oxyhydroxides_measurements</span><span class="p">[</span><span class="s1">&#39;method_codes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;LP-X:LP-X-T:LP-X-F&#39;, &#39;LP-X-T&#39;, &#39;LP-MST&#39;, &#39;LP-FC&#39;, &#39;LP-ZFC&#39;,
+       &#39;LP-CW-SIRM:LP-MC&#39;, &#39;LP-CW-SIRM:LP-MW&#39;], dtype=object)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> widget
 <span class="n">rmag</span><span class="o">.</span><span class="n">MPMS_signal_blender_interactive</span><span class="p">(</span><span class="n">carbonates_measurements</span><span class="p">,</span> <span class="n">oxyhydroxides_measurements</span><span class="p">,</span>
                                 <span class="n">experiments</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;LP-ZFC&#39;</span><span class="p">,</span> <span class="s1">&#39;LP-FC&#39;</span><span class="p">,</span> <span class="s1">&#39;LP-CW-SIRM:LP-MC&#39;</span><span class="p">,</span> <span class="s1">&#39;LP-CW-SIRM:LP-MW&#39;</span><span class="p">],</span>
@@ -554,7 +583,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "f2f845fadbee465493cd63754c7fc723", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "34582815cb474890906ca017c978a5b8", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "6312d14e84414410bd32478dc2820fff", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "2a9b8a37cd0f45a3a3a8e2d4a45a898c", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "0334f45ebfe441c4914480deca5b1a92", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "68ea9379080f435bb8defbf37c5a5968", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "cfc035ec438a4bd2863f3f34079883bf", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "30e8344f51e04de98b8ab5d284164885", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <section id="view-blending-results-in-context-of-the-end-members">
 <h3>view blending results in context of the end members<a class="headerlink" href="#view-blending-results-in-context-of-the-end-members" title="Link to this heading">#</a></h3>
@@ -573,7 +602,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1983f4e5db9e452e857d557844231262", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "7ff0d19ade1d44359ccc3a3417901091", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -590,7 +619,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "58527d22db9945c58be6634ad67b7003", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "00b55a8edc7e4c748118a935711e57aa", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 </section>
