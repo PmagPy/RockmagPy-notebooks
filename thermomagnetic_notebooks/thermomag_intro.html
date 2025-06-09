@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>&lt;no title&gt; &#8212; RockmagPy Documentation</title>
+    <title>Thermomagnetic data analysis &#8212; RockmagPy Documentation</title>
   
   
   
@@ -62,7 +62,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'thermomagnetic_notebooks/thermomag_intro';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Analysis of susceptibility-temperature, (Kappabridge \(\chi\)-T), data" href="high_T_susceptibility.html" />
+    <link rel="next" title="High-temperature susceptibility data analysis" href="high_T_susceptibility.html" />
     <link rel="prev" title="Python implementation of the Max Unmix method for coercivity spectra analysis" href="../hysteresis_backfield_notebooks/coercivity_unmixing_MaxUnmix.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -187,7 +187,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../rockmag_data_unpack.html">Rock magnetic data import</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Data Processing Notebooks</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../MPMS_notebooks/MPMS_intro.html">MPMS notebooks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../MPMS_notebooks/MPMS_plot_dc.html">Plot MPMS data (DC)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../MPMS_notebooks/MPMS_plot_ac.html">Plot MPMS data (AC susceptibility)</a></li>
@@ -204,7 +204,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../hysteresis_backfield_notebooks/coercivity_unmixing_MaxUnmix.html">Python implementation of the Max Unmix method for coercivity spectra analysis</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="high_T_susceptibility.html">Susceptibility vs. temperature analysis</a></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Thermomagnetic notebooks</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="high_T_susceptibility.html">High-temperature susceptibility data analysis</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../anisotropy_notebooks/anisotropy_intro.html">Anisotropy notebooks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../anisotropy_notebooks/anisotropy_plot_AMS.html">Plot and analyze anisotropy data (AMS)</a></li>
 </ul>
@@ -411,9 +414,7 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
+
 </div></div>
       
     </div>
@@ -424,7 +425,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1><no title></h1>
+    <h1>Thermomagnetic data analysis</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -438,8 +439,11 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <ul class="simple">
-<li><p><a class="reference internal" href="#../high_T_susceptibility.ipynb"><span class="xref myst"><strong>Thermomagnetic Curves</strong></span></a> This notebook plots and
+  <section class="tex2jax_ignore mathjax_ignore" id="thermomagnetic-data-analysis">
+<h1>Thermomagnetic data analysis<a class="headerlink" href="#thermomagnetic-data-analysis" title="Link to this heading">#</a></h1>
+<p>These notebooks support the analysis of thermomagnetic data.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="high_T_susceptibility.html"><span class="std std-doc"><strong>Thermomagnetic Curves</strong></span></a> This notebook plots and
 analyzes data from high-temperature susceptibility experiments.</p></li>
 </ul>
 <p><strong>Nota bene:</strong> We do not provide Curie Temperature estimation by the “two-tangent”
@@ -447,46 +451,19 @@ method, as proposed for spontaneous magnetization <em>Mₛ(T)</em> curves by
 <a class="reference external" href="https://doi.org/10.1029/JB074i022p05277">Grommé et al. (1969)</a>.
 <a class="reference external" href="https://doi.org/10.1029/2012GC004440">Fabian et al. (2013)</a> explain this well:</p>
 <blockquote>
-<div><p>“The importance of the difference between determining <em>T<sub>c</sub></em> from <em>Mₛ(T)</em> and
-<em>χ-T</em> is pointed out by <a class="reference external" href="https://doi.org/10.1029/2006JB004507">Petrovský and Kapicka (2006)</a>,
-where methods to determine <em>T<sub>c</sub></em> from measurements of the initial
-susceptibility are analyzed. They conclude that the two-tangent method is not
-suitable for <em>χ-T</em> and can considerably overestimate <em>T<sub>c</sub></em>. The physical
-origin of <em>χ-T</em> close to <em>T<sub>c</sub></em> is more challenging than that of <em>Mₛ(T)</em>,
-because a number of low-field effects are important for <em>χ-T</em>, but become
-negligible in the higher fields used to infer <em>Mₛ(T)</em>. The variation of <em>m</em> depends
-not only on the variation of <em>Mₛ(H,T)</em> with field <em>H</em>, it also contains a
-contribution from a rotation of the ordered moment with respect to an easy
-magnetization axis, and contributions from thermally activated switching of small
-independent – but already magnetically ordered – regions (e.g., SP particles). In
-large bulk material, domain-wall movement contributes to <em>χ-T</em> even slightly below
-<em>T<sub>c</sub></em>. In nanoparticles, the inhomogeneity of <em>Mₛ</em> due to the different
-exchange coupling of inner and surface atoms is of additional importance.”</p>
+<div><p>“The importance of the difference between determining <em>T<sub>c</sub></em> from <em>Mₛ(T)</em> and <em>χ-T</em> is pointed out by <a class="reference external" href="https://doi.org/10.1029/2006JB004507">Petrovský and Kapicka (2006)</a>, where methods to determine <em>T<sub>c</sub></em> from measurements of the initial susceptibility are analyzed. They conclude that the two-tangent method is not suitable for <em>χ-T</em> and can considerably overestimate <em>T<sub>c</sub></em>. The physical origin of <em>χ-T</em> close to <em>T<sub>c</sub></em> is more challenging than that of <em>Mₛ(T)</em>, because a number of low-field effects are important for <em>χ-T</em>, but become negligible in the higher fields used to infer <em>Mₛ(T)</em>. The variation of <em>m</em> depends not only on the variation of <em>Mₛ(H,T)</em> with field <em>H</em>, it also contains a contribution from a rotation of the ordered moment with respect to an easy magnetization axis, and contributions from thermally activated switching of small independent – but already magnetically ordered – regions (e.g., SP particles). In large bulk material, domain-wall movement contributes to <em>χ-T</em> even slightly below <em>T<sub>c</sub></em>. In nanoparticles, the inhomogeneity of <em>Mₛ</em> due to the different exchange coupling of inner and surface atoms is of additional importance.”</p>
 </div></blockquote>
 <p>And from <a class="reference external" href="https://doi.org/10.1029/2006JB004507">Petrovský and Kapicka (2006)</a>:</p>
 <blockquote>
-<div><p>“…susceptibility for <em>T &gt; T<sub>c</sub></em> and <em>T &lt; T<sub>c</sub></em> increases to infinity,
-and we have to use analytical formulas developed for susceptibility behavior above
-the Curie point. Here, due to the geometry of the susceptibility curve, the
-two-tangent method will always yield temperature above the inflection point, which
-is higher than the temperature at which the substance starts to obey the paramagnetic
-Curie-Weiss law. The resulting error in <em>T<sub>c</sub></em> (or <em>T<sub>N</sub><sup>1</sup></em>)
-can be on the order of several degrees to several tens of degrees. Therefore, in the
-case of temperature dependence of magnetic susceptibility, application of the
-two-tangent method is not justified.”</p>
+<div><p>“…susceptibility for <em>T &gt; T<sub>c</sub></em> and <em>T &lt; T<sub>c</sub></em> increases to infinity, and we have to use analytical formulas developed for susceptibility behavior above the Curie point. Here, due to the geometry of the susceptibility curve, the two-tangent method will always yield temperature above the inflection point, which is higher than the temperature at which the substance starts to obey the paramagnetic Curie-Weiss law. The resulting error in <em>T<sub>c</sub></em> (or <em>T<sub>N</sub><sup>1</sup></em>) can be on the order of several degrees to several tens of degrees. Therefore, in the case of temperature dependence of magnetic susceptibility, application of the two-tangent method is not justified.”</p>
 </div></blockquote>
 <p>Furthermore:</p>
 <blockquote>
-<div><p>“In the case of synthetic magnetite and hematite, with sharp Hopkinson peak, the
-difference between transition temperatures determined using the two-tangent method
-and Curie-Weiss paramagnetic law is in the order of some few degrees. In the case of
-samples with wide susceptibility maximum and gradual decrease, reflecting e.g., wide
-distribution of grain sizes, or in the case of substituted hematite, application of
-the two-tangent method to susceptibility curves overestimates the transition
-temperature by several tens of degrees.”</p>
+<div><p>“In the case of synthetic magnetite and hematite, with sharp Hopkinson peak, the difference between transition temperatures determined using the two-tangent method and Curie-Weiss paramagnetic law is in the order of some few degrees. In the case of samples with wide susceptibility maximum and gradual decrease, reflecting e.g., wide distribution of grain sizes, or in the case of substituted hematite, application of the two-tangent method to susceptibility curves overestimates the transition temperature by several tens of degrees.”</p>
 </div></blockquote>
 <div class="toctree-wrapper compound">
 </div>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -532,7 +509,7 @@ temperature by several tens of degrees.”</p>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Analysis of susceptibility-temperature, <span style="font-family: 'Times New Roman';"><em>(Kappabridge <span class="math notranslate nohighlight">\(\chi\)</span>-T)</em></span>, data</p>
+        <p class="prev-next-title">High-temperature susceptibility data analysis</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
