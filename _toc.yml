@@ -28,8 +28,7 @@ parts:
       - file: thermomagnetic_notebooks/thermomag_intro
         title: Thermomagnetic notebooks
         sections:
-          - file: thermomagnetic_notebooks/high_T_susceptibility
-            title: Susceptibility vs. temperature analysis
+          - file: thermomagnetic_notebooks/high_T_susceptibility 
       - file: anisotropy_notebooks/anisotropy_intro
         title: Anisotropy notebooks
         sections:
