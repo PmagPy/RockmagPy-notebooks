@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Notebook for making summary statistics for rock magnetic data &#8212; RockmagPy Documentation</title>
+    <title>Summary plots of hysteresis parameters &#8212; RockmagPy Documentation</title>
   
   
   
@@ -425,7 +425,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Notebook for making summary statistics for rock magnetic data</h1>
+    <h1>Summary plots of hysteresis parameters</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -436,10 +436,12 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-local-data-in-magic-format">Import local data in MagIC format</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-for-vsm-rock-magnetic-data-mr-ms-bcr-bc">filter for VSM rock magnetic data (Mr, Ms,Bcr, Bc)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#option-1-filter-for-individual-specimen-data-and-make-a-day-plot">Option 1: filter for individual specimen data and make a Day Plot</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#option-2-plot-all-specimen-data-in-a-magic-specimens-data-table-on-a-day-plot">Option 2: Plot all specimen data in a MagIC specimens data table on a Day Plot</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-neel-s-diagram">Make Neel’s diagram</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-day-plot">Make Day Plot</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#option-1-filter-for-individual-specimen-data-and-make-a-day-plot">Option 1: filter for individual specimen data and make a Day Plot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#option-2-plot-all-specimen-data-in-a-magic-specimens-data-table-on-a-day-plot">Option 2: Plot all specimen data in a MagIC specimens data table on a Day Plot</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-squareness-coercivity-diagram">Make squareness-coercivity diagram</a></li>
 </ul>
             </nav>
         </div>
@@ -451,8 +453,14 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="notebook-for-making-summary-statistics-for-rock-magnetic-data">
-<h1>Notebook for making summary statistics for rock magnetic data<a class="headerlink" href="#notebook-for-making-summary-statistics-for-rock-magnetic-data" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="summary-plots-of-hysteresis-parameters">
+<h1>Summary plots of hysteresis parameters<a class="headerlink" href="#summary-plots-of-hysteresis-parameters" title="Link to this heading">#</a></h1>
+<p>This notebook imports summary hysteresis parameters from a MagIC contribution and generates:</p>
+<ul class="simple">
+<li><p>a Day plot which is the remanence ratio (<em>M<sub>r</sub>/M<sub>s</sub></em>; “squareness”) vs. the coercivity ratio (<em>B<sub>cr</sub>/B<sub>c</sub></em>)</p></li>
+<li><p>a squareness-coercivity diagram (<em>M<sub>r</sub>/M<sub>s</sub></em>) vs. the coercivity (<em>B<sub>c</sub></em>); also referred to as a Néel plot</p></li>
+</ul>
+<p>Here, <em>M<sub>r</sub></em> is the remanent magnetization, <em>M<sub>s</sub></em> is the saturation magnetization, <em>B<sub>c</sub></em> is the coercivity, and <em>B<sub>cr</sub></em> is the coercivity of remanence.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.rockmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rmag</span>
@@ -469,8 +477,7 @@ document.write(`
 </div>
 <section id="import-local-data-in-magic-format">
 <h2>Import local data in MagIC format<a class="headerlink" href="#import-local-data-in-magic-format" title="Link to this heading">#</a></h2>
-<p>In this demonstration we will be using local data.</p>
-<p>The data is from the following publication:</p>
+<p>We will start by downloading the MagIC data associated with this paper (MagIC ID of 16460):</p>
 <ul class="simple">
 <li><p>Jackson, M. and Swanson-Hysell, N.L. (2012), Rock Magnetism of Remagnetized Carbonate Rocks: Another Look, In: Elmore, R. D., Muxworthy, A. R., Aldana, M. M. and Mena, M., eds., Remagnetization and Chemical Alteration of Sedimentary Rocks, Geological Society of London Special Publication, 371, <a class="reference external" href="https://doi.org/10.1144/SP371.3">https://doi.org/10.1144/SP371.3</a>.</p></li>
 </ul>
@@ -494,12 +501,12 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Download successful. File saved to: ../example_data/Jackson2012/magic_contribution_16460.txt
-1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/Jackson2012/contribution.txt
-5  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/Jackson2012/locations.txt
-8  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/Jackson2012/sites.txt
-51  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/Jackson2012/samples.txt
-186  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/Jackson2012/specimens.txt
-4758  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/Jackson2012/measurements.txt
+1  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/Jackson2012/contribution.txt
+5  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/Jackson2012/locations.txt
+8  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/Jackson2012/sites.txt
+51  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/Jackson2012/samples.txt
+186  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/Jackson2012/specimens.txt
+4758  records written to file  /Users/unimos/0000_Github/RockmagPy-notebooks/example_data/Jackson2012/measurements.txt
 -I- Using online data model
 -I- Getting method codes from earthref.org
 -I- Importing controlled vocabularies from https://earthref.org
@@ -507,9 +514,6 @@ document.write(`
 </div>
 </div>
 </div>
-</section>
-<section id="filter-for-vsm-rock-magnetic-data-mr-ms-bcr-bc">
-<h2>filter for VSM rock magnetic data (Mr, Ms,Bcr, Bc)<a class="headerlink" href="#filter-for-vsm-rock-magnetic-data-mr-ms-bcr-bc" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">specimens</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -709,8 +713,10 @@ document.write(`
 </div></div></div>
 </div>
 </section>
+<section id="make-day-plot">
+<h2>Make Day Plot<a class="headerlink" href="#make-day-plot" title="Link to this heading">#</a></h2>
 <section id="option-1-filter-for-individual-specimen-data-and-make-a-day-plot">
-<h2>Option 1: filter for individual specimen data and make a Day Plot<a class="headerlink" href="#option-1-filter-for-individual-specimen-data-and-make-a-day-plot" title="Link to this heading">#</a></h2>
+<h3>Option 1: filter for individual specimen data and make a Day Plot<a class="headerlink" href="#option-1-filter-for-individual-specimen-data-and-make-a-day-plot" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>One has more flexibility to make a custom plot</p></li>
 <li><p>However, the user has to specify the row numbers that contain each of the attributes</p></li>
@@ -831,19 +837,18 @@ document.write(`
                    <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
                    <span class="n">lc</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">)</span>
 
-
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/4f8002f5972cbbe57c9abf018876b52126831fb8e38a60493960497016de56a6.png"><img alt="../_images/4f8002f5972cbbe57c9abf018876b52126831fb8e38a60493960497016de56a6.png" src="../_images/4f8002f5972cbbe57c9abf018876b52126831fb8e38a60493960497016de56a6.png" style="width: 716px; height: 551px;" />
+<a class="reference internal image-reference" href="../_images/53b0394a477bdbb665ca2204f85bce39f6390830e6ccc14d6cb34c4e82bd4957.png"><img alt="../_images/53b0394a477bdbb665ca2204f85bce39f6390830e6ccc14d6cb34c4e82bd4957.png" src="../_images/53b0394a477bdbb665ca2204f85bce39f6390830e6ccc14d6cb34c4e82bd4957.png" style="width: 516px; height: 391px;" />
 </a>
 </div>
 </div>
 </section>
 <section id="option-2-plot-all-specimen-data-in-a-magic-specimens-data-table-on-a-day-plot">
-<h2>Option 2: Plot all specimen data in a MagIC specimens data table on a Day Plot<a class="headerlink" href="#option-2-plot-all-specimen-data-in-a-magic-specimens-data-table-on-a-day-plot" title="Link to this heading">#</a></h2>
+<h3>Option 2: Plot all specimen data in a MagIC specimens data table on a Day Plot<a class="headerlink" href="#option-2-plot-all-specimen-data-in-a-magic-specimens-data-table-on-a-day-plot" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Because Bcr is obtained from a backfield experiment whereas other values can be obtained from a hysteresis experiment, the data entry in the data tables are decoupled. In many cases there could be multiple entries for the same attribute for the same specimen.</p></li>
 <li><p>If one were to use the default approach to plot all data at once, bear in mind that the default function will simply take the average of all of the entries for the same attribute for the same specimen.</p></li>
@@ -852,10 +857,10 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">H_specimens</span> <span class="o">=</span> <span class="n">specimens</span><span class="p">[</span><span class="n">specimens</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">)]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 
-
-<span class="c1"># let&#39;s filter for the room temperatuer measureemnts</span>
+<span class="c1"># let&#39;s filter for the room temperature measurements</span>
+<span class="n">H_specimens</span> <span class="o">=</span> <span class="n">H_specimens</span><span class="p">[</span><span class="n">H_specimens</span><span class="p">[</span><span class="s1">&#39;meas_temp&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">300</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="n">H_specimens_RT</span> <span class="o">=</span> <span class="n">H_specimens</span><span class="p">[</span><span class="n">H_specimens</span><span class="p">[</span><span class="s1">&#39;meas_temp&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">300</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-<span class="n">H_specimens_RT</span>
+<span class="n">H_specimens_RT</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -878,6 +883,7 @@ document.write(`
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>level_0</th>
       <th>index</th>
       <th>specimen name</th>
       <th>citations</th>
@@ -887,7 +893,6 @@ document.write(`
       <th>hyst_bc_offset</th>
       <th>hyst_mr_mass</th>
       <th>hyst_ms_mass</th>
-      <th>hyst_xhf</th>
       <th>...</th>
       <th>rem_bcr</th>
       <th>rem_hirm_mass</th>
@@ -904,16 +909,16 @@ document.write(`
   <tbody>
     <tr>
       <th>0</th>
+      <td>0</td>
       <td>2</td>
       <td>H1-0.2C</td>
       <td>This study</td>
       <td>None</td>
       <td>IRM-VSM3-66769</td>
       <td>0.004854</td>
-      <td>-3.742000e-03</td>
+      <td>-0.003742</td>
       <td>0.000034</td>
       <td>0.000189</td>
-      <td>3.774000e-09</td>
       <td>...</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -928,6 +933,7 @@ document.write(`
     </tr>
     <tr>
       <th>1</th>
+      <td>1</td>
       <td>6</td>
       <td>H1-0.4D</td>
       <td>This study</td>
@@ -937,10 +943,9 @@ document.write(`
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>NaN</td>
       <td>...</td>
       <td>0.0320</td>
-      <td>3.305000e-06</td>
+      <td>0.000003</td>
       <td>0.000052</td>
       <td>0.764</td>
       <td>0.1</td>
@@ -952,16 +957,16 @@ document.write(`
     </tr>
     <tr>
       <th>2</th>
+      <td>2</td>
       <td>7</td>
       <td>H1-0.4D</td>
       <td>This study</td>
       <td>average of 10 runs</td>
       <td>IRM-VSM3-66770</td>
       <td>0.005400</td>
-      <td>-1.158000e-03</td>
+      <td>-0.001158</td>
       <td>0.000052</td>
       <td>0.000298</td>
-      <td>4.782000e-09</td>
       <td>...</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -976,6 +981,7 @@ document.write(`
     </tr>
     <tr>
       <th>3</th>
+      <td>3</td>
       <td>9</td>
       <td>H1-0.5B</td>
       <td>This study</td>
@@ -985,10 +991,9 @@ document.write(`
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>NaN</td>
       <td>...</td>
       <td>0.0368</td>
-      <td>1.245000e-06</td>
+      <td>0.000001</td>
       <td>0.000061</td>
       <td>0.673</td>
       <td>0.1</td>
@@ -1000,16 +1005,16 @@ document.write(`
     </tr>
     <tr>
       <th>4</th>
+      <td>4</td>
       <td>10</td>
       <td>H1-0.5B</td>
       <td>This study</td>
       <td>None</td>
       <td>IRM-VSM3-66772</td>
       <td>0.006065</td>
-      <td>9.178000e-04</td>
+      <td>0.000918</td>
       <td>0.000065</td>
       <td>0.000316</td>
-      <td>2.459000e-09</td>
       <td>...</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1022,801 +1027,9 @@ document.write(`
       <td>2.700000e-06</td>
       <td>0.010243</td>
     </tr>
-    <tr>
-      <th>5</th>
-      <td>11</td>
-      <td>H1-0.5C</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66722</td>
-      <td>0.001470</td>
-      <td>1.542000e-04</td>
-      <td>0.000020</td>
-      <td>0.000086</td>
-      <td>5.788000e-09</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>H1-0.5</td>
-      <td>H1-0.5C</td>
-      <td>2.250000e-06</td>
-      <td>0.007528</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>12</td>
-      <td>H1-0.5C</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66723</td>
-      <td>0.002414</td>
-      <td>6.171000e-05</td>
-      <td>0.000038</td>
-      <td>0.000159</td>
-      <td>3.716000e-09</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>H1-0.5</td>
-      <td>H1-0.5C</td>
-      <td>2.250000e-06</td>
-      <td>0.007528</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>13</td>
-      <td>H1-0.5C</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66724</td>
-      <td>0.003779</td>
-      <td>1.161000e-04</td>
-      <td>0.000051</td>
-      <td>0.000176</td>
-      <td>3.622000e-09</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>H1-0.5</td>
-      <td>H1-0.5C</td>
-      <td>2.250000e-06</td>
-      <td>0.007528</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>14</td>
-      <td>H1-0.5C</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66725</td>
-      <td>0.004413</td>
-      <td>1.723000e-04</td>
-      <td>0.000060</td>
-      <td>0.000249</td>
-      <td>3.006000e-09</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>H1-0.5</td>
-      <td>H1-0.5C</td>
-      <td>2.250000e-06</td>
-      <td>0.007528</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>15</td>
-      <td>H1-0.5C</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66726</td>
-      <td>0.005031</td>
-      <td>-2.144000e-04</td>
-      <td>0.000063</td>
-      <td>0.000215</td>
-      <td>3.224000e-09</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>H1-0.5</td>
-      <td>H1-0.5C</td>
-      <td>2.250000e-06</td>
-      <td>0.007528</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>16</td>
-      <td>H1-0.5C</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66727</td>
-      <td>0.005472</td>
-      <td>-2.666000e-04</td>
-      <td>0.000065</td>
-      <td>0.000243</td>
-      <td>3.036000e-09</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>H1-0.5</td>
-      <td>H1-0.5C</td>
-      <td>2.250000e-06</td>
-      <td>0.007528</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>17</td>
-      <td>H1-0.5C</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66728</td>
-      <td>0.005524</td>
-      <td>-4.461000e-04</td>
-      <td>0.000065</td>
-      <td>0.000282</td>
-      <td>2.889000e-09</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>H1-0.5</td>
-      <td>H1-0.5C</td>
-      <td>2.250000e-06</td>
-      <td>0.007528</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>18</td>
-      <td>H1-0.5C</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66729</td>
-      <td>0.005157</td>
-      <td>7.690000e-04</td>
-      <td>0.000052</td>
-      <td>0.000321</td>
-      <td>2.802000e-09</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>H1-0.5</td>
-      <td>H1-0.5C</td>
-      <td>2.250000e-06</td>
-      <td>0.007528</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>20</td>
-      <td>H1-0.6B</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66775</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>0.0341</td>
-      <td>7.978000e-07</td>
-      <td>0.000080</td>
-      <td>0.715</td>
-      <td>0.1</td>
-      <td>g</td>
-      <td>H1-0.6</td>
-      <td>H1-0.6B</td>
-      <td>7.500000e-06</td>
-      <td>0.020033</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>22</td>
-      <td>H1-0.6B</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66774</td>
-      <td>0.005332</td>
-      <td>2.532000e-04</td>
-      <td>0.000081</td>
-      <td>0.000448</td>
-      <td>1.880000e-09</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>H1-0.6</td>
-      <td>H1-0.6B</td>
-      <td>7.500000e-06</td>
-      <td>0.020033</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>34</td>
-      <td>H1-2.0C</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66778</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>0.0352</td>
-      <td>1.190000e-06</td>
-      <td>0.000040</td>
-      <td>0.642</td>
-      <td>0.1</td>
-      <td>g</td>
-      <td>H1-2.0</td>
-      <td>H1-2.0C</td>
-      <td>6.300000e-06</td>
-      <td>0.017622</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>35</td>
-      <td>H1-2.0C</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66776</td>
-      <td>0.005905</td>
-      <td>7.124000e-06</td>
-      <td>0.000038</td>
-      <td>0.000240</td>
-      <td>4.408000e-09</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>H1-2.0</td>
-      <td>H1-2.0C</td>
-      <td>6.300000e-06</td>
-      <td>0.017622</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>36</td>
-      <td>H1-2.0C</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66777</td>
-      <td>0.005030</td>
-      <td>1.060000e-10</td>
-      <td>0.000041</td>
-      <td>0.000236</td>
-      <td>4.411000e-09</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>H1-2.0</td>
-      <td>H1-2.0C</td>
-      <td>6.300000e-06</td>
-      <td>0.017622</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>39</td>
-      <td>H1-2.1B</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66780</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>0.0333</td>
-      <td>1.159000e-06</td>
-      <td>0.000089</td>
-      <td>0.685</td>
-      <td>0.1</td>
-      <td>g</td>
-      <td>H1-2.1</td>
-      <td>H1-2.1B</td>
-      <td>3.200000e-06</td>
-      <td>0.010890</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>40</td>
-      <td>H1-2.1B</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66779</td>
-      <td>0.005606</td>
-      <td>1.954000e-04</td>
-      <td>0.000094</td>
-      <td>0.000471</td>
-      <td>4.904000e-09</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>H1-2.1</td>
-      <td>H1-2.1B</td>
-      <td>3.200000e-06</td>
-      <td>0.010890</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>47</td>
-      <td>H1-2.3B</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66782</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>0.0395</td>
-      <td>2.924000e-06</td>
-      <td>0.000094</td>
-      <td>0.580</td>
-      <td>0.1</td>
-      <td>g</td>
-      <td>H1-2.3</td>
-      <td>H1-2.3B</td>
-      <td>5.000000e-06</td>
-      <td>0.015965</td>
-    </tr>
-    <tr>
-      <th>21</th>
-      <td>48</td>
-      <td>H1-2.3B</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66781</td>
-      <td>0.007204</td>
-      <td>2.371000e-06</td>
-      <td>0.000090</td>
-      <td>0.000410</td>
-      <td>3.779000e-09</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>H1-2.3</td>
-      <td>H1-2.3B</td>
-      <td>5.000000e-06</td>
-      <td>0.015965</td>
-    </tr>
-    <tr>
-      <th>22</th>
-      <td>49</td>
-      <td>H1-2.3C</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66719</td>
-      <td>0.006362</td>
-      <td>-1.003000e-03</td>
-      <td>0.000096</td>
-      <td>0.000506</td>
-      <td>4.346000e-09</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>H1-2.3</td>
-      <td>H1-2.3C</td>
-      <td>3.600000e-06</td>
-      <td>0.011440</td>
-    </tr>
-    <tr>
-      <th>23</th>
-      <td>56</td>
-      <td>H2-1.3B</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66784</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>0.0359</td>
-      <td>2.212000e-06</td>
-      <td>0.000162</td>
-      <td>0.672</td>
-      <td>0.1</td>
-      <td>g</td>
-      <td>H2-1.3</td>
-      <td>H2-1.3B</td>
-      <td>4.500000e-06</td>
-      <td>0.014630</td>
-    </tr>
-    <tr>
-      <th>24</th>
-      <td>57</td>
-      <td>H2-1.3B</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66783</td>
-      <td>0.005423</td>
-      <td>1.520000e-04</td>
-      <td>0.000159</td>
-      <td>0.000900</td>
-      <td>2.196000e-09</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>H2-1.3</td>
-      <td>H2-1.3B</td>
-      <td>4.500000e-06</td>
-      <td>0.014630</td>
-    </tr>
-    <tr>
-      <th>25</th>
-      <td>58</td>
-      <td>H2-1.3C</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66739</td>
-      <td>0.001218</td>
-      <td>0.000000e+00</td>
-      <td>0.000066</td>
-      <td>0.000377</td>
-      <td>5.087000e-09</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>H2-1.3</td>
-      <td>H2-1.3C</td>
-      <td>3.600000e-06</td>
-      <td>0.010534</td>
-    </tr>
-    <tr>
-      <th>26</th>
-      <td>59</td>
-      <td>H2-1.3C</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66740</td>
-      <td>0.002263</td>
-      <td>-4.898000e-05</td>
-      <td>0.000100</td>
-      <td>0.000342</td>
-      <td>6.188000e-09</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>H2-1.3</td>
-      <td>H2-1.3C</td>
-      <td>3.600000e-06</td>
-      <td>0.010534</td>
-    </tr>
-    <tr>
-      <th>27</th>
-      <td>60</td>
-      <td>H2-1.3C</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66741</td>
-      <td>0.002966</td>
-      <td>-1.061000e-05</td>
-      <td>0.000128</td>
-      <td>0.000545</td>
-      <td>3.091000e-09</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>H2-1.3</td>
-      <td>H2-1.3C</td>
-      <td>3.600000e-06</td>
-      <td>0.010534</td>
-    </tr>
-    <tr>
-      <th>28</th>
-      <td>61</td>
-      <td>H2-1.3C</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66742</td>
-      <td>0.003399</td>
-      <td>1.015000e-05</td>
-      <td>0.000141</td>
-      <td>0.000628</td>
-      <td>2.482000e-09</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>H2-1.3</td>
-      <td>H2-1.3C</td>
-      <td>3.600000e-06</td>
-      <td>0.010534</td>
-    </tr>
-    <tr>
-      <th>29</th>
-      <td>62</td>
-      <td>H2-1.3C</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66743</td>
-      <td>0.003911</td>
-      <td>3.408000e-05</td>
-      <td>0.000156</td>
-      <td>0.000724</td>
-      <td>1.900000e-09</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>H2-1.3</td>
-      <td>H2-1.3C</td>
-      <td>3.600000e-06</td>
-      <td>0.010534</td>
-    </tr>
-    <tr>
-      <th>30</th>
-      <td>63</td>
-      <td>H2-1.3C</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66744</td>
-      <td>0.004180</td>
-      <td>4.547000e-05</td>
-      <td>0.000163</td>
-      <td>0.000776</td>
-      <td>1.680000e-09</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>H2-1.3</td>
-      <td>H2-1.3C</td>
-      <td>3.600000e-06</td>
-      <td>0.010534</td>
-    </tr>
-    <tr>
-      <th>31</th>
-      <td>64</td>
-      <td>H2-1.3C</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66745</td>
-      <td>0.004346</td>
-      <td>7.215000e-05</td>
-      <td>0.000176</td>
-      <td>0.000778</td>
-      <td>1.555000e-09</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>H2-1.3</td>
-      <td>H2-1.3C</td>
-      <td>3.600000e-06</td>
-      <td>0.010534</td>
-    </tr>
-    <tr>
-      <th>32</th>
-      <td>65</td>
-      <td>H2-1.3C</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66746</td>
-      <td>0.004720</td>
-      <td>1.360000e-04</td>
-      <td>0.000175</td>
-      <td>0.000802</td>
-      <td>1.440000e-09</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>H2-1.3</td>
-      <td>H2-1.3C</td>
-      <td>3.600000e-06</td>
-      <td>0.010534</td>
-    </tr>
-    <tr>
-      <th>33</th>
-      <td>66</td>
-      <td>H2-1.3C</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66747</td>
-      <td>0.005556</td>
-      <td>7.268000e-05</td>
-      <td>0.000149</td>
-      <td>0.000870</td>
-      <td>1.296000e-09</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>H2-1.3</td>
-      <td>H2-1.3C</td>
-      <td>3.600000e-06</td>
-      <td>0.010534</td>
-    </tr>
-    <tr>
-      <th>34</th>
-      <td>74</td>
-      <td>H2-2.8A</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66818</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>0.0366</td>
-      <td>2.363000e-06</td>
-      <td>0.000171</td>
-      <td>0.664</td>
-      <td>0.1</td>
-      <td>g</td>
-      <td>H2-2.8</td>
-      <td>H2-2.8A</td>
-      <td>9.950000e-06</td>
-      <td>0.026638</td>
-    </tr>
-    <tr>
-      <th>35</th>
-      <td>75</td>
-      <td>H2-2.8A</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66817</td>
-      <td>0.007384</td>
-      <td>1.930000e-04</td>
-      <td>0.000162</td>
-      <td>0.000995</td>
-      <td>-4.160000e-10</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>H2-2.8</td>
-      <td>H2-2.8A</td>
-      <td>9.950000e-06</td>
-      <td>0.026638</td>
-    </tr>
-    <tr>
-      <th>36</th>
-      <td>94</td>
-      <td>H2-5.35B</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66721</td>
-      <td>0.005737</td>
-      <td>2.681000e-04</td>
-      <td>0.000189</td>
-      <td>0.001114</td>
-      <td>-9.241000e-10</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>H2-5.3</td>
-      <td>H2-5.35B</td>
-      <td>5.400000e-06</td>
-      <td>0.021217</td>
-    </tr>
-    <tr>
-      <th>37</th>
-      <td>95</td>
-      <td>H2-5.35B</td>
-      <td>This study</td>
-      <td>None</td>
-      <td>IRM-VSM3-66825</td>
-      <td>0.007071</td>
-      <td>8.866000e-05</td>
-      <td>0.000215</td>
-      <td>0.001447</td>
-      <td>-1.438000e-09</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>H2-5.3</td>
-      <td>H2-5.35B</td>
-      <td>5.400000e-06</td>
-      <td>0.021217</td>
-    </tr>
   </tbody>
 </table>
-<p>38 rows × 25 columns</p>
+<p>5 rows × 26 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -1836,16 +1049,17 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/639c2dcb01677c6289914ac85e575309030a90914e1d4b57010c2a637ad5c2aa.png"><img alt="../_images/639c2dcb01677c6289914ac85e575309030a90914e1d4b57010c2a637ad5c2aa.png" src="../_images/639c2dcb01677c6289914ac85e575309030a90914e1d4b57010c2a637ad5c2aa.png" style="width: 716px; height: 551px;" />
+<a class="reference internal image-reference" href="../_images/603dbabe3d39d22fe4acfa322d9b2c8870b56a9d987ff71610e65c2dcd9fd61b.png"><img alt="../_images/603dbabe3d39d22fe4acfa322d9b2c8870b56a9d987ff71610e65c2dcd9fd61b.png" src="../_images/603dbabe3d39d22fe4acfa322d9b2c8870b56a9d987ff71610e65c2dcd9fd61b.png" style="width: 516px; height: 391px;" />
 </a>
 </div>
 </div>
 </section>
-<section id="make-neel-s-diagram">
-<h2>Make Neel’s diagram<a class="headerlink" href="#make-neel-s-diagram" title="Link to this heading">#</a></h2>
+</section>
+<section id="make-squareness-coercivity-diagram">
+<h2>Make squareness-coercivity diagram<a class="headerlink" href="#make-squareness-coercivity-diagram" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">Neel_plot_MagIC</span><span class="p">(</span><span class="n">H_specimens_RT</span><span class="p">,</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">neel_plot_magic</span><span class="p">(</span><span class="n">H_specimens_RT</span><span class="p">,</span>
             <span class="n">by</span><span class="o">=</span><span class="s1">&#39;specimen&#39;</span><span class="p">,</span>
             <span class="n">Mr</span><span class="o">=</span><span class="s1">&#39;hyst_mr_mass&#39;</span><span class="p">,</span> 
             <span class="n">Ms</span><span class="o">=</span><span class="s1">&#39;hyst_ms_mass&#39;</span><span class="p">,</span> 
@@ -1856,11 +1070,14 @@ document.write(`
             <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Jackson 2012 carbonates&#39;</span><span class="p">,</span> 
             <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
             <span class="n">lc</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/c0a2416fbc296afa47e2fb0923e8e2d5a67d382ce2cacfeb54bfb675cf07ad25.png"><img alt="../_images/c0a2416fbc296afa47e2fb0923e8e2d5a67d382ce2cacfeb54bfb675cf07ad25.png" src="../_images/c0a2416fbc296afa47e2fb0923e8e2d5a67d382ce2cacfeb54bfb675cf07ad25.png" style="width: 470px; height: 450px;" />
+<a class="reference internal image-reference" href="../_images/76da6badfdb878774c80de915c670d3b6ab7929c004bd9a245c0f886e08768bd.png"><img alt="../_images/76da6badfdb878774c80de915c670d3b6ab7929c004bd9a245c0f886e08768bd.png" src="../_images/76da6badfdb878774c80de915c670d3b6ab7929c004bd9a245c0f886e08768bd.png" style="width: 354px; height: 324px;" />
 </a>
 </div>
 </div>
@@ -1914,10 +1131,12 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-local-data-in-magic-format">Import local data in MagIC format</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-for-vsm-rock-magnetic-data-mr-ms-bcr-bc">filter for VSM rock magnetic data (Mr, Ms,Bcr, Bc)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#option-1-filter-for-individual-specimen-data-and-make-a-day-plot">Option 1: filter for individual specimen data and make a Day Plot</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#option-2-plot-all-specimen-data-in-a-magic-specimens-data-table-on-a-day-plot">Option 2: Plot all specimen data in a MagIC specimens data table on a Day Plot</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-neel-s-diagram">Make Neel’s diagram</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-day-plot">Make Day Plot</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#option-1-filter-for-individual-specimen-data-and-make-a-day-plot">Option 1: filter for individual specimen data and make a Day Plot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#option-2-plot-all-specimen-data-in-a-magic-specimens-data-table-on-a-day-plot">Option 2: Plot all specimen data in a MagIC specimens data table on a Day Plot</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-squareness-coercivity-diagram">Make squareness-coercivity diagram</a></li>
 </ul>
   </nav></div>
 
