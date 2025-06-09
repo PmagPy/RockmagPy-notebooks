@@ -50,6 +50,8 @@ parts:
             title: Superparamagnetism
           - file: book/background/paramagnetism.md
             title: Paramagnetism
+          - file: book/background/verwey.md
+            title: Verwey transition
           - file: book/background/morin.md
             title: Morin transition
           - file: book/minerals/siderite.md
