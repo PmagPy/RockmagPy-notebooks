@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>The Rock Magnetic Bestiary &#8212; RockmagPy Documentation</title>
+    <title>Determining the best temperature window for smoothing &#8212; RockmagPy Documentation</title>
   
   
   
@@ -57,11 +57,9 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'RMB_notebooks/RMB_intro';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'thermomagnetic_notebooks/smoothing';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Siderite data within the Rock Magnetic Bestiary" href="RMB_siderite.html" />
-    <link rel="prev" title="Plot and analyze anisotropy data (AMS)" href="../anisotropy_notebooks/anisotropy_plot_AMS.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -123,6 +121,8 @@
     <div class="bd-container__inner bd-page-width">
       
       
+      
+        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -202,8 +202,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../hysteresis_backfield_notebooks/coercivity_unmixing_MaxUnmix.html">Python implementation of the Max Unmix method for coercivity spectra analysis</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../thermomagnetic_notebooks/thermomag_intro.html">Thermomagnetic notebooks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../thermomagnetic_notebooks/high_T_susceptibility.html">High-temperature susceptibility data analysis</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="thermomag_intro.html">Thermomagnetic notebooks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="high_T_susceptibility.html">High-temperature susceptibility data analysis</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../anisotropy_notebooks/anisotropy_intro.html">Anisotropy notebooks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -212,10 +212,10 @@
 </details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Rock Magnetic Bestiary notebooks</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">The Rock Magnetic Bestiary</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="RMB_siderite.html">Siderite</a></li>
-<li class="toctree-l2"><a class="reference internal" href="RMB_titanomagnetite.html">(Titano)magnetite</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../RMB_notebooks/RMB_intro.html">The Rock Magnetic Bestiary</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../RMB_notebooks/RMB_siderite.html">Siderite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../RMB_notebooks/RMB_titanomagnetite.html">(Titano)magnetite</a></li>
 </ul>
 </details></li>
 </ul>
@@ -311,7 +311,7 @@
       
       
       
-      <li><a href="https://github.com/pmagpy/rockmagpy-notebooks/issues/new?title=Issue%20on%20page%20%2FRMB_notebooks/RMB_intro.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/pmagpy/rockmagpy-notebooks/issues/new?title=Issue%20on%20page%20%2Fthermomagnetic_notebooks/smoothing.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -341,7 +341,7 @@
       
       
       
-      <li><a href="../_sources/RMB_notebooks/RMB_intro.md" target="_blank"
+      <li><a href="../_sources/thermomagnetic_notebooks/smoothing.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -351,7 +351,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
 </li>
       
@@ -423,7 +423,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>The Rock Magnetic Bestiary</h1>
+    <h1>Determining the best temperature window for smoothing</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -437,29 +437,44 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="the-rock-magnetic-bestiary">
-<h1>The Rock Magnetic Bestiary<a class="headerlink" href="#the-rock-magnetic-bestiary" title="Link to this heading">#</a></h1>
-<p>The Rock Magnetic Bestiary (RMB) is a curated collection of rock magnetic data developed at the Institute for Rock Magnetism (IRM) focused on well-characterized synthetic and natural materials. Inspired by medieval bestiaries that cataloged natural entities through allegorical descriptions, the Rock Magnetic Bestiary aims facilitate the interpretation of the magnetic properties of natural samples by comparison with detailed reference datasets.</p>
-<p>Rock Magnetic Bestiary data are being made available as MagIC data contributions together with in-development Jupyter notebooks that contain interactive visualizations of the data:</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="RMB_siderite.html"><span class="std std-doc"><strong>RMB Siderite</strong></span></a> This notebook presents and processes data from the carbonate portion of the Rock Magnetic Bestiary (RMB Minerals — RMB carbonates). It is focused on low-temperature remanence data from <a class="reference internal" href="../book/minerals/siderite.html"><span class="std std-doc">siderite</span></a>.</p></li>
-<li><p><a class="reference internal" href="RMB_titanomagnetite.html"><span class="std std-doc"><strong>RMB Titanomagnetite</strong></span></a> This notebook presents data from titanomagnetites within the Rock Magnetic Bestiary (RMB Minerals — RMB titanomagnetite).</p></li>
-</ul>
-<figure class="align-center" id="my-figure">
-<a class="reference internal image-reference" href="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/RMB_bestiary_goats.png"><img alt="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/RMB_bestiary_goats.png" src="https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/RMB_bestiary_goats.png" style="width: 50%;" />
-</a>
-<figcaption>
-<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Wild goats depicted in the Aberdeen Bestiary, ca. 1200. Bestiaries were collections of fables and allegories, most often lavishly illustrated, featuring animals, plants, or even stones. The descriptive information
-about the natural world within such documents, including those preserved from Medieval Europe, represent a
-database of sorts. <em>Image from The University of Aberdeen: The Aberdeen Bestiary Project</em></span><a class="headerlink" href="#my-figure" title="Link to this image">#</a></p>
-</figcaption>
-</figure>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p>The first generation of the Rock Magnetic Bestiary was introduced in:
-<em>Solheid, Peat; Jackson, Mike. (2001). IRM Quarterly, Volume 11, Number 3 (Fall 2001). The Rock-Magnetic Bestiary. <a class="reference external" href="https://hdl.handle.net/11299/171284">https://hdl.handle.net/11299/171284</a>.</em></p>
+  <section id="determining-the-best-temperature-window-for-smoothing">
+<h1>Determining the best temperature window for smoothing<a class="headerlink" href="#determining-the-best-temperature-window-for-smoothing" title="Link to this heading">#</a></h1>
+<p>The following function plots the <strong>model roughness</strong> against the <strong>root mean square error</strong> of the model <strong>(note that the y-axis is inverted)</strong> (a measure of the difference between the running average and the data). Each point on the graph is for a different temperature window size. The <code class="docutils literal notranslate"><span class="pre">knee</span></code> in the curve (the break of slope) can be interpreted as the optimal temperature window for smoothing. At this point (window) there is a decent trade off between the smoothness of the model (the running average) and error on the model.</p>
+<p>Set values for <code class="docutils literal notranslate"><span class="pre">min_temp_window</span></code> and <code class="docutils literal notranslate"><span class="pre">max_temp_window</span></code> to set the temperature range for exploring the rms and variance tradeoff.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">min_temp_window</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">max_temp_window</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">steps</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">optimize_moving_average_window</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">min_temp_window</span><span class="p">,</span> <span class="n">max_temp_window</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">)</span>
+</pre></div>
 </div>
-<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">min_temp_window</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">max_temp_window</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">steps</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">optimize_moving_average_window</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">min_temp_window</span><span class="p">,</span> <span class="n">max_temp_window</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">upon</span> <span class="n">inspecting</span> <span class="n">the</span> <span class="n">plot</span><span class="p">,</span> <span class="n">a</span> <span class="n">smoothing</span> <span class="n">window</span> <span class="n">size</span> <span class="n">of</span> <span class="n">about</span> <span class="mi">10</span> <span class="n">K</span> <span class="n">seems</span> <span class="n">to</span> <span class="n">be</span> <span class="n">a</span> <span class="n">good</span> <span class="n">choice</span> <span class="k">for</span> <span class="n">this</span> <span class="n">dataset</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># save the figure</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;optimize_window_size.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 
@@ -476,7 +491,7 @@ database of sorts. <em>Image from The University of Aberdeen: The Aberdeen Besti
         },
         kernelOptions: {
             name: "python3",
-            path: "./RMB_notebooks"
+            path: "./thermomagnetic_notebooks"
         },
         predefinedOutput: true
     }
@@ -493,24 +508,6 @@ database of sorts. <em>Image from The University of Aberdeen: The Aberdeen Besti
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="../anisotropy_notebooks/anisotropy_plot_AMS.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Plot and analyze anisotropy data (AMS)</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="RMB_siderite.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Siderite data within the Rock Magnetic Bestiary</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
