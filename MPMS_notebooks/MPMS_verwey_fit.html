@@ -468,6 +468,7 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.rockmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rmag</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.contribution_builder</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cb</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.ipmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ipmag</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.pmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pmag</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
@@ -499,12 +500,12 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/contribution.txt
-1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/locations.txt
-90  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/sites.txt
-312  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/samples.txt
-1574  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/specimens.txt
-17428  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/ECMB/measurements.txt
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1  records written to file  /home/jupyter-polarwander/rockmag_notebooks/PmagPy-RockmagPy-notebooks-a8dd62e/example_data/ECMB/contribution.txt
+1  records written to file  /home/jupyter-polarwander/rockmag_notebooks/PmagPy-RockmagPy-notebooks-a8dd62e/example_data/ECMB/locations.txt
+90  records written to file  /home/jupyter-polarwander/rockmag_notebooks/PmagPy-RockmagPy-notebooks-a8dd62e/example_data/ECMB/sites.txt
+312  records written to file  /home/jupyter-polarwander/rockmag_notebooks/PmagPy-RockmagPy-notebooks-a8dd62e/example_data/ECMB/samples.txt
+1574  records written to file  /home/jupyter-polarwander/rockmag_notebooks/PmagPy-RockmagPy-notebooks-a8dd62e/example_data/ECMB/specimens.txt
+17428  records written to file  /home/jupyter-polarwander/rockmag_notebooks/PmagPy-RockmagPy-notebooks-a8dd62e/example_data/ECMB/measurements.txt
 -I- Using online data model
 -I- Getting method codes from earthref.org
 -I- Importing controlled vocabularies from https://earthref.org
@@ -545,7 +546,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "d2728e31b1514844b6099a169caa443e", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8830514a624d436c9e44940278489c51", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p>Once a sample is selected, we can estimate the Verwey transition using the method described above. Adjust the sliders to change the range of the background that is being fit, the temperature range that is being excluded from the background fit, and the polynomial degree that is being used for the background fit.</p>
 <p><em>Note: if you change the specimen or method in the dropdown menus above, rerun the code in the cell below to do the fit for the new specimen.</em></p>
@@ -557,7 +558,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "5d3d3c196ec84d3db42c84d511de679f", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "c28d853df1c64d6d81031d9706773d1d", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "2a136005701b4ace9f38a9cfd742c45f", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "d52cec532de44920b6f935c948624023", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -603,7 +604,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/5218f06b2c0af768f136407b6c4249313fa2b8ca5e25b3816790ec9162e302d0.png"><img alt="../_images/5218f06b2c0af768f136407b6c4249313fa2b8ca5e25b3816790ec9162e302d0.png" src="../_images/5218f06b2c0af768f136407b6c4249313fa2b8ca5e25b3816790ec9162e302d0.png" style="width: 1005px; height: 463px;" />
+<a class="reference internal image-reference" href="../_images/24650e7ff9de5519200372b1ff733f09ea59645dc368a64ce42e0b996d17f103.png"><img alt="../_images/24650e7ff9de5519200372b1ff733f09ea59645dc368a64ce42e0b996d17f103.png" src="../_images/24650e7ff9de5519200372b1ff733f09ea59645dc368a64ce42e0b996d17f103.png" style="width: 1005px; height: 463px;" />
 </a>
 </div>
 </div>
@@ -613,7 +614,7 @@ document.write(`
 <p>The estimate of the Verwey transition calculated above uses second derivative and calculates where the second derivative crosses zero by interpolating from the points on either side of the peak in the first derivative. This calculation can be visualized by setting the parameter <code class="docutils literal notranslate"><span class="pre">plot_zero_crossing</span> <span class="pre">=</span> <span class="pre">True</span></code> which generates an additional plot.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">specimen_name</span> <span class="o">=</span> <span class="s1">&#39;NED2-8c&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">specimen_name</span> <span class="o">=</span> <span class="s1">&#39;NED4-1c&#39;</span>
 <span class="n">fc_data</span><span class="p">,</span> <span class="n">zfc_data</span><span class="p">,</span> <span class="n">rtsirm_cool_data</span><span class="p">,</span> <span class="n">rtsirm_warm_data</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">extract_mpms_data_dc</span><span class="p">(</span><span class="n">measurements</span><span class="p">,</span> <span class="n">specimen_name</span><span class="p">)</span>
 <span class="n">temps</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;meas_temp&#39;</span><span class="p">]</span>
 <span class="n">mags</span> <span class="o">=</span> <span class="n">fc_data</span><span class="p">[</span><span class="s1">&#39;magn_mass&#39;</span><span class="p">]</span>
@@ -629,9 +630,9 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/6a89e8f8aacff5911713a49cec7b9fd3d60c0c307fb65d472ea341a141c64ea3.png"><img alt="../_images/6a89e8f8aacff5911713a49cec7b9fd3d60c0c307fb65d472ea341a141c64ea3.png" src="../_images/6a89e8f8aacff5911713a49cec7b9fd3d60c0c307fb65d472ea341a141c64ea3.png" style="width: 1005px; height: 463px;" />
+<a class="reference internal image-reference" href="../_images/04b04c55b06523428a003f324521d87990cb6f18e7350f8c307c56bbcdd4a36c.png"><img alt="../_images/04b04c55b06523428a003f324521d87990cb6f18e7350f8c307c56bbcdd4a36c.png" src="../_images/04b04c55b06523428a003f324521d87990cb6f18e7350f8c307c56bbcdd4a36c.png" style="width: 992px; height: 463px;" />
 </a>
-<a class="reference internal image-reference" href="../_images/f72b6544038f7c203b7ba99449fb25269469da903ffa70b73536a41093dbc74e.png"><img alt="../_images/f72b6544038f7c203b7ba99449fb25269469da903ffa70b73536a41093dbc74e.png" src="../_images/f72b6544038f7c203b7ba99449fb25269469da903ffa70b73536a41093dbc74e.png" style="width: 1001px; height: 386px;" />
+<a class="reference internal image-reference" href="../_images/69b045f5a2cc34443402c913a3c37f8a20ab767cbd85d311d979257e93c98c69.png"><img alt="../_images/69b045f5a2cc34443402c913a3c37f8a20ab767cbd85d311d979257e93c98c69.png" src="../_images/69b045f5a2cc34443402c913a3c37f8a20ab767cbd85d311d979257e93c98c69.png" style="width: 1001px; height: 386px;" />
 </a>
 </div>
 </div>
@@ -714,11 +715,11 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/c0ef7db556e1aa3fdae794067bb47e6d92611099fe3cd8f59c43f831eb607b48.png"><img alt="../_images/c0ef7db556e1aa3fdae794067bb47e6d92611099fe3cd8f59c43f831eb607b48.png" src="../_images/c0ef7db556e1aa3fdae794067bb47e6d92611099fe3cd8f59c43f831eb607b48.png" style="width: 1014px; height: 469px;" />
+<a class="reference internal image-reference" href="../_images/56a3d484810852f85a1486769475d120a6c1c8dc22daa7f4a486b8438bbcbe78.png"><img alt="../_images/56a3d484810852f85a1486769475d120a6c1c8dc22daa7f4a486b8438bbcbe78.png" src="../_images/56a3d484810852f85a1486769475d120a6c1c8dc22daa7f4a486b8438bbcbe78.png" style="width: 1014px; height: 469px;" />
 </a>
-<a class="reference internal image-reference" href="../_images/114f4d47ee88af7807c69a5594206c64ef459ffd5d079542b1218f092d03044c.png"><img alt="../_images/114f4d47ee88af7807c69a5594206c64ef459ffd5d079542b1218f092d03044c.png" src="../_images/114f4d47ee88af7807c69a5594206c64ef459ffd5d079542b1218f092d03044c.png" style="width: 1005px; height: 469px;" />
+<a class="reference internal image-reference" href="../_images/5a33e4957f0c3d40dae54c84435d54140c2a3b81f452f4f298aab4e385fa054e.png"><img alt="../_images/5a33e4957f0c3d40dae54c84435d54140c2a3b81f452f4f298aab4e385fa054e.png" src="../_images/5a33e4957f0c3d40dae54c84435d54140c2a3b81f452f4f298aab4e385fa054e.png" style="width: 1005px; height: 469px;" />
 </a>
-<a class="reference internal image-reference" href="../_images/724f57f670b57d6d0c12f9d0e60f97a5873d4914763b6a35eb0ff7e54066a508.png"><img alt="../_images/724f57f670b57d6d0c12f9d0e60f97a5873d4914763b6a35eb0ff7e54066a508.png" src="../_images/724f57f670b57d6d0c12f9d0e60f97a5873d4914763b6a35eb0ff7e54066a508.png" style="width: 992px; height: 469px;" />
+<a class="reference internal image-reference" href="../_images/053d2622886ed67a3fafec0a69f5751d052491e35d704e00979ce41e80f76573.png"><img alt="../_images/053d2622886ed67a3fafec0a69f5751d052491e35d704e00979ce41e80f76573.png" src="../_images/053d2622886ed67a3fafec0a69f5751d052491e35d704e00979ce41e80f76573.png" style="width: 992px; height: 469px;" />
 </a>
 </div>
 </div>
@@ -826,8 +827,8 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">verwey_estimates_and_params</span><span class="p">)):</span>
 
     <span class="n">entry</span> <span class="o">=</span> <span class="n">verwey_estimates_and_params</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
-    
-    <span class="n">entry</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;calculated using MPMS_verwey_fit.ipynb with parameters&#39;</span>
+    <span class="n">version_num</span> <span class="o">=</span> <span class="n">pmag</span><span class="o">.</span><span class="n">get_version</span><span class="p">()</span>
+    <span class="n">entry</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;calculated using MPMS_verwey_fit.ipynb in &#39;</span> <span class="o">+</span> <span class="n">version_num</span> <span class="o">+</span> <span class="s1">&#39; with parameters&#39;</span>
     
     <span class="c1"># Specify the keys to append to the description and then remove</span>
     <span class="n">keys_to_include</span> <span class="o">=</span> <span class="p">[</span>
@@ -859,7 +860,16 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;specimens&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Expand column width and ensure no truncation of long text</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.max_colwidth&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+<span class="c1"># Filter and display Verwey rows</span>
+<span class="n">verwey_specimens</span> <span class="o">=</span> <span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s2">&quot;specimens&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
+<span class="n">verwey_specimens</span> <span class="o">=</span> <span class="n">verwey_specimens</span><span class="p">[</span>
+    <span class="n">verwey_specimens</span><span class="p">[</span><span class="s2">&quot;critical_temp_type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Verwey&quot;</span>
+<span class="p">]</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">verwey_specimens</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -965,252 +975,6 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
   </thead>
   <tbody>
     <tr>
-      <th>NED1-1b</th>
-      <td>This study</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>None</td>
-      <td>mc</td>
-      <td>2.8</td>
-      <td>159.7</td>
-      <td>62.5</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>5.0</td>
-      <td>-1.0</td>
-      <td>NED1-1b_LP-DIR-AF</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>hargrave 2018-09-21 18:45:36</td>
-      <td>u</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.04</td>
-      <td>0.025</td>
-      <td>T</td>
-      <td>NaN</td>
-      <td>LP-DIR-AF:DE-BFL:DA-DIR</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>NED1-1</td>
-      <td>pmagpy-4.2.25: demag_gui</td>
-      <td>NED1-1b</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>NED1-1b</th>
-      <td>This study</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>None</td>
-      <td>mc</td>
-      <td>2.8</td>
-      <td>139.2</td>
-      <td>74.1</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>5.0</td>
-      <td>0.0</td>
-      <td>NED1-1b_LP-DIR-AF</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>hargrave 2018-09-21 18:45:36</td>
-      <td>u</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.04</td>
-      <td>0.025</td>
-      <td>T</td>
-      <td>NaN</td>
-      <td>LP-DIR-AF:DE-BFL:DA-DIR-GEO</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>NED1-1</td>
-      <td>pmagpy-4.2.25: demag_gui</td>
-      <td>NED1-1b</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>NED1-1b</th>
-      <td>This study</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>None</td>
-      <td>None</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>None</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>NaN</td>
-      <td>LP-NOMAG</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>NED1-1</td>
-      <td>None</td>
-      <td>NED1-1b</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>NED1-2b</th>
-      <td>This study</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>None</td>
-      <td>mc</td>
-      <td>3.4</td>
-      <td>164.1</td>
-      <td>66.9</td>
-      <td>0.4</td>
-      <td>1.0</td>
-      <td>7.0</td>
-      <td>-1.0</td>
-      <td>NED1-2b_LP-DIR-AF</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>hargrave 2018-09-21 19:30:31</td>
-      <td>u</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.04</td>
-      <td>0.020</td>
-      <td>T</td>
-      <td>NaN</td>
-      <td>LP-DIR-AF:DE-BFL:DA-DIR</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>NED1-2</td>
-      <td>pmagpy-4.2.25: demag_gui</td>
-      <td>NED1-2b</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>NED1-2b</th>
-      <td>This study</td>
-      <td>NaN</td>
-      <td>None</td>
-      <td>None</td>
-      <td>mc</td>
-      <td>3.4</td>
-      <td>149.9</td>
-      <td>76.3</td>
-      <td>0.4</td>
-      <td>1.0</td>
-      <td>7.0</td>
-      <td>0.0</td>
-      <td>NED1-2b_LP-DIR-AF</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>hargrave 2018-09-21 19:30:31</td>
-      <td>u</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.04</td>
-      <td>0.020</td>
-      <td>T</td>
-      <td>NaN</td>
-      <td>LP-DIR-AF:DE-BFL:DA-DIR-GEO</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>g</td>
-      <td>NED1-2</td>
-      <td>pmagpy-4.2.25: demag_gui</td>
-      <td>NED1-2b</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
       <th>NED18-2c</th>
       <td>This study</td>
       <td>105.900000</td>
@@ -1297,7 +1061,7 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
       <td>None</td>
       <td>105.861068</td>
       <td>Verwey</td>
-      <td>calculated using MPMS_verwey_fit.ipynb with pa...</td>
+      <td>calculated using MPMS_verwey_fit.ipynb in pmagpy-4.3.6 with parameters, t_range_background_min: 60, t_range_background_max: 250, excluded_t_min: 75, excluded_t_max: 150, poly_deg: 3</td>
       <td>None</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1338,7 +1102,7 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
       <td>None</td>
       <td>116.145701</td>
       <td>Verwey</td>
-      <td>calculated using MPMS_verwey_fit.ipynb with pa...</td>
+      <td>calculated using MPMS_verwey_fit.ipynb in pmagpy-4.3.6 with parameters, t_range_background_min: 60, t_range_background_max: 260, excluded_t_min: 75, excluded_t_max: 150, poly_deg: 3</td>
       <td>None</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1379,7 +1143,7 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
       <td>None</td>
       <td>117.902959</td>
       <td>Verwey</td>
-      <td>calculated using MPMS_verwey_fit.ipynb with pa...</td>
+      <td>calculated using MPMS_verwey_fit.ipynb in pmagpy-4.3.6 with parameters, t_range_background_min: 60, t_range_background_max: 260, excluded_t_min: 75, excluded_t_max: 150, poly_deg: 3</td>
       <td>None</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -1417,12 +1181,11 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
     </tr>
   </tbody>
 </table>
-<p>1577 rows × 38 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ipmag.contribution_to_magic(contribution, dir_path=dir_path)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#ipmag.contribution_to_magic(contribution, dir_path=dir_path)</span>
 </pre></div>
 </div>
 </div>
@@ -1442,13 +1205,13 @@ Finally, we call the table’s <code class="docutils literal notranslate"><span 
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            name: "python-3.10",
             path: "./MPMS_notebooks"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'python-3.10'</script>
 
                 </article>
               
