@@ -567,14 +567,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/6e89d53155d19f0273ada310d48520c7cf5cdbeab50b4fa314df538fd76e623e.png"><img alt="../_images/6e89d53155d19f0273ada310d48520c7cf5cdbeab50b4fa314df538fd76e623e.png" src="../_images/6e89d53155d19f0273ada310d48520c7cf5cdbeab50b4fa314df538fd76e623e.png" style="width: 790px; height: 588px;" />
+<a class="reference internal image-reference" href="../_images/3a5d4f3e65ddbbd3da86cdfd19d81867d0faa4b9246d74ba9c0d18f1faebe2fb.png"><img alt="../_images/3a5d4f3e65ddbbd3da86cdfd19d81867d0faa4b9246d74ba9c0d18f1faebe2fb.png" src="../_images/3a5d4f3e65ddbbd3da86cdfd19d81867d0faa4b9246d74ba9c0d18f1faebe2fb.png" style="width: 790px; height: 588px;" />
 </a>
 </div>
 </div>
 </section>
 <section id="interactive-fitting">
 <h3>interactive fitting<a class="headerlink" href="#interactive-fitting" title="Link to this heading">#</a></h3>
-<p>An important aspect of the MaxUnmix process is for the user to make an initial guess for the parameters associated with the coercivity spectra that can then be optimized to fit the spectra. In the code cells below, the user can choose parameters that are then optimized by the code to become fits. An advantage to the approach implemented in <code class="docutils literal notranslate"><span class="pre">rockmagpy</span></code>, is that optimization occurs immediately with the provided guess.</p>
+<p>An important aspect of the MaxUnmix process is for the user to make an initial guess for the parameters associated with the coercivity spectra that can then be optimized to fit the spectra. In the code cells below, the user can choose parameters that are then optimized by the code to become fits. An advantage to the approach implemented in <code class="docutils literal notranslate"><span class="pre">rockmagpy</span></code>, is that optimization occurs immediately with the provided guess. <em>Note that this optimization may make it so that changes to the initial guess do not result in changes to the fit particularly for one component.</em></p>
 <p>The user can specify the number of components to fit. We will start with 1 component and then do 2 components.</p>
 <section id="component">
 <h4>1 component<a class="headerlink" href="#component" title="Link to this heading">#</a></h4>
@@ -588,7 +588,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "94623bdac29548bfba4aa258aa19f4cf", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "474f00360ae44aa1900b20284edf9ea3", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "af6443bfbdf54d0789462801eb62060c", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ab5928b382c643da82ea8b3f585c4341", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "c682d1ecc52f456fb2a1bb0d89b3e840", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "7a1e9bcfa5284d69a26a8aa3ee25642b", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -625,8 +625,8 @@ document.write(`
     <tr>
       <th>0</th>
       <td>1.0</td>
-      <td>414.448584</td>
-      <td>2.719807</td>
+      <td>414.448216</td>
+      <td>2.719811</td>
       <td>0.0</td>
     </tr>
   </tbody>
@@ -647,7 +647,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "31b6241e9ef34caa98ba2e6a2f8945ea", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "8db601a018824abcac678b601ca52c0f", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "743f6048f6874eafb679cb390d321472", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "d21617c7b5ed458e8273db68cabb7dae", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "116e1ab10747436ab7e5ed35fc6962fe", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "3fe271b5f04d4ef3819a039b8db49676", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -683,21 +683,29 @@ document.write(`
   <tbody>
     <tr>
       <th>0</th>
-      <td>1.000000</td>
-      <td>623.445565</td>
-      <td>14.065538</td>
+      <td>0.788587</td>
+      <td>440.172364</td>
+      <td>2.147026</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>0.436417</td>
-      <td>409.392413</td>
-      <td>1.850340</td>
+      <td>0.276556</td>
+      <td>45.016203</td>
+      <td>3.460881</td>
       <td>0.0</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 </section>
@@ -713,11 +721,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/76cf43a3f1ac4e4d365276f6812681a6a2263381eaf3d248668807aae0073e12.png"><img alt="../_images/76cf43a3f1ac4e4d365276f6812681a6a2263381eaf3d248668807aae0073e12.png" src="../_images/76cf43a3f1ac4e4d365276f6812681a6a2263381eaf3d248668807aae0073e12.png" style="width: 875px; height: 517px;" />
-</a>
-<a class="reference internal image-reference" href="../_images/38496b241d3cdde709a66eef2ac6cd5c89f0086443f8967beb80ce151b562884.png"><img alt="../_images/38496b241d3cdde709a66eef2ac6cd5c89f0086443f8967beb80ce151b562884.png" src="../_images/38496b241d3cdde709a66eef2ac6cd5c89f0086443f8967beb80ce151b562884.png" style="width: 1392px; height: 646px;" />
-</a>
-<a class="reference internal image-reference" href="../_images/2d21f02510b4e8f88c27605730c0da034dc9adc2851e8b6c1e005b829fecf670.png"><img alt="../_images/2d21f02510b4e8f88c27605730c0da034dc9adc2851e8b6c1e005b829fecf670.png" src="../_images/2d21f02510b4e8f88c27605730c0da034dc9adc2851e8b6c1e005b829fecf670.png" style="width: 835px; height: 542px;" />
+<a class="reference internal image-reference" href="../_images/1e97c394c936639f8c61d74acbccdffaaf72755b510315977be28905bd70ac7c.png"><img alt="../_images/1e97c394c936639f8c61d74acbccdffaaf72755b510315977be28905bd70ac7c.png" src="../_images/1e97c394c936639f8c61d74acbccdffaaf72755b510315977be28905bd70ac7c.png" style="width: 835px; height: 542px;" />
 </a>
 </div>
 </div>
@@ -728,21 +732,21 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;g1_amplitude&#39;: 0.9999999946724776,
- &#39;g1_center&#39;: 625.0899790412732,
- &#39;g1_sigma&#39;: 14.1129738783077,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;g1_amplitude&#39;: 0.438610034889383,
+ &#39;g1_center&#39;: 409.3276917009343,
+ &#39;g1_sigma&#39;: 1.8505663766428904,
  &#39;g1_gamma&#39;: 0.0,
- &#39;g1_amplitude_std&#39;: 2.5128596537771904e-08,
- &#39;g1_center_std&#39;: 1.0160834000881307,
- &#39;g1_sigma_std&#39;: 1.0335872378945468,
+ &#39;g1_amplitude_std&#39;: 0.02899228873768302,
+ &#39;g1_center_std&#39;: 1.0073924204404414,
+ &#39;g1_sigma_std&#39;: 1.011495699348531,
  &#39;g1_gamma_std&#39;: 0.0,
- &#39;g2_amplitude&#39;: 0.4364158414517811,
- &#39;g2_center&#39;: 409.18244481786957,
- &#39;g2_sigma&#39;: 1.8494566601827878,
+ &#39;g2_amplitude&#39;: 0.9932587691586278,
+ &#39;g2_center&#39;: 610.2327376756963,
+ &#39;g2_sigma&#39;: 13.858860446013104,
  &#39;g2_gamma&#39;: 0.0,
- &#39;g2_amplitude_std&#39;: 0.004828391055066075,
- &#39;g2_center_std&#39;: 1.0023493850662177,
- &#39;g2_sigma_std&#39;: 1.0039637715744647,
+ &#39;g2_amplitude_std&#39;: 0.06707309788657377,
+ &#39;g2_center_std&#39;: 1.2717878599775736,
+ &#39;g2_sigma_std&#39;: 1.1344347277351459,
  &#39;g2_gamma_std&#39;: 0.0}
 </pre></div>
 </div>
@@ -773,12 +777,12 @@ MagIC ID: 20387</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Download successful. File saved to: ../example_data/SwansonHysell2019/magic_contribution_20387.txt
-1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SwansonHysell2019/contribution.txt
-1  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SwansonHysell2019/locations.txt
-8  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SwansonHysell2019/sites.txt
-74  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SwansonHysell2019/samples.txt
-486  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SwansonHysell2019/specimens.txt
-20944  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/SwansonHysell2019/measurements.txt
+1  records written to file  /home/jupyter-polarwander/rockmag_notebooks/PmagPy-RockmagPy-notebooks-a26a094/example_data/SwansonHysell2019/contribution.txt
+1  records written to file  /home/jupyter-polarwander/rockmag_notebooks/PmagPy-RockmagPy-notebooks-a26a094/example_data/SwansonHysell2019/locations.txt
+8  records written to file  /home/jupyter-polarwander/rockmag_notebooks/PmagPy-RockmagPy-notebooks-a26a094/example_data/SwansonHysell2019/sites.txt
+74  records written to file  /home/jupyter-polarwander/rockmag_notebooks/PmagPy-RockmagPy-notebooks-a26a094/example_data/SwansonHysell2019/samples.txt
+486  records written to file  /home/jupyter-polarwander/rockmag_notebooks/PmagPy-RockmagPy-notebooks-a26a094/example_data/SwansonHysell2019/specimens.txt
+20944  records written to file  /home/jupyter-polarwander/rockmag_notebooks/PmagPy-RockmagPy-notebooks-a26a094/example_data/SwansonHysell2019/measurements.txt
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
@@ -1124,7 +1128,7 @@ MagIC ID: 20387</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/86fc0dbf2c43806a0b5a7b52f7b551e3d3330db9447560a0ccd91219dd8ade8f.png"><img alt="../_images/86fc0dbf2c43806a0b5a7b52f7b551e3d3330db9447560a0ccd91219dd8ade8f.png" src="../_images/86fc0dbf2c43806a0b5a7b52f7b551e3d3330db9447560a0ccd91219dd8ade8f.png" style="width: 790px; height: 588px;" />
+<a class="reference internal image-reference" href="../_images/838a970a848771336fc4fa56a10ab8160491b39e41bbf743fc38776d3b21f687.png"><img alt="../_images/838a970a848771336fc4fa56a10ab8160491b39e41bbf743fc38776d3b21f687.png" src="../_images/838a970a848771336fc4fa56a10ab8160491b39e41bbf743fc38776d3b21f687.png" style="width: 790px; height: 588px;" />
 </a>
 </div>
 </div>
@@ -1139,7 +1143,7 @@ MagIC ID: 20387</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "f49f4ae5c17c4d1b91ac003049a3ddad", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "545f3ed1c3914595a31675965cdb07e3", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "f4c4de3074df49d2b00d8b4a24bbc63a", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "b3e42a09fc134b879a53d2d7ee77d0df", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "0090974c46ff4cbb858b3aee94239a08", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "e8a0a4fc12c948a8a04dff4bb79cf5a8", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p>The parameters resulting from this fit can then be used for the MaxUnmix error analysis.</p>
 <div class="cell docutils container">
@@ -1159,7 +1163,7 @@ MagIC ID: 20387</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/f9ac7f0e2f07c97bde595d56f2258f2180452ffa492fd3af79142dab65b92708.png"><img alt="../_images/f9ac7f0e2f07c97bde595d56f2258f2180452ffa492fd3af79142dab65b92708.png" src="../_images/f9ac7f0e2f07c97bde595d56f2258f2180452ffa492fd3af79142dab65b92708.png" style="width: 875px; height: 527px;" />
+<a class="reference internal image-reference" href="../_images/2f0e687b024e744c215f1a98e7f3f73b0aba9252e6d9946b7ace02e179608291.png"><img alt="../_images/2f0e687b024e744c215f1a98e7f3f73b0aba9252e6d9946b7ace02e179608291.png" src="../_images/2f0e687b024e744c215f1a98e7f3f73b0aba9252e6d9946b7ace02e179608291.png" style="width: 875px; height: 527px;" />
 </a>
 </div>
 </div>
@@ -1186,27 +1190,27 @@ MagIC ID: 20387</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;BRIC-20c&#39;]
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="../_images/53a69dd0e200ed43dcc9f227c5af2577acc06f065dfb94756f76122ae75dc2de.png"><img alt="../_images/53a69dd0e200ed43dcc9f227c5af2577acc06f065dfb94756f76122ae75dc2de.png" src="../_images/53a69dd0e200ed43dcc9f227c5af2577acc06f065dfb94756f76122ae75dc2de.png" style="width: 875px; height: 527px;" />
+<a class="reference internal image-reference" href="../_images/c1e764ee0b61a2a9551cc43f4e6643f310e803608f96d9268d081f7bd726fe7b.png"><img alt="../_images/c1e764ee0b61a2a9551cc43f4e6643f310e803608f96d9268d081f7bd726fe7b.png" src="../_images/c1e764ee0b61a2a9551cc43f4e6643f310e803608f96d9268d081f7bd726fe7b.png" style="width: 875px; height: 527px;" />
 </a>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;BRIC-20e&#39;]
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="../_images/37a14a54775905601847d05b609de4843b70a09154b44c01bbb9976ee2bb9d98.png"><img alt="../_images/37a14a54775905601847d05b609de4843b70a09154b44c01bbb9976ee2bb9d98.png" src="../_images/37a14a54775905601847d05b609de4843b70a09154b44c01bbb9976ee2bb9d98.png" style="width: 875px; height: 527px;" />
+<a class="reference internal image-reference" href="../_images/3d6be0bd5741ad57f38ca097686a13393f4fd7fa5565a23a1a0146dc0851274c.png"><img alt="../_images/3d6be0bd5741ad57f38ca097686a13393f4fd7fa5565a23a1a0146dc0851274c.png" src="../_images/3d6be0bd5741ad57f38ca097686a13393f4fd7fa5565a23a1a0146dc0851274c.png" style="width: 875px; height: 527px;" />
 </a>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;BRIC-31c&#39;]
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="../_images/7c4738d13fdcee605d22c10f168203e9baf62e96b63fa61fad61b772dc42bf91.png"><img alt="../_images/7c4738d13fdcee605d22c10f168203e9baf62e96b63fa61fad61b772dc42bf91.png" src="../_images/7c4738d13fdcee605d22c10f168203e9baf62e96b63fa61fad61b772dc42bf91.png" style="width: 875px; height: 528px;" />
+<a class="reference internal image-reference" href="../_images/26251559a870f9ecef81a1911fc287c004adb24c7458fce77982953a69ae5fa7.png"><img alt="../_images/26251559a870f9ecef81a1911fc287c004adb24c7458fce77982953a69ae5fa7.png" src="../_images/26251559a870f9ecef81a1911fc287c004adb24c7458fce77982953a69ae5fa7.png" style="width: 875px; height: 527px;" />
 </a>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;BRIC.22c&#39;]
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="../_images/2b1e60acce6aeb0e513b96765a9a003f3dc83bdfbaae985de6e54629261216c6.png"><img alt="../_images/2b1e60acce6aeb0e513b96765a9a003f3dc83bdfbaae985de6e54629261216c6.png" src="../_images/2b1e60acce6aeb0e513b96765a9a003f3dc83bdfbaae985de6e54629261216c6.png" style="width: 866px; height: 527px;" />
+<a class="reference internal image-reference" href="../_images/2f51c9de3435166444849243899103cc16bcf583d416ad8a8b928b41053afd0e.png"><img alt="../_images/2f51c9de3435166444849243899103cc16bcf583d416ad8a8b928b41053afd0e.png" src="../_images/2f51c9de3435166444849243899103cc16bcf583d416ad8a8b928b41053afd0e.png" style="width: 866px; height: 527px;" />
 </a>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;BRIC.26c&#39;]
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="../_images/0daabdfe3da50b40e527ab7c4e06c2bf50734a37c3c41d9eed4e02a5243cf90c.png"><img alt="../_images/0daabdfe3da50b40e527ab7c4e06c2bf50734a37c3c41d9eed4e02a5243cf90c.png" src="../_images/0daabdfe3da50b40e527ab7c4e06c2bf50734a37c3c41d9eed4e02a5243cf90c.png" style="width: 866px; height: 527px;" />
+<a class="reference internal image-reference" href="../_images/c59e0f371c8f0193f24368acdc3d7881494b070448366567bdd2a2de9e59fa9c.png"><img alt="../_images/c59e0f371c8f0193f24368acdc3d7881494b070448366567bdd2a2de9e59fa9c.png" src="../_images/c59e0f371c8f0193f24368acdc3d7881494b070448366567bdd2a2de9e59fa9c.png" style="width: 866px; height: 527px;" />
 </a>
 </div>
 </div>
@@ -1225,13 +1229,13 @@ MagIC ID: 20387</p>
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            name: "python-3.10",
             path: "./hysteresis_backfield_notebooks"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'python-3.10'</script>
 
                 </article>
               
