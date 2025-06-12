@@ -1,17 +1,22 @@
-# RockmagPy notebooks
+# RockmagPy Notebooks
 
 [![Jupyter Book Badge](https://jupyterbook.org/badge.svg)](https://pmagpy.github.io/RockmagPy-notebooks)
 
-This repository is for the development and demonstration of the `rockmag.py` function module. The ultimate goal of these functions are to integrate additional functionality for the analysis of rock magnetic experiments into the `pmagpy` package. To facilitate development, the initial rockmag.py module is in this repository along with notebooks that use the rockmag.py functions to visualize and analyze data. RockmagPy will subsequently be integrated as a module within PmagPy (https://github.com/PmagPy/PmagPy).
+This repository hosts Jupyter notebooks and documentation for the development and demonstration of the `rockmag.py` module—part of [PmagPy](https://github.com/PmagPy/PmagPy).
 
-The notebooks within this repository can all be seen as webpages here: https://pmagpy.github.io/RockmagPy-notebooks
+Notebooks and markdown content are rendered as a website at:  
+👉 https://pmagpy.github.io/RockmagPy-notebooks
 
-🚧 **WARNING: This repository is currently under active development and has not yet been released for research use.** 🚧
+🚧 **WARNING: RockmagPy is under active development. Function names, arguments, and outputs may change. While we strive to maintain backward compatibility across the rest of PmagPy, it is not guaranteed for RockmagPy at this time.** 🚧
 
 ## Contributing
 
-While the repository is not yet ready for general use, contributions, suggestions, and feedback are welcome. _Thank you for your interest in contributing to the `rockmag.py` function library and the broader `pmagpy` project!_ 🌍🧲
+Community contributions, feedback, and suggestions are welcome!
+
+- Open an [issue in this repository](https://github.com/PmagPy/RockmagPy-notebooks/issues) or in the [main PmagPy repository](https://github.com/PmagPy/PmagPy/issues) for bug reports, questions, or feature requests.
+- To contribute code or documentation, fork the repository, make changes, and submit a pull request.
 
 ## License
 
-This code can be freely used, modified, and shared. It is licensed under a 3-clause BSD license. See [the license](https://github.com/PmagPy/RockmagPy-notebooks/blob/main/LICENSE) for details.
+This project is licensed under the 3-clause BSD license.  
+See the [LICENSE file](https://github.com/PmagPy/RockmagPy-notebooks/blob/main/LICENSE) for details.

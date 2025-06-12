@@ -19,5 +19,5 @@ database of sorts. *Image from The University of Aberdeen: The Aberdeen Bestiary
 
 ```{seealso}
 The first generation of the Rock Magnetic Bestiary was introduced in:
-Solheid, Peat; Jackson, Mike. (2001). IRM Quarterly, Volume 11, Number 3 (Fall 2001). The Rock-Magnetic Bestiary. https://hdl.handle.net/11299/171284.
+*Solheid, Peat; Jackson, Mike. (2001). IRM Quarterly, Volume 11, Number 3 (Fall 2001). The Rock-Magnetic Bestiary. https://hdl.handle.net/11299/171284.*
 ```
