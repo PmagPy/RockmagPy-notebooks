@@ -25,6 +25,7 @@ parts:
           - file: hysteresis_backfield_notebooks/hysteresis_processing_walk_through
           - file: hysteresis_backfield_notebooks/backfield_processing
           - file: hysteresis_backfield_notebooks/coercivity_unmixing_MaxUnmix
+          - file: hysteresis_backfield_notebooks/summary_plots
       - file: thermomagnetic_notebooks/thermomag_intro
         title: Thermomagnetic notebooks
         sections:
