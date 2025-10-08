@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -828,7 +828,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">day_plot</span><span class="p">(</span><span class="n">Mr</span> <span class="o">=</span> <span class="n">example_specimen_data</span><span class="p">[</span><span class="s1">&#39;hyst_mr_mass&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">plot_day_plot</span><span class="p">(</span><span class="n">Mr</span> <span class="o">=</span> <span class="n">example_specimen_data</span><span class="p">[</span><span class="s1">&#39;hyst_mr_mass&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> 
                    <span class="n">Ms</span> <span class="o">=</span> <span class="n">example_specimen_data</span><span class="p">[</span><span class="s1">&#39;hyst_ms_mass&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
                    <span class="n">Bcr</span> <span class="o">=</span> <span class="n">example_specimen_data</span><span class="p">[</span><span class="s1">&#39;rem_bcr&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
                    <span class="n">Bc</span> <span class="o">=</span> <span class="n">example_specimen_data</span><span class="p">[</span><span class="s1">&#39;hyst_bc&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> 
@@ -1035,7 +1035,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">=</span><span class="n">rmag</span><span class="o">.</span><span class="n">day_plot_MagIC</span><span class="p">(</span><span class="n">H_specimens_RT</span><span class="p">,</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">=</span><span class="n">rmag</span><span class="o">.</span><span class="n">plot_day_plot_MagIC</span><span class="p">(</span><span class="n">H_specimens_RT</span><span class="p">,</span>
                <span class="n">by</span><span class="o">=</span><span class="s1">&#39;specimen&#39;</span><span class="p">,</span>
                <span class="n">Mr</span><span class="o">=</span><span class="s1">&#39;hyst_mr_mass&#39;</span><span class="p">,</span> 
                <span class="n">Ms</span><span class="o">=</span><span class="s1">&#39;hyst_ms_mass&#39;</span><span class="p">,</span> 
@@ -1060,7 +1060,7 @@ document.write(`
 <h2>Make squareness-coercivity diagram<a class="headerlink" href="#make-squareness-coercivity-diagram" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">neel_plot_magic</span><span class="p">(</span><span class="n">H_specimens_RT</span><span class="p">,</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">plot_neel_magic</span><span class="p">(</span><span class="n">H_specimens_RT</span><span class="p">,</span>
             <span class="n">by</span><span class="o">=</span><span class="s1">&#39;specimen&#39;</span><span class="p">,</span>
             <span class="n">Mr</span><span class="o">=</span><span class="s1">&#39;hyst_mr_mass&#39;</span><span class="p">,</span> 
             <span class="n">Ms</span><span class="o">=</span><span class="s1">&#39;hyst_ms_mass&#39;</span><span class="p">,</span> 
