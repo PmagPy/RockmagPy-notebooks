@@ -1,0 +1,3 @@
+tab 	contribution
+contributor	data_model_version	id	lab_names	reference	timestamp	version
+@ltauxe	3.0	19571	Paleomagnetic Lab (Scripps Institution of Oceanography, UCSD, USA)	10.1130/0091-7613(2003)031<0203:COSSDD>2.0.CO;2	2022-06-26T20:15:26.614Z	1

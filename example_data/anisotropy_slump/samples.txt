@@ -1,0 +1,19 @@
+tab 	samples
+azimuth	citations	dip	height	method_codes	orientation_quality	sample	site
+95.0	This study	-45	0	FS-FD:SO-CMD-NORTH:SO-POM:SO-MAG	g	as1a	as1
+105.0	This study	-39	0	FS-FD:SO-CMD-NORTH:SO-POM:SO-MAG	g	as1b	as1
+90.0	This study	-51	0	FS-FD:SO-CMD-NORTH:SO-POM:SO-MAG	g	as1c	as1
+93.0	This study	-49	0	FS-FD:SO-CMD-NORTH:SO-POM:SO-MAG	g	as1d	as1
+90.0	This study	-49	0	FS-FD:SO-CMD-NORTH:SO-POM:SO-MAG	g	as1e	as1
+85.0	This study	-65	0	FS-FD:SO-CMD-NORTH:SO-POM:SO-MAG	g	as2a	as2
+86.0	This study	-64	0	FS-FD:SO-CMD-NORTH:SO-POM:SO-MAG	g	as2b	as2
+85.0	This study	-69	0	FS-FD:SO-CMD-NORTH:SO-POM:SO-MAG	g	as2c	as2
+81.0	This study	-74	0	FS-FD:SO-CMD-NORTH:SO-POM:SO-MAG	g	as2d	as2
+81.0	This study	-73	0	FS-FD:SO-CMD-NORTH:SO-POM:SO-MAG	g	as2e	as2
+86.0	This study	-59	0	FS-FD:SO-CMD-NORTH:SO-POM:SO-MAG	g	as2f	as2
+35.0	This study	-64	0	FS-FD:SO-CMD-NORTH:SO-POM:SO-MAG	g	as3a	as3
+39.0	This study	-63	0	FS-FD:SO-CMD-NORTH:SO-POM:SO-MAG	g	as3b	as3
+37.0	This study	-61	0	FS-FD:SO-CMD-NORTH:SO-POM:SO-MAG	g	as3c	as3
+53.0	This study	-66	0	FS-FD:SO-CMD-NORTH:SO-POM:SO-MAG	g	as3d	as3
+60.0	This study	-62	0	FS-FD:SO-CMD-NORTH:SO-POM:SO-MAG	g	as3e	as3
+77.0	This study	-54	0	FS-FD:SO-CMD-NORTH:SO-POM:SO-MAG	g	as3f	as3
