@@ -39,7 +39,6 @@ project:
       children:
         - file: thermomagnetic_notebooks/high_T_susceptibility.ipynb
         - file: thermomagnetic_notebooks/curie_temperature_estimation.ipynb
-        - file: thermomagnetic_notebooks/curie_code_evaluation.md
     - file: anisotropy_notebooks/anisotropy_intro.md
       title: Anisotropy notebooks
       children:
