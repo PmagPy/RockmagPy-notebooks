@@ -56,9 +56,6 @@
     <loc>http://localhost:3000/curie-temperature-estimation</loc>
   </url>
   <url>
-    <loc>http://localhost:3000/curie-code-evaluation</loc>
-  </url>
-  <url>
     <loc>http://localhost:3000/anisotropy-intro</loc>
   </url>
   <url>
