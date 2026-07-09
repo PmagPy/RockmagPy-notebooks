@@ -1,15 +1,11 @@
 name: deploy-book
 
-# Build the Jupyter Book (v2 / MyST) on pushes.
-#   - On the migration branch: build + guard only (a CI check, nothing is published).
-#   - On main: build, guard, then publish _build/html to the gh-pages branch.
-# NOTE: once this is merged and cut over, remove `jupyterbook2-migration`
-# from the branch list below — it exists only to CI-check the migration branch.
+# On push to main: build the Jupyter Book (v2 / MyST), guard against an empty
+# build, then publish _build/html to the gh-pages branch.
 on:
   push:
     branches:
       - main
-      - jupyterbook2-migration
 
 # Required so the deploy step can push to the gh-pages branch.
 permissions:
