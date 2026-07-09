@@ -29,7 +29,9 @@ parts:
       - file: thermomagnetic_notebooks/thermomag_intro
         title: Thermomagnetic notebooks
         sections:
-          - file: thermomagnetic_notebooks/high_T_susceptibility 
+          - file: thermomagnetic_notebooks/high_T_susceptibility
+          - file: thermomagnetic_notebooks/curie_temperature_estimation
+          - file: thermomagnetic_notebooks/curie_code_evaluation
       - file: anisotropy_notebooks/anisotropy_intro
         title: Anisotropy notebooks
         sections:
