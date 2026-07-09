@@ -1,0 +1,2345 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Backfield processing &#8212; RockmagPy Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'hysteresis_backfield_notebooks/backfield_processing';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Python implementation of the Max Unmix method for coercivity spectra analysis" href="coercivity_unmixing_MaxUnmix.html" />
+    <link rel="prev" title="Hysteresis Processing walkthrough notebook" href="hysteresis_processing_walk_through.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../book/intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/rockmagpy.png" class="logo__image only-light" alt="RockmagPy Documentation - Home"/>
+    <img src="../_static/rockmagpy.png" class="logo__image only-dark pst-js-only" alt="RockmagPy Documentation - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../book/intro.html">
+                    RockmagPy: tools for rock magnetic data analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Nuts &amp; Bolts</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../rockmag_set_up.html">Getting going with rockmag.py on JupyterHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rockmag_data_unpack.html">Rock magnetic data import</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data Processing Notebooks</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../MPMS_notebooks/MPMS_intro.html">MPMS notebooks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../MPMS_notebooks/MPMS_plot_dc.html">Plot MPMS data (DC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MPMS_notebooks/MPMS_plot_ac.html">Plot MPMS data (AC susceptibility)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MPMS_notebooks/MPMS_verwey_fit.html">Estimate the Verwey transition temperature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MPMS_notebooks/MPMS_goethite_fit.html">Fit and remove the goethite component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MPMS_notebooks/MPMS_signal_blender.html">Simulate MPMS data with a mixture of standard mineral phases in the rock magnetism bestiary</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="VSM_intro.html">Hysteresis/backfield notebooks</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="hysteresis_processing.html">Hysteresis Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hysteresis_processing_walk_through.html">Hysteresis Processing walkthrough notebook</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Backfield processing</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="coercivity_unmixing_MaxUnmix.html">Python implementation of the Max Unmix method for coercivity spectra analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="summary_plots.html">Summary plots of hysteresis parameters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../thermomagnetic_notebooks/thermomag_intro.html">Thermomagnetic notebooks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../thermomagnetic_notebooks/high_T_susceptibility.html">High-temperature susceptibility data analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../thermomagnetic_notebooks/curie_temperature_estimation.html">Curie temperature estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../thermomagnetic_notebooks/curie_code_evaluation.html">Evaluation of Curie temperature code in PmagPy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../anisotropy_notebooks/anisotropy_intro.html">Anisotropy notebooks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../anisotropy_notebooks/anisotropy_plot_AMS.html">Plot and analyze anisotropy data (AMS)</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Rock Magnetic Bestiary notebooks</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../RMB_notebooks/RMB_intro.html">The Rock Magnetic Bestiary</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../RMB_notebooks/RMB_siderite.html">Siderite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../RMB_notebooks/RMB_titanomagnetite.html">(Titano)magnetite</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Background</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../book/background/low_temperature_behavior.html">Low temperature behavior</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../book/background/superparamagnetism.html">Superparamagnetism</a></li>
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../book/background/paramagnetism.html">Paramagnetism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../book/background/verwey.html">Verwey transition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../book/background/morin.html">Morin transition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../book/minerals/siderite.html">Siderite</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../book/background/anisotropy.html">Introduction to anisotropy of magnetic susceptibility (AMS)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">More resources</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../book/resources.html">Resources for learning more about rock magnetism</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/pmagpy/rockmagpy-notebooks" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/pmagpy/rockmagpy-notebooks/issues/new?title=Issue%20on%20page%20%2Fhysteresis_backfield_notebooks/backfield_processing.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/hysteresis_backfield_notebooks/backfield_processing.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Backfield processing</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Backfield processing</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-data">Import data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#select-specimen-backfield-experiment-data">Select specimen backfield experiment data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#process-backfield-data">Process backfield data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-smoothing">Applying smoothing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-the-calculated-bcr-values-to-the-specimens-data-table">add the calculated Bcr values to the specimens data table</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overwrite-the-specimens-data-table">overwrite the specimens data table</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#export-magic-upload-files">export MagIC upload files</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="backfield-processing">
+<h1>Backfield processing<a class="headerlink" href="#backfield-processing" title="Link to this heading">#</a></h1>
+<p>This notebook processes rock magnetic backfield demagnetization data with the primary purpose of obtaining B<sub>cr</sub> (coercivity of remanence) values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.rockmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rmag</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.ipmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ipmag</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.pmag</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pmag</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pmagpy.contribution_builder</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cb</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span> 
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">bokeh.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">output_notebook</span>
+<span class="n">output_notebook</span><span class="p">()</span>
+
+<span class="c1"># %matplotlib inline</span>
+<span class="c1"># %config InlineBackend.figure_format = &#39;retina&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">    <style>
+        .bk-notebook-logo {
+            display: block;
+            width: 20px;
+            height: 20px;
+            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAOkSURBVDiNjZRtaJVlGMd/1/08zzln5zjP1LWcU9N0NkN8m2CYjpgQYQXqSs0I84OLIC0hkEKoPtiH3gmKoiJDU7QpLgoLjLIQCpEsNJ1vqUOdO7ppbuec5+V+rj4ctwzd8IIbbi6u+8f1539dt3A78eXC7QizUF7gyV1fD1Yqg4JWz84yffhm0qkFqBogB9rM8tZdtwVsPUhWhGcFJngGeWrPzHm5oaMmkfEg1usvLFyc8jLRqDOMru7AyC8saQr7GG7f5fvDeH7Ej8CM66nIF+8yngt6HWaKh7k49Soy9nXurCi1o3qUbS3zWfrYeQDTB/Qj6kX6Ybhw4B+bOYoLKCC9H3Nu/leUTZ1JdRWkkn2ldcCamzrcf47KKXdAJllSlxAOkRgyHsGC/zRday5Qld9DyoM4/q/rUoy/CXh3jzOu3bHUVZeU+DEn8FInkPBFlu3+nW3Nw0mk6vCDiWg8CeJaxEwuHS3+z5RgY+YBR6V1Z1nxSOfoaPa4LASWxxdNp+VWTk7+4vzaou8v8PN+xo+KY2xsw6une2frhw05CTYOmQvsEhjhWjn0bmXPjpE1+kplmmkP3suftwTubK9Vq22qKmrBhpY4jvd5afdRA3wGjFAgcnTK2s4hY0/GPNIb0nErGMCRxWOOX64Z8RAC4oCXdklmEvcL8o0BfkNK4lUg9HTl+oPlQxdNo3Mg4Nv175e/1LDGzZen30MEjRUtmXSfiTVu1kK8W4txyV6BMKlbgk3lMwYCiusNy9fVfvvwMxv8Ynl6vxoByANLTWplvuj/nF9m2+PDtt1eiHPBr1oIfhCChQMBw6Aw0UulqTKZdfVvfG7VcfIqLG9bcldL/+pdWTLxLUy8Qq38heUIjh4XlzZxzQm19lLFlr8vdQ97rjZVOLf8nclzckbcD4wxXMidpX30sFd37Fv/GtwwhzhxGVAprjbg0gCAEeIgwCZyTV2Z1REEW8O4py0wsjeloKoMr6iCY6dP92H6Vw/oTyICIthibxjm/DfN9lVz8IqtqKYLUXfoKVMVQVVJOElGjrnnUt9T9wbgp8AyYKaGlqingHZU/uG2NTZSVqwHQTWkx9hxjkpWDaCg6Ckj5qebgBVbT3V3NNXMSiWSDdGV3hrtzla7J+duwPOToIg42ChPQOQjspnSlp1V+Gjdged7+8UN5CRAV7a5EdFNwCjEaBR27b3W890TE7g24NAP/mMDXRWrGoFPQI9ls/MWO2dWFAar/xcOIImbbpA3zgAAAABJRU5ErkJggg==);
+        }
+    </style>
+    <div>
+        <a href="https://bokeh.org" target="_blank" class="bk-notebook-logo"></a>
+        <span id="c412a972-07e0-4af6-a408-4323344797bd">Loading BokehJS ...</span>
+    </div>
+</div><script type="application/javascript">'use strict';
+(function(root) {
+  function now() {
+    return new Date();
+  }
+
+  const force = true;
+
+  if (typeof root._bokeh_onload_callbacks === "undefined" || force === true) {
+    root._bokeh_onload_callbacks = [];
+    root._bokeh_is_loading = undefined;
+  }
+
+const JS_MIME_TYPE = 'application/javascript';
+  const HTML_MIME_TYPE = 'text/html';
+  const EXEC_MIME_TYPE = 'application/vnd.bokehjs_exec.v0+json';
+  const CLASS_NAME = 'output_bokeh rendered_html';
+
+  /**
+   * Render data to the DOM node
+   */
+  function render(props, node) {
+    const script = document.createElement("script");
+    node.appendChild(script);
+  }
+
+  /**
+   * Handle when an output is cleared or removed
+   */
+  function handleClearOutput(event, handle) {
+    function drop(id) {
+      const view = Bokeh.index.get_by_id(id)
+      if (view != null) {
+        view.model.document.clear()
+        Bokeh.index.delete(view)
+      }
+    }
+
+    const cell = handle.cell;
+
+    const id = cell.output_area._bokeh_element_id;
+    const server_id = cell.output_area._bokeh_server_id;
+
+    // Clean up Bokeh references
+    if (id != null) {
+      drop(id)
+    }
+
+    if (server_id !== undefined) {
+      // Clean up Bokeh references
+      const cmd_clean = "from bokeh.io.state import curstate; print(curstate().uuid_to_server['" + server_id + "'].get_sessions()[0].document.roots[0]._id)";
+      cell.notebook.kernel.execute(cmd_clean, {
+        iopub: {
+          output: function(msg) {
+            const id = msg.content.text.trim()
+            drop(id)
+          }
+        }
+      });
+      // Destroy server and session
+      const cmd_destroy = "import bokeh.io.notebook as ion; ion.destroy_server('" + server_id + "')";
+      cell.notebook.kernel.execute(cmd_destroy);
+    }
+  }
+
+  /**
+   * Handle when a new output is added
+   */
+  function handleAddOutput(event, handle) {
+    const output_area = handle.output_area;
+    const output = handle.output;
+
+    // limit handleAddOutput to display_data with EXEC_MIME_TYPE content only
+    if ((output.output_type != "display_data") || (!Object.prototype.hasOwnProperty.call(output.data, EXEC_MIME_TYPE))) {
+      return
+    }
+
+    const toinsert = output_area.element.find("." + CLASS_NAME.split(' ')[0]);
+
+    if (output.metadata[EXEC_MIME_TYPE]["id"] !== undefined) {
+      toinsert[toinsert.length - 1].firstChild.textContent = output.data[JS_MIME_TYPE];
+      // store reference to embed id on output_area
+      output_area._bokeh_element_id = output.metadata[EXEC_MIME_TYPE]["id"];
+    }
+    if (output.metadata[EXEC_MIME_TYPE]["server_id"] !== undefined) {
+      const bk_div = document.createElement("div");
+      bk_div.innerHTML = output.data[HTML_MIME_TYPE];
+      const script_attrs = bk_div.children[0].attributes;
+      for (let i = 0; i < script_attrs.length; i++) {
+        toinsert[toinsert.length - 1].firstChild.setAttribute(script_attrs[i].name, script_attrs[i].value);
+        toinsert[toinsert.length - 1].firstChild.textContent = bk_div.children[0].textContent
+      }
+      // store reference to server id on output_area
+      output_area._bokeh_server_id = output.metadata[EXEC_MIME_TYPE]["server_id"];
+    }
+  }
+
+  function register_renderer(events, OutputArea) {
+
+    function append_mime(data, metadata, element) {
+      // create a DOM node to render to
+      const toinsert = this.create_output_subarea(
+        metadata,
+        CLASS_NAME,
+        EXEC_MIME_TYPE
+      );
+      this.keyboard_manager.register_events(toinsert);
+      // Render to node
+      const props = {data: data, metadata: metadata[EXEC_MIME_TYPE]};
+      render(props, toinsert[toinsert.length - 1]);
+      element.append(toinsert);
+      return toinsert
+    }
+
+    /* Handle when an output is cleared or removed */
+    events.on('clear_output.CodeCell', handleClearOutput);
+    events.on('delete.Cell', handleClearOutput);
+
+    /* Handle when a new output is added */
+    events.on('output_added.OutputArea', handleAddOutput);
+
+    /**
+     * Register the mime type and append_mime function with output_area
+     */
+    OutputArea.prototype.register_mime_type(EXEC_MIME_TYPE, append_mime, {
+      /* Is output safe? */
+      safe: true,
+      /* Index of renderer in `output_area.display_order` */
+      index: 0
+    });
+  }
+
+  // register the mime type if in Jupyter Notebook environment and previously unregistered
+  if (root.Jupyter !== undefined) {
+    const events = require('base/js/events');
+    const OutputArea = require('notebook/js/outputarea').OutputArea;
+
+    if (OutputArea.prototype.mime_types().indexOf(EXEC_MIME_TYPE) == -1) {
+      register_renderer(events, OutputArea);
+    }
+  }
+  if (typeof (root._bokeh_timeout) === "undefined" || force === true) {
+    root._bokeh_timeout = Date.now() + 5000;
+    root._bokeh_failed_load = false;
+  }
+
+  const NB_LOAD_WARNING = {'data': {'text/html':
+     "<div style='background-color: #fdd'>\n"+
+     "<p>\n"+
+     "BokehJS does not appear to have successfully loaded. If loading BokehJS from CDN, this \n"+
+     "may be due to a slow or bad network connection. Possible fixes:\n"+
+     "</p>\n"+
+     "<ul>\n"+
+     "<li>re-rerun `output_notebook()` to attempt to load from CDN again, or</li>\n"+
+     "<li>use INLINE resources instead, as so:</li>\n"+
+     "</ul>\n"+
+     "<code>\n"+
+     "from bokeh.resources import INLINE\n"+
+     "output_notebook(resources=INLINE)\n"+
+     "</code>\n"+
+     "</div>"}};
+
+  function display_loaded(error = null) {
+    const el = document.getElementById("c412a972-07e0-4af6-a408-4323344797bd");
+    if (el != null) {
+      const html = (() => {
+        if (typeof root.Bokeh === "undefined") {
+          if (error == null) {
+            return "BokehJS is loading ...";
+          } else {
+            return "BokehJS failed to load.";
+          }
+        } else {
+          const prefix = `BokehJS ${root.Bokeh.version}`;
+          if (error == null) {
+            return `${prefix} successfully loaded.`;
+          } else {
+            return `${prefix} <b>encountered errors</b> while loading and may not function as expected.`;
+          }
+        }
+      })();
+      el.innerHTML = html;
+
+      if (error != null) {
+        const wrapper = document.createElement("div");
+        wrapper.style.overflow = "auto";
+        wrapper.style.height = "5em";
+        wrapper.style.resize = "vertical";
+        const content = document.createElement("div");
+        content.style.fontFamily = "monospace";
+        content.style.whiteSpace = "pre-wrap";
+        content.style.backgroundColor = "rgb(255, 221, 221)";
+        content.textContent = error.stack ?? error.toString();
+        wrapper.append(content);
+        el.append(wrapper);
+      }
+    } else if (Date.now() < root._bokeh_timeout) {
+      setTimeout(() => display_loaded(error), 100);
+    }
+  }
+
+  function run_callbacks() {
+    try {
+      root._bokeh_onload_callbacks.forEach(function(callback) {
+        if (callback != null)
+          callback();
+      });
+    } finally {
+      delete root._bokeh_onload_callbacks
+    }
+    console.debug("Bokeh: all callbacks have finished");
+  }
+
+  function load_libs(css_urls, js_urls, callback) {
+    if (css_urls == null) css_urls = [];
+    if (js_urls == null) js_urls = [];
+
+    root._bokeh_onload_callbacks.push(callback);
+    if (root._bokeh_is_loading > 0) {
+      console.debug("Bokeh: BokehJS is being loaded, scheduling callback at", now());
+      return null;
+    }
+    if (js_urls == null || js_urls.length === 0) {
+      run_callbacks();
+      return null;
+    }
+    console.debug("Bokeh: BokehJS not loaded, scheduling load and callback at", now());
+    root._bokeh_is_loading = css_urls.length + js_urls.length;
+
+    function on_load() {
+      root._bokeh_is_loading--;
+      if (root._bokeh_is_loading === 0) {
+        console.debug("Bokeh: all BokehJS libraries/stylesheets loaded");
+        run_callbacks()
+      }
+    }
+
+    function on_error(url) {
+      console.error("failed to load " + url);
+    }
+
+    for (let i = 0; i < css_urls.length; i++) {
+      const url = css_urls[i];
+      const element = document.createElement("link");
+      element.onload = on_load;
+      element.onerror = on_error.bind(null, url);
+      element.rel = "stylesheet";
+      element.type = "text/css";
+      element.href = url;
+      console.debug("Bokeh: injecting link tag for BokehJS stylesheet: ", url);
+      document.body.appendChild(element);
+    }
+
+    for (let i = 0; i < js_urls.length; i++) {
+      const url = js_urls[i];
+      const element = document.createElement('script');
+      element.onload = on_load;
+      element.onerror = on_error.bind(null, url);
+      element.async = false;
+      element.src = url;
+      console.debug("Bokeh: injecting script tag for BokehJS library: ", url);
+      document.head.appendChild(element);
+    }
+  };
+
+  function inject_raw_css(css) {
+    const element = document.createElement("style");
+    element.appendChild(document.createTextNode(css));
+    document.body.appendChild(element);
+  }
+
+  const js_urls = ["https://cdn.bokeh.org/bokeh/release/bokeh-3.9.0.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-gl-3.9.0.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-widgets-3.9.0.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-tables-3.9.0.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-mathjax-3.9.0.min.js"];
+  const css_urls = [];
+
+  const inline_js = [    function(Bokeh) {
+      Bokeh.set_log_level("info");
+    },
+function(Bokeh) {
+    }
+  ];
+
+  function run_inline_js() {
+    if (root.Bokeh !== undefined || force === true) {
+      try {
+            for (let i = 0; i < inline_js.length; i++) {
+      inline_js[i].call(root, root.Bokeh);
+    }
+
+      } catch (error) {display_loaded(error);throw error;
+      }if (force === true) {
+        display_loaded();
+      }} else if (Date.now() < root._bokeh_timeout) {
+      setTimeout(run_inline_js, 100);
+    } else if (!root._bokeh_failed_load) {
+      console.log("Bokeh: BokehJS failed to load within specified timeout.");
+      root._bokeh_failed_load = true;
+    } else if (force !== true) {
+      const cell = $(document.getElementById("c412a972-07e0-4af6-a408-4323344797bd")).parents('.cell').data().cell;
+      cell.output_area.append_execute_result(NB_LOAD_WARNING)
+    }
+  }
+
+  if (root._bokeh_is_loading === 0) {
+    console.debug("Bokeh: BokehJS loaded, going straight to plotting");
+    run_inline_js();
+  } else {
+    load_libs(css_urls, js_urls, function() {
+      console.debug("Bokeh: BokehJS plotting callback run at", now());
+      run_inline_js();
+    });
+  }
+}(window));</script></div>
+</div>
+<section id="import-data">
+<h2>Import data<a class="headerlink" href="#import-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set the dir_path to the directory where the measurements.txt file is located</span>
+<span class="n">dir_path</span> <span class="o">=</span> <span class="s1">&#39;../example_data/Ana_P&#39;</span>
+
+<span class="c1"># set the name of the MagIC file</span>
+<span class="n">ipmag</span><span class="o">.</span><span class="n">unpack_magic</span><span class="p">(</span><span class="s1">&#39;MantleMagnetism2026.TXT&#39;</span><span class="p">,</span> 
+                     <span class="n">dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">,</span>
+                     <span class="n">input_dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">,</span>
+                     <span class="n">print_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># create a contribution object from the tables in the directory</span>
+<span class="n">contribution</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">Contribution</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
+<span class="n">specimens</span> <span class="o">=</span> <span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;specimens&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
+<span class="n">measurements</span> <span class="o">=</span> <span class="n">contribution</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="s1">&#39;measurements&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>47  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/Ana_P/specimens.txt
+15  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/Ana_P/samples.txt
+6  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/Ana_P/sites.txt
+6  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/Ana_P/locations.txt
+54968  records written to file  /Users/yimingzhang/Github/RockmagPy-notebooks/example_data/Ana_P/measurements.txt
+-I- Using online data model
+-I- Getting method codes from earthref.org
+-I- Importing controlled vocabularies from https://earthref.org
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="select-specimen-backfield-experiment-data">
+<h2>Select specimen backfield experiment data<a class="headerlink" href="#select-specimen-backfield-experiment-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># filter for the backfield data</span>
+<span class="n">backfield_data</span> <span class="o">=</span> <span class="n">measurements</span><span class="p">[</span><span class="n">measurements</span><span class="p">[</span><span class="s1">&#39;method_codes&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;LP-BCR-BF&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># investigate the specimens that have backfield data</span>
+<span class="n">backfield_data</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;StringArray&gt;
+[     &#39;7-350-g&#39;,   &#39;C-Or-428-g&#39;,    &#39;OBN-1-A-g&#39;,    &#39;OBN-1-B-g&#39;,
+ &#39;Vi-313-105-g&#39;, &#39;Vi-313-110-g&#39;, &#39;Vi-313-114-g&#39;,  &#39;Vi-313-6-g1&#39;]
+Length: 8, dtype: str
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># select the specimen</span>
+<span class="n">specimen</span> <span class="o">=</span> <span class="s1">&#39;Vi-313-110-g&#39;</span>
+<span class="n">specimen_data</span> <span class="o">=</span> <span class="n">backfield_data</span><span class="p">[</span><span class="n">backfield_data</span><span class="p">[</span><span class="s1">&#39;specimen&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">specimen</span><span class="p">]</span>
+
+<span class="c1"># investigate the available backfield experiments, sometimes multiple experiments are done on the same specimen</span>
+<span class="n">specimen_data</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;StringArray&gt;
+[&#39;IRM-VSM4-LP-BCR-BF-249692&#39;]
+Length: 1, dtype: str
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected_experiment</span> <span class="o">=</span> <span class="n">specimen_data</span><span class="p">[</span><span class="n">specimen_data</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;IRM-VSM4-LP-BCR-BF-249692&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="process-backfield-data">
+<h2>Process backfield data<a class="headerlink" href="#process-backfield-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">Bcr</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">backfield_data_processing</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Coercivity: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">Bcr</span><span class="p">,</span><span class="mi">7</span><span class="p">)</span><span class="si">}</span><span class="s2"> T&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Coercivity: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">Bcr</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2"> mT&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Coercivity: 0.0350255 T
+Coercivity: 35.0255 mT
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rmag</span><span class="o">.</span><span class="n">plot_backfield_data</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">plot_processed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">Bcr</span><span class="o">=</span><span class="n">Bcr</span><span class="p">,</span> <span class="n">interactive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="f05c22ed-4432-4738-9cff-bdf7d8158106" data-root-id="p1135" style="display: contents;"></div>
+</div><script type="application/javascript">(function(root) {
+  function embed_document(root) {
+  const docs_json = {"c984c943-6500-4b11-913e-dd9c5dc02f04":{"version":"3.9.0","title":"Bokeh Application","config":{"type":"object","name":"DocumentConfig","id":"p1137","attributes":{"notifications":{"type":"object","name":"Notifications","id":"p1138"}}},"roots":[{"type":"object","name":"GridPlot","id":"p1135","attributes":{"rows":null,"cols":null,"sizing_mode":"stretch_width","toolbar":{"type":"object","name":"Toolbar","id":"p1134","attributes":{"tools":[{"type":"object","name":"ToolProxy","id":"p1128","attributes":{"tools":[{"type":"object","name":"HoverTool","id":"p1008","attributes":{"renderers":"auto","tooltips":[["Field (T)","@x"],["Mag","@y"]],"sort_by":null}},{"id":"p1008"}]}},{"type":"object","name":"ToolProxy","id":"p1129","attributes":{"tools":[{"type":"object","name":"PanTool","id":"p1031"},{"type":"object","name":"PanTool","id":"p1095"}]}},{"type":"object","name":"ToolProxy","id":"p1130","attributes":{"tools":[{"type":"object","name":"BoxZoomTool","id":"p1032","attributes":{"dimensions":"both","overlay":{"type":"object","name":"BoxAnnotation","id":"p1033","attributes":{"syncable":false,"line_color":"black","line_alpha":1.0,"line_width":2,"line_dash":[4,4],"fill_color":"lightgrey","fill_alpha":0.5,"level":"overlay","visible":false,"left":{"type":"number","value":"nan"},"right":{"type":"number","value":"nan"},"top":{"type":"number","value":"nan"},"bottom":{"type":"number","value":"nan"},"left_units":"canvas","right_units":"canvas","top_units":"canvas","bottom_units":"canvas","handles":{"type":"object","name":"BoxInteractionHandles","id":"p1039","attributes":{"all":{"type":"object","name":"AreaVisuals","id":"p1038","attributes":{"fill_color":"white","hover_fill_color":"lightgray"}}}}}}}},{"type":"object","name":"BoxZoomTool","id":"p1096","attributes":{"dimensions":"both","overlay":{"type":"object","name":"BoxAnnotation","id":"p1097","attributes":{"syncable":false,"line_color":"black","line_alpha":1.0,"line_width":2,"line_dash":[4,4],"fill_color":"lightgrey","fill_alpha":0.5,"level":"overlay","visible":false,"left":{"type":"number","value":"nan"},"right":{"type":"number","value":"nan"},"top":{"type":"number","value":"nan"},"bottom":{"type":"number","value":"nan"},"left_units":"canvas","right_units":"canvas","top_units":"canvas","bottom_units":"canvas","handles":{"type":"object","name":"BoxInteractionHandles","id":"p1103","attributes":{"all":{"type":"object","name":"AreaVisuals","id":"p1102","attributes":{"fill_color":"white","hover_fill_color":"lightgray"}}}}}}}}]}},{"type":"object","name":"ToolProxy","id":"p1131","attributes":{"tools":[{"type":"object","name":"WheelZoomTool","id":"p1040","attributes":{"renderers":"auto"}},{"type":"object","name":"WheelZoomTool","id":"p1104","attributes":{"renderers":"auto"}}]}},{"type":"object","name":"ToolProxy","id":"p1132","attributes":{"tools":[{"type":"object","name":"ResetTool","id":"p1041"},{"type":"object","name":"ResetTool","id":"p1105"}]}},{"type":"object","name":"SaveTool","id":"p1133"}]}},"children":[[{"type":"object","name":"Figure","id":"p1009","attributes":{"height":320,"sizing_mode":"stretch_width","x_range":{"type":"object","name":"DataRange1d","id":"p1010"},"y_range":{"type":"object","name":"DataRange1d","id":"p1011"},"x_scale":{"type":"object","name":"LinearScale","id":"p1019"},"y_scale":{"type":"object","name":"LinearScale","id":"p1020"},"title":{"type":"object","name":"Title","id":"p1012","attributes":{"text":"Raw backfield"}},"renderers":[{"type":"object","name":"GlyphRenderer","id":"p1049","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1043","attributes":{"selected":{"type":"object","name":"Selection","id":"p1044","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1045"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAA/y2PezATAADGKUlSWJcrl+Tq6JoeHNFp1wMlZ1hlHCt5Dcujo0M11pLkdd6aSR7j5lGIUxR900XeW5oQjl60LS0ir0rdzvfvd9/v+74ETQPZSr/oRVITRZQRpAvLoCdkhzAi3so1fONPmuO1PrVDm0nCtpQ22UZTa2iPus1dNLCDI7OeZ3majG6fnvZdkRSkXNzkrMs4D1rnore81RXrio38zlp7YGAojUXX8gSx2HCJmeWFhq6YUUmvD8R9I+pe5nREErT/2ooC8DHcaJCVfxk68/q5m/NDoNf1XKr88wqqe9rsu+vCwAlcdqVyryK7njzdUBYB1WaLO0rjUas9N5CMqQ2E4Wh4fs/kKVFuotXVKjFczMbwYgyj6WosiFtiygss4pDL7lyY3x6POnniOIuYAGktZ5BJSwK/ipkz2ZICNRfGr+PENCiFslVaU9NR3mKmoa+dCWXy7U1O1Vmg0GMdTMNyALEwL/E8BysbDlDFl7jgSb75Xsm6j5/t+hpH5x9g4dyn0rxXhWgcK9orMioGseR3yXs+D8+aS0zcT5fC35jb66jKh5g7ocf/WgZ+XWYLZaYCbINKD5LRI/h9Nv4WGF+NbC5JpK7xGFZjTin3QmqRQftrvTRVB2FhEetWUj0utUupwjNPV/80oiknTfP64ef4v9Xvrk8zAhVHAKaXqcuhfS1Y78lx2Jr8EhdGTq2N2vgKrCHSNbeyVgRTo6ueeL8GovUs/W06EOG0U4dB7kJGF8sO0T3Y0/g7fnZYiK3J9lIVszcoTKj5IMnuQwhPuWkdQYy0wgWTiap+nBTS+ycZAxDZDP6YtR/CSu2NmRrnYSjwrNFVztgq5wNGBtjhp7I+omK6j+yt9RlqpDyXgsovGCDMnBDSJ1H0zkxuaSvBd5ngyG57GXwVw6cQPLlcPt0nR0fEiwLdg9NIfTm3l5Y6g/4oiaGJ2ixCCbGCzqI50BTGPNQe7nD3tVpEeED6FPPYMlTZ2dZJQX+wvzZfzm9bwewf8f+ksiBORmnYGbdGoKSQiuAftTAAmSADAAA="},"shape":[100],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAA/wEgA9/8eYpmr4irFD97lu8yJnEUP7eDbLR3oRQ/nR4lwPqJFD//o+MoSIUUPxHuQjGBdBQ/RsDXxo58FD9gKaKRlYAUP6hJGQZmZBQ/MGucLDkXFD+pTZzc71AUP/R5nNRd+hM/StDjILYuFD+2hBmm+PATP2Eu0lmgvBM/72a6lS2rEz/3iaguhawTP2Q+3rPHbhM/rF5VKJhSEz9pUm3keA0TP/Fz8ApMwBI/LmlzObHJEj/UA82EsjISP72miz1J9BE/Mn6vW+O3ET/ExqPxl1gRP5UMIWPF2xA/FAu28ECNED/3VT2JnWMPPx/6B/Q29A4/6inNQSuLDT87cmIXXqwMP/ZjUeC2GQs/haaZrFmACT+lMdYOsYcHP10Y6UXtfgU/HSLqFYF3Az9FzT4sJ+MAP5vubeEWf/0+3QkXbtDJ+D6oSsb35rPzPtDAAnckh+0+PdPjqPAo5D6pWVZQB2jRPqQdFu6Fl6q+//m9Go5R2L5vY/U/p73kvqIJVs1ap+2+Vwdh6r7O874nN8RXv8L3voei5eVVQvy+c0hJk3tP/74Q9nnODp8Bv7aFxpd5QAO/LFZgCgcpBb85hwAahD0Gv90ORzbbBQi/ox9w0Yc2Cb86eezCaocKv/BLP9l7jgu/0MUyPy/DDL9jDM3x4cQNv+cXZwQCOg+/VMdswTnAD78XFz903lIQv/iZ5XgmsBC/O6JK5rsIEb+ubDiPN7cRv4vgfyvZsRG/N5GRmhMHEr/dJrsdCjQSv4TE6k0UOhK/jONVEOJOEr9oUxrW+VwSv76pYSJSkRK/Z0sUKeaDEr8Dvk8Tha8Sv+hQAnL0vhK/83v2t1+ZEr9Bs9JB6rgSv2xe9mcW0xK/qlf8bAXJEr/O5zen7boSv0CvT2tgzBK/tYZzifqPEr9Ar09rYMwSv+M9IDPEbxK/ArrMPPvCEr8UAKluqsUSvwO+TxOFrxK/T+0l8Pv1Er+jPBSBwaASvzmUZ38cpBK/wrjAivjzEr+fLAgnmu4SvxkTi63aFBO/T+miGXIJE79hMwIiq/gSv7mRTxsXBhO/zuc3p+26Er+GDXk7IAMAAA=="},"shape":[100],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1050","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1051"}}},"glyph":{"type":"object","name":"Scatter","id":"p1046","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":6},"line_color":{"type":"value","value":"#1f77b4"},"fill_color":{"type":"value","value":"#1f77b4"},"hatch_color":{"type":"value","value":"#1f77b4"}}},"nonselection_glyph":{"type":"object","name":"Scatter","id":"p1047","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":6},"line_color":{"type":"value","value":"#1f77b4"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#1f77b4"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#1f77b4"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Scatter","id":"p1048","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":6},"line_color":{"type":"value","value":"#1f77b4"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#1f77b4"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#1f77b4"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1060","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1054","attributes":{"selected":{"type":"object","name":"Selection","id":"p1055","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1056"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAA/y2PezATAADGKUlSWJcrl+Tq6JoeHNFp1wMlZ1hlHCt5Dcujo0M11pLkdd6aSR7j5lGIUxR900XeW5oQjl60LS0ir0rdzvfvd9/v+74ETQPZSr/oRVITRZQRpAvLoCdkhzAi3so1fONPmuO1PrVDm0nCtpQ22UZTa2iPus1dNLCDI7OeZ3majG6fnvZdkRSkXNzkrMs4D1rnore81RXrio38zlp7YGAojUXX8gSx2HCJmeWFhq6YUUmvD8R9I+pe5nREErT/2ooC8DHcaJCVfxk68/q5m/NDoNf1XKr88wqqe9rsu+vCwAlcdqVyryK7njzdUBYB1WaLO0rjUas9N5CMqQ2E4Wh4fs/kKVFuotXVKjFczMbwYgyj6WosiFtiygss4pDL7lyY3x6POnniOIuYAGktZ5BJSwK/ipkz2ZICNRfGr+PENCiFslVaU9NR3mKmoa+dCWXy7U1O1Vmg0GMdTMNyALEwL/E8BysbDlDFl7jgSb75Xsm6j5/t+hpH5x9g4dyn0rxXhWgcK9orMioGseR3yXs+D8+aS0zcT5fC35jb66jKh5g7ocf/WgZ+XWYLZaYCbINKD5LRI/h9Nv4WGF+NbC5JpK7xGFZjTin3QmqRQftrvTRVB2FhEetWUj0utUupwjNPV/80oiknTfP64ef4v9Xvrk8zAhVHAKaXqcuhfS1Y78lx2Jr8EhdGTq2N2vgKrCHSNbeyVgRTo6ueeL8GovUs/W06EOG0U4dB7kJGF8sO0T3Y0/g7fnZYiK3J9lIVszcoTKj5IMnuQwhPuWkdQYy0wgWTiap+nBTS+ycZAxDZDP6YtR/CSu2NmRrnYSjwrNFVztgq5wNGBtjhp7I+omK6j+yt9RlqpDyXgsovGCDMnBDSJ1H0zkxuaSvBd5ngyG57GXwVw6cQPLlcPt0nR0fEiwLdg9NIfTm3l5Y6g/4oiaGJ2ixCCbGCzqI50BTGPNQe7nD3tVpEeED6FPPYMlTZ2dZJQX+wvzZfzm9bwewf8f+ksiBORmnYGbdGoKSQiuAftTAAmSADAAA="},"shape":[100],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAA/wEgA9/8eYpmr4irFD97lu8yJnEUP7eDbLR3oRQ/nR4lwPqJFD//o+MoSIUUPxHuQjGBdBQ/RsDXxo58FD9gKaKRlYAUP6hJGQZmZBQ/MGucLDkXFD+pTZzc71AUP/R5nNRd+hM/StDjILYuFD+2hBmm+PATP2Eu0lmgvBM/72a6lS2rEz/3iaguhawTP2Q+3rPHbhM/rF5VKJhSEz9pUm3keA0TP/Fz8ApMwBI/LmlzObHJEj/UA82EsjISP72miz1J9BE/Mn6vW+O3ET/ExqPxl1gRP5UMIWPF2xA/FAu28ECNED/3VT2JnWMPPx/6B/Q29A4/6inNQSuLDT87cmIXXqwMP/ZjUeC2GQs/haaZrFmACT+lMdYOsYcHP10Y6UXtfgU/HSLqFYF3Az9FzT4sJ+MAP5vubeEWf/0+3QkXbtDJ+D6oSsb35rPzPtDAAnckh+0+PdPjqPAo5D6pWVZQB2jRPqQdFu6Fl6q+//m9Go5R2L5vY/U/p73kvqIJVs1ap+2+Vwdh6r7O874nN8RXv8L3voei5eVVQvy+c0hJk3tP/74Q9nnODp8Bv7aFxpd5QAO/LFZgCgcpBb85hwAahD0Gv90ORzbbBQi/ox9w0Yc2Cb86eezCaocKv/BLP9l7jgu/0MUyPy/DDL9jDM3x4cQNv+cXZwQCOg+/VMdswTnAD78XFz903lIQv/iZ5XgmsBC/O6JK5rsIEb+ubDiPN7cRv4vgfyvZsRG/N5GRmhMHEr/dJrsdCjQSv4TE6k0UOhK/jONVEOJOEr9oUxrW+VwSv76pYSJSkRK/Z0sUKeaDEr8Dvk8Tha8Sv+hQAnL0vhK/83v2t1+ZEr9Bs9JB6rgSv2xe9mcW0xK/qlf8bAXJEr/O5zen7boSv0CvT2tgzBK/tYZzifqPEr9Ar09rYMwSv+M9IDPEbxK/ArrMPPvCEr8UAKluqsUSvwO+TxOFrxK/T+0l8Pv1Er+jPBSBwaASvzmUZ38cpBK/wrjAivjzEr+fLAgnmu4SvxkTi63aFBO/T+miGXIJE79hMwIiq/gSv7mRTxsXBhO/zuc3p+26Er+GDXk7IAMAAA=="},"shape":[100],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1061","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1062"}}},"glyph":{"type":"object","name":"Line","id":"p1057","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#1f77b4"}},"nonselection_glyph":{"type":"object","name":"Line","id":"p1058","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#1f77b4","line_alpha":0.1}},"muted_glyph":{"type":"object","name":"Line","id":"p1059","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#1f77b4","line_alpha":0.2}}}},{"type":"object","name":"GlyphRenderer","id":"p1069","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1063","attributes":{"selected":{"type":"object","name":"Selection","id":"p1064","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1065"},"data":{"type":"map","entries":[["x",[-0.035025467880627215]]]}}},"view":{"type":"object","name":"CDSView","id":"p1070","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1071"}}},"glyph":{"type":"object","name":"Scatter","id":"p1066","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"value","value":0},"size":{"type":"value","value":15},"fill_color":{"type":"value","value":"pink"},"hatch_color":{"type":"value","value":"pink"},"marker":{"type":"value","value":"star"}}},"nonselection_glyph":{"type":"object","name":"Scatter","id":"p1067","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"value","value":0},"size":{"type":"value","value":15},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"pink"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"pink"},"hatch_alpha":{"type":"value","value":0.1},"marker":{"type":"value","value":"star"}}},"muted_glyph":{"type":"object","name":"Scatter","id":"p1068","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"value","value":0},"size":{"type":"value","value":15},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"pink"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"pink"},"hatch_alpha":{"type":"value","value":0.2},"marker":{"type":"value","value":"star"}}}}}],"toolbar":{"type":"object","name":"Toolbar","id":"p1018","attributes":{"tools":[{"id":"p1008"},{"id":"p1031"},{"id":"p1032"},{"id":"p1040"},{"id":"p1041"},{"type":"object","name":"SaveTool","id":"p1042"}]}},"toolbar_location":null,"left":[{"type":"object","name":"LinearAxis","id":"p1026","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p1027","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p1028"},"axis_label":"Magnetization (Am\u00b2/kg)","axis_label_text_font_style":"normal","major_label_policy":{"type":"object","name":"AllLabels","id":"p1029"}}}],"below":[{"type":"object","name":"LinearAxis","id":"p1021","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p1022","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p1023"},"axis_label":"Field (T)","axis_label_text_font_style":"normal","major_label_policy":{"type":"object","name":"AllLabels","id":"p1024"}}}],"center":[{"type":"object","name":"Grid","id":"p1025","attributes":{"axis":{"id":"p1021"}}},{"type":"object","name":"Grid","id":"p1030","attributes":{"dimension":1,"axis":{"id":"p1026"}}},{"type":"object","name":"Legend","id":"p1052","attributes":{"location":"top_left","click_policy":"hide","items":[{"type":"object","name":"LegendItem","id":"p1053","attributes":{"label":{"type":"value","value":"raw"},"renderers":[{"id":"p1049"}]}},{"type":"object","name":"LegendItem","id":"p1072","attributes":{"label":{"type":"value","value":"Bcr = 0.03503 T"},"renderers":[{"id":"p1069"}]}}]}}]}},0,0],[{"type":"object","name":"Figure","id":"p1073","attributes":{"height":320,"sizing_mode":"stretch_width","x_range":{"type":"object","name":"DataRange1d","id":"p1074"},"y_range":{"type":"object","name":"DataRange1d","id":"p1075"},"x_scale":{"type":"object","name":"LogScale","id":"p1083"},"y_scale":{"type":"object","name":"LinearScale","id":"p1084"},"title":{"type":"object","name":"Title","id":"p1076","attributes":{"text":"Coercivity spectrum"}},"renderers":[{"type":"object","name":"GlyphRenderer","id":"p1113","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1107","attributes":{"selected":{"type":"object","name":"Selection","id":"p1108","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1109"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAA/wEYA+f8YGbgawOZlD9j7bfQrJjCP/Gfa2s0rtA/AeondzFz2D+oYphcjG3gPxth2XN8BOU/oRNLlPz06T/CcICK8zrvP3kxwqCacPI/LvO0DnqD9T/I1+uZltz4P+gJbK5ha/w/9iD0YhUjAEBpKaWaOjkCQH7nvOeEewRAgIl/orvsBkAbovp2PJAJQL5BPMHvZAxA11h74Yl1D0BPbOGVDmMRQLYzU69nKxNA3t6J7KEZFUApsKTTTC8XQFCThaFobhlA644c/XrcG0AvJG/EWnseQIre/+MXqCBAjDsnME0wIkCb06oVZNcjQDbUSdDUniVAaWfErmCMJ0BEMdclr6ApQC1eXgKO3StA4aZo/zZLLkBE2nqOuXQwQNgaKSux3jFAk+dpt9dkM0D58Pbo3Ao1QBU88W9L0jZARJ4eZWO9OEAdin/ePtA6QHfGhvg4DT1AlPCd+1B4P0DQd3tE/glBQCnWFLmtckJAxPx9vsb4Q0D8rIQ7np1FQDLtMKAMY0dAXZSDx+lMSUDz6xqADV9LQN/ggwB3m01AdHsMMk4CUEBgTPTvf09RQFBhzWeLt1JA4MdL5GI8VEDnXMHj699VQMQGZ0K2pFdAuyOa09uOWUAGp9o7+J1bQJ/FXVgB111ANHIAuBkgYECAvp57p2xhQDWx6ctd1GJAdgFsc+ZYZEBF9TBYQfplQLMB/tsMvWdAYLsWEEamaUAaETAD7bVrQC70B9sV721AuLTBAooqcEAs2hrsQnZxQMH8eyZv3HJAMal0E05fdEAX3pUIbgF2QDuFV1dJxHdA0hODlyOreUCqg+3AW7h7QCxiILXq731AtLTBAooqgEBkA3fefXWBQOi9az/V2oJAVuoYH+9chEBoocmw1/2FQAu1+4KDv4dArG/9ZCaliUB5wZyakbGLQDaewxLx541AO8NjgvElkEDBNZEosHCRQABOiVZ91JJAi5XLiChUlEAREHS82fOVQGk7yKx9tZdAvOWpcCibmUBTw8ayxqabQMxZVzdZ3J1AAuuXA/oeoEBGBKNMuGehQNeWK9dxy6JAE25GGBgDAAA="},"shape":[99],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAA/wEYA+f8K7vd7nnapD4qJgz1ogXDvi2ttFJy474+f8VsTG2JoD7k3qOgX0vCPmxEC6DtQrS+NYjmbhL5p76sJ07Si/rWPsRbFIC9y/E+4QA0S8tD675PZipdPb32PtxOqot62+y+9k5pzxTv8T6rUmi8ApDvPiaqwUww9NU+vSTvXg3dm76NF9H4nMP0PlIurncsreM+MScRrt9l+D7gchEl2DX8Pr0d9NfQ8Mu+OSyGz5eNDD+PdfK63BD4PtlWAGuetPc+N0e0CJfeAj9uvsfn/D4JP0/EmXaZ2P8+1V76ZWCdFj8UjWvY4B/3PmxvjkWvFRM/tnLpyWdeBz/vAO7ZIrEVP23RuFUC7hU/+VvBJ4lKGz/b8ImIoVgcP+dDo5uoZxw/BQGSuzo7Ij9D5i0RJSMePzBhVZfUzyA/uKko0YMcIj+mv3dumLshP+P8hbpm0CA/3vpcNWatJD+gvNn3N8MiP9CEi8M4ByM/nBfMfochHz9lzK3PAkQgP9m6ufvMOSI/pkAp42PwHD9hbCu/+nIgP9APp0r6axY/Z5M3S2XwHD+nWdpWVQgYP9kxcNs9IBw/QkUQjb/oDz9p79q2GWAaP05AT9yJohE/vwJ8yhZqEz8coGqEN8IOP8X7uFaL0hE/zonvrpjoDT9vS/4L7KkVP9A1WlzsF/8+9+ejvvmsCj9MSlVrENwFP+dmvWp9lwQ/93WTmTNCFD8b4QQ5mgnEvir/zKXR2QM/bS9LOhQI9T46/OKiyH3GPvTL26YAeuM+ICheE2o92j7pmlxSSXn4Ptrq/8QcE9m+fYw9299m9D6zF52a8+XcPmHnyQ07jvG+ygHJUciB7T5U6qaphHnoPh0YaX+Q19K+FksAaBlV2r4dD9E76VXgPjivXfiJSPy+jv4zb4dE/D4ZKfwZS68Fv4mqHJoUeAM/pJNyWMAXtD49TBW15a/kvhmHFrC1mwA/nAoPBLfzA7+8q8D5LiK5Ply3F3u/ogI/KJrlvUwaxL7swUOJmunxPhwuc0WPWdW+segAo1SK375e1z7A0yvZPmiRXfgxlgG/oHOMURgDAAA="},"shape":[99],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1114","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1115"}}},"glyph":{"type":"object","name":"Scatter","id":"p1110","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":6},"line_color":{"type":"value","value":"#2ca02c"},"fill_color":{"type":"value","value":"#2ca02c"},"hatch_color":{"type":"value","value":"#2ca02c"}}},"nonselection_glyph":{"type":"object","name":"Scatter","id":"p1111","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":6},"line_color":{"type":"value","value":"#2ca02c"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#2ca02c"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#2ca02c"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Scatter","id":"p1112","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":6},"line_color":{"type":"value","value":"#2ca02c"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#2ca02c"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#2ca02c"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1124","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1118","attributes":{"selected":{"type":"object","name":"Selection","id":"p1119","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1120"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAA/wEYA+f8YGbgawOZlD9j7bfQrJjCP/Gfa2s0rtA/AeondzFz2D+oYphcjG3gPxth2XN8BOU/oRNLlPz06T/CcICK8zrvP3kxwqCacPI/LvO0DnqD9T/I1+uZltz4P+gJbK5ha/w/9iD0YhUjAEBpKaWaOjkCQH7nvOeEewRAgIl/orvsBkAbovp2PJAJQL5BPMHvZAxA11h74Yl1D0BPbOGVDmMRQLYzU69nKxNA3t6J7KEZFUApsKTTTC8XQFCThaFobhlA644c/XrcG0AvJG/EWnseQIre/+MXqCBAjDsnME0wIkCb06oVZNcjQDbUSdDUniVAaWfErmCMJ0BEMdclr6ApQC1eXgKO3StA4aZo/zZLLkBE2nqOuXQwQNgaKSux3jFAk+dpt9dkM0D58Pbo3Ao1QBU88W9L0jZARJ4eZWO9OEAdin/ePtA6QHfGhvg4DT1AlPCd+1B4P0DQd3tE/glBQCnWFLmtckJAxPx9vsb4Q0D8rIQ7np1FQDLtMKAMY0dAXZSDx+lMSUDz6xqADV9LQN/ggwB3m01AdHsMMk4CUEBgTPTvf09RQFBhzWeLt1JA4MdL5GI8VEDnXMHj699VQMQGZ0K2pFdAuyOa09uOWUAGp9o7+J1bQJ/FXVgB111ANHIAuBkgYECAvp57p2xhQDWx6ctd1GJAdgFsc+ZYZEBF9TBYQfplQLMB/tsMvWdAYLsWEEamaUAaETAD7bVrQC70B9sV721AuLTBAooqcEAs2hrsQnZxQMH8eyZv3HJAMal0E05fdEAX3pUIbgF2QDuFV1dJxHdA0hODlyOreUCqg+3AW7h7QCxiILXq731AtLTBAooqgEBkA3fefXWBQOi9az/V2oJAVuoYH+9chEBoocmw1/2FQAu1+4KDv4dArG/9ZCaliUB5wZyakbGLQDaewxLx541AO8NjgvElkEDBNZEosHCRQABOiVZ91JJAi5XLiChUlEAREHS82fOVQGk7yKx9tZdAvOWpcCibmUBTw8ayxqabQMxZVzdZ3J1AAuuXA/oeoEBGBKNMuGehQNeWK9dxy6JAE25GGBgDAAA="},"shape":[99],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAA/wEYA+f8K7vd7nnapD4qJgz1ogXDvi2ttFJy474+f8VsTG2JoD7k3qOgX0vCPmxEC6DtQrS+NYjmbhL5p76sJ07Si/rWPsRbFIC9y/E+4QA0S8tD675PZipdPb32PtxOqot62+y+9k5pzxTv8T6rUmi8ApDvPiaqwUww9NU+vSTvXg3dm76NF9H4nMP0PlIurncsreM+MScRrt9l+D7gchEl2DX8Pr0d9NfQ8Mu+OSyGz5eNDD+PdfK63BD4PtlWAGuetPc+N0e0CJfeAj9uvsfn/D4JP0/EmXaZ2P8+1V76ZWCdFj8UjWvY4B/3PmxvjkWvFRM/tnLpyWdeBz/vAO7ZIrEVP23RuFUC7hU/+VvBJ4lKGz/b8ImIoVgcP+dDo5uoZxw/BQGSuzo7Ij9D5i0RJSMePzBhVZfUzyA/uKko0YMcIj+mv3dumLshP+P8hbpm0CA/3vpcNWatJD+gvNn3N8MiP9CEi8M4ByM/nBfMfochHz9lzK3PAkQgP9m6ufvMOSI/pkAp42PwHD9hbCu/+nIgP9APp0r6axY/Z5M3S2XwHD+nWdpWVQgYP9kxcNs9IBw/QkUQjb/oDz9p79q2GWAaP05AT9yJohE/vwJ8yhZqEz8coGqEN8IOP8X7uFaL0hE/zonvrpjoDT9vS/4L7KkVP9A1WlzsF/8+9+ejvvmsCj9MSlVrENwFP+dmvWp9lwQ/93WTmTNCFD8b4QQ5mgnEvir/zKXR2QM/bS9LOhQI9T46/OKiyH3GPvTL26YAeuM+ICheE2o92j7pmlxSSXn4Ptrq/8QcE9m+fYw9299m9D6zF52a8+XcPmHnyQ07jvG+ygHJUciB7T5U6qaphHnoPh0YaX+Q19K+FksAaBlV2r4dD9E76VXgPjivXfiJSPy+jv4zb4dE/D4ZKfwZS68Fv4mqHJoUeAM/pJNyWMAXtD49TBW15a/kvhmHFrC1mwA/nAoPBLfzA7+8q8D5LiK5Ply3F3u/ogI/KJrlvUwaxL7swUOJmunxPhwuc0WPWdW+segAo1SK375e1z7A0yvZPmiRXfgxlgG/oHOMURgDAAA="},"shape":[99],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1125","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1126"}}},"glyph":{"type":"object","name":"Line","id":"p1121","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#2ca02c"}},"nonselection_glyph":{"type":"object","name":"Line","id":"p1122","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#2ca02c","line_alpha":0.1}},"muted_glyph":{"type":"object","name":"Line","id":"p1123","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#2ca02c","line_alpha":0.2}}}}],"toolbar":{"type":"object","name":"Toolbar","id":"p1082","attributes":{"tools":[{"id":"p1008"},{"id":"p1095"},{"id":"p1096"},{"id":"p1104"},{"id":"p1105"},{"type":"object","name":"SaveTool","id":"p1106"}]}},"toolbar_location":null,"left":[{"type":"object","name":"LinearAxis","id":"p1090","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p1091","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p1092"},"axis_label":"dM/dlog(B)","axis_label_text_font_style":"normal","major_label_policy":{"type":"object","name":"AllLabels","id":"p1093"}}}],"below":[{"type":"object","name":"LogAxis","id":"p1085","attributes":{"ticker":{"type":"object","name":"LogTicker","id":"p1086","attributes":{"num_minor_ticks":10,"mantissas":[1,5]}},"formatter":{"type":"object","name":"LogTickFormatter","id":"p1087"},"axis_label":"Field (mT)","axis_label_text_font_style":"normal","major_label_policy":{"type":"object","name":"AllLabels","id":"p1088"}}}],"center":[{"type":"object","name":"Grid","id":"p1089","attributes":{"axis":{"id":"p1085"}}},{"type":"object","name":"Grid","id":"p1094","attributes":{"dimension":1,"axis":{"id":"p1090"}}},{"type":"object","name":"Legend","id":"p1116","attributes":{"location":"top_left","click_policy":"hide","items":[{"type":"object","name":"LegendItem","id":"p1117","attributes":{"label":{"type":"value","value":"raw spectrum"},"renderers":[{"id":"p1113"}]}},{"type":"object","name":"LegendItem","id":"p1127","attributes":{"label":{"type":"value","value":"smoothed spectrum"},"renderers":[{"id":"p1124"}]}}]}}]}},1,0]]}}]}};
+  const render_items = [{"docid":"c984c943-6500-4b11-913e-dd9c5dc02f04","roots":{"p1135":"f05c22ed-4432-4738-9cff-bdf7d8158106"},"root_ids":["p1135"]}];
+  void root.Bokeh.embed.embed_items_notebook(docs_json, render_items);
+  }
+  if (root.Bokeh !== undefined) {
+    embed_document(root);
+  } else {
+    let attempts = 0;
+    const timer = setInterval(function(root) {
+      if (root.Bokeh !== undefined) {
+        clearInterval(timer);
+        embed_document(root);
+      } else {
+        attempts++;
+        if (attempts > 100) {
+          clearInterval(timer);
+          console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+        }
+      }
+    }, 10, root)
+  }
+})(window);</script></div>
+</div>
+</section>
+<section id="applying-smoothing">
+<h2>Applying smoothing<a class="headerlink" href="#applying-smoothing" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">rmag.backfield_data_processing</span></code> function can also be used to smooth the data. The code below implements such smoothing which is applied to the processed backfield which is then used to develop the coercivity spectra.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">Bcr</span> <span class="o">=</span> <span class="n">rmag</span><span class="o">.</span><span class="n">backfield_data_processing</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span><span class="n">smooth_mode</span><span class="o">=</span><span class="s1">&#39;spline&#39;</span><span class="p">,</span><span class="n">smooth_frac</span><span class="o">=</span><span class="mf">0.005</span><span class="p">)</span>
+<span class="n">rmag</span><span class="o">.</span><span class="n">plot_backfield_data</span><span class="p">(</span><span class="n">selected_experiment</span><span class="p">,</span> <span class="n">Bcr</span><span class="o">=</span><span class="n">Bcr</span><span class="p">,</span> <span class="n">interactive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="e157a99d-6336-420d-9fb6-06fb2ccb4c6d" data-root-id="p1329" style="display: contents;"></div>
+</div><script type="application/javascript">(function(root) {
+  function embed_document(root) {
+  const docs_json = {"7d916584-5f6c-43a7-beaa-e6cbaa95e19f":{"version":"3.9.0","title":"Bokeh Application","config":{"type":"object","name":"DocumentConfig","id":"p1331","attributes":{"notifications":{"type":"object","name":"Notifications","id":"p1332"}}},"roots":[{"type":"object","name":"GridPlot","id":"p1329","attributes":{"rows":null,"cols":null,"sizing_mode":"stretch_width","toolbar":{"type":"object","name":"Toolbar","id":"p1328","attributes":{"tools":[{"type":"object","name":"ToolProxy","id":"p1322","attributes":{"tools":[{"type":"object","name":"HoverTool","id":"p1147","attributes":{"renderers":"auto","tooltips":[["Field (T)","@x"],["Mag","@y"]],"sort_by":null}},{"id":"p1147"},{"id":"p1147"}]}},{"type":"object","name":"ToolProxy","id":"p1323","attributes":{"tools":[{"type":"object","name":"PanTool","id":"p1170"},{"type":"object","name":"PanTool","id":"p1234"},{"type":"object","name":"PanTool","id":"p1289"}]}},{"type":"object","name":"ToolProxy","id":"p1324","attributes":{"tools":[{"type":"object","name":"BoxZoomTool","id":"p1171","attributes":{"dimensions":"both","overlay":{"type":"object","name":"BoxAnnotation","id":"p1172","attributes":{"syncable":false,"line_color":"black","line_alpha":1.0,"line_width":2,"line_dash":[4,4],"fill_color":"lightgrey","fill_alpha":0.5,"level":"overlay","visible":false,"left":{"type":"number","value":"nan"},"right":{"type":"number","value":"nan"},"top":{"type":"number","value":"nan"},"bottom":{"type":"number","value":"nan"},"left_units":"canvas","right_units":"canvas","top_units":"canvas","bottom_units":"canvas","handles":{"type":"object","name":"BoxInteractionHandles","id":"p1178","attributes":{"all":{"type":"object","name":"AreaVisuals","id":"p1177","attributes":{"fill_color":"white","hover_fill_color":"lightgray"}}}}}}}},{"type":"object","name":"BoxZoomTool","id":"p1235","attributes":{"dimensions":"both","overlay":{"type":"object","name":"BoxAnnotation","id":"p1236","attributes":{"syncable":false,"line_color":"black","line_alpha":1.0,"line_width":2,"line_dash":[4,4],"fill_color":"lightgrey","fill_alpha":0.5,"level":"overlay","visible":false,"left":{"type":"number","value":"nan"},"right":{"type":"number","value":"nan"},"top":{"type":"number","value":"nan"},"bottom":{"type":"number","value":"nan"},"left_units":"canvas","right_units":"canvas","top_units":"canvas","bottom_units":"canvas","handles":{"type":"object","name":"BoxInteractionHandles","id":"p1242","attributes":{"all":{"type":"object","name":"AreaVisuals","id":"p1241","attributes":{"fill_color":"white","hover_fill_color":"lightgray"}}}}}}}},{"type":"object","name":"BoxZoomTool","id":"p1290","attributes":{"dimensions":"both","overlay":{"type":"object","name":"BoxAnnotation","id":"p1291","attributes":{"syncable":false,"line_color":"black","line_alpha":1.0,"line_width":2,"line_dash":[4,4],"fill_color":"lightgrey","fill_alpha":0.5,"level":"overlay","visible":false,"left":{"type":"number","value":"nan"},"right":{"type":"number","value":"nan"},"top":{"type":"number","value":"nan"},"bottom":{"type":"number","value":"nan"},"left_units":"canvas","right_units":"canvas","top_units":"canvas","bottom_units":"canvas","handles":{"type":"object","name":"BoxInteractionHandles","id":"p1297","attributes":{"all":{"type":"object","name":"AreaVisuals","id":"p1296","attributes":{"fill_color":"white","hover_fill_color":"lightgray"}}}}}}}}]}},{"type":"object","name":"ToolProxy","id":"p1325","attributes":{"tools":[{"type":"object","name":"WheelZoomTool","id":"p1179","attributes":{"renderers":"auto"}},{"type":"object","name":"WheelZoomTool","id":"p1243","attributes":{"renderers":"auto"}},{"type":"object","name":"WheelZoomTool","id":"p1298","attributes":{"renderers":"auto"}}]}},{"type":"object","name":"ToolProxy","id":"p1326","attributes":{"tools":[{"type":"object","name":"ResetTool","id":"p1180"},{"type":"object","name":"ResetTool","id":"p1244"},{"type":"object","name":"ResetTool","id":"p1299"}]}},{"type":"object","name":"SaveTool","id":"p1327"}]}},"children":[[{"type":"object","name":"Figure","id":"p1148","attributes":{"height":320,"sizing_mode":"stretch_width","x_range":{"type":"object","name":"DataRange1d","id":"p1149"},"y_range":{"type":"object","name":"DataRange1d","id":"p1150"},"x_scale":{"type":"object","name":"LinearScale","id":"p1158"},"y_scale":{"type":"object","name":"LinearScale","id":"p1159"},"title":{"type":"object","name":"Title","id":"p1151","attributes":{"text":"Raw backfield"}},"renderers":[{"type":"object","name":"GlyphRenderer","id":"p1188","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1182","attributes":{"selected":{"type":"object","name":"Selection","id":"p1183","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1184"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAA/y2PezATAADGKUlSWJcrl+Tq6JoeHNFp1wMlZ1hlHCt5Dcujo0M11pLkdd6aSR7j5lGIUxR900XeW5oQjl60LS0ir0rdzvfvd9/v+74ETQPZSr/oRVITRZQRpAvLoCdkhzAi3so1fONPmuO1PrVDm0nCtpQ22UZTa2iPus1dNLCDI7OeZ3majG6fnvZdkRSkXNzkrMs4D1rnore81RXrio38zlp7YGAojUXX8gSx2HCJmeWFhq6YUUmvD8R9I+pe5nREErT/2ooC8DHcaJCVfxk68/q5m/NDoNf1XKr88wqqe9rsu+vCwAlcdqVyryK7njzdUBYB1WaLO0rjUas9N5CMqQ2E4Wh4fs/kKVFuotXVKjFczMbwYgyj6WosiFtiygss4pDL7lyY3x6POnniOIuYAGktZ5BJSwK/ipkz2ZICNRfGr+PENCiFslVaU9NR3mKmoa+dCWXy7U1O1Vmg0GMdTMNyALEwL/E8BysbDlDFl7jgSb75Xsm6j5/t+hpH5x9g4dyn0rxXhWgcK9orMioGseR3yXs+D8+aS0zcT5fC35jb66jKh5g7ocf/WgZ+XWYLZaYCbINKD5LRI/h9Nv4WGF+NbC5JpK7xGFZjTin3QmqRQftrvTRVB2FhEetWUj0utUupwjNPV/80oiknTfP64ef4v9Xvrk8zAhVHAKaXqcuhfS1Y78lx2Jr8EhdGTq2N2vgKrCHSNbeyVgRTo6ueeL8GovUs/W06EOG0U4dB7kJGF8sO0T3Y0/g7fnZYiK3J9lIVszcoTKj5IMnuQwhPuWkdQYy0wgWTiap+nBTS+ycZAxDZDP6YtR/CSu2NmRrnYSjwrNFVztgq5wNGBtjhp7I+omK6j+yt9RlqpDyXgsovGCDMnBDSJ1H0zkxuaSvBd5ngyG57GXwVw6cQPLlcPt0nR0fEiwLdg9NIfTm3l5Y6g/4oiaGJ2ixCCbGCzqI50BTGPNQe7nD3tVpEeED6FPPYMlTZ2dZJQX+wvzZfzm9bwewf8f+ksiBORmnYGbdGoKSQiuAftTAAmSADAAA="},"shape":[100],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAA/wEgA9/8eYpmr4irFD97lu8yJnEUP7eDbLR3oRQ/nR4lwPqJFD//o+MoSIUUPxHuQjGBdBQ/RsDXxo58FD9gKaKRlYAUP6hJGQZmZBQ/MGucLDkXFD+pTZzc71AUP/R5nNRd+hM/StDjILYuFD+2hBmm+PATP2Eu0lmgvBM/72a6lS2rEz/3iaguhawTP2Q+3rPHbhM/rF5VKJhSEz9pUm3keA0TP/Fz8ApMwBI/LmlzObHJEj/UA82EsjISP72miz1J9BE/Mn6vW+O3ET/ExqPxl1gRP5UMIWPF2xA/FAu28ECNED/3VT2JnWMPPx/6B/Q29A4/6inNQSuLDT87cmIXXqwMP/ZjUeC2GQs/haaZrFmACT+lMdYOsYcHP10Y6UXtfgU/HSLqFYF3Az9FzT4sJ+MAP5vubeEWf/0+3QkXbtDJ+D6oSsb35rPzPtDAAnckh+0+PdPjqPAo5D6pWVZQB2jRPqQdFu6Fl6q+//m9Go5R2L5vY/U/p73kvqIJVs1ap+2+Vwdh6r7O874nN8RXv8L3voei5eVVQvy+c0hJk3tP/74Q9nnODp8Bv7aFxpd5QAO/LFZgCgcpBb85hwAahD0Gv90ORzbbBQi/ox9w0Yc2Cb86eezCaocKv/BLP9l7jgu/0MUyPy/DDL9jDM3x4cQNv+cXZwQCOg+/VMdswTnAD78XFz903lIQv/iZ5XgmsBC/O6JK5rsIEb+ubDiPN7cRv4vgfyvZsRG/N5GRmhMHEr/dJrsdCjQSv4TE6k0UOhK/jONVEOJOEr9oUxrW+VwSv76pYSJSkRK/Z0sUKeaDEr8Dvk8Tha8Sv+hQAnL0vhK/83v2t1+ZEr9Bs9JB6rgSv2xe9mcW0xK/qlf8bAXJEr/O5zen7boSv0CvT2tgzBK/tYZzifqPEr9Ar09rYMwSv+M9IDPEbxK/ArrMPPvCEr8UAKluqsUSvwO+TxOFrxK/T+0l8Pv1Er+jPBSBwaASvzmUZ38cpBK/wrjAivjzEr+fLAgnmu4SvxkTi63aFBO/T+miGXIJE79hMwIiq/gSv7mRTxsXBhO/zuc3p+26Er+GDXk7IAMAAA=="},"shape":[100],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1189","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1190"}}},"glyph":{"type":"object","name":"Scatter","id":"p1185","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":6},"line_color":{"type":"value","value":"#1f77b4"},"fill_color":{"type":"value","value":"#1f77b4"},"hatch_color":{"type":"value","value":"#1f77b4"}}},"nonselection_glyph":{"type":"object","name":"Scatter","id":"p1186","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":6},"line_color":{"type":"value","value":"#1f77b4"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#1f77b4"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#1f77b4"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Scatter","id":"p1187","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":6},"line_color":{"type":"value","value":"#1f77b4"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#1f77b4"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#1f77b4"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1199","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1193","attributes":{"selected":{"type":"object","name":"Selection","id":"p1194","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1195"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAA/y2PezATAADGKUlSWJcrl+Tq6JoeHNFp1wMlZ1hlHCt5Dcujo0M11pLkdd6aSR7j5lGIUxR900XeW5oQjl60LS0ir0rdzvfvd9/v+74ETQPZSr/oRVITRZQRpAvLoCdkhzAi3so1fONPmuO1PrVDm0nCtpQ22UZTa2iPus1dNLCDI7OeZ3majG6fnvZdkRSkXNzkrMs4D1rnore81RXrio38zlp7YGAojUXX8gSx2HCJmeWFhq6YUUmvD8R9I+pe5nREErT/2ooC8DHcaJCVfxk68/q5m/NDoNf1XKr88wqqe9rsu+vCwAlcdqVyryK7njzdUBYB1WaLO0rjUas9N5CMqQ2E4Wh4fs/kKVFuotXVKjFczMbwYgyj6WosiFtiygss4pDL7lyY3x6POnniOIuYAGktZ5BJSwK/ipkz2ZICNRfGr+PENCiFslVaU9NR3mKmoa+dCWXy7U1O1Vmg0GMdTMNyALEwL/E8BysbDlDFl7jgSb75Xsm6j5/t+hpH5x9g4dyn0rxXhWgcK9orMioGseR3yXs+D8+aS0zcT5fC35jb66jKh5g7ocf/WgZ+XWYLZaYCbINKD5LRI/h9Nv4WGF+NbC5JpK7xGFZjTin3QmqRQftrvTRVB2FhEetWUj0utUupwjNPV/80oiknTfP64ef4v9Xvrk8zAhVHAKaXqcuhfS1Y78lx2Jr8EhdGTq2N2vgKrCHSNbeyVgRTo6ueeL8GovUs/W06EOG0U4dB7kJGF8sO0T3Y0/g7fnZYiK3J9lIVszcoTKj5IMnuQwhPuWkdQYy0wgWTiap+nBTS+ycZAxDZDP6YtR/CSu2NmRrnYSjwrNFVztgq5wNGBtjhp7I+omK6j+yt9RlqpDyXgsovGCDMnBDSJ1H0zkxuaSvBd5ngyG57GXwVw6cQPLlcPt0nR0fEiwLdg9NIfTm3l5Y6g/4oiaGJ2ixCCbGCzqI50BTGPNQe7nD3tVpEeED6FPPYMlTZ2dZJQX+wvzZfzm9bwewf8f+ksiBORmnYGbdGoKSQiuAftTAAmSADAAA="},"shape":[100],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAA/wEgA9/8eYpmr4irFD97lu8yJnEUP7eDbLR3oRQ/nR4lwPqJFD//o+MoSIUUPxHuQjGBdBQ/RsDXxo58FD9gKaKRlYAUP6hJGQZmZBQ/MGucLDkXFD+pTZzc71AUP/R5nNRd+hM/StDjILYuFD+2hBmm+PATP2Eu0lmgvBM/72a6lS2rEz/3iaguhawTP2Q+3rPHbhM/rF5VKJhSEz9pUm3keA0TP/Fz8ApMwBI/LmlzObHJEj/UA82EsjISP72miz1J9BE/Mn6vW+O3ET/ExqPxl1gRP5UMIWPF2xA/FAu28ECNED/3VT2JnWMPPx/6B/Q29A4/6inNQSuLDT87cmIXXqwMP/ZjUeC2GQs/haaZrFmACT+lMdYOsYcHP10Y6UXtfgU/HSLqFYF3Az9FzT4sJ+MAP5vubeEWf/0+3QkXbtDJ+D6oSsb35rPzPtDAAnckh+0+PdPjqPAo5D6pWVZQB2jRPqQdFu6Fl6q+//m9Go5R2L5vY/U/p73kvqIJVs1ap+2+Vwdh6r7O874nN8RXv8L3voei5eVVQvy+c0hJk3tP/74Q9nnODp8Bv7aFxpd5QAO/LFZgCgcpBb85hwAahD0Gv90ORzbbBQi/ox9w0Yc2Cb86eezCaocKv/BLP9l7jgu/0MUyPy/DDL9jDM3x4cQNv+cXZwQCOg+/VMdswTnAD78XFz903lIQv/iZ5XgmsBC/O6JK5rsIEb+ubDiPN7cRv4vgfyvZsRG/N5GRmhMHEr/dJrsdCjQSv4TE6k0UOhK/jONVEOJOEr9oUxrW+VwSv76pYSJSkRK/Z0sUKeaDEr8Dvk8Tha8Sv+hQAnL0vhK/83v2t1+ZEr9Bs9JB6rgSv2xe9mcW0xK/qlf8bAXJEr/O5zen7boSv0CvT2tgzBK/tYZzifqPEr9Ar09rYMwSv+M9IDPEbxK/ArrMPPvCEr8UAKluqsUSvwO+TxOFrxK/T+0l8Pv1Er+jPBSBwaASvzmUZ38cpBK/wrjAivjzEr+fLAgnmu4SvxkTi63aFBO/T+miGXIJE79hMwIiq/gSv7mRTxsXBhO/zuc3p+26Er+GDXk7IAMAAA=="},"shape":[100],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1200","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1201"}}},"glyph":{"type":"object","name":"Line","id":"p1196","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#1f77b4"}},"nonselection_glyph":{"type":"object","name":"Line","id":"p1197","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#1f77b4","line_alpha":0.1}},"muted_glyph":{"type":"object","name":"Line","id":"p1198","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#1f77b4","line_alpha":0.2}}}},{"type":"object","name":"GlyphRenderer","id":"p1208","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1202","attributes":{"selected":{"type":"object","name":"Selection","id":"p1203","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1204"},"data":{"type":"map","entries":[["x",[-0.035025467880627215]]]}}},"view":{"type":"object","name":"CDSView","id":"p1209","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1210"}}},"glyph":{"type":"object","name":"Scatter","id":"p1205","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"value","value":0},"size":{"type":"value","value":15},"fill_color":{"type":"value","value":"pink"},"hatch_color":{"type":"value","value":"pink"},"marker":{"type":"value","value":"star"}}},"nonselection_glyph":{"type":"object","name":"Scatter","id":"p1206","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"value","value":0},"size":{"type":"value","value":15},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"pink"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"pink"},"hatch_alpha":{"type":"value","value":0.1},"marker":{"type":"value","value":"star"}}},"muted_glyph":{"type":"object","name":"Scatter","id":"p1207","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"value","value":0},"size":{"type":"value","value":15},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"pink"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"pink"},"hatch_alpha":{"type":"value","value":0.2},"marker":{"type":"value","value":"star"}}}}}],"toolbar":{"type":"object","name":"Toolbar","id":"p1157","attributes":{"tools":[{"id":"p1147"},{"id":"p1170"},{"id":"p1171"},{"id":"p1179"},{"id":"p1180"},{"type":"object","name":"SaveTool","id":"p1181"}]}},"toolbar_location":null,"left":[{"type":"object","name":"LinearAxis","id":"p1165","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p1166","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p1167"},"axis_label":"Magnetization (Am\u00b2/kg)","axis_label_text_font_style":"normal","major_label_policy":{"type":"object","name":"AllLabels","id":"p1168"}}}],"below":[{"type":"object","name":"LinearAxis","id":"p1160","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p1161","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p1162"},"axis_label":"Field (T)","axis_label_text_font_style":"normal","major_label_policy":{"type":"object","name":"AllLabels","id":"p1163"}}}],"center":[{"type":"object","name":"Grid","id":"p1164","attributes":{"axis":{"id":"p1160"}}},{"type":"object","name":"Grid","id":"p1169","attributes":{"dimension":1,"axis":{"id":"p1165"}}},{"type":"object","name":"Legend","id":"p1191","attributes":{"location":"top_left","click_policy":"hide","items":[{"type":"object","name":"LegendItem","id":"p1192","attributes":{"label":{"type":"value","value":"raw"},"renderers":[{"id":"p1188"}]}},{"type":"object","name":"LegendItem","id":"p1211","attributes":{"label":{"type":"value","value":"Bcr = 0.03503 T"},"renderers":[{"id":"p1208"}]}}]}}]}},0,0],[{"type":"object","name":"Figure","id":"p1212","attributes":{"height":320,"sizing_mode":"stretch_width","x_range":{"type":"object","name":"DataRange1d","id":"p1213"},"y_range":{"type":"object","name":"DataRange1d","id":"p1214"},"x_scale":{"type":"object","name":"LogScale","id":"p1222"},"y_scale":{"type":"object","name":"LinearScale","id":"p1223"},"title":{"type":"object","name":"Title","id":"p1215","attributes":{"text":"Processed backfield"}},"renderers":[{"type":"object","name":"GlyphRenderer","id":"p1252","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1246","attributes":{"selected":{"type":"object","name":"Selection","id":"p1247","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1248"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAA/y1Se0iTURTXNB3DTGQNKbMVZi6TmGnDzO5PjGraw7JERFRMTSVyVA4RocdYVlSKy+dsho8iWBklZSYrTFrpWiJSFKKYSZGFlJhRZH3n3p1/Lud3z+9x7vdF6KzTf/R6phouyfZ1PWKdaz8ara8GWHRrl/ZX3wiTrbBmqQdH2csp1j5u/8AmHQ2P66o/sby48X2X67+yUnOQd5r/d5bmH3nv2swss87cfJ6snWexXS8M9pbfrPckDSywrB6d36IIT/wY3pMbkO6FyQ5Lv+ruYshswRl5cTJEVCrfueblSNZeSMiZWgIJlAwCMBrqc6Y2MRAhpun93SEKHOREJRqPBRqfJgVhC/dZjgCyX7cSNd8qWMzYKjyY/TtSVrQa/3itQTcXCEVV31x4ZlUYlt3ZOVF+NdyNr8cVwpdGQsHxjSigCtMIX2sUojZRReOLlMI0HYN+kunTus9YqKVu7nMctsrftunjt8HTQ6ocoJwEexKQSjRNInQTEuLYjiwKUrFD6Kbugj5eIqYk4SHlLNsNP5IZ2IufZNORIvQ8DqCQchlSwW3kh9ApxVXY09y508FjmjOwmc77mSimeZ9s4fMsB6+dUgXnIprPHcYRvme+2PdNAejaaStEU6NUt4oxyIGjcHFeieA79SJH2HFYaK7xhOBtKEU+6Y0ZoOH+ZYJvK0cR4a4KDHGdU27d04IXelZ8p3ojmklObRJ53p8T+rfPC90bF8UejkvwpvdVVAmeo1q8j6oGBHtUm919rTiH6uBFeHsDFuh3sDSJvrdZ9L4tQufJdTGvbBV9ZRv+AwDkvU4gAwAA"},"shape":[100],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAA/z2OfSzUcRzHf+om9MB1kiju7kupU04MPfh8SEbr6Vq0wkY1l2gtqxWjOdIxnaceVEvXYXcVcxnHaI7zmDvPN6IY0tzSw4Uillay8vnns70/r/f7/VF3xMidRwhqAjwvUQ0EI1p/crcOEByw7K+I7CQoCnaPorcTvEed+1rcSLDkvPNLRQvBveIc20oNwbAd2lOSaoJ2tYwvxjkET5cwfMdKCQqbGd65KQRLo93PteQR/HBQ+3w8iaBSIr+hjCBIU+azaGEEUzs26F8s7JpnCm63N8FRj4nIKheCdTvnW7bSCd5s8Ay585GNdpDwzfcrG6+udHzYXMDGTyG3prOT2Sjzf0wL5bNRf+H+0So3NvaZnjDizbLQIpPZubqbhSbD5lUBZ1lonvqKEefHwhU9Hls8vjDRerN4MLmciWmjb9YM8JgYouu7saLXFj9zZlzL+m3Q/0kC71jPJnSwE3g86tqI1bGFPheF1qjK0IVLrlhhVq+Z+ojfBmyQxkf1GFiiS1TU3tomC0xMf1o/+3AdKmKy2MEccxzSyfOKhtdirMtwa10mHYv4oib762aoKVA9Hapdg8L8sbHAfatQbOL6ItDfBPUBJCLNyAhnE6OzfyQaIpubK5Kl0TBecrRhz/gyNOwq58kpA5zy5CSd6f8NhTvEBxR+82Cz+hAjWDcHE6eOc+/t/wHJiuLll92moVHV7L6qfQrELre1MvUEOO6qDmqv+QQxcVK+XjoOZiOhmnemOjBSc6R59u9hQrh890zYCJTwt405v+2FEYcypiX3NTBtHjhFD3aBIOXXHN2qDSRa4++tJ1tBMimVMWpbgDmzXm813wxhnO3h9GgVeM30Z2TZ1IPAtzeDH1gFXiLuaEZsOQjU9uHKoRqgFvkK8FrkS0A1ICe86VJQaTV3veMW9EV/KQhEk0m03P95C3dZ0OHO/EZQ+eY4DV5TgFddcqVpW9lSD6X5my8GwePyTQcNlUBVDqfecqoGwWKPBCjPy94+zAKg/s/d411buoX/uFygVMuu2aWkL/3xBwMgit4gAwAA"},"shape":[100],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1253","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1254"}}},"glyph":{"type":"object","name":"Scatter","id":"p1249","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":6},"line_color":{"type":"value","value":"#ff7f0e"},"fill_color":{"type":"value","value":"#ff7f0e"},"hatch_color":{"type":"value","value":"#ff7f0e"}}},"nonselection_glyph":{"type":"object","name":"Scatter","id":"p1250","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":6},"line_color":{"type":"value","value":"#ff7f0e"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#ff7f0e"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#ff7f0e"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Scatter","id":"p1251","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":6},"line_color":{"type":"value","value":"#ff7f0e"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#ff7f0e"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#ff7f0e"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1263","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1257","attributes":{"selected":{"type":"object","name":"Selection","id":"p1258","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1259"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAA/y1Se0iTURTXNB3DTGQNKbMVZi6TmGnDzO5PjGraw7JERFRMTSVyVA4RocdYVlSKy+dsho8iWBklZSYrTFrpWiJSFKKYSZGFlJhRZH3n3p1/Lud3z+9x7vdF6KzTf/R6phouyfZ1PWKdaz8ara8GWHRrl/ZX3wiTrbBmqQdH2csp1j5u/8AmHQ2P66o/sby48X2X67+yUnOQd5r/d5bmH3nv2swss87cfJ6snWexXS8M9pbfrPckDSywrB6d36IIT/wY3pMbkO6FyQ5Lv+ruYshswRl5cTJEVCrfueblSNZeSMiZWgIJlAwCMBrqc6Y2MRAhpun93SEKHOREJRqPBRqfJgVhC/dZjgCyX7cSNd8qWMzYKjyY/TtSVrQa/3itQTcXCEVV31x4ZlUYlt3ZOVF+NdyNr8cVwpdGQsHxjSigCtMIX2sUojZRReOLlMI0HYN+kunTus9YqKVu7nMctsrftunjt8HTQ6ocoJwEexKQSjRNInQTEuLYjiwKUrFD6Kbugj5eIqYk4SHlLNsNP5IZ2IufZNORIvQ8DqCQchlSwW3kh9ApxVXY09y508FjmjOwmc77mSimeZ9s4fMsB6+dUgXnIprPHcYRvme+2PdNAejaaStEU6NUt4oxyIGjcHFeieA79SJH2HFYaK7xhOBtKEU+6Y0ZoOH+ZYJvK0cR4a4KDHGdU27d04IXelZ8p3ojmklObRJ53p8T+rfPC90bF8UejkvwpvdVVAmeo1q8j6oGBHtUm919rTiH6uBFeHsDFuh3sDSJvrdZ9L4tQufJdTGvbBV9ZRv+AwDkvU4gAwAA"},"shape":[100],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAA/wEgA9/8sMZCeDHgIz+M8pjyIcMjPzo5bDYs2iM/mI4FYQPSIz8+NIBatskjPw4yxJQMxyM/ig2YP+3HIz/gcC3AkMojP1KkcDXbvCM/10fO1f2VIz9iNLAw3LIjP3DZGgq9hyM/6nzpB1+hIz/yXLwz5YMjP2PO9u5bZyM/+HIFnB1hIz8E9jE1LmAjP9l0Jlv6QSM/uAlQjrMzIz/yLM4VFBEjPxDgImrC6iI/+l/4HQnvIj9qYuOP/6MiP3pBFMdlhCI/uSrVRYhmIj8mF9SaezYiP2gPcgW2+CE/7IKVsXvQIT/zTESpBGQhP+8T1Xy+RiE/ZRQ6SBDuID/i9ABT+7MgP19GjTTcUyA/eBJ4B2LNHz8LfwwRMd4eP3wGJlJk0h0/9k9pNI/QHD8K3ApXLYcbP0zBB/xucxo/ok2ZJqpIGT+GWVhtwAAYPyjyUUt8xhY/9+D1qlWZFT9A+03K+isUPy+bytIh3xI/7xkXbBiQET+AVMwDJ30QP+2BIQn+vg4/Xkth9AFEDD/mYKmkHUYKPzHiSBYLCwg/FnwTD19/Bj9AX5txUo0EP0u1deJY5gI/4YyLyNADAT+WiEq8JNL/PgbRWL4nTfw+oO7XbwXi+T5uAf9dKkj3Pv485o3lMvU+tHDUDHLR8j4WWv6ILsPwPgzaCGnE1us++KSxMPt66T4406JXh0LmPnRrkXC8BuM+sBcUhZtj4D5gPUNSjPDVPqBIP63IGtY+kMzyiufi0D6g9czulynMPkDjB/RtP8s+QH1hasnZyD7ApHfuNNbGPuDAS0QZwMA+wA9EXaSIwT5ARGgvWa+6PkAjD6NQ7rQ+wIeSxyMYvj5AP7HsJnK4PgCFKI3Rma4+QElW0tCFsz6APgfJgRu2PgDleSEGmLI+IJzNKF5OwD7AAaPvSr2yPmCf5U3GeMQ+wJF5VwAotD7AjbBFj6m0PkDEYOSeb7g+APdrV/uaoD5A0LLalMO8PgAEbJwaL7w+AIAqkd/IoD6ANztrXLyiPgCAt3PFsik+ADz1X6JziD4AnIYTq9qaPgBKVafEO48+gJz06y9utj4ilIt+IAMAAA=="},"shape":[100],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1264","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1265"}}},"glyph":{"type":"object","name":"Line","id":"p1260","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#ff7f0e"}},"nonselection_glyph":{"type":"object","name":"Line","id":"p1261","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#ff7f0e","line_alpha":0.1}},"muted_glyph":{"type":"object","name":"Line","id":"p1262","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#ff7f0e","line_alpha":0.2}}}}],"toolbar":{"type":"object","name":"Toolbar","id":"p1221","attributes":{"tools":[{"id":"p1147"},{"id":"p1234"},{"id":"p1235"},{"id":"p1243"},{"id":"p1244"},{"type":"object","name":"SaveTool","id":"p1245"}]}},"toolbar_location":null,"left":[{"type":"object","name":"LinearAxis","id":"p1229","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p1230","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p1231"},"axis_label":"Magnetization (Am\u00b2/kg)","axis_label_text_font_style":"normal","major_label_policy":{"type":"object","name":"AllLabels","id":"p1232"}}}],"below":[{"type":"object","name":"LogAxis","id":"p1224","attributes":{"ticker":{"type":"object","name":"LogTicker","id":"p1225","attributes":{"num_minor_ticks":10,"mantissas":[1,5]}},"formatter":{"type":"object","name":"LogTickFormatter","id":"p1226"},"axis_label":"Field (mT)","axis_label_text_font_style":"normal","major_label_policy":{"type":"object","name":"AllLabels","id":"p1227"}}}],"center":[{"type":"object","name":"Grid","id":"p1228","attributes":{"axis":{"id":"p1224"}}},{"type":"object","name":"Grid","id":"p1233","attributes":{"dimension":1,"axis":{"id":"p1229"}}},{"type":"object","name":"Legend","id":"p1255","attributes":{"location":"top_left","click_policy":"hide","items":[{"type":"object","name":"LegendItem","id":"p1256","attributes":{"label":{"type":"value","value":"shifted"},"renderers":[{"id":"p1252"}]}},{"type":"object","name":"LegendItem","id":"p1266","attributes":{"label":{"type":"value","value":"smoothed"},"renderers":[{"id":"p1263"}]}}]}}]}},1,0],[{"type":"object","name":"Figure","id":"p1267","attributes":{"height":320,"sizing_mode":"stretch_width","x_range":{"type":"object","name":"DataRange1d","id":"p1268"},"y_range":{"type":"object","name":"DataRange1d","id":"p1269"},"x_scale":{"type":"object","name":"LogScale","id":"p1277"},"y_scale":{"type":"object","name":"LinearScale","id":"p1278"},"title":{"type":"object","name":"Title","id":"p1270","attributes":{"text":"Coercivity spectrum"}},"renderers":[{"type":"object","name":"GlyphRenderer","id":"p1307","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1301","attributes":{"selected":{"type":"object","name":"Selection","id":"p1302","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1303"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAA/wEYA+f8YGbgawOZlD9j7bfQrJjCP/Gfa2s0rtA/AeondzFz2D+oYphcjG3gPxth2XN8BOU/oRNLlPz06T/CcICK8zrvP3kxwqCacPI/LvO0DnqD9T/I1+uZltz4P+gJbK5ha/w/9iD0YhUjAEBpKaWaOjkCQH7nvOeEewRAgIl/orvsBkAbovp2PJAJQL5BPMHvZAxA11h74Yl1D0BPbOGVDmMRQLYzU69nKxNA3t6J7KEZFUApsKTTTC8XQFCThaFobhlA644c/XrcG0AvJG/EWnseQIre/+MXqCBAjDsnME0wIkCb06oVZNcjQDbUSdDUniVAaWfErmCMJ0BEMdclr6ApQC1eXgKO3StA4aZo/zZLLkBE2nqOuXQwQNgaKSux3jFAk+dpt9dkM0D58Pbo3Ao1QBU88W9L0jZARJ4eZWO9OEAdin/ePtA6QHfGhvg4DT1AlPCd+1B4P0DQd3tE/glBQCnWFLmtckJAxPx9vsb4Q0D8rIQ7np1FQDLtMKAMY0dAXZSDx+lMSUDz6xqADV9LQN/ggwB3m01AdHsMMk4CUEBgTPTvf09RQFBhzWeLt1JA4MdL5GI8VEDnXMHj699VQMQGZ0K2pFdAuyOa09uOWUAGp9o7+J1bQJ/FXVgB111ANHIAuBkgYECAvp57p2xhQDWx6ctd1GJAdgFsc+ZYZEBF9TBYQfplQLMB/tsMvWdAYLsWEEamaUAaETAD7bVrQC70B9sV721AuLTBAooqcEAs2hrsQnZxQMH8eyZv3HJAMal0E05fdEAX3pUIbgF2QDuFV1dJxHdA0hODlyOreUCqg+3AW7h7QCxiILXq731AtLTBAooqgEBkA3fefXWBQOi9az/V2oJAVuoYH+9chEBoocmw1/2FQAu1+4KDv4dArG/9ZCaliUB5wZyakbGLQDaewxLx541AO8NjgvElkEDBNZEosHCRQABOiVZ91JJAi5XLiChUlEAREHS82fOVQGk7yKx9tZdAvOWpcCibmUBTw8ayxqabQMxZVzdZ3J1AAuuXA/oeoEBGBKNMuGehQNeWK9dxy6JAE25GGBgDAAA="},"shape":[99],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAA/wEYA+f8K7vd7nnapD4qJgz1ogXDvi2ttFJy474+f8VsTG2JoD7k3qOgX0vCPmxEC6DtQrS+NYjmbhL5p76sJ07Si/rWPsRbFIC9y/E+4QA0S8tD675PZipdPb32PtxOqot62+y+9k5pzxTv8T6rUmi8ApDvPiaqwUww9NU+vSTvXg3dm76NF9H4nMP0PlIurncsreM+MScRrt9l+D7gchEl2DX8Pr0d9NfQ8Mu+OSyGz5eNDD+PdfK63BD4PtlWAGuetPc+N0e0CJfeAj9uvsfn/D4JP0/EmXaZ2P8+1V76ZWCdFj8UjWvY4B/3PmxvjkWvFRM/tnLpyWdeBz/vAO7ZIrEVP23RuFUC7hU/+VvBJ4lKGz/b8ImIoVgcP+dDo5uoZxw/BQGSuzo7Ij9D5i0RJSMePzBhVZfUzyA/uKko0YMcIj+mv3dumLshP+P8hbpm0CA/3vpcNWatJD+gvNn3N8MiP9CEi8M4ByM/nBfMfochHz9lzK3PAkQgP9m6ufvMOSI/pkAp42PwHD9hbCu/+nIgP9APp0r6axY/Z5M3S2XwHD+nWdpWVQgYP9kxcNs9IBw/QkUQjb/oDz9p79q2GWAaP05AT9yJohE/vwJ8yhZqEz8coGqEN8IOP8X7uFaL0hE/zonvrpjoDT9vS/4L7KkVP9A1WlzsF/8+9+ejvvmsCj9MSlVrENwFP+dmvWp9lwQ/93WTmTNCFD8b4QQ5mgnEvir/zKXR2QM/bS9LOhQI9T46/OKiyH3GPvTL26YAeuM+ICheE2o92j7pmlxSSXn4Ptrq/8QcE9m+fYw9299m9D6zF52a8+XcPmHnyQ07jvG+ygHJUciB7T5U6qaphHnoPh0YaX+Q19K+FksAaBlV2r4dD9E76VXgPjivXfiJSPy+jv4zb4dE/D4ZKfwZS68Fv4mqHJoUeAM/pJNyWMAXtD49TBW15a/kvhmHFrC1mwA/nAoPBLfzA7+8q8D5LiK5Ply3F3u/ogI/KJrlvUwaxL7swUOJmunxPhwuc0WPWdW+segAo1SK375e1z7A0yvZPmiRXfgxlgG/oHOMURgDAAA="},"shape":[99],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1308","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1309"}}},"glyph":{"type":"object","name":"Scatter","id":"p1304","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":6},"line_color":{"type":"value","value":"#2ca02c"},"fill_color":{"type":"value","value":"#2ca02c"},"hatch_color":{"type":"value","value":"#2ca02c"}}},"nonselection_glyph":{"type":"object","name":"Scatter","id":"p1305","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":6},"line_color":{"type":"value","value":"#2ca02c"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#2ca02c"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#2ca02c"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Scatter","id":"p1306","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":6},"line_color":{"type":"value","value":"#2ca02c"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#2ca02c"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#2ca02c"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1318","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1312","attributes":{"selected":{"type":"object","name":"Selection","id":"p1313","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1314"},"data":{"type":"map","entries":[["x",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAA/wEYA+f8YGbgawOZlD9j7bfQrJjCP/Gfa2s0rtA/AeondzFz2D+oYphcjG3gPxth2XN8BOU/oRNLlPz06T/CcICK8zrvP3kxwqCacPI/LvO0DnqD9T/I1+uZltz4P+gJbK5ha/w/9iD0YhUjAEBpKaWaOjkCQH7nvOeEewRAgIl/orvsBkAbovp2PJAJQL5BPMHvZAxA11h74Yl1D0BPbOGVDmMRQLYzU69nKxNA3t6J7KEZFUApsKTTTC8XQFCThaFobhlA644c/XrcG0AvJG/EWnseQIre/+MXqCBAjDsnME0wIkCb06oVZNcjQDbUSdDUniVAaWfErmCMJ0BEMdclr6ApQC1eXgKO3StA4aZo/zZLLkBE2nqOuXQwQNgaKSux3jFAk+dpt9dkM0D58Pbo3Ao1QBU88W9L0jZARJ4eZWO9OEAdin/ePtA6QHfGhvg4DT1AlPCd+1B4P0DQd3tE/glBQCnWFLmtckJAxPx9vsb4Q0D8rIQ7np1FQDLtMKAMY0dAXZSDx+lMSUDz6xqADV9LQN/ggwB3m01AdHsMMk4CUEBgTPTvf09RQFBhzWeLt1JA4MdL5GI8VEDnXMHj699VQMQGZ0K2pFdAuyOa09uOWUAGp9o7+J1bQJ/FXVgB111ANHIAuBkgYECAvp57p2xhQDWx6ctd1GJAdgFsc+ZYZEBF9TBYQfplQLMB/tsMvWdAYLsWEEamaUAaETAD7bVrQC70B9sV721AuLTBAooqcEAs2hrsQnZxQMH8eyZv3HJAMal0E05fdEAX3pUIbgF2QDuFV1dJxHdA0hODlyOreUCqg+3AW7h7QCxiILXq731AtLTBAooqgEBkA3fefXWBQOi9az/V2oJAVuoYH+9chEBoocmw1/2FQAu1+4KDv4dArG/9ZCaliUB5wZyakbGLQDaewxLx541AO8NjgvElkEDBNZEosHCRQABOiVZ91JJAi5XLiChUlEAREHS82fOVQGk7yKx9tZdAvOWpcCibmUBTw8ayxqabQMxZVzdZ3J1AAuuXA/oeoEBGBKNMuGehQNeWK9dxy6JAE25GGBgDAAA="},"shape":[99],"dtype":"float64","order":"little"}],["y",{"type":"ndarray","array":{"type":"bytes","data":"H4sIAAEAAAAA/wEYA+f8tZo6TGPCpD6Ju4YjESTCvrnMKyDrdbU++C4Q6aE4vT7CorqTajunPtU8Y3UWqpG+RrDC1ohrr77Tx30UYVrWPsehmOB17PE+LZzgpaNG675Jf7EiP6f2PjiJ1volQ+y+qx5rCrwf8T56trg24DTxPgVyHIUxbM8+VaunQfVpoz5TT546q1D0PlLiS2zV7uM+ex/a8A1x+D7UPth7lAP8Posxmf0cb8m+znntvAphDD+p1Oug3V74PjILk6CNcfc+ysM+cF0HAz+51M+CxfwIP55Wm9PtUAA/304zs/9aFj+to8p3jU74PgBHzZkcwBI/WVwpBDBeCD9f/YbRlrYUP/U5vm6MZBc/upkAS8TeGT/JmX7sWCcdP4efmLYNMxw/7/4n6QMwIj9Z94bxylkePyt6A79oqyA/GWxPtTM/Ij8idwdZgaEhPyHaMy0n5CA/s7nSMjKbJD+Jv4abC9QiP0dh1SaC+iI/g+fkaTUrHz9ayq2lfEogP6lKp10kJyI/ovBF0VspHT/E8L7zclAgP2JK5bfnthY/Gpth7N2iHD9PR/ipP1oYP3OzIKOBxxs/7DJbe8dQED+3rSiDmQkaP3/pEJgJ6xE/9Sby968vEz/6d6RYAS0PP2mlKrTKlxE/bFLnKQuKDj8544X+ySAVP2iOfzwFfAE/EYXP4r/0Bz/08jNMij8IP21JryD+nQM/oDH3c4EiFD9yWpmRVrSzvsBo4BBScgM/dDV331r+9D5OkmUC8j/LPjfeLIn28+E+LBLi68j/3T7t6E4V7cP2PoWsUnaBase+FzAtS2Zd7z6icDDixYvlPkfgTJFRH/G+hXKTTuwi5T4vI/j7vBrxPpm4cKbqnN++4LPdjXZR074wE+cS+FDaPmYIogEiQvq+EiUJrKP4+T6G/htM48sEv3dcx54jdAM/WBSa1hlOrr5RHRv/YjPcvroBmUSua/4+n2DTffcoA7/iufH3m2CxPgYX0jlbeQI/MYtSwy05vb6ShkUE+XPxPoXn/i3ygNa+ywptiyOA275bbrJgHxPVPtu9bbfhVgG/qzLnmhgDAAA="},"shape":[99],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1319","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1320"}}},"glyph":{"type":"object","name":"Line","id":"p1315","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#2ca02c"}},"nonselection_glyph":{"type":"object","name":"Line","id":"p1316","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#2ca02c","line_alpha":0.1}},"muted_glyph":{"type":"object","name":"Line","id":"p1317","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"line_color":"#2ca02c","line_alpha":0.2}}}}],"toolbar":{"type":"object","name":"Toolbar","id":"p1276","attributes":{"tools":[{"id":"p1147"},{"id":"p1289"},{"id":"p1290"},{"id":"p1298"},{"id":"p1299"},{"type":"object","name":"SaveTool","id":"p1300"}]}},"toolbar_location":null,"left":[{"type":"object","name":"LinearAxis","id":"p1284","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p1285","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p1286"},"axis_label":"dM/dlog(B)","axis_label_text_font_style":"normal","major_label_policy":{"type":"object","name":"AllLabels","id":"p1287"}}}],"below":[{"type":"object","name":"LogAxis","id":"p1279","attributes":{"ticker":{"type":"object","name":"LogTicker","id":"p1280","attributes":{"num_minor_ticks":10,"mantissas":[1,5]}},"formatter":{"type":"object","name":"LogTickFormatter","id":"p1281"},"axis_label":"Field (mT)","axis_label_text_font_style":"normal","major_label_policy":{"type":"object","name":"AllLabels","id":"p1282"}}}],"center":[{"type":"object","name":"Grid","id":"p1283","attributes":{"axis":{"id":"p1279"}}},{"type":"object","name":"Grid","id":"p1288","attributes":{"dimension":1,"axis":{"id":"p1284"}}},{"type":"object","name":"Legend","id":"p1310","attributes":{"location":"top_left","click_policy":"hide","items":[{"type":"object","name":"LegendItem","id":"p1311","attributes":{"label":{"type":"value","value":"raw spectrum"},"renderers":[{"id":"p1307"}]}},{"type":"object","name":"LegendItem","id":"p1321","attributes":{"label":{"type":"value","value":"smoothed spectrum"},"renderers":[{"id":"p1318"}]}}]}}]}},2,0]]}}]}};
+  const render_items = [{"docid":"7d916584-5f6c-43a7-beaa-e6cbaa95e19f","roots":{"p1329":"e157a99d-6336-420d-9fb6-06fb2ccb4c6d"},"root_ids":["p1329"]}];
+  void root.Bokeh.embed.embed_items_notebook(docs_json, render_items);
+  }
+  if (root.Bokeh !== undefined) {
+    embed_document(root);
+  } else {
+    let attempts = 0;
+    const timer = setInterval(function(root) {
+      if (root.Bokeh !== undefined) {
+        clearInterval(timer);
+        embed_document(root);
+      } else {
+        attempts++;
+        if (attempts > 100) {
+          clearInterval(timer);
+          console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+        }
+      }
+    }, 10, root)
+  }
+})(window);</script></div>
+</div>
+</section>
+<section id="add-the-calculated-bcr-values-to-the-specimens-data-table">
+<h2>add the calculated Bcr values to the specimens data table<a class="headerlink" href="#add-the-calculated-bcr-values-to-the-specimens-data-table" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rmag</span><span class="o">.</span><span class="n">add_Bcr_to_specimens_table</span><span class="p">(</span><span class="n">specimens</span><span class="p">,</span> <span class="s1">&#39;IRM-VSM4-LP-BCR-BF-239364&#39;</span><span class="p">,</span> <span class="n">Bcr</span><span class="p">)</span>
+<span class="n">specimens</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>aniso_f</th>
+      <th>aniso_l</th>
+      <th>aniso_p</th>
+      <th>aniso_s</th>
+      <th>aniso_s_n_measurements</th>
+      <th>aniso_t</th>
+      <th>aniso_type</th>
+      <th>azimuth</th>
+      <th>citations</th>
+      <th>contribution_id</th>
+      <th>...</th>
+      <th>rem_sratio_back</th>
+      <th>rem_sratio_forward</th>
+      <th>result_quality</th>
+      <th>row_id</th>
+      <th>sample</th>
+      <th>specimen</th>
+      <th>synthetic_alternatives</th>
+      <th>volume</th>
+      <th>weight</th>
+      <th>rem_bcr</th>
+    </tr>
+    <tr>
+      <th>specimen name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>12-27-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>12-27</td>
+      <td>12-27-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000200</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>7-337-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>7-337</td>
+      <td>7-337-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000000</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>7-350-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>7-350</td>
+      <td>7-350-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000200</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>74-639-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>74-639</td>
+      <td>74-639-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000000</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>74-968-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>74-968</td>
+      <td>74-968-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000120</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>C-Or-428-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>C-Or-428</td>
+      <td>C-Or-428-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000297</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>OBN-1-A-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>OBN-1 A</td>
+      <td>OBN-1-A-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000310</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>OBN-1-B-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>OBN-1 B</td>
+      <td>OBN-1-B-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000300</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Vi-313-105-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>Vi-313-105</td>
+      <td>Vi-313-105-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000350</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Vi-313-110-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>Vi-313-110</td>
+      <td>Vi-313-110-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000120</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Vi-313-114-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>Vi-313-114</td>
+      <td>Vi-313-114-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000250</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Vi-313-54-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>Vi-313-54</td>
+      <td>Vi-313-54-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000200</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Vi-313-54b-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>Vi-313-54b</td>
+      <td>Vi-313-54b-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000100</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Vi-313-6-g1</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>Vi-313-6</td>
+      <td>Vi-313-6-g1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000280</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Vi-313-6-g2</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>Vi-313-6</td>
+      <td>Vi-313-6-g2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000000</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Vi-313-6b-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>g</td>
+      <td>NaN</td>
+      <td>Vi-313-6b</td>
+      <td>Vi-313-6b-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000200</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>12-27-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>12-27</td>
+      <td>12-27-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000200</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>7-350-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>7-350</td>
+      <td>7-350-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000200</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>7-350-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>7-350</td>
+      <td>7-350-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000200</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>74-968-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>74-968</td>
+      <td>74-968-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000120</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>C-Or-428-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>C-Or-428</td>
+      <td>C-Or-428-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000297</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>C-Or-428-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>C-Or-428</td>
+      <td>C-Or-428-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000297</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>OBN-1-A-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>OBN-1 A</td>
+      <td>OBN-1-A-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000310</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>OBN-1-A-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>OBN-1 A</td>
+      <td>OBN-1-A-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000310</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>OBN-1-A-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>OBN-1 A</td>
+      <td>OBN-1-A-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000310</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>OBN-1-B-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>OBN-1 B</td>
+      <td>OBN-1-B-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000300</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Vi-313-105-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Vi-313-105</td>
+      <td>Vi-313-105-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000350</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Vi-313-110-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Vi-313-110</td>
+      <td>Vi-313-110-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000120</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Vi-313-114-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Vi-313-114</td>
+      <td>Vi-313-114-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000250</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Vi-313-54-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Vi-313-54</td>
+      <td>Vi-313-54-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000200</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Vi-313-6-g1</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Vi-313-6</td>
+      <td>Vi-313-6-g1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000280</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Vi-313-6-g1</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Vi-313-6</td>
+      <td>Vi-313-6-g1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000280</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>7-350-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.1</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>7-350</td>
+      <td>7-350-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000200</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>7-350-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.1</td>
+      <td>2.5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>7-350</td>
+      <td>7-350-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000200</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>74-968-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.1</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>74-968</td>
+      <td>74-968-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000120</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>C-Or-428-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.1</td>
+      <td>2.5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>C-Or-428</td>
+      <td>C-Or-428-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000297</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>OBN-1-A-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.1</td>
+      <td>2.5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>OBN-1 A</td>
+      <td>OBN-1-A-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000310</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>OBN-1-A-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.1</td>
+      <td>2.5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>OBN-1 A</td>
+      <td>OBN-1-A-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000310</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>OBN-1-B-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.1</td>
+      <td>2.5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>OBN-1 B</td>
+      <td>OBN-1-B-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000300</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Vi-313-105-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.1</td>
+      <td>2.5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Vi-313-105</td>
+      <td>Vi-313-105-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000350</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Vi-313-110-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.1</td>
+      <td>2.5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Vi-313-110</td>
+      <td>Vi-313-110-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000120</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Vi-313-114-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.1</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Vi-313-114</td>
+      <td>Vi-313-114-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000250</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Vi-313-114-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.1</td>
+      <td>2.5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Vi-313-114</td>
+      <td>Vi-313-114-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000250</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Vi-313-114-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.1</td>
+      <td>2.5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Vi-313-114</td>
+      <td>Vi-313-114-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000250</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Vi-313-54-g</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.1</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Vi-313-54</td>
+      <td>Vi-313-54-g</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000200</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Vi-313-6-g1</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.1</td>
+      <td>2.5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Vi-313-6</td>
+      <td>Vi-313-6-g1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000280</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Vi-313-6-g1</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>This Study</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.1</td>
+      <td>2.5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Vi-313-6</td>
+      <td>Vi-313-6-g1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000280</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>47 rows × 45 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="overwrite-the-specimens-data-table">
+<h2>overwrite the specimens data table<a class="headerlink" href="#overwrite-the-specimens-data-table" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pmag</span><span class="o">.</span><span class="n">magic_write</span><span class="p">(</span><span class="n">dir_path</span> <span class="o">+</span> <span class="s1">&#39;/specimens.txt&#39;</span><span class="p">,</span> <span class="n">specimens</span><span class="p">,</span> <span class="s1">&#39;specimens&#39;</span><span class="p">,</span> <span class="n">dataframe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>47  records written to file  ../example_data/Ana_P/specimens.txt
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(True, &#39;../example_data/Ana_P/specimens.txt&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="export-magic-upload-files">
+<h1>export MagIC upload files<a class="headerlink" href="#export-magic-upload-files" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ipmag.upload_magic(dir_path=dir_path,input_dir_path=dir_path, verbose=False)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./hysteresis_backfield_notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="hysteresis_processing_walk_through.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Hysteresis Processing walkthrough notebook</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="coercivity_unmixing_MaxUnmix.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Python implementation of the Max Unmix method for coercivity spectra analysis</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Backfield processing</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-data">Import data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#select-specimen-backfield-experiment-data">Select specimen backfield experiment data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#process-backfield-data">Process backfield data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-smoothing">Applying smoothing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-the-calculated-bcr-values-to-the-specimens-data-table">add the calculated Bcr values to the specimens data table</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overwrite-the-specimens-data-table">overwrite the specimens data table</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#export-magic-upload-files">export MagIC upload files</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By RockmagPy Contributors
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
