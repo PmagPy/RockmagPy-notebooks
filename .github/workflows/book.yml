@@ -20,7 +20,7 @@ jobs:
         python-version: '3.11'
     - name: Install dependencies manually
       run: |
-        pip install future matplotlib pandas requests seaborn jupyter-book scikit-learn ipywidgets
+        pip install future matplotlib pandas requests seaborn "jupyter-book==1.0.4.post1" scikit-learn ipywidgets
         pip install cartopy==0.22
         pip install pmagpy==4.2.106
     - name: Clean previous build
@@ -30,6 +30,8 @@ jobs:
     - name: Build the book
       run: |
         jupyter-book build .
+        # Guard: never publish an empty build (which silently wipes the live site)
+        test -f _build/html/index.html || { echo "::error::Build produced no _build/html/index.html — refusing to deploy"; exit 1; }
     # Push the book's HTML to github-pages
     - name: GitHub Pages action
       uses: peaceiris/actions-gh-pages@v3
