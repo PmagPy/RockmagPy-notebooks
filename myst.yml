@@ -32,7 +32,8 @@ project:
         - file: hysteresis_backfield_notebooks/hysteresis_processing.ipynb
         - file: hysteresis_backfield_notebooks/hysteresis_processing_walk_through.ipynb
         - file: hysteresis_backfield_notebooks/backfield_processing.ipynb
-        - file: hysteresis_backfield_notebooks/coercivity_unmixing_MaxUnmix.ipynb
+        - file: hysteresis_backfield_notebooks/coercivity_unmixing.ipynb
+        - file: hysteresis_backfield_notebooks/coercivity_unmixing_bayesian.ipynb
         - file: hysteresis_backfield_notebooks/summary_plots.ipynb
     - file: thermomagnetic_notebooks/thermomag_intro.md
       title: Thermomagnetic notebooks
