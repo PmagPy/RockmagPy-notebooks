@@ -9,12 +9,9 @@ RockmagPy is a module of the [PmagPy](https://pmagpy.github.io/PmagPy-docs/intro
 RockmagPy is designed to work with the [MagIC database](https://earthref.org/MagIC). It enables manipulation of MagIC data sets as well as the preparation of contributions for uploading to MagIC. Example notebooks have been developed to aid in the use of RockmagPy and with the goal of supporting well-documented data analysis. These notebooks can be downloaded from the [RockmagPy notebooks repository](https://github.com/pmagpy/rockmagpy-notebooks) to be run locally on one's computer or run in the cloud on the [EarthRef JupyterHub](https://jupyterhub.earthref.org/).
 
 ::::{grid} 1 1 2 3
-:class-container: text-center
-:gutter: 3
 
 :::{grid-item-card}
 :link: https://pmagpy.github.io/PmagPy-docs/installation/PmagPy_install
-:class-header: bg-light
 
 Installation 🪴
 ^^^
@@ -25,7 +22,6 @@ Instructions for how to install PmagPy on your computer.
 
 :::{grid-item-card}
 :link: https://jupyterhub.earthref.org/
-:class-header: bg-light
 
 Live notebooks 🚀
 ^^^
@@ -35,7 +31,6 @@ Launch RockmagPy notebooks in the cloud on Earthref's JupyterHub. Run `rockmag_s
 
 :::{grid-item-card}
 :link: https://www2.earthref.org/MagIC/
-:class-header: bg-light
 
 MagIC database ⚡
 ^^^
@@ -57,7 +52,6 @@ The rendered notebooks do give an overall sense of what functions are available 
 ::::{grid} 2 2 2 2
 
 :::{grid-item}
-:columns: 4
 
 ```{image} images/logos/NSF_logo.png
 :class: m-auto
@@ -67,7 +61,6 @@ The rendered notebooks do give an overall sense of what functions are available 
 :::
 
 :::{grid-item}
-:columns: 7
 Current development of RockmagPy is supported by the National Science Foundation through its [support for the MagIC database](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2148719).
 :::
 

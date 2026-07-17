@@ -1,0 +1,73 @@
+# See docs at: https://mystmd.org/guide/frontmatter
+# Migrated from Jupyter Book 1.x (_config.yml + _toc.yml) — JB2/MyST project config.
+version: 1
+project:
+  id: f5ea3f3e-7444-4f41-aaa2-0675715668f3
+  title: RockmagPy Documentation
+  authors:
+    - name: RockmagPy Contributors
+  copyright: "2025"
+  github: https://github.com/PmagPy/RockmagPy-notebooks
+  bibliography:
+    - book/references.bib
+  # execution is off by default in `jupyter book build` (JB1 had execute_notebooks: 'off');
+  # saved notebook outputs are used as-is.
+  toc:
+    - file: book/intro.md
+    - title: Nuts & Bolts
+      children:
+        - file: rockmag_set_up.ipynb
+        - file: rockmag_data_unpack.ipynb
+    - file: MPMS_notebooks/MPMS_intro.md
+      title: MPMS notebooks
+      children:
+        - file: MPMS_notebooks/MPMS_plot_dc.ipynb
+        - file: MPMS_notebooks/MPMS_plot_ac.ipynb
+        - file: MPMS_notebooks/MPMS_verwey_fit.ipynb
+        - file: MPMS_notebooks/MPMS_goethite_fit.ipynb
+        - file: MPMS_notebooks/MPMS_signal_blender.ipynb
+    - file: hysteresis_backfield_notebooks/VSM_intro.md
+      title: Hysteresis/backfield notebooks
+      children:
+        - file: hysteresis_backfield_notebooks/hysteresis_processing.ipynb
+        - file: hysteresis_backfield_notebooks/hysteresis_processing_walk_through.ipynb
+        - file: hysteresis_backfield_notebooks/backfield_processing.ipynb
+        - file: hysteresis_backfield_notebooks/coercivity_unmixing_MaxUnmix.ipynb
+        - file: hysteresis_backfield_notebooks/summary_plots.ipynb
+    - file: thermomagnetic_notebooks/thermomag_intro.md
+      title: Thermomagnetic notebooks
+      children:
+        - file: thermomagnetic_notebooks/high_T_susceptibility.ipynb
+        - file: thermomagnetic_notebooks/curie_temperature_estimation.ipynb
+    - file: anisotropy_notebooks/anisotropy_intro.md
+      title: Anisotropy notebooks
+      children:
+        - file: anisotropy_notebooks/anisotropy_plot_AMS.ipynb
+        - file: book/background/anisotropy.md
+          title: Anisotropy background
+    - file: RMB_notebooks/RMB_intro.md
+      title: Rock Magnetic Bestiary
+      children:
+        - file: RMB_notebooks/RMB_siderite.ipynb
+          title: Siderite
+        - file: RMB_notebooks/RMB_titanomagnetite.ipynb
+          title: (Titano)magnetite
+    - file: book/background/low_temperature_behavior.md
+      title: Low-temperature behavior
+      children:
+        - file: book/background/superparamagnetism.md
+          title: Superparamagnetism
+        - file: book/background/paramagnetism.md
+          title: Paramagnetism
+        - file: book/background/verwey.md
+          title: Verwey transition
+        - file: book/background/morin.md
+          title: Morin transition
+        - file: book/minerals/siderite.md
+          title: Siderite
+    - file: book/resources.md
+      title: Resources
+site:
+  template: book-theme
+  options:
+    logo: book/images/logos/rockmagpy.png

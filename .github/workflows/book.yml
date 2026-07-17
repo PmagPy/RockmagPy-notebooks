@@ -1,38 +1,54 @@
 name: deploy-book
 
-# Only run this when the master branch changes
+# On push to main: build the Jupyter Book (v2 / MyST), guard against an empty
+# build, then publish _build/html to the gh-pages branch.
 on:
   push:
     branches:
-    - main
+      - main
 
-# This job installs dependencies, build the book, and pushes it to `gh-pages`
+# Required so the deploy step can push to the gh-pages branch.
+permissions:
+  contents: write
+
 jobs:
   deploy-book:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-    # Install dependencies
-    - name: Set up Python 3.11
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
-    - name: Install dependencies manually
-      run: |
-        pip install future matplotlib pandas requests seaborn jupyter-book scikit-learn ipywidgets
-        pip install cartopy==0.22
-        pip install pmagpy==4.2.106
-    - name: Clean previous build
-      run: |
-        jupyter-book clean .  
-    # Build the book
-    - name: Build the book
-      run: |
-        jupyter-book build .
-    # Push the book's HTML to github-pages
-    - name: GitHub Pages action
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./_build/html
+      # Python provides the pip-installed `jupyter-book` (v2) launcher.
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # Jupyter Book 2 renders via the Node-based MyST engine. Provide Node
+      # explicitly so mystmd uses it instead of trying to install one interactively.
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Pin Jupyter Book 2.x (unpinned previously resolved to an incompatible major).
+      - name: Install Jupyter Book 2
+        run: |
+          pip install "jupyter-book==2.1.2"
+
+      # BASE_URL sets the sub-path so links/assets resolve under the project
+      # Pages site: https://pmagpy.github.io/<repo>/
+      - name: Build the book
+        env:
+          BASE_URL: /${{ github.event.repository.name }}
+        run: |
+          jupyter book build --html
+          # Guard: never publish an empty build (which would wipe the live site).
+          test -f _build/html/index.html || { echo "::error::Build produced no _build/html/index.html — refusing to deploy"; exit 1; }
+
+      # Publish only from main; pushes to the migration branch are build-only checks.
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_build/html
