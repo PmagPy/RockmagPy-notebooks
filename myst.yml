@@ -8,6 +8,8 @@ project:
     - name: RockmagPy Contributors
   copyright: "2025"
   github: https://github.com/PmagPy/RockmagPy-notebooks
+  # Default preview image for all pages.
+  thumbnail: book/images/logos/rockmagpy.png
   bibliography:
     - book/references.bib
   # execution is off by default in `jupyter book build` (JB1 had execute_notebooks: 'off');
