@@ -41,7 +41,10 @@
     <loc>http://localhost:3000/backfield-processing</loc>
   </url>
   <url>
-    <loc>http://localhost:3000/coercivity-unmixing-maxunmix</loc>
+    <loc>http://localhost:3000/coercivity-unmixing</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/coercivity-unmixing-bayesian</loc>
   </url>
   <url>
     <loc>http://localhost:3000/summary-plots</loc>
