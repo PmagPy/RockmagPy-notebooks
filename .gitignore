@@ -40,3 +40,4 @@ example_data/**/images.txt
 # the coercivity unmixing notebook, not an unpack_magic() output — keep it.
 !example_data/backfield_unmixing/redbed_MagIC/measurements.txt
 !example_data/backfield_unmixing/redbed_MagIC/specimens.txt
+MPMS_notebooks/mpms_dc_plot.pdf
