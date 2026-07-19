@@ -5,9 +5,6 @@
     <loc>http://localhost:3000</loc>
   </url>
   <url>
-    <loc>http://localhost:3000/rockmag-set-up</loc>
-  </url>
-  <url>
     <loc>http://localhost:3000/rockmag-data-unpack</loc>
   </url>
   <url>
