@@ -1,3 +1,42 @@
 .DS_Store
 __pycache__/rockmag.cpython-39.pyc
 /_build
+
+# ---------------------------------------------------------------------------
+# Example data: keep committed seeds, ignore runtime-downloaded/regenerated data
+# ---------------------------------------------------------------------------
+# Notebooks obtain data two ways:
+#   1. Committed "seed" files read directly (magic_contribution_*.txt, *_mpms.txt,
+#      hand-curated *.csv and MagIC-table subsets). These stay tracked.
+#   2. Data fetched with ipmag.download_magic_from_id() and/or expanded with
+#      ipmag.unpack_magic() when the notebooks run. These are reproducible and
+#      must NOT be committed.
+
+# Per-notebook working copies are downloaded fresh each run
+MPMS_notebooks/example_data/
+RMB_notebooks/example_data/
+anisotropy_notebooks/example_data/
+thermomagnetic_notebooks/example_data/
+
+# Contributions downloaded at runtime via download_magic_from_id (whole dirs;
+# nothing in them is a committed seed)
+example_data/Jackson2012/
+example_data/SSRM2024C/
+
+# Standard MagIC tables written by unpack_magic() into the seed directories
+# (ECMB, goethite, ...). The seed magic_contribution_*.txt / *_mpms.txt files
+# they are expanded from are not matched here and remain tracked.
+example_data/**/contribution.txt
+example_data/**/locations.txt
+example_data/**/sites.txt
+example_data/**/samples.txt
+example_data/**/specimens.txt
+example_data/**/measurements.txt
+example_data/**/ages.txt
+example_data/**/criteria.txt
+example_data/**/images.txt
+
+# Exception: redbed_MagIC is a hand-curated MagIC-table subset used directly by
+# the coercivity unmixing notebook, not an unpack_magic() output — keep it.
+!example_data/backfield_unmixing/redbed_MagIC/measurements.txt
+!example_data/backfield_unmixing/redbed_MagIC/specimens.txt
