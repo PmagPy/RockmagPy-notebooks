@@ -67,6 +67,8 @@ project:
           title: Siderite
     - file: book/resources.md
       title: Resources
+    - file: book/rockmag_api.md
+      title: rockmag API reference
 site:
   template: book-theme
   options:
