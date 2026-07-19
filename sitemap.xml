@@ -94,4 +94,7 @@
   <url>
     <loc>http://localhost:3000/resources</loc>
   </url>
+  <url>
+    <loc>http://localhost:3000/rockmag-api</loc>
+  </url>
 </urlset>
