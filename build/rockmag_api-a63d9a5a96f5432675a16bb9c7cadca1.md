@@ -2437,7 +2437,7 @@ as NaN/None so batch tables keep a stable schema:
 **Parameters**
 
 - **field** (`array_like`) — Array of applied magnetic field values in tesla (the chi_HF unit conversions assume tesla; a warning is printed if the values appear to be in mT or Oe).
-- **magnetization** (`array_like`) — Array of magnetization values (same length as `field`), in any consistent unit; mass-normalized Am2/kg matches MagIC conventions.
+- **magnetization** (`array_like`) — Array of magnetization values (same length as `field`), in any consistent unit; mass-normalized Am²/kg matches MagIC conventions.
 - **specimen_name** (`str`) — Identifier for the specimen, used for labeling plots.
 - **show_results_table** (`bool`) — If True (default), display a summary table of key parameters using Bokeh.
 - **show_plot** (`bool`) — If True (default), display the Bokeh plot of the hysteresis loop and processing steps.
@@ -2552,7 +2552,7 @@ plain Python lists, or arrays exported from instrument software.
 **Parameters**
 
 - **field** (`array_like`) — Applied field values. Expected in tesla: the chi_HF unit conversions in `linear_HF_fit`, `hyst_slope_correction`, and the nonlinear fits assume tesla, so a warning is printed if the values appear to be in mT or Oe (max |field| > 20).
-- **magnetization** (`array_like`) — Magnetization or moment values, in any unit that is consistent across the loop (mass-normalized Am2/kg matches MagIC conventions).
+- **magnetization** (`array_like`) — Magnetization or moment values, in any unit that is consistent across the loop (mass-normalized Am²/kg matches MagIC conventions).
 - **drop_nonfinite** (`bool`) — If True (default), measurement pairs where either value is NaN or infinite are dropped with a printed report. If False, a ValueError is raised when non-finite values are present.
 
 **Returns**
