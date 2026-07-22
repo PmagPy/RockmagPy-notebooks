@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "FORCme: Application of machine code and adaptive smoothing within python for the rapid processing of First Order Reversal Curves"
+authors:
+  - family-names: Brown
+    given-names: Maxwell
+version: 1.0.0
+date-released: 2026-04-15
