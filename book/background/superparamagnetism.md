@@ -8,7 +8,7 @@ This text on superparamagnetic behavior at low temperature is from the Fall 2009
 
 Superparamagnetism (SP) describes the state of a single-domain-sized grain when thermal energy is sufficient to overcome barriers to a reversal of magnetization. Here the term “reversal” assumes uniaxial anisotropy with two minimum energy states having anti-parallel moment orientations. Energy barriers to magnetization changing arise from magnetocrystalline, magnetoelastic and/or shape anisotropy, all of which are proportional to grain volume (V). When the energy barriers are large with respect to thermal energy, the magnetization is “blocked” and the probability of spontaneous reversal approaches nil. But when the barriers are relatively low, thermal excitations can result in reversal of the magnetization over very short time scales, and the grain is in a superparamagnetic state. At a given temperature the volume at which a particle goes from being unblocked to blocked is known as the blocking volume (V<sub>b</sub>). For a given volume, we can block the grain by lowering the temperature (i.e. decreasing the available thermal energy) below the blocking temperature (T<sub>b</sub>).
 
-```{figure} https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Ferrofluid_close.jpg/800px-Ferrofluid_close.jpg
+```{figure} ../images/ferrofluid_close.jpg
 :name: ferrofluid_figure
 :align: center
 :width: 60%
@@ -129,7 +129,7 @@ In between the fully unblocked state (Eq. {eq}`eq_sp_chi`) and the fully blocked
 \chi'' = \frac{\omega \tau \chi_{sp}}{1 + \omega^2 \tau^2}
 ```
 
-and $(\chi’)^2 + (\chi’’)^2 = (\chi_{sp})^2 / (1 + \omega^2 \tau^2)$. At low $f$ and short $\tau$ ($\omega^2 \tau^2 \ll 1$) the moment can “keep up” with the driving field, and the out-of-phase signal will be small. At higher $f$ and longer $\tau$, the magnetization will lag farther behind, leading to a larger out-of-phase signal. In this way, we also see that both the in-phase and out-of-phase susceptibility components are frequency-dependent as the sample passes through the blocking temperature interval ({numref}`SP_ac`).
+and $(\chi')^2 + (\chi'')^2 = (\chi_{sp})^2 / (1 + \omega^2 \tau^2)$. At low $f$ and short $\tau$ ($\omega^2 \tau^2 \ll 1$) the moment can “keep up” with the driving field, and the out-of-phase signal will be small. At higher $f$ and longer $\tau$, the magnetization will lag farther behind, leading to a larger out-of-phase signal. In this way, we also see that both the in-phase and out-of-phase susceptibility components are frequency-dependent as the sample passes through the blocking temperature interval ({numref}`SP_ac`).
 
 ```{figure} https://raw.githubusercontent.com/PmagPy/RockmagPy-notebooks/main/book/images/SP_ac.png
 :name: SP_ac_basalt
@@ -181,7 +181,7 @@ Finally, samples with a large paramagnetic/ferromagnetic ratio may exhibit a sim
 
 Berquó, T.S., Banerjee, S.K., Ford, R.G., Penn, R.L., & Pichler, T. (2007). High-crystallinity Si-ferrihydrite: An insight into its Néel temperature and size dependence of magnetic properties. *J. Geophys. Res.*, 112, B02S02. [doi:10.1029/2006JB004264](http://dx.doi.org/10.1029/2006JB004264)
 
-Burton, B.P., Robinson, P., McEnroe, S.A., Fabian, K., & Boffa Ballaran, T. (2008). A low-temperature phase diagram for ilmenite-rich compositions in the system Fe₂O₃–FeTiO₃. *American Mineralogist*, 93, 870–872. [doi:10.2138/am.2008.2804](http://dx.doi.org/10.2138/am.2008.2804)
+Burton, B.P., Robinson, P., McEnroe, S.A., Fabian, K., & Boffa Ballaran, T. (2008). A low-temperature phase diagram for ilmenite-rich compositions in the system Fe₂O₃–FeTiO₃. *American Mineralogist*, 93, 1260–1272. [doi:10.2138/am.2008.2690](https://doi.org/10.2138/am.2008.2690)
 
 Carter-Stiglitz, B., Moskowitz, B., Solheid, P., Berquó, T.S., Jackson, M., & Kosterov, A. (2006). Low-temperature magnetic behavior of multidomain titanomagnetites: TM0, TM16, and TM35. *J. Geophys. Res.*, 111, B12S05. [doi:10.1029/2006JB004561](http://dx.doi.org/10.1029/2006JB004561)
 
