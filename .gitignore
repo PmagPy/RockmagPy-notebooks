@@ -1,3 +1,26 @@
 .DS_Store
-__pycache__/rockmag.cpython-39.pyc
+__pycache__/
 /_build
+
+# MagIC data downloaded at runtime into notebook directories
+# (the notebooks fetch these with ipmag.download_magic_from_id)
+*/example_data/
+
+# MagIC contributions downloaded at runtime into the root example_data
+/example_data/Jackson2012/
+/example_data/SSRM2022C/
+
+# tables unpacked at runtime (ipmag.unpack_magic) alongside the committed
+# magic_contribution files
+/example_data/*/contribution.txt
+/example_data/*/locations.txt
+/example_data/*/measurements.txt
+/example_data/*/samples.txt
+/example_data/*/sites.txt
+/example_data/*/specimens.txt
+/example_data/*/criteria.txt
+/example_data/*/ages.txt
+/example_data/*/images.txt
+
+# figures written as a side effect of notebook execution
+/MPMS_notebooks/mpms_dc_plot.pdf
