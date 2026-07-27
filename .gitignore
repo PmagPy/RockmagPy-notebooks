@@ -40,4 +40,17 @@ example_data/**/images.txt
 # the coercivity unmixing notebook, not an unpack_magic() output — keep it.
 !example_data/backfield_unmixing/redbed_MagIC/measurements.txt
 !example_data/backfield_unmixing/redbed_MagIC/specimens.txt
+
+# Exception: the FORC MagIC seed read by FORC_processing.ipynb cell 5 must ship
+# with the repo; the export cell later in that notebook regenerates it in place.
+!example_data/FORC/baraboo_vein_MagIC/measurements.txt
+
+# MagIC tables that process_forc() re-exports beside the raw instrument files
+# on every notebook run — derived artifacts, regenerable, not tracked.
+example_data/FORC/MagIC/
+example_data/FORC/variforc_examples/MagIC/
+
+# FORC pipeline output directories (figures and profile exports)
+example_data/**/FORC_figures/
+example_data/**/FORC_profiles/
 MPMS_notebooks/mpms_dc_plot.pdf
