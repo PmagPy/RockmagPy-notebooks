@@ -2,7 +2,7 @@
 
 Design, mathematics, rationale, and caveats for the FORC processing in `pmagpy.forc`.
 
-This page supersedes the `FORCme_overview` and `FORCme_SOP` documents that accompanied the original FORCme release by Maxwell Brown (Institute for Rock Magnetism, University of Minnesota), work carried out under NSF award EAR-2148549. It describes the code as it now stands in RockmagPy, which differs from that release in several respects noted below.
+This page builds on the `FORCme_overview` and `FORCme_SOP` documents that accompanied the original FORCme release by Maxwell Brown (Institute for Rock Magnetism, University of Minnesota), work carried out under NSF award EAR-2148549. It describes the code as it now stands in RockmagPy, which differs from that release in several respects noted below.
 
 ## Purpose and scope
 
