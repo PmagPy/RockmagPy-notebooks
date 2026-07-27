@@ -8,7 +8,7 @@ This page builds on the `FORCme_overview` and `FORCme_SOP` documents that accomp
 
 `pmagpy.forc` processes FORC data from raw instrument files through to diagrams and quantitative profiles. It is driven from a notebook through a single entry point, `process_forc`, which supports four input modes:
 
-| `mode` | input | behaviour |
+| `mode` | input | behavior |
 | --- | --- | --- |
 | `"i"` | one file | process a single FORC measurement |
 | `"s"` | a directory | stack repeated measurements of one specimen in magnetization space, then compute one distribution |
