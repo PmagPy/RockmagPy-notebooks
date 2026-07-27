@@ -47,6 +47,18 @@
     <loc>http://localhost:3000/summary-plots</loc>
   </url>
   <url>
+    <loc>http://localhost:3000/forc-intro</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/forc-processing</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/forc-smoothing</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/forc-variforc</loc>
+  </url>
+  <url>
     <loc>http://localhost:3000/thermomag-intro</loc>
   </url>
   <url>
