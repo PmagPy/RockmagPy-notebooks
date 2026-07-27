@@ -36,6 +36,12 @@ project:
         - file: hysteresis_backfield_notebooks/coercivity_unmixing.ipynb
         - file: hysteresis_backfield_notebooks/coercivity_unmixing_bayesian.ipynb
         - file: hysteresis_backfield_notebooks/summary_plots.ipynb
+    - file: FORC_notebooks/FORC_intro.md
+      title: FORC notebooks
+      children:
+        - file: FORC_notebooks/FORC_processing.ipynb
+        - file: FORC_notebooks/FORC_smoothing.ipynb
+        - file: FORC_notebooks/FORC_variforc.ipynb
     - file: thermomagnetic_notebooks/thermomag_intro.md
       title: Thermomagnetic notebooks
       children:
