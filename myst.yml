@@ -18,6 +18,8 @@ project:
     - file: book/intro.md
     - title: Nuts & Bolts
       children:
+        - file: book/getting_started.md
+          title: Getting started
         - file: rockmag_data_unpack.ipynb
     - file: MPMS_notebooks/MPMS_intro.md
       title: MPMS notebooks

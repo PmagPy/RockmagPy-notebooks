@@ -13,7 +13,7 @@ RockmagPy is designed to work with the [MagIC database](https://earthref.org/Mag
 Notebooks have been developed to use RockmagPy to analyze data from rock magnetic experiments.
 The notebook versions that are shown within this book are static (i.e. they don't run the code).
 Some of the interactive features that have been developed are not visible as they would be in a running notebook. 
-The rendered notebooks do give an overall sense of what functions are available within RockmagPy and explain associated methods. These notebooks can be run by downloading them from the [RockmagPy repository](https://github.com/pmagpy/rockmagpy-notebooks) and running them in a Python environment on your computer. The [**Rockmag MagIC data unpack**](../rockmag_data_unpack.ipynb) notebook illustrates how data from rock magnetic experiments that are in MagIC format can be imported from the database.
+The rendered notebooks illustrate the functions are available within RockmagPy and explain associated methods. These notebooks can be run by downloading them from the [RockmagPy repository](https://github.com/pmagpy/rockmagpy-notebooks) and running them in a Python environment on your computer — the [Getting started](getting_started.md) page walks through this setup step by step. The [**Rockmag MagIC data unpack**](../rockmag_data_unpack.ipynb) notebook illustrates how data from rock magnetic experiments that are in MagIC format can be imported from the database.
 
 The notebooks are organized into the following groups:
 
@@ -34,12 +34,12 @@ Additional background material supports the interpretation of these data:
 ::::{grid} 1 1 2 3
 
 :::{grid-item-card}
-:link: https://pmagpy.github.io/PmagPy-docs/installation/PmagPy_install
+:link: getting_started.md
 
-Installation 🪴
+Getting started 🪴
 ^^^
 
-Instructions for how to install PmagPy on your computer.
+Step-by-step instructions for installing Python and RockmagPy and running these notebooks on your own computer.
 
 :::
 
