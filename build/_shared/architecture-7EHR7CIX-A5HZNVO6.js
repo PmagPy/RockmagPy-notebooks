@@ -1,0 +1,1 @@
+import{a as e,b as r}from"/RockmagPy-notebooks/build/_shared/chunk-7FGDXJSL.js";import"/RockmagPy-notebooks/build/_shared/chunk-GEZIJWLJ.js";import"/RockmagPy-notebooks/build/_shared/chunk-RAQ24GF6.js";export{e as ArchitectureModule,r as createArchitectureServices};
