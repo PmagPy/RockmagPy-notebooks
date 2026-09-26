@@ -101,15 +101,34 @@ Langevin function
 ## `Me_drift_correction`
 
 ```python
-Me_drift_correction(H, M, descending_first=True)
+Me_drift_correction(H, M, descending_first=True, return_details=False, correction=None)
 ```
 
-Perform default IRM drift correction for a hysteresis loop based on the Me method.
+Drift correction based on the error curve err(H) (Jackson and Solheid,
+2010, section 4), as implemented in the hysteresis processing software
+of the Institute for Rock Magnetism.
 
-This function applies a drift correction algorithm to magnetization data (M) measured as a function of applied field (H),
-commonly used for IRM (Isothermal Remanent Magnetization) experiments. The correction is based on the Me signal,
-which is the sum of the upper and reversed lower branches of the hysteresis loop.
-The correction method adapts depending on whether significant drift is detected in the high-field region.
+The error curve Me = err(H), the sum of the upper branch and the
+inverted lower branch, is smoothed and the field at which it is largest
+is found. If that lies above 75% of the peak field the drift is
+attributed to the high-field part of the sweep and the smoothed error
+curve is subtracted from the positive-field halves of both branches
+(Jackson and Solheid's positive-field correction); otherwise the
+smoothed error curve is subtracted from the upper branch (the
+upper-branch correction of HystLab, Paterson et al., 2018). The error
+curve is smoothed with an 11-point Savitzky-Golay filter to locate the
+drift and a 7-point running mean for the upper-branch correction; both
+windows are shortened for loops with fewer points per branch than that
+(a loop needs at least 5).
+
+Either correction replaces err(H) by err(H) minus its smoothed version,
+which removes part of the random noise along with the drift: for a
+local least-squares smoother with centre weight c0 the residual keeps a
+fraction 1 - c0 of the noise variance (0.79 for the 11-point quadratic
+filter, 0.86 for the 7-point mean). The high-field linearity tests
+estimate their pure-error term from that residual, so their degrees of
+freedom are reduced by the same fraction; `return_details=True` returns
+it as 'pure_error_df_fraction' for `hyst_loop_saturation_test`.
 
 The drift estimate depends on measurement-time order, and the arrays are
 expected in canonical order (descending upper branch first, as produced
@@ -123,10 +142,13 @@ true time order rather than with the opposite time sense.
 - **H** (`numpy.ndarray`) — Array of magnetic field values, in canonical (descending-upper- branch-first) order.
 - **M** (`numpy.ndarray`) — Array of measured magnetization values corresponding to `H`.
 - **descending_first** (`bool`) — Whether the loop was originally measured with the descending branch first (default True). Use `measured_descending_first` on the raw field values to determine this for a gridded loop.
+- **return_details** (`bool`) — If True, also return a dict with 'correction' ('positive_field' or 'upper_branch'), 'smoothing_window' (points) and 'pure_error_df_fraction' (default False).
+- **correction** (`(positive_field, upper_branch)`) — Apply this correction instead of choosing from the error curve (used to propagate noise through the same correction a loop received; default None, automatic choice).
 
 **Returns**
 
-- `numpy.ndarray` — Corrected magnetization values after drift correction. 
+- `numpy.ndarray` — Corrected magnetization values after drift correction.
+- `dict` — Only when return_details=True (see above). 
 
 **Examples**
 
@@ -272,7 +294,7 @@ update your table, e.g.:
 - **specimens_df** (`pandas.DataFrame`) — dataframe with the specimens data
 - **hyst_results** (`pandas.DataFrame`) — DataFrame with hysteresis results including 'specimen' and 'experiment' columns, as output from rmag.process_hyst_loops. Has a numeric index (one row per experiment). The 'magn_unit' column selects the MagIC columns that receive Ms and Mr: Am²/kg -> hyst_ms_mass/hyst_mr_mass, A/m -> hyst_ms_volume/ hyst_mr_volume, Am² -> hyst_ms_moment/hyst_mr_moment. Results without this column (written by earlier versions) are taken to be mass-normalized.
 - **overwrite** (`bool`) — If True (default), existing MagIC column values and description stats are replaced with new values from hyst_results. If False, existing rows are preserved as-is and new rows are appended with the hyst results.
-- **exclude_open** (`bool`) — If True, Ms, Bc and chi_HF of loops whose 'closure_state' is 'open' are written as NaN in the MagIC columns (their high-field fit is biased by the unsaturated fraction); Mr is kept. The closure statistics go to the description JSON either way. Default False: every value is written.
+- **exclude_open** (`bool`) — If True, Ms, Bc and chi_HF of loops whose 'closure_state' is 'open' are written as NaN in the MagIC columns (their high-field fit is biased by the unsaturated fraction), and Ms_se and chi_HF_se as NaN in the description JSON; Mr is kept. The closure statistics go to the description JSON either way. Default False: every value is written.
 
 **Returns**
 
@@ -546,6 +568,55 @@ Args:
     dataframe (pd.DataFrame): The DataFrame to be cleaned.
 Returns:
     pd.DataFrame: A cleaned DataFrame with all-NaN columns and rows removed.
+
+---
+
+## `closure_mean_se_by_noise_propagation`
+
+```python
+closure_mean_se_by_noise_propagation(field, magnetization, descending_first=True, correction=None, HF_cutoff=0.8, max_field_cutoff=0.99, n_draws=200, rng=0)
+```
+
+Standard error of the closure statistic's window mean, by propagating
+the loop's measurement noise through the gridding and drift correction
+the loop received.
+
+`loop_closure_test` estimates the noise of the even high-field Mrh from
+its odd part, which is exact for the centered loop but not for the
+drift-corrected loop the pipeline tests: the correction subtracts a
+smoothed version of the branch mismatch, and that smoothed noise adds
+a slowly varying component to the even part of Mrh that the odd part
+does not see. On weak loops the window mean then scatters more between
+noise realizations than the odd-part estimate says, and pure-noise
+loops are declared open at several times the nominal rate. This
+function measures the true scatter: the per-point noise is estimated
+on the measured branches (`_noise_sd_from_pseudo_residuals`, which is
+insensitive to drift and to the field spacing), white noise of that
+size is generated at the measured fields, gridded with
+`grid_hyst_loop` exactly as the loop was and passed through the same
+drift correction (same branch, same windows) `n_draws` times, and the
+standard deviation of the resulting window means of the even Mrh is
+returned. Gridding is a linear interpolation and the drift correction
+is linear in M, so the propagation is exact for those steps; simulating
+at the measured fields rather than on the grid matters because
+interpolation onto the grid both reduces the noise and correlates
+neighboring points, more so when the measurements fall between grid
+points or are sparser than the grid (coarsely stepped loops).
+
+**Parameters**
+
+- **field** (`array_like`) — the measured loop, as passed to `process_hyst_loop` (raw fields, any sweep order; the offsets applied in centering do not affect the noise and are not needed)
+- **magnetization** (`array_like`) — the measured loop, as passed to `process_hyst_loop` (raw fields, any sweep order; the offsets applied in centering do not affect the noise and are not needed)
+- **descending_first** (`bool`) — sweep order of the measurement (as for `Me_drift_correction`)
+- **correction** (`(positive_field, upper_branch)`) — the correction the loop received (from `Me_drift_correction(..., return_details=True)`); None lets each draw choose its own, which is not what happened to the loop
+- **HF_cutoff** (`float`) — the closure window (defaults 0.8 and 0.99)
+- **max_field_cutoff** (`float`) — the closure window (defaults 0.8 and 0.99)
+- **n_draws** (`int`) — noise realizations (default 200, which gives the standard error a Monte Carlo error of about 5%)
+- **rng** (`numpy.random.Generator or int`) — generator or seed (default 0: reproducible, and loops of the same length then share the same draws, so their standard errors carry the same Monte Carlo error rather than independent ones)
+
+**Returns**
+
+- `dict` — 'HF_Mrh_mean_se' (the standard error, in the units of M), 'sigma_M' (the per-point noise estimate) and 'n_draws'
 
 ---
 
@@ -1369,42 +1440,95 @@ function to grid a hysteresis loop into a regular grid
 ## `hyst_HF_nonlinear_optimization`
 
 ```python
-hyst_HF_nonlinear_optimization(H, M, HF_cutoff, fit_type, initial_guess=[1, 1, -0.1, -0.1], bounds=([0, 0, -np.inf, -np.inf], [np.inf, np.inf, 0, 0]))
+hyst_HF_nonlinear_optimization(H, M, HF_cutoff, fit_type, initial_guess=None, bounds=None, max_field_cutoff=0.97, beta_grid=None, n_bootstrap=0, rng=None)
 ```
 
-Optimize a high-field nonlinear fit
+Fit an approach-to-saturation model to the high-field part of a loop
+(Jackson and Solheid, 2010, section 7, doi:10.1029/2009GC002932; Fabian,
+2006, Physics of the Earth and Planetary Interiors 154, 299-307,
+doi:10.1016/j.pepi.2005.06.016).
+
+The models are linear in their parameters apart from the Fabian
+exponent beta, so they are solved by least squares (Jackson and
+Solheid, paragraphs 41-42) rather than by an iterative optimizer: the IRM
+model M = chi_HF*H + Ms + a_1/H + a_2/H^2 and the fixed-beta Fabian
+model M = chi_HF*H + Ms + alpha*H^-2 in one bounded least-squares
+solve each, and the free-beta Fabian model M = chi_HF*H + Ms +
+alpha*H^beta by solving for the other three parameters at each beta
+of a grid on [-2, -1] and keeping the beta of least misfit, as Jackson
+and Solheid (paragraph 43) and HystLab (Paterson et al., 2018) do.
+Beta is confined to that interval because the H^beta and constant
+basis functions become indistinguishable as beta approaches zero and
+the problem is singular there. The sign constraints a_1, a_2, alpha
+<= 0 that describe an approach to saturation are imposed as bounds.
+
+The uncertainty of Ms and chi_HF is estimated, when `n_bootstrap` > 0,
+by the bootstrap of Jackson and Solheid (paragraph 44): the high-field
+points are resampled with replacement and refit `n_bootstrap` times
+(including the beta search for the free-beta model) and the standard
+deviation and 2.5-97.5 percentile range of the refits are returned.
+They recommend this because the fitting problem is ill conditioned --
+the basis functions are strongly correlated over a typical window --
+so the parameters are far more uncertain than their least-squares
+standard errors suggest. As in Jackson and Solheid and HystLab, the
+resampling treats the high-field points as independent; on a gridded,
+drift-corrected loop neighboring residuals are correlated (gridding
+interpolates, the drift correction subtracts smoothed noise), so the
+measurement-noise part of the bootstrap uncertainty is somewhat
+understated. The ill-conditioning part, which dominates on
+unsaturated loops, is not affected.
 
 **Parameters**
 
-- **H** (`numpy.ndarray`) — Array of field values.
+- **H** (`numpy.ndarray`) — Array of field values (tesla).
 - **M** (`numpy.ndarray`) — Array of magnetization values.
 - **HF_cutoff** (`float`) — Fraction of max(|H|) defining the lower bound of the high-field region.
-- **fit_type** (`(IRM, Fabian, Fabian_fixed_beta)`) — Type of nonlinear model to fit.
-- **initial_guess** (`list of float`) — Initial parameter guess for the optimizer. Defaults to [1, 1, -0.1, -0.1]: χ_HF = 1, Mₛ = 1, a₁ = –0.1, a₂ = –0.1 (or α, β for Fabian).
-- **bounds** (`tuple of array-like`) — Lower and upper bounds for each parameter. Defaults to ([0, 0, -∞, -∞], [∞, ∞, 0, 0]): - Lower: χ_HF ≥ 0, Mₛ ≥ 0, a₁ ≥ –∞, a₂ ≥ –∞   - Upper: χ_HF ≤ ∞, Mₛ ≤ ∞, a₁ ≤ 0, a₂ ≤ 0   (for Fabian, α and β follow the same positions/limits).
+- **fit_type** (`(IRM, Fabian, Fabian_fixed_beta)`) — Type of model to fit: the inverse-field model of the Institute for Rock Magnetism processing software (Jackson and Solheid, equation 17), the Fabian (2006) power-law model (their equation 18), or the latter with beta fixed at -2.
+- **initial_guess** (`list of float`) — Ignored: the least-squares solution needs no starting point. Kept so that earlier calls still run; a warning is issued if it is given.
+- **bounds** (`tuple of array-like`) — (lower, upper) bounds per parameter in the order [chi_HF, Ms, a_1, a_2] (IRM), [chi_HF, Ms, alpha, beta] (Fabian) or [chi_HF, Ms, alpha] (fixed beta), in the units of the inputs (chi_HF in SI). Default: chi_HF unbounded (a diamagnetic matrix has negative chi_HF), Ms >= 0, a_1, a_2, alpha <= 0. Bounds on beta select the part of `beta_grid` that is used.
+- **max_field_cutoff** (`float`) — Upper edge of the fit window as a fraction of max(|H|) (default 0.97, the IRM convention that keeps the loop tips out of the fit).
+- **beta_grid** (`array_like`) — Trial values of beta for the free-beta Fabian model (default 101 values from -2 to -1; Jackson and Solheid step by 0.1, HystLab uses 100 values on the same interval).
+- **n_bootstrap** (`int`) — Number of bootstrap refits for the uncertainty of Ms and chi_HF (default 0: none; Jackson and Solheid use 1000). Each refit is one linear solve for the IRM and fixed-beta models (about 0.1 s per 1000 refits) but a full beta search for the free-beta Fabian model (about 3 s per 1000 refits with the default 101-value grid).
+- **rng** (`numpy.random.Generator or int`) — Random generator or seed for the bootstrap.
 
 **Returns**
 
-- `dict` — Fit results with keys: - 'chi_HF', 'Ms', 'a_1', 'a_2' (for IRM) or   'chi_HF', 'Ms', 'alpha', 'beta' (for Fabian variants) - 'Fnl_lin': float, F statistic for the improvement of the nonlinear fit   over a linear fit (Jackson and Solheid, 2010, equation 21); values above   ~3-3.5 indicate a statistically significant improvement for the   4-parameter models (for 'Fabian_fixed_beta' the degrees of freedom are   (1, N-3) and the 5% critical value is ~3.9-4.0). Because the nonlinear   coefficients are constrained non-positive, the statistic is conservative   under the null (saturated loops give values well below the critical   value, occasionally marginally negative when the bounded fit is a hair   worse than unconstrained least squares).
+- `dict` — Fit results with keys: - 'chi_HF', 'Ms', 'a_1', 'a_2' (for IRM) or   'chi_HF', 'Ms', 'alpha', 'beta' (for Fabian variants); chi_HF is   in SI units (the fitted slope in field units of tesla multiplied   by mu_0), as returned by `linear_HF_fit` - 'Fnl_lin': float, F statistic for the improvement of the nonlinear fit   over a linear fit (Jackson and Solheid, 2010, equation 21); values above   ~3-3.5 indicate a statistically significant improvement for the   4-parameter models (for 'Fabian_fixed_beta' the degrees of freedom are   (1, N-3) and the 5% critical value is ~3.9-4.0) - 'Fnl_lin_p': its p-value from the F distribution with   (p_nl - p_lin, N - p_nl) degrees of freedom. Because the nonlinear   coefficients are constrained non-positive, the statistic is conservative   under the null (saturated loops give values well below the critical   value, occasionally marginally negative when the bounded fit is a hair   worse than unconstrained least squares). - 'Ms_se', 'chi_HF_se': bootstrap standard deviations of Ms and   chi_HF (NaN when n_bootstrap is 0) - 'Ms_ci95', 'chi_HF_ci95': (2.5th, 97.5th) percentiles of the   bootstrap refits (NaN when n_bootstrap is 0) - 'beta_ci95': the same for beta of the free-beta model (None for   the other models) - 'bootstrap': dict of the bootstrap samples ('Ms', 'chi_HF', and   'beta' for the free-beta model) as arrays, or None - 'n_bootstrap', 'n_points': the numbers of refits and of points   in the fit window - 'fit_success': True (kept for compatibility; the solution is exact) - 'fit_message': str
 
 ---
 
 ## `hyst_linearity_test`
 
 ```python
-hyst_linearity_test(grid_field, grid_magnetization)
+hyst_linearity_test(grid_field, grid_magnetization, alpha=0.05)
 ```
 
-function for testing the linearity of a hysteresis loop
+Test the linearity of a whole hysteresis loop (Jackson and Solheid,
+2010, section 7).
+
+A straight line is fit to the gridded loop by least squares and the
+misfit is partitioned by analysis of variance into pure error -- the
+mismatch between the upper branch and the inverted lower branch, which
+are replicate measurements for an inversion-symmetric loop -- and lack
+of fit. The lack-of-fit F ratio FNL (MSLF/MSPE) is compared with the
+critical value of the F distribution with (N/2 - 2, N/2) degrees of
+freedom, N being the number of gridded points. Jackson and Solheid
+quote ~1.25 as the 95% critical value for typical loops; the value
+here is computed for the loop's own N. An uncorrected offset enters
+the pure-error term, but the pipeline runs this test before centering
+because a linear loop has no separable offsets to correct (Jackson
+and Solheid, paragraph 12) and a loop with ferromagnetic signal
+rejects linearity by a wide margin either way.
 
 **Parameters**
 
 - **grid_field** (`numpy array`) — gridded field values
 - **grid_magnetization** (`numpy array`) — gridded magnetization values
+- **alpha** (`float`) — significance level of the test (default 0.05)
 
 **Returns**
 
-- `dict` — dictionary of the results of the linearity test and intermediate statistics for the ANOVA calculation
+- `dict` — the sums of squares and mean squares of the ANOVA, 'FNL' (the lack-of-fit F ratio), 'F_critical' (its critical value at `alpha`), 'p_value', 'alpha', 'slope' and 'intercept' of the line, and 'loop_is_linear' (True when FNL is below the critical value, i.e. the loop is statistically a straight line)
 
 ---
 
@@ -1447,41 +1571,59 @@ This is designed for weak ferromagnetic loops superimposed on a strong linear ba
 ## `hyst_loop_saturation_test`
 
 ```python
-hyst_loop_saturation_test(grid_field, grid_magnetization, max_field_cutoff=0.97)
+hyst_loop_saturation_test(grid_field, grid_magnetization, max_field_cutoff=0.97, alpha=0.05, measured_field=None, min_measured_points=12, pure_error_df_fraction=1.0)
 ```
 
-Assess the saturation state of a magnetic hysteresis loop based on linearity at high-field segments.
+Test whether the ferromagnetic moment has saturated in the high-field
+part of a hysteresis loop (Jackson and Solheid, 2010, section 7).
 
-This function evaluates the degree of saturation in a hysteresis loop by calculating the F statistic
-for nonlinearity (FNL, the lack-of-fit F ratio of Jackson and Solheid, 2010) over high-field windows
-starting at 60%, 70%, and 80% of the maximum field (up to a specified cutoff). A significant FNL
-(above the 2.5 threshold) indicates reproducible curvature in that window, i.e. the ferromagnetic
-moment has not saturated and a linear high-field fit is inappropriate there.
+The lack-of-fit F ratio FNL of a straight line is computed over windows
+starting at 60%, 70% and 80% of the peak field (`loop_saturation_stats`)
+and each is compared with the critical value of the F distribution at
+the window's degrees of freedom. Following Jackson and Solheid, a
+nonlinear approach-to-saturation fit is called for only when all three
+windows reject linearity; otherwise the linear high-field fit is taken
+over the widest window that is statistically linear (the same rule as
+the automatic mode of HystLab, Paterson et al., 2018). The test is meant
+for the centered, drift-corrected loop: its pure-error term is the
+residual branch mismatch, and Jackson and Solheid treat offset and drift
+correction as prerequisites of the test.
+
+The drift correction that precedes the test subtracts a smoothed
+version of the branch mismatch, which removes part of the noise the
+test estimates its pure error from. `pure_error_df_fraction` (returned
+by `Me_drift_correction`) reduces the pure-error degrees of freedom
+accordingly (Jackson and Solheid note the underestimate of the noise
+variance in their paragraph 18). The subtracted smooth curve also adds
+a little low-frequency structure to the corrected branches, so on a
+clean saturated loop the test still rejects linearity somewhat more
+often than `alpha`; such a loop then goes to the approach-to-saturation
+fit, which recovers the linear Ms to well under 1% with Fnl_lin near
+zero, so the cost of that verdict is small, whereas a linear fit to an
+unsaturated loop biases Ms low.
+
+A window can only be tested where the loop was actually measured. When
+the field steps are coarse at high field (e.g. 0.5 T steps on an MPMS
+loop), gridding at the median measurement step interpolates many points
+between few measurements, the pure-error term collapses and FNL is
+meaningless. If `measured_field` is given, a window with fewer than
+`min_measured_points` measured points (both branches and polarities;
+the default 12 is three per segment, as HystLab requires) is reported
+as untestable (FNL NaN) with a warning.
 
 **Parameters**
 
-- **grid_field** (`array_like`) — Array of applied magnetic field values for the hysteresis loop.
-- **grid_magnetization** (`array_like`) — Array of magnetization (moment) values corresponding to `grid_field`.
-- **max_field_cutoff** (`float`) — Fraction of the maximum field to use as an upper cutoff for the analysis (default is 0.97).
+- **grid_field** (`array_like`) — gridded field values of the centered, drift-corrected loop
+- **grid_magnetization** (`array_like`) — gridded magnetization values
+- **max_field_cutoff** (`float`) — upper edge of the windows as a fraction of the peak field (default 0.97, the IRM convention that keeps the loop tips out of the fits)
+- **alpha** (`float`) — significance level of the F tests (default 0.05)
+- **measured_field** (`array_like`) — the raw (ungridded) field values of the loop, used to count the measurements in each window; without it the windows are assumed to be adequately sampled
+- **min_measured_points** (`int`) — measured points a window needs to be testable (default 12)
+- **pure_error_df_fraction** (`float`) — fraction of the pure-error degrees of freedom left by the drift correction's smoothing (from `Me_drift_correction(..., return_details=True)`); default 1.0
 
 **Returns**
 
-- `dict` — Dictionary containing:     - 'FNL60': float, FNL for the window from 60% of the maximum field.     - 'FNL70': float, FNL for the window from 70% of the maximum field.     - 'FNL80': float, FNL for the window from 80% of the maximum field.     - 'saturation_cutoff': float, lowest field fraction (0.6, 0.7, or 0.8) at which the       high-field segment is statistically linear (saturated); 0.92 (the IRM default for       a nonlinear fit window) if no tested window is linear.     - 'loop_is_saturated': bool, True if the loop is saturated (linear) in at least one       tested high-field window; False if all windows show significant nonlinearity,       in which case an approach-to-saturation fit should be used. 
-
-**Notes**
-
-- The function uses `loop_saturation_stats` to compute FNL values for each field fraction.
-- FNL values below 2.5 indicate statistically linear (saturated) high-field behavior;
-  values above 2.5 indicate significant nonlinearity (nonsaturation).
-- The result is converted to standard Python types using `_to_native_python`.
-
-**Examples**
-
-```python
->>> results = hyst_loop_saturation_test(fields, magnetizations)
->>> print(results['saturation_cutoff'], results['loop_is_saturated'])
-0.8 False
-```
+- `dict` — - 'FNL60', 'FNL70', 'FNL80': the lack-of-fit F ratio of each window   (NaN where the window could not be tested) - 'p60', 'p70', 'p80': the corresponding p-values - 'F_critical60', 'F_critical70', 'F_critical80': the critical values - 'n_pairs60', 'n_pairs70', 'n_pairs80': gridded field pairs per window - 'n_measured60', 'n_measured70', 'n_measured80': measured points per   window (None when `measured_field` was not given) - 'alpha': the significance level used - 'saturation_cutoff': the lower edge (0.6, 0.7 or 0.8) of the widest   window that is statistically linear, i.e. the window for the linear   high-field fit; None when no tested window is linear - 'loop_is_saturated': True when at least one window is linear, False   when every tested window rejects linearity (an approach-to-   saturation fit is then required), None when no window could be   tested - 'testable': whether at least one window could be tested
 
 ---
 
@@ -1552,10 +1694,45 @@ function to fit a linear function to the high field portion of a hysteresis loop
 
 ---
 
+## `linear_HF_fit_stats`
+
+```python
+linear_HF_fit_stats(field, magnetization, HF_cutoff=0.8, max_field_cutoff=0.97)
+```
+
+Linear high-field fit with the standard errors of its parameters.
+
+The same fit as `linear_HF_fit` (a straight line through the four
+high-field segments folded into the first quadrant), with the ordinary
+least-squares standard errors of the slope and intercept. Jackson and
+Solheid (2010, paragraph 59) note that the Ms and chi_HF standard errors
+"may be quantified through standard linear regression techniques, but
+in many cases the uncertainty due to incomplete saturation is much
+larger"; these are the regression standard errors, appropriate only
+when the window is statistically linear. They treat the points as
+independent, which the gridded, drift-corrected loop the pipeline fits
+is not (gridding interpolates between measurements and the drift
+correction subtracts smoothed noise), so they understate the scatter
+of Ms between repeat measurements: by about 1.5x on a loop measured on
+its own grid, more when the measured fields fall between grid points.
+
+**Parameters**
+
+- **field** (`array_like`) — gridded loop
+- **magnetization** (`array_like`) — gridded loop
+- **HF_cutoff** (`float`) — lower edge of the window as a fraction of the peak field (default 0.8)
+- **max_field_cutoff** (`float`) — upper edge (default 0.97)
+
+**Returns**
+
+- `dict` — 'chi_HF' (SI, as `linear_HF_fit`), 'Ms' (the intercept), 'chi_HF_se', 'Ms_se', 'n_points' (points in the window) and 'residual_std'
+
+---
+
 ## `loop_closure_test`
 
 ```python
-loop_closure_test(H, Mrh, HF_cutoff=0.8, Me=None, max_field_cutoff=0.99, Mr=None, Brh=None, Ms=None, criterion='magnitude', openness_tolerance=0.05, n_sigma=2.0)
+loop_closure_test(H, Mrh, HF_cutoff=0.8, Me=None, max_field_cutoff=0.99, Ms=None, Mr=None, Brh=None, M_max=None, criterion='magnitude', openness_tolerance=0.02, n_sigma=2.0, HF_Mrh_mean_se=None)
 ```
 
 Test whether a hysteresis loop is closed at high field.
@@ -1564,25 +1741,33 @@ For a symmetric loop Mrh is an even function of field, so its
 field-reflection average (Mrh(+H) + Mrh(-H))/2 over a high-field window
 is zero once the branches have merged and positive while they are still
 separated. The openness statistic f_open (``HF_Mrh_fraction``) is the
-mean of this average over the window, divided by Mr: the fraction of
-the saturation remanence still carried by unswitched grains at those
-fields. It is negative when the branches cross, which usually indicates
-residual drift. The window is HF_cutoff to max_field_cutoff of the peak
-field (80-99% by default); f_open depends on the window, which is
-returned with it. The standard error is estimated from the noise in
-the odd part of Mrh, Mrh(+H) - Mrh(-H), which is zero for a symmetric
-loop.
+mean of this average over the window, divided by the saturation
+magnetization Ms from the high-field fit: the unswitched irreversible
+moment at those fields as a fraction of the ferromagnetic moment, which
+is also the approximate relative error that the opening induces in the
+fitted Ms. It is negative when the branches cross, which usually
+indicates residual drift. The same quantity divided by Mr
+(``HF_Mrh_fraction_Mr``, the fraction of the saturation remanence still
+unswitched) is returned as well; it does not depend on the fit but
+overstates the opening for material with a small Mr/Ms. The window is
+HF_cutoff to max_field_cutoff of the peak field (80-99% by default);
+f_open depends on the window, which is returned with it. The standard
+error is estimated from the noise in the odd part of Mrh,
+Mrh(+H) - Mrh(-H), which is zero for a symmetric loop; it does not
+include the uncertainty of the fitted Ms, which is second order once
+Ms stands well above the noise.
 
 With criterion='magnitude' (default), the loop is 'open' when
 f_open - n_sigma*SE reaches openness_tolerance, 'closed' when
 f_open + n_sigma*SE is below it and the interval half-width is smaller
-than the tolerance, and 'indeterminate' otherwise. With
-criterion='SNR_HAR', the HystLab rule (Paterson et al., 2018) is used:
-'open' when the signal-to-noise ratio of the high-field Mrh is at least
-8 dB and the ratio of high-field to total Mrh area is at least -48 dB.
-SNR and HAR are returned under both criteria; the SNR rule depends on
-the measurement noise rather than on the size of the opening, which is
-why 'magnitude' is the default (PmagPy issue #902).
+than the tolerance, and 'indeterminate' otherwise. This criterion
+requires Ms. With criterion='SNR_HAR', the HystLab rule (Paterson et
+al., 2018) is used: 'open' when the signal-to-noise ratio of the
+high-field Mrh is at least 8 dB and the ratio of high-field to total
+Mrh area is at least -48 dB. SNR and HAR are returned under both
+criteria; the SNR rule depends on the measurement noise rather than on
+the size of the opening, which is why 'magnitude' is the default
+(PmagPy issue #902).
 
 **Parameters**
 
@@ -1591,36 +1776,51 @@ why 'magnitude' is the default (PmagPy issue #902).
 - **HF_cutoff** (`float`) — lower edge of the high-field window as a fraction of the peak field (default 0.8); must be a scalar in (0, 1)
 - **Me** (`(array - like, optional, keyword - only)`) — error curve err(H) on the same field axis; the noise estimate for SNR when provided (otherwise the odd part of Mrh is used)
 - **max_field_cutoff** (`(float, keyword - only)`) — upper edge of the window as a fraction of the peak field (default 0.99, excluding the loop tips)
-- **Mr** (`(float, optional, keyword - only)`) — saturation remanence used to normalize f_open; by default interpolated from Mrh at zero field
+- **Ms** (`(float, keyword - only)`) — saturation magnetization from the high-field fit, the normalization of f_open; required for criterion='magnitude'
+- **Mr** (`(float, optional, keyword - only)`) — saturation remanence, the normalization of HF_Mrh_fraction_Mr; by default interpolated from Mrh at zero field
+- **M_max** (`(float, optional, keyword - only)`) — the largest |M| the loop reaches (at the peak field when chi_HF >= 0). When Ms cannot be used -- the approach-to-saturation fit collapsed onto its bound because the loop is far from saturation, or Ms is at the noise level -- the opening is expressed relative to M_max instead (``HF_Mrh_fraction_Mmax``). For a paramagnetic or saturated matrix (chi_HF >= 0, the usual case) M_max includes the matrix moment and this fraction can only understate the opening, so it is used to confirm that a loop is open, never to declare it closed on the strength of a small value (the verdict is otherwise 'indeterminate'; with a diamagnetic matrix M_max can fall below the ferromagnetic moment and the understatement is not guaranteed). Whether any high-field Mrh is detectable at all is decided first, as when no normalization is available. M_max is only the fallback: Ms is the normalization whenever it is usable.
 - **Brh** (`(float, optional, keyword - only)`) — median remanent coercivity in the units of H; by default the field at which Mrh falls to Mr/2
-- **Ms** (`(float, optional, keyword - only)`) — saturation magnetization from the high-field fit; when supplied, the predicted relative bias of Ms, f_open*Mr/Ms, is returned as a diagnostic (it does not enter the verdict)
 - **criterion** (`(magnitude, SNR_HAR)`) — decision rule (default 'magnitude')
-- **openness_tolerance** (`(float, keyword - only)`) — f_open at and above which the loop is classified as open (default 0.05, i.e. 5% of Mr)
-- **n_sigma** (`(float, keyword - only)`) — number of standard errors used throughout the test (default 2): the half-width of the confidence interval on f_open, the margin by which Mr must exceed the noise amplitude for f_open to be defined, and, when Mr does not, the significance level at which a nonzero high-field Mrh makes the verdict 'indeterminate' rather than 'closed'
+- **openness_tolerance** (`(float, keyword - only)`) — f_open at and above which the loop is classified as open (default 0.02, i.e. 2% of Ms)
+- **HF_Mrh_mean_se** (`(float, optional, keyword - only)`) — standard error of the window mean of the even Mrh, in the units of Mrh, replacing the estimate from the odd part (use `closure_mean_se_by_noise_propagation` for a drift-corrected loop)
+- **n_sigma** (`(float, keyword - only)`) — number of standard errors used throughout the test (default 2): the half-width of the confidence interval on f_open, the margin by which Ms (and Mr) must exceed the noise amplitude for the normalized openness to be defined, and, when Ms does not, the significance level at which a nonzero high-field Mrh makes the verdict 'indeterminate' rather than 'closed'
 
 **Returns**
 
-- `dict` — - 'closure_state': 'closed', 'open' or 'indeterminate' - 'loop_is_closed': bool, False only when closure_state is 'open' - 'HF_Mrh_fraction': f_open (signed) - 'HF_Mrh_fraction_se': its standard error - 'HF_cutoff', 'max_field_cutoff': the window used - 'tolerance': the openness tolerance applied (None under the   SNR_HAR criterion, or when Mr is not positive, in which case the   loop is 'closed' if no high-field Mrh is detectable and   'indeterminate' otherwise) - 'Brh_fraction': Brh divided by the peak field - 'Ms_bias_predicted', 'Ms_bias_predicted_se': f_open*Mr/Ms and its   standard error (NaN unless Ms was supplied and positive) - 'SNR', 'HAR': the HystLab statistics in dB - 'HF_Mrh_fraction_rms': the clipped RMS of the even high-field Mrh   over Mr (the signal entering SNR) - 'loop_is_closed_SNR_HAR': the SNR_HAR verdict - 'criterion': the criterion used
+- `dict` — - 'closure_state': 'closed', 'open' or 'indeterminate' - 'loop_is_closed': bool, False only when closure_state is 'open' - 'HF_Mrh_fraction': f_open, the mean even high-field Mrh over Ms   (signed; NaN when Ms was not supplied or does not stand above   the noise) - 'HF_Mrh_fraction_se': its standard error - 'HF_Mrh_fraction_Mr', 'HF_Mrh_fraction_Mr_se': the same over Mr   (NaN when Mr does not stand above the noise) - 'HF_Mrh_fraction_Mmax', 'HF_Mrh_fraction_Mmax_se': the same over   M_max (NaN when M_max was not given) - 'normalization': 'Ms', 'Mmax' or None, the quantity the verdict   was taken against - 'HF_cutoff', 'max_field_cutoff': the window used - 'tolerance': the openness tolerance applied (None under the   SNR_HAR criterion, or when neither Ms nor M_max is usable, in   which case the loop is 'closed' if no high-field Mrh is   detectable and 'indeterminate' otherwise; with the M_max   fallback the tolerance applies to HF_Mrh_fraction_Mmax) - 'Brh_fraction': Brh divided by the peak field - 'SNR', 'HAR': the HystLab statistics in dB - 'HF_Mrh_fraction_rms': the clipped RMS of the even high-field Mrh   over Mr (the signal entering SNR) - 'loop_is_closed_SNR_HAR': the SNR_HAR verdict - 'criterion': the criterion used
 
 ---
 
 ## `loop_saturation_stats`
 
 ```python
-loop_saturation_stats(field, magnetization, HF_cutoff=0.8, max_field_cutoff=0.97)
+loop_saturation_stats(field, magnetization, HF_cutoff=0.8, max_field_cutoff=0.97, alpha=0.05, pure_error_df_fraction=1.0)
 ```
 
-ANOVA statistics for the high field portion of a hysteresis loop
+ANOVA statistics for the linearity of a high-field window of a
+hysteresis loop (Jackson and Solheid, 2010, section 7).
+
+The four high-field segments (both branches, both polarities, folded
+into the first quadrant) between HF_cutoff and max_field_cutoff of the
+peak field are fit by a straight line; the lack-of-fit F ratio FNL is
+the mean square lack of fit over the mean square pure error, the latter
+from the mismatch between the upper branch and the inverted lower
+branch over the same window. FNL is compared with the F distribution
+with (n - 2, n) degrees of freedom, n being the number of gridded field
+pairs in the window.
 
 **Parameters**
 
-- **field** (`numpy array`) — field values
-- **magnetization** (`numpy array`) — magnetization values
-- **HF_cutoff** (`float`) — high field cutoff value default is 0.8
+- **field** (`numpy array`) — gridded field values (the loop should be centered and drift corrected: the pure-error term is the residual branch mismatch, which Jackson and Solheid take after those corrections)
+- **magnetization** (`numpy array`) — gridded magnetization values
+- **HF_cutoff** (`float`) — lower edge of the window as a fraction of the peak field (default 0.8)
+- **max_field_cutoff** (`float`) — upper edge of the window as a fraction of the peak field (default 0.97, the IRM convention that keeps the loop tips out of the fits)
+- **alpha** (`float`) — significance level (default 0.05)
+- **pure_error_df_fraction** (`float`) — fraction of the pure-error degrees of freedom retained after the drift correction smoothed part of the noise out of the branch mismatch (see `Me_drift_correction`; default 1.0, i.e. no correction was applied)
 
 **Returns**
 
-- `dict` — dictionary of the results of the ANOVA calculation and intermediate statistics for the ANOVA calculation
+- `dict` — the sums of squares and mean squares, 'FNL', 'F_critical', 'p_value', 'n_pairs' (gridded field pairs in the window), 'df_pure_error' and 'alpha'
 
 ---
 
@@ -2428,7 +2628,7 @@ table
 ## `process_hyst_loop`
 
 ```python
-process_hyst_loop(field, magnetization, specimen_name='', show_results_table=True, show_plot=True, NL_fit=False, centering_protocol='legacy', fit_open_loop=False, fit_linear_loop=False, magn_unit=_DEFAULT_MAGN_UNIT, openness_tolerance=0.05, closure_criterion='magnitude')
+process_hyst_loop(field, magnetization, specimen_name='', show_results_table=True, show_plot=True, NL_fit=False, centering_protocol='legacy', fit_open_loop=False, fit_linear_loop=False, magn_unit=_DEFAULT_MAGN_UNIT, openness_tolerance=0.02, closure_criterion='magnitude', quality_threshold=2.0, n_bootstrap=1000, rng=0)
 ```
 
 Process a magnetic hysteresis loop using the IRM decision tree workflow.
@@ -2444,6 +2644,22 @@ so non-finite measurement pairs are dropped with a report, numeric
 strings are converted, and either field sweep order (starting from
 positive or negative saturation) is accepted.
 
+The steps follow the protocol of Jackson and Solheid (2010): gridding,
+the whole-loop linearity test (taken before centering, since a loop
+without ferromagnetic signal has no separable offsets), symmetry-based
+centering, drift correction from the error curve, then the high-field
+linearity tests on the centered and drift-corrected loop -- offset and
+drift correction are prerequisites of those tests, whose pure-error
+term is the residual branch mismatch (their sections 6-8). The tests
+use critical values of the F distribution at each window's degrees of
+freedom (alpha = 0.05, as in HystLab), and the nonlinear approach-to-
+saturation fit is applied only when every tested window rejects
+linearity; otherwise chi_HF and Ms come from the linear fit over the
+widest window that is statistically linear (Jackson and Solheid,
+paragraph 40). Windows that hold too few measured points are reported
+as untestable, and a loop with no testable window takes the linear fit
+from 60% of the peak field with a warning.
+
 One decision-tree exit terminates processing early: a loop that is
 statistically linear (whole-loop lack-of-fit test) is dominated by
 paramagnetic or diamagnetic material, so the ferromagnetic parameters
@@ -2452,16 +2668,26 @@ whole-loop regression) is reported, with the full result key set and
 the undefined quantities as NaN/None so batch tables keep a stable
 schema. Passing fit_linear_loop=True overrides this exit.
 
-Loop closure at high field is tested (`loop_closure_test`) and
-reported, but does not stop processing: every parameter is computed for
-every loop. A loop that is still open at the highest fields contains an
-unsaturated high-coercivity fraction that biases the high-field fit and
-hence Ms and chi_HF, so open loops (and loops whose closure the data
-cannot resolve) are flagged with a printed '-W-' line quoting the
-openness statistic f_open, and 'closure_state', 'HF_Mrh_fraction' and
-'HF_Mrh_fraction_se' are returned for every loop so a batch can be
-filtered on them. `add_hyst_stats_to_specimens_table` can withhold the
-slope-dependent parameters of open loops from the MagIC columns.
+Loop closure at high field is tested (`loop_closure_test`, after the
+high-field fit so that the opening can be expressed as a fraction of
+the fitted Ms) and reported, but does not stop processing: every
+parameter is computed for every loop. A loop that is still open at the
+highest fields contains an unsaturated high-coercivity fraction that
+biases the high-field fit and hence Ms and chi_HF, so open loops (and
+loops whose closure the data cannot resolve) are flagged with a printed
+'-W-' line quoting the openness statistic f_open, and 'closure_state',
+'HF_Mrh_fraction' and 'HF_Mrh_fraction_se' are returned for every loop
+so a batch can be filtered on them. `add_hyst_stats_to_specimens_table`
+can withhold the slope-dependent parameters of open loops from the
+MagIC columns.
+
+Loops whose quality factor Q, or that of the isolated ferromagnetic
+loop Qf, falls below `quality_threshold` are likewise flagged with a
+'-W-' line and 'low_quality' is set in the results, since their
+summary parameters are suspect. The default threshold of 2 coincides
+with the fixed level below which the centering step declines to apply
+the horizontal offset correction; changing `quality_threshold` moves
+the flag, not that correction.
 
 **Parameters**
 
@@ -2473,21 +2699,24 @@ slope-dependent parameters of open loops from the MagIC columns.
 - **NL_fit** (`bool`) — If True, force non-linear high-field fitting regardless of the saturation test result (default is False).
 - **centering_protocol** (`(legacy, iterative)`) — Centering workflow to apply before drift and high-field corrections. Defaults to 'legacy' for backward compatibility.
 - **fit_open_loop** (`bool`) — Accepted for compatibility and ignored (open loops are flagged, not exited).
-- **openness_tolerance** (`float`) — f_open (high-field Mrh as a fraction of Mr) at and above which the loop is classified as open and flagged (default 0.05; see `loop_closure_test`).
+- **openness_tolerance** (`float`) — f_open (high-field Mrh as a fraction of the fitted Ms) at and above which the loop is classified as open and flagged (default 0.02; see `loop_closure_test`).
 - **closure_criterion** (`(magnitude, SNR_HAR)`) — Decision rule for the closure test (default 'magnitude'; 'SNR_HAR' is the HystLab rule, see `loop_closure_test`).
+- **quality_threshold** (`float`) — Quality factor (Q or Qf) below which the loop is flagged as low quality (default 2.0, which coincides with the fixed level below which the horizontal offset correction is skipped; this parameter does not change that).
+- **n_bootstrap** (`int`) — Bootstrap refits used for the uncertainty of Ms and chi_HF when the approach-to-saturation fit is applied (default 1000, as in Jackson and Solheid, 2010; 0 to skip). The linear fit's uncertainties are its ordinary least-squares standard errors.
+- **rng** (`numpy.random.Generator or int`) — Random generator or seed for the bootstrap and for the noise propagation behind the closure statistic's standard error (default 0, so that the reported Ms_se, chi_HF_se and HF_Mrh_fraction_se -- which are written to the MagIC specimens table -- are reproducible from run to run; pass a Generator to draw differently).
 - **fit_linear_loop** (`bool`) — If True, process a statistically linear loop in full rather than terminating with chi_HF only (default False). Useful when a weak ferromagnetic signal near the noise level is of interest despite the loop passing the whole-loop linearity test; the ferromagnetic parameters from such a loop should be interpreted alongside the quality statistics.
 - **magn_unit** (`str`) — Unit of the `magnetization` values, used to label the plot axis and the summary table headers (the moment parameters are reported in this unit and chi_HF in the susceptibility unit it implies, e.g. m³/kg for Am²/kg) and recorded in the results so that add_hyst_stats_to_specimens_table writes to the matching MagIC columns. None or the default is mass-normalized Am²/kg, the MagIC magn_mass convention; 'A/m' (volume-normalized) and 'Am²' (moment) are the other MagIC conventions. Spelling variants such as 'Am^2/kg' are accepted. The values themselves are not converted.
 
 **Returns**
 
-- `dict` — Dictionary containing the following keys:     - 'magn_unit': normalized unit of the magnetization (and so of       the moment parameters below)     - 'gridded_H': gridded field values     - 'gridded_M': gridded magnetization values     - 'linearity_test_results': results of the initial linearity test     - 'loop_is_linear': whether the loop passes the linearity test     - 'FNL': F statistic for whole-loop nonlinearity (lack-of-fit F ratio)     - 'loop_centering_results': results of centering optimization     - 'centered_H': centered field values     - 'centered_M': centered magnetization values     - 'drift_corrected_M': drift-corrected magnetization     - 'slope_corrected_M': slope-corrected magnetization     - 'loop_closure_test_results': results of closure test     - 'loop_is_closed': whether the loop is closed     - 'loop_saturation_stats': saturation test results     - 'loop_is_saturated': whether the loop is saturated     - 'M_sn', 'Q': quality metrics from centering     - 'H', 'Mr', 'Mrh', 'Mih', 'Me': characteristic field (tesla) and       moment parameters (in `magn_unit`)     - 'Brh': median field of Mrh (where Mrh falls to Mr/2), in tesla     - 'sigma': shape parameter (Fabian, 2003), dimensionless     - 'chi_HF': high-field susceptibility, in the unit implied by       `magn_unit` (m³/kg for mass-normalized Am²/kg)     - 'FNL60', 'FNL70', 'FNL80': high-field nonlinearity F statistics for windows       starting at 60%, 70%, and 80% of the maximum field     - 'Ms': saturation magnetization, in `magn_unit`     - 'Bc': coercive field, in tesla     - 'M_sn_f', 'Qf': quality metrics for ferromagnetic component     - 'Fnl_lin': F statistic for improvement of the nonlinear over the linear       high-field fit (None if the loop is saturated and no nonlinear fit is made)     - 'plot': Bokeh figure with overlaid processing steps
+- `dict` — Dictionary containing the following keys:     - 'magn_unit': normalized unit of the magnetization (and so of       the moment parameters below)     - 'gridded_H': gridded field values     - 'gridded_M': gridded magnetization values     - 'linearity_test_results': results of the initial linearity test     - 'loop_is_linear': whether the loop passes the linearity test     - 'FNL': F statistic for whole-loop nonlinearity (lack-of-fit F ratio)     - 'loop_centering_results': results of centering optimization     - 'centered_H': centered field values     - 'centered_M': centered magnetization values     - 'drift_corrected_M': drift-corrected magnetization     - 'slope_corrected_M': slope-corrected magnetization     - 'loop_closure_test_results': results of closure test     - 'loop_is_closed': whether the loop is closed     - 'closure_state': 'closed', 'open' or 'indeterminate'     - 'HF_Mrh_fraction', 'HF_Mrh_fraction_se': the openness       statistic f_open (high-field Mrh as a fraction of the fitted       Ms) and its standard error     - 'HF_Mrh_fraction_Mr': the same opening as a fraction of Mr     - 'low_quality': whether Q or Qf is below `quality_threshold`     - 'loop_saturation_stats': saturation test results     - 'loop_is_saturated': whether some high-field window is       statistically linear (None when no window could be tested)     - 'M_sn', 'Q': quality metrics from centering     - 'H', 'Mr', 'Mrh', 'Mih', 'Me': characteristic field (tesla) and       moment parameters (in `magn_unit`)     - 'Brh': median field of Mrh (where Mrh falls to Mr/2), in tesla     - 'sigma': shape parameter (Fabian, 2003), dimensionless     - 'chi_HF': high-field susceptibility, in the unit implied by       `magn_unit` (m³/kg for mass-normalized Am²/kg)     - 'FNL60', 'FNL70', 'FNL80': high-field nonlinearity F statistics for windows       starting at 60%, 70%, and 80% of the maximum field     - 'Ms': saturation magnetization, in `magn_unit`     - 'Ms_se', 'chi_HF_se': standard errors of Ms and chi_HF (the       bootstrap standard deviation for the approach-to-saturation       fit, the least-squares standard error for the linear fit)     - 'Ms_ci95', 'chi_HF_ci95': (2.5th, 97.5th) bootstrap       percentiles (NaN for the linear fit or n_bootstrap=0)     - 'hf_fit': 'linear' or the approach-to-saturation model used     - 'hf_fit_results': the result of that fit, without the       bootstrap samples (call hyst_HF_nonlinear_optimization       directly for those)     - 'Bc': coercive field, in tesla     - 'M_sn_f', 'Qf': quality metrics for ferromagnetic component     - 'Fnl_lin': F statistic for improvement of the nonlinear over the linear       high-field fit (None if the loop is saturated and no nonlinear fit is made)     - 'plot': Bokeh figure with overlaid processing steps
 
 ---
 
 ## `process_hyst_loops`
 
 ```python
-process_hyst_loops(hyst_experiments, measurements, field_col='meas_field_dc', magn_col='magn_mass', show_results_table=True, show_plots=True, centering_protocol='legacy', fit_open_loop=False, fit_linear_loop=False, magn_unit=None, openness_tolerance=0.05, closure_criterion='magnitude')
+process_hyst_loops(hyst_experiments, measurements, field_col='meas_field_dc', magn_col='magn_mass', show_results_table=True, show_plots=True, centering_protocol='legacy', fit_open_loop=False, fit_linear_loop=False, magn_unit=None, openness_tolerance=0.02, closure_criterion='magnitude', quality_threshold=2.0, n_bootstrap=1000, rng=0)
 ```
 
 Process multiple hysteresis loops in batch.
@@ -2503,8 +2732,11 @@ Process multiple hysteresis loops in batch.
 - **centering_protocol** (`(legacy, iterative)`) — Centering workflow to pass through to process_hyst_loop. Defaults to 'legacy' for backward compatibility.
 - **fit_open_loop** (`bool`) — Accepted for compatibility and ignored (open loops are flagged, not exited).
 - **fit_linear_loop** (`bool`) — Passed through to process_hyst_loop: if True, statistically linear loops are processed in full rather than terminating with chi_HF only (default False).
-- **openness_tolerance** (`float`) — Passed through to process_hyst_loop: f_open at and above which a loop is classified as open (default 0.05).
+- **openness_tolerance** (`float`) — Passed through to process_hyst_loop: f_open at and above which a loop is classified as open (default 0.02).
 - **closure_criterion** (`(magnitude, SNR_HAR)`) — Passed through to process_hyst_loop (default 'magnitude').
+- **quality_threshold** (`float`) — Passed through to process_hyst_loop: Q or Qf below which a loop is flagged as low quality (default 2.0).
+- **n_bootstrap** (`int`) — Passed through to process_hyst_loop: bootstrap refits for the uncertainty of Ms and chi_HF from the approach-to-saturation fit (default 1000; 0 to skip, which is faster for large batches).
+- **rng** (`numpy.random.Generator or int`) — Passed through to process_hyst_loop: generator or seed for the bootstrap (default 0, reproducible; a Generator passed here is shared by all loops of the batch).
 - **magn_unit** (`str`) — Unit of the values in `magn_col`, used to label the plots and the summary table headers and recorded in the results so that add_hyst_stats_to_specimens_table writes to the matching MagIC columns. By default the unit is taken from the MagIC column name (magn_mass -> Am²/kg, magn_volume -> A/m, magn_moment -> Am², magn_uncal -> uncalibrated). For a column name outside these conventions a warning is issued and Am²/kg is assumed; pass `magn_unit` explicitly in that case.
 
 **Returns**
